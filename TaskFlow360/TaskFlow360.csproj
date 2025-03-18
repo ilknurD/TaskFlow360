@@ -59,6 +59,12 @@
     <Compile Include="OfficerHomepage.Designer.cs">
       <DependentUpon>OfficerHomepage.cs</DependentUpon>
     </Compile>
+    <Compile Include="OfficerProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OfficerProfile.Designer.cs">
+      <DependentUpon>OfficerProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="OfficerTaskspage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OfficerHomepage.resx">
       <DependentUpon>OfficerHomepage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OfficerProfile.resx">
+      <DependentUpon>OfficerProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OfficerTaskspage.resx">
       <DependentUpon>OfficerTaskspage.cs</DependentUpon>
@@ -104,6 +113,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Adsız tasarım %2824%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search %281%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

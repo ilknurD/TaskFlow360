@@ -239,5 +239,12 @@ namespace TaskFlow360
             OfficerTaskspage officerTaskspage = new OfficerTaskspage();
             officerTaskspage.ShowDialog();
         }
+
+        private void btnProfil_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            OfficerProfile officerProfile = new OfficerProfile();
+            officerProfile.ShowDialog();
+        }
     }
 }

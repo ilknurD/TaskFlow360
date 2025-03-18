@@ -209,6 +209,7 @@
             this.txtUsername.Size = new System.Drawing.Size(159, 21);
             this.txtUsername.TabIndex = 2;
             this.txtUsername.Text = "kullanıcı adı";
+            this.txtUsername.TextChanged += new System.EventHandler(this.txtUsername_TextChanged);
             // 
             // panel5
             // 

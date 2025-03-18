@@ -73,5 +73,10 @@ namespace TaskFlow360
             OfficerHomepage officerHomepage = new OfficerHomepage();
             officerHomepage.Show();
         }
+
+        private void txtUsername_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

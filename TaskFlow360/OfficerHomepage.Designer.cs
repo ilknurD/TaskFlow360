@@ -153,6 +153,7 @@
             this.btnProfil.Text = "Profil";
             this.btnProfil.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnProfil.UseVisualStyleBackColor = false;
+            this.btnProfil.Click += new System.EventHandler(this.btnProfil_Click);
             // 
             // btnAnasayfa
             // 

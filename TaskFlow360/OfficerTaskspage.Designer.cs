@@ -29,78 +29,46 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OfficerTaskspage));
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.ikonCikis = new System.Windows.Forms.PictureBox();
-            this.ikonRaporlar = new System.Windows.Forms.PictureBox();
             this.btnRaporlar = new System.Windows.Forms.Button();
-            this.ikonProfil = new System.Windows.Forms.PictureBox();
-            this.ikonGorevler = new System.Windows.Forms.PictureBox();
-            this.ikonAnasayfa = new System.Windows.Forms.PictureBox();
             this.btnCikis = new System.Windows.Forms.Button();
             this.btnGorevler = new System.Windows.Forms.Button();
             this.btnProfil = new System.Windows.Forms.Button();
             this.btnAnasayfa = new System.Windows.Forms.Button();
-            this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ikonCikis = new System.Windows.Forms.PictureBox();
+            this.ikonRaporlar = new System.Windows.Forms.PictureBox();
+            this.ikonProfil = new System.Windows.Forms.PictureBox();
+            this.ikonGorevler = new System.Windows.Forms.PictureBox();
+            this.ikonAnasayfa = new System.Windows.Forms.PictureBox();
+            this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.dgvGorevler = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.txtArama = new System.Windows.Forms.TextBox();
+            this.cmbDurum = new System.Windows.Forms.ComboBox();
+            this.cmbOncelik = new System.Windows.Forms.ComboBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.lblDurum = new System.Windows.Forms.Label();
+            this.lblOncelik = new System.Windows.Forms.Label();
+            this.lblSirala = new System.Windows.Forms.Label();
+            this.cmbSirala = new System.Windows.Forms.ComboBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnFiltrele = new System.Windows.Forms.Button();
+            this.btnTemizle = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonProfil)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).BeginInit();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGorevler)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(1834, 12);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(35, 35);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 5;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(1873, 12);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(35, 35);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 4;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
-            // 
-            // ikonCikis
-            // 
-            this.ikonCikis.BackColor = System.Drawing.Color.Transparent;
-            this.ikonCikis.Image = ((System.Drawing.Image)(resources.GetObject("ikonCikis.Image")));
-            this.ikonCikis.Location = new System.Drawing.Point(25, 977);
-            this.ikonCikis.Name = "ikonCikis";
-            this.ikonCikis.Size = new System.Drawing.Size(40, 40);
-            this.ikonCikis.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonCikis.TabIndex = 11;
-            this.ikonCikis.TabStop = false;
-            // 
-            // ikonRaporlar
-            // 
-            this.ikonRaporlar.BackColor = System.Drawing.Color.Transparent;
-            this.ikonRaporlar.Image = ((System.Drawing.Image)(resources.GetObject("ikonRaporlar.Image")));
-            this.ikonRaporlar.Location = new System.Drawing.Point(25, 378);
-            this.ikonRaporlar.Name = "ikonRaporlar";
-            this.ikonRaporlar.Size = new System.Drawing.Size(40, 40);
-            this.ikonRaporlar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonRaporlar.TabIndex = 10;
-            this.ikonRaporlar.TabStop = false;
             // 
             // btnRaporlar
             // 
@@ -118,39 +86,6 @@
             this.btnRaporlar.Text = "Raporlar";
             this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnRaporlar.UseVisualStyleBackColor = false;
-            // 
-            // ikonProfil
-            // 
-            this.ikonProfil.BackColor = System.Drawing.Color.Transparent;
-            this.ikonProfil.Image = ((System.Drawing.Image)(resources.GetObject("ikonProfil.Image")));
-            this.ikonProfil.Location = new System.Drawing.Point(25, 259);
-            this.ikonProfil.Name = "ikonProfil";
-            this.ikonProfil.Size = new System.Drawing.Size(40, 40);
-            this.ikonProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonProfil.TabIndex = 8;
-            this.ikonProfil.TabStop = false;
-            // 
-            // ikonGorevler
-            // 
-            this.ikonGorevler.BackColor = System.Drawing.Color.Transparent;
-            this.ikonGorevler.Image = ((System.Drawing.Image)(resources.GetObject("ikonGorevler.Image")));
-            this.ikonGorevler.Location = new System.Drawing.Point(25, 319);
-            this.ikonGorevler.Name = "ikonGorevler";
-            this.ikonGorevler.Size = new System.Drawing.Size(40, 40);
-            this.ikonGorevler.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonGorevler.TabIndex = 7;
-            this.ikonGorevler.TabStop = false;
-            // 
-            // ikonAnasayfa
-            // 
-            this.ikonAnasayfa.BackColor = System.Drawing.Color.Transparent;
-            this.ikonAnasayfa.Image = ((System.Drawing.Image)(resources.GetObject("ikonAnasayfa.Image")));
-            this.ikonAnasayfa.Location = new System.Drawing.Point(25, 200);
-            this.ikonAnasayfa.Name = "ikonAnasayfa";
-            this.ikonAnasayfa.Size = new System.Drawing.Size(40, 40);
-            this.ikonAnasayfa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonAnasayfa.TabIndex = 6;
-            this.ikonAnasayfa.TabStop = false;
             // 
             // btnCikis
             // 
@@ -221,17 +156,6 @@
             this.btnAnasayfa.UseVisualStyleBackColor = false;
             this.btnAnasayfa.Click += new System.EventHandler(this.btnAnasayfa_Click);
             // 
-            // pctrLogo
-            // 
-            this.pctrLogo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pctrLogo.Image = ((System.Drawing.Image)(resources.GetObject("pctrLogo.Image")));
-            this.pctrLogo.Location = new System.Drawing.Point(0, 0);
-            this.pctrLogo.Name = "pctrLogo";
-            this.pctrLogo.Size = new System.Drawing.Size(295, 188);
-            this.pctrLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pctrLogo.TabIndex = 0;
-            this.pctrLogo.TabStop = false;
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
@@ -252,41 +176,271 @@
             this.panel1.Size = new System.Drawing.Size(295, 1033);
             this.panel1.TabIndex = 6;
             // 
+            // ikonCikis
+            // 
+            this.ikonCikis.BackColor = System.Drawing.Color.Transparent;
+            this.ikonCikis.Image = ((System.Drawing.Image)(resources.GetObject("ikonCikis.Image")));
+            this.ikonCikis.Location = new System.Drawing.Point(25, 977);
+            this.ikonCikis.Name = "ikonCikis";
+            this.ikonCikis.Size = new System.Drawing.Size(40, 40);
+            this.ikonCikis.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonCikis.TabIndex = 11;
+            this.ikonCikis.TabStop = false;
+            // 
+            // ikonRaporlar
+            // 
+            this.ikonRaporlar.BackColor = System.Drawing.Color.Transparent;
+            this.ikonRaporlar.Image = ((System.Drawing.Image)(resources.GetObject("ikonRaporlar.Image")));
+            this.ikonRaporlar.Location = new System.Drawing.Point(25, 378);
+            this.ikonRaporlar.Name = "ikonRaporlar";
+            this.ikonRaporlar.Size = new System.Drawing.Size(40, 40);
+            this.ikonRaporlar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonRaporlar.TabIndex = 10;
+            this.ikonRaporlar.TabStop = false;
+            // 
+            // ikonProfil
+            // 
+            this.ikonProfil.BackColor = System.Drawing.Color.Transparent;
+            this.ikonProfil.Image = ((System.Drawing.Image)(resources.GetObject("ikonProfil.Image")));
+            this.ikonProfil.Location = new System.Drawing.Point(25, 259);
+            this.ikonProfil.Name = "ikonProfil";
+            this.ikonProfil.Size = new System.Drawing.Size(40, 40);
+            this.ikonProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonProfil.TabIndex = 8;
+            this.ikonProfil.TabStop = false;
+            // 
+            // ikonGorevler
+            // 
+            this.ikonGorevler.BackColor = System.Drawing.Color.Transparent;
+            this.ikonGorevler.Image = ((System.Drawing.Image)(resources.GetObject("ikonGorevler.Image")));
+            this.ikonGorevler.Location = new System.Drawing.Point(25, 319);
+            this.ikonGorevler.Name = "ikonGorevler";
+            this.ikonGorevler.Size = new System.Drawing.Size(40, 40);
+            this.ikonGorevler.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonGorevler.TabIndex = 7;
+            this.ikonGorevler.TabStop = false;
+            // 
+            // ikonAnasayfa
+            // 
+            this.ikonAnasayfa.BackColor = System.Drawing.Color.Transparent;
+            this.ikonAnasayfa.Image = ((System.Drawing.Image)(resources.GetObject("ikonAnasayfa.Image")));
+            this.ikonAnasayfa.Location = new System.Drawing.Point(25, 200);
+            this.ikonAnasayfa.Name = "ikonAnasayfa";
+            this.ikonAnasayfa.Size = new System.Drawing.Size(40, 40);
+            this.ikonAnasayfa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonAnasayfa.TabIndex = 6;
+            this.ikonAnasayfa.TabStop = false;
+            // 
+            // pctrLogo
+            // 
+            this.pctrLogo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pctrLogo.Image = ((System.Drawing.Image)(resources.GetObject("pctrLogo.Image")));
+            this.pctrLogo.Location = new System.Drawing.Point(0, 0);
+            this.pctrLogo.Name = "pctrLogo";
+            this.pctrLogo.Size = new System.Drawing.Size(295, 188);
+            this.pctrLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrLogo.TabIndex = 0;
+            this.pctrLogo.TabStop = false;
+            // 
             // dgvGorevler
             // 
+            this.dgvGorevler.AllowUserToAddRows = false;
+            this.dgvGorevler.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvGorevler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvGorevler.Location = new System.Drawing.Point(327, 215);
+            this.dgvGorevler.Location = new System.Drawing.Point(327, 159);
             this.dgvGorevler.Name = "dgvGorevler";
             this.dgvGorevler.RowHeadersWidth = 51;
             this.dgvGorevler.RowTemplate.Height = 24;
-            this.dgvGorevler.Size = new System.Drawing.Size(1581, 928);
-            this.dgvGorevler.TabIndex = 7;
+            this.dgvGorevler.Size = new System.Drawing.Size(1580, 1500);
+            this.dgvGorevler.TabIndex = 10;
+            // 
+            // txtArama
+            // 
+            this.txtArama.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtArama.Location = new System.Drawing.Point(58, 21);
+            this.txtArama.Name = "txtArama";
+            this.txtArama.Size = new System.Drawing.Size(184, 32);
+            this.txtArama.TabIndex = 9;
+            this.txtArama.Enter += new System.EventHandler(this.txtArama_Enter_1);
+            this.txtArama.Leave += new System.EventHandler(this.txtArama_Leave_1);
+            // 
+            // cmbDurum
+            // 
+            this.cmbDurum.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cmbDurum.FormattingEnabled = true;
+            this.cmbDurum.Location = new System.Drawing.Point(381, 20);
+            this.cmbDurum.Name = "cmbDurum";
+            this.cmbDurum.Size = new System.Drawing.Size(175, 31);
+            this.cmbDurum.TabIndex = 11;
+            // 
+            // cmbOncelik
+            // 
+            this.cmbOncelik.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cmbOncelik.FormattingEnabled = true;
+            this.cmbOncelik.Location = new System.Drawing.Point(682, 20);
+            this.cmbOncelik.Name = "cmbOncelik";
+            this.cmbOncelik.Size = new System.Drawing.Size(175, 31);
+            this.cmbOncelik.TabIndex = 11;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::TaskFlow360.Properties.Resources.search__1_;
+            this.pictureBox1.Location = new System.Drawing.Point(16, 21);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(42, 32);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(1834, 12);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 5;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(1873, 12);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 4;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            // 
+            // lblDurum
+            // 
+            this.lblDurum.AutoSize = true;
+            this.lblDurum.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblDurum.Location = new System.Drawing.Point(302, 23);
+            this.lblDurum.Name = "lblDurum";
+            this.lblDurum.Size = new System.Drawing.Size(72, 21);
+            this.lblDurum.TabIndex = 13;
+            this.lblDurum.Text = "Durum:";
+            // 
+            // lblOncelik
+            // 
+            this.lblOncelik.AutoSize = true;
+            this.lblOncelik.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblOncelik.Location = new System.Drawing.Point(594, 23);
+            this.lblOncelik.Name = "lblOncelik";
+            this.lblOncelik.Size = new System.Drawing.Size(81, 21);
+            this.lblOncelik.TabIndex = 14;
+            this.lblOncelik.Text = "Öncelik:";
+            // 
+            // lblSirala
+            // 
+            this.lblSirala.AutoSize = true;
+            this.lblSirala.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblSirala.Location = new System.Drawing.Point(903, 23);
+            this.lblSirala.Name = "lblSirala";
+            this.lblSirala.Size = new System.Drawing.Size(59, 21);
+            this.lblSirala.TabIndex = 18;
+            this.lblSirala.Text = "Sırala:";
+            // 
+            // cmbSirala
+            // 
+            this.cmbSirala.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cmbSirala.FormattingEnabled = true;
+            this.cmbSirala.Location = new System.Drawing.Point(971, 20);
+            this.cmbSirala.Name = "cmbSirala";
+            this.cmbSirala.Size = new System.Drawing.Size(175, 31);
+            this.cmbSirala.TabIndex = 17;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.btnFiltrele);
+            this.panel2.Controls.Add(this.btnTemizle);
+            this.panel2.Controls.Add(this.lblSirala);
+            this.panel2.Controls.Add(this.txtArama);
+            this.panel2.Controls.Add(this.cmbSirala);
+            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Controls.Add(this.cmbDurum);
+            this.panel2.Controls.Add(this.cmbOncelik);
+            this.panel2.Controls.Add(this.lblOncelik);
+            this.panel2.Controls.Add(this.lblDurum);
+            this.panel2.Location = new System.Drawing.Point(327, 86);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1665, 68);
+            this.panel2.TabIndex = 19;
+            // 
+            // btnFiltrele
+            // 
+            this.btnFiltrele.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.btnFiltrele.FlatAppearance.BorderSize = 0;
+            this.btnFiltrele.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFiltrele.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnFiltrele.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnFiltrele.Location = new System.Drawing.Point(1233, 15);
+            this.btnFiltrele.Name = "btnFiltrele";
+            this.btnFiltrele.Size = new System.Drawing.Size(157, 40);
+            this.btnFiltrele.TabIndex = 20;
+            this.btnFiltrele.Text = "Filtrele";
+            this.btnFiltrele.UseVisualStyleBackColor = false;
+            // 
+            // btnTemizle
+            // 
+            this.btnTemizle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.btnTemizle.FlatAppearance.BorderSize = 0;
+            this.btnTemizle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTemizle.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnTemizle.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnTemizle.Location = new System.Drawing.Point(1415, 15);
+            this.btnTemizle.Name = "btnTemizle";
+            this.btnTemizle.Size = new System.Drawing.Size(157, 40);
+            this.btnTemizle.TabIndex = 21;
+            this.btnTemizle.Text = "Temizle";
+            this.btnTemizle.UseVisualStyleBackColor = false;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Location = new System.Drawing.Point(327, 101);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1665, 68);
+            this.panel3.TabIndex = 20;
             // 
             // OfficerTaskspage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1920, 1033);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.dgvGorevler);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.panel3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "OfficerTaskspage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OfficerTaskspage";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.OfficerTaskspage_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonProfil)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).EndInit();
-            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvGorevler)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -308,5 +462,17 @@
         private System.Windows.Forms.PictureBox pctrLogo;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView dgvGorevler;
+        private System.Windows.Forms.TextBox txtArama;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ComboBox cmbDurum;
+        private System.Windows.Forms.ComboBox cmbOncelik;
+        private System.Windows.Forms.Label lblDurum;
+        private System.Windows.Forms.Label lblOncelik;
+        private System.Windows.Forms.Label lblSirala;
+        private System.Windows.Forms.ComboBox cmbSirala;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btnFiltrele;
+        private System.Windows.Forms.Button btnTemizle;
+        private System.Windows.Forms.Panel panel3;
     }
 }
