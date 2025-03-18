@@ -16,7 +16,7 @@ namespace TaskFlow360
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new OfficerHomepage());
+            Application.Run(new LoginForm());
         }
     }
 }

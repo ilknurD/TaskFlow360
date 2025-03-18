@@ -8,16 +8,14 @@ namespace TaskFlow360
         public LoginForm()
         {
             InitializeComponent();
-            this.Load += LoginForm_Load; // Formun Load olayını bağla
+            this.Load += LoginForm_Load;
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
-            // Form yüklendiğinde TextBox'lara varsayılan metinleri ata
             txtUsername.Text = "Kullanıcı Adı";
             txtPassword.Text = "Şifre";
 
-            // TextBox'ların Enter ve Leave olaylarını bağla
             txtUsername.Enter += TextBox_Enter;
             txtUsername.Leave += TextBox_Leave;
             txtPassword.Enter += TextBox_Enter;
@@ -29,11 +27,9 @@ namespace TaskFlow360
             TextBox textBox = sender as TextBox;
             if (textBox != null)
             {
-                // Eğer TextBox'ta varsayılan metin varsa, temizle
                 if (textBox.Text == "Kullanıcı Adı" || textBox.Text == "Şifre")
                 {
                     textBox.Text = "";
-                    // Şifre TextBox'ı için karakterleri gizle
                     if (textBox == txtPassword)
                     {
                         textBox.UseSystemPasswordChar = true;
@@ -47,7 +43,6 @@ namespace TaskFlow360
             TextBox textBox = sender as TextBox;
             if (textBox != null)
             {
-                // Eğer TextBox boşsa, varsayılan metni geri yükle
                 if (string.IsNullOrWhiteSpace(textBox.Text))
                 {
                     if (textBox == txtUsername)
@@ -71,6 +66,12 @@ namespace TaskFlow360
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OfficerHomepage officerHomepage = new OfficerHomepage();
+            officerHomepage.Show();
         }
     }
 }
