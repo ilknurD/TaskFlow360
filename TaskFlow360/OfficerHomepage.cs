@@ -28,12 +28,38 @@ namespace TaskFlow360
 
         private void OfficerHomepage_Load(object sender, EventArgs e)
         {
-            // Örnek görev listesi 
             List<Gorev> gorevListesi = new List<Gorev>()
             {
-                new Gorev() { GorevAdi = "Haftalık raporun hazırlanması", IlgiliKisi = "Mehmet Demir", TeslimTarihi = DateTime.Now.AddHours(5), Oncelik = "Yüksek" },
-                new Gorev() { GorevAdi = "Müşteri toplantısı için sunum hazırlama", IlgiliKisi = "Ayşe Kaya", TeslimTarihi = DateTime.Now.AddHours(3), Oncelik = "Orta" },
-                new Gorev() { GorevAdi = "Proje dökümanlarının gözden geçirilmesi", IlgiliKisi = "Mustafa Şahin", TeslimTarihi = DateTime.Now.AddDays(1), Oncelik = "Normal" }
+                new Gorev()
+                {
+                    GorevAdi = "Haftalık raporun hazırlanması",
+                    IlgiliKisi = "Mehmet Demir",
+                    TeslimTarihi = DateTime.Now.AddHours(5),
+                    Oncelik = "Yüksek",
+                    Durum = "Atandı",
+                    BaslangicTarihi = DateTime.Now,
+                    BitisTarihi = DateTime.Now.AddHours(5)
+                },
+                new Gorev()
+                {
+                    GorevAdi = "Müşteri toplantısı için sunum hazırlama",
+                    IlgiliKisi = "Ayşe Kaya",
+                    TeslimTarihi = DateTime.Now.AddHours(3),
+                    Oncelik = "Orta",
+                    Durum = "Beklemede",
+                    BaslangicTarihi = DateTime.Now,
+                    BitisTarihi = DateTime.Now.AddHours(2)
+                },
+                new Gorev()
+                {
+                    GorevAdi = "Proje dökümanlarının gözden geçirilmesi",
+                    IlgiliKisi = "Mustafa Şahin",
+                    TeslimTarihi = DateTime.Now.AddDays(1),
+                    Oncelik = "Normal",
+                    Durum = "Çözüm Bekliyor",
+                    BaslangicTarihi = DateTime.Now.AddDays(-1),
+                    BitisTarihi = DateTime.Now.AddDays(1)
+                }
             };
 
             GorevleriGoster(gorevListesi);
@@ -205,6 +231,13 @@ namespace TaskFlow360
             this.Close();
             LoginForm loginForm = new LoginForm();
             loginForm.ShowDialog();
+        }
+
+        private void btnGorevler_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            OfficerTaskspage officerTaskspage = new OfficerTaskspage();
+            officerTaskspage.ShowDialog();
         }
     }
 }

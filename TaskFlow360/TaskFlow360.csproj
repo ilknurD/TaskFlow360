@@ -59,6 +59,12 @@
     <Compile Include="OfficerHomepage.Designer.cs">
       <DependentUpon>OfficerHomepage.cs</DependentUpon>
     </Compile>
+    <Compile Include="OfficerTaskspage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OfficerTaskspage.Designer.cs">
+      <DependentUpon>OfficerTaskspage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="LoginForm.resx">
@@ -66,6 +72,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OfficerHomepage.resx">
       <DependentUpon>OfficerHomepage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OfficerTaskspage.resx">
+      <DependentUpon>OfficerTaskspage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
