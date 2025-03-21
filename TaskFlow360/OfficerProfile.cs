@@ -47,5 +47,10 @@ namespace TaskFlow360
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
         }
+
+        private void panel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
