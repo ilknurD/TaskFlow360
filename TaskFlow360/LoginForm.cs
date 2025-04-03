@@ -1,10 +1,18 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Data.Sql;
+using WindowsFormsApp;
 
 namespace TaskFlow360
 {
     public partial class LoginForm : Form
     {
+        private string connectionString = "Data Source=DESKTOP-57F0A7E\\SQLEXPRESS;Initial Catalog=TaskFlow360;Integrated Security=True;Encrypt=False";
+        SqlConnection conn;
+        SqlDataReader dr;
+        SqlCommand cmd;
+
         public LoginForm()
         {
             InitializeComponent();
@@ -13,11 +21,11 @@ namespace TaskFlow360
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
-            txtUsername.Text = "Kullanıcı Adı";
+            txtMail.Text = "Mail";
             txtPassword.Text = "Şifre";
 
-            txtUsername.Enter += TextBox_Enter;
-            txtUsername.Leave += TextBox_Leave;
+            txtMail.Enter += TextBox_Enter;
+            txtMail.Leave += TextBox_Leave;
             txtPassword.Enter += TextBox_Enter;
             txtPassword.Leave += TextBox_Leave;
         }
@@ -27,7 +35,7 @@ namespace TaskFlow360
             TextBox textBox = sender as TextBox;
             if (textBox != null)
             {
-                if (textBox.Text == "Kullanıcı Adı" || textBox.Text == "Şifre")
+                if (textBox.Text == "Mail" || textBox.Text == "Şifre")
                 {
                     textBox.Text = "";
                     if (textBox == txtPassword)
@@ -45,9 +53,9 @@ namespace TaskFlow360
             {
                 if (string.IsNullOrWhiteSpace(textBox.Text))
                 {
-                    if (textBox == txtUsername)
+                    if (textBox == txtMail)
                     {
-                        textBox.Text = "Kullanıcı Adı";
+                        textBox.Text = "Mail";
                     }
                     else if (textBox == txtPassword)
                     {
@@ -70,11 +78,31 @@ namespace TaskFlow360
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OfficerHomepage officerHomepage = new OfficerHomepage();
-            officerHomepage.Show();
+            String mail = txtMail.Text;
+            String password = txtPassword.Text;
+            Baglanti baglanti = new Baglanti();
+            baglanti.BaglantiAc();
+            KullaniciGiris kullaniciGiris = new KullaniciGiris(baglanti);
+            bool dogruMu = kullaniciGiris.GirisDogrula(mail, password);
+            if (dogruMu)
+            {
+                MessageBox.Show("Giriş Başarılı");
+                OfficerHomepage officerHomepage = new OfficerHomepage();
+                this.Hide();
+                officerHomepage.Show();
+            }
+            else
+            {
+                MessageBox.Show("Mail veya şifre hatalı!");
+            }
         }
 
         private void txtUsername_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LoginForm_Load_1(object sender, EventArgs e)
         {
 
         }

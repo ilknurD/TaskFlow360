@@ -230,21 +230,31 @@ namespace TaskFlow360
         {
             this.Close();
             LoginForm loginForm = new LoginForm();
-            loginForm.ShowDialog();
+            loginForm.Show();
         }
 
         private void btnGorevler_Click(object sender, EventArgs e)
         {
             this.Close();
             OfficerTaskspage officerTaskspage = new OfficerTaskspage();
-            officerTaskspage.ShowDialog();
+            officerTaskspage.Show();
         }
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
             this.Close();
             OfficerProfile officerProfile = new OfficerProfile();
-            officerProfile.ShowDialog();
+            officerProfile.Show();
+        }
+
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btnAnasayfa_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

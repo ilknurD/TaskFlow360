@@ -46,12 +46,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Baglanti.cs" />
     <Compile Include="Gorev.cs" />
+    <Compile Include="KullaniciGiris.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerHomepage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManagerHomepage.Designer.cs">
+      <DependentUpon>ManagerHomepage.cs</DependentUpon>
     </Compile>
     <Compile Include="OfficerHomepage.cs">
       <SubType>Form</SubType>
@@ -65,6 +73,12 @@
     <Compile Include="OfficerProfile.Designer.cs">
       <DependentUpon>OfficerProfile.cs</DependentUpon>
     </Compile>
+    <Compile Include="OfficerReportsPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OfficerReportsPage.Designer.cs">
+      <DependentUpon>OfficerReportsPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="OfficerTaskspage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,11 +90,17 @@
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ManagerHomepage.resx">
+      <DependentUpon>ManagerHomepage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="OfficerHomepage.resx">
       <DependentUpon>OfficerHomepage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OfficerProfile.resx">
       <DependentUpon>OfficerProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OfficerReportsPage.resx">
+      <DependentUpon>OfficerReportsPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OfficerTaskspage.resx">
       <DependentUpon>OfficerTaskspage.cs</DependentUpon>

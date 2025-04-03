@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OfficerProfile));
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ikonCikis = new System.Windows.Forms.PictureBox();
             this.ikonRaporlar = new System.Windows.Forms.PictureBox();
@@ -52,18 +51,24 @@
             this.btnDegistir = new System.Windows.Forms.Button();
             this.pctrProfil = new System.Windows.Forms.PictureBox();
             this.pnlIletisimBilgi = new System.Windows.Forms.Panel();
-            this.pnlIsBilgi = new System.Windows.Forms.Panel();
-            this.lblIletisimBaslik = new System.Windows.Forms.Label();
-            this.lblIsBaslik = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.lblTelefon = new System.Windows.Forms.Label();
-            this.lblSirketNo = new System.Windows.Forms.Label();
-            this.lblAdres = new System.Windows.Forms.Label();
+            this.lblDogumTrhSNC = new System.Windows.Forms.Label();
+            this.lblAdresSNC = new System.Windows.Forms.Label();
+            this.lblSirketNoSNC = new System.Windows.Forms.Label();
+            this.lblTelefonSNC = new System.Windows.Forms.Label();
             this.lblDogumTrh = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
+            this.lblAdres = new System.Windows.Forms.Label();
+            this.lblSirketNo = new System.Windows.Forms.Label();
+            this.lblTelefon = new System.Windows.Forms.Label();
+            this.lblIletisimBaslik = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.pnlIsBilgi = new System.Windows.Forms.Panel();
+            this.lblCalisanIDSNC = new System.Windows.Forms.Label();
+            this.lblizinHakSNC = new System.Windows.Forms.Label();
+            this.lblYoneticiSNC = new System.Windows.Forms.Label();
+            this.lblisebaslamaTrhSNC = new System.Windows.Forms.Label();
             this.lblCalisanID = new System.Windows.Forms.Label();
             this.lblizinHakkı = new System.Windows.Forms.Label();
             this.lblYonetici = new System.Windows.Forms.Label();
@@ -71,29 +76,23 @@
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
-            this.lblTelefonSNC = new System.Windows.Forms.Label();
-            this.lblSirketNoSNC = new System.Windows.Forms.Label();
-            this.lblAdresSNC = new System.Windows.Forms.Label();
-            this.lblDogumTrhSNC = new System.Windows.Forms.Label();
-            this.lblCalisanIDSNC = new System.Windows.Forms.Label();
-            this.lblizinHakSNC = new System.Windows.Forms.Label();
-            this.lblYoneticiSNC = new System.Windows.Forms.Label();
-            this.lblisebaslamaTrhSNC = new System.Windows.Forms.Label();
+            this.lblIsBaslik = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.pnlPrimBilgi = new System.Windows.Forms.Panel();
-            this.lblPerformansPrimBaslik = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblTamamlanan = new System.Windows.Forms.Label();
-            this.lblCozumSure = new System.Windows.Forms.Label();
-            this.lblPerformansPuan = new System.Windows.Forms.Label();
-            this.lblTamamlananSNC = new System.Windows.Forms.Label();
-            this.lblCozumSureSNC = new System.Windows.Forms.Label();
-            this.lblPerformansPuanSNC = new System.Windows.Forms.Label();
+            this.pnlPrim = new System.Windows.Forms.Panel();
             this.lblPrimTutari = new System.Windows.Forms.Label();
             this.lblPrimTutariSNC = new System.Windows.Forms.Label();
-            this.pnlPrim = new System.Windows.Forms.Panel();
+            this.lblPerformansPuanSNC = new System.Windows.Forms.Label();
+            this.lblCozumSureSNC = new System.Windows.Forms.Label();
+            this.lblTamamlananSNC = new System.Windows.Forms.Label();
+            this.lblPerformansPuan = new System.Windows.Forms.Label();
+            this.lblCozumSure = new System.Windows.Forms.Label();
+            this.lblTamamlanan = new System.Windows.Forms.Label();
+            this.lblPerformansPrimBaslik = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).BeginInit();
@@ -107,6 +106,7 @@
             this.pnlIsBilgi.SuspendLayout();
             this.pnlPrimBilgi.SuspendLayout();
             this.pnlPrim.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox3
@@ -120,18 +120,6 @@
             this.pictureBox3.TabIndex = 7;
             this.pictureBox3.TabStop = false;
             this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(1873, 12);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(35, 35);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 6;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // panel1
             // 
@@ -191,6 +179,7 @@
             this.btnRaporlar.Text = "Raporlar";
             this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnRaporlar.UseVisualStyleBackColor = false;
+            this.btnRaporlar.Click += new System.EventHandler(this.btnRaporlar_Click);
             // 
             // ikonProfil
             // 
@@ -276,6 +265,7 @@
             this.btnProfil.Text = "Profil";
             this.btnProfil.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnProfil.UseVisualStyleBackColor = false;
+            this.btnProfil.Click += new System.EventHandler(this.btnProfil_Click);
             // 
             // btnAnasayfa
             // 
@@ -393,7 +383,7 @@
             this.pctrProfil.Location = new System.Drawing.Point(117, 16);
             this.pctrProfil.Name = "pctrProfil";
             this.pctrProfil.Size = new System.Drawing.Size(195, 170);
-            this.pctrProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pctrProfil.TabIndex = 0;
             this.pctrProfil.TabStop = false;
             // 
@@ -419,6 +409,140 @@
             this.pnlIletisimBilgi.TabIndex = 11;
             this.pnlIletisimBilgi.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
             // 
+            // lblDogumTrhSNC
+            // 
+            this.lblDogumTrhSNC.AutoSize = true;
+            this.lblDogumTrhSNC.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblDogumTrhSNC.Location = new System.Drawing.Point(405, 224);
+            this.lblDogumTrhSNC.Name = "lblDogumTrhSNC";
+            this.lblDogumTrhSNC.Size = new System.Drawing.Size(100, 21);
+            this.lblDogumTrhSNC.TabIndex = 12;
+            this.lblDogumTrhSNC.Text = "14.01.1982";
+            // 
+            // lblAdresSNC
+            // 
+            this.lblAdresSNC.AutoSize = true;
+            this.lblAdresSNC.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblAdresSNC.Location = new System.Drawing.Point(405, 171);
+            this.lblAdresSNC.Name = "lblAdresSNC";
+            this.lblAdresSNC.Size = new System.Drawing.Size(165, 21);
+            this.lblAdresSNC.TabIndex = 11;
+            this.lblAdresSNC.Text = "Merkez Ofis 3. Kat";
+            // 
+            // lblSirketNoSNC
+            // 
+            this.lblSirketNoSNC.AutoSize = true;
+            this.lblSirketNoSNC.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblSirketNoSNC.Location = new System.Drawing.Point(405, 117);
+            this.lblSirketNoSNC.Name = "lblSirketNoSNC";
+            this.lblSirketNoSNC.Size = new System.Drawing.Size(50, 21);
+            this.lblSirketNoSNC.TabIndex = 10;
+            this.lblSirketNoSNC.Text = "1234";
+            // 
+            // lblTelefonSNC
+            // 
+            this.lblTelefonSNC.AutoSize = true;
+            this.lblTelefonSNC.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblTelefonSNC.Location = new System.Drawing.Point(405, 65);
+            this.lblTelefonSNC.Name = "lblTelefonSNC";
+            this.lblTelefonSNC.Size = new System.Drawing.Size(161, 21);
+            this.lblTelefonSNC.TabIndex = 9;
+            this.lblTelefonSNC.Text = "+90 539 250 05 32";
+            // 
+            // lblDogumTrh
+            // 
+            this.lblDogumTrh.AutoSize = true;
+            this.lblDogumTrh.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblDogumTrh.Location = new System.Drawing.Point(52, 224);
+            this.lblDogumTrh.Name = "lblDogumTrh";
+            this.lblDogumTrh.Size = new System.Drawing.Size(121, 21);
+            this.lblDogumTrh.TabIndex = 5;
+            this.lblDogumTrh.Text = "Doğum tarihi";
+            // 
+            // lblAdres
+            // 
+            this.lblAdres.AutoSize = true;
+            this.lblAdres.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblAdres.Location = new System.Drawing.Point(52, 171);
+            this.lblAdres.Name = "lblAdres";
+            this.lblAdres.Size = new System.Drawing.Size(61, 21);
+            this.lblAdres.TabIndex = 4;
+            this.lblAdres.Text = "Adres";
+            // 
+            // lblSirketNo
+            // 
+            this.lblSirketNo.AutoSize = true;
+            this.lblSirketNo.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblSirketNo.Location = new System.Drawing.Point(52, 117);
+            this.lblSirketNo.Name = "lblSirketNo";
+            this.lblSirketNo.Size = new System.Drawing.Size(151, 21);
+            this.lblSirketNo.TabIndex = 3;
+            this.lblSirketNo.Text = "Şirket içi numara";
+            // 
+            // lblTelefon
+            // 
+            this.lblTelefon.AutoSize = true;
+            this.lblTelefon.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblTelefon.Location = new System.Drawing.Point(52, 65);
+            this.lblTelefon.Name = "lblTelefon";
+            this.lblTelefon.Size = new System.Drawing.Size(74, 21);
+            this.lblTelefon.TabIndex = 2;
+            this.lblTelefon.Text = "Telefon";
+            // 
+            // lblIletisimBaslik
+            // 
+            this.lblIletisimBaslik.AutoSize = true;
+            this.lblIletisimBaslik.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblIletisimBaslik.Location = new System.Drawing.Point(34, 13);
+            this.lblIletisimBaslik.Name = "lblIletisimBaslik";
+            this.lblIletisimBaslik.Size = new System.Drawing.Size(127, 19);
+            this.lblIletisimBaslik.TabIndex = 0;
+            this.lblIletisimBaslik.Text = "İletişim Bilgileri";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label7.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.label7.Location = new System.Drawing.Point(18, 16);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(684, 25);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "________________________________________________________";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label15.ForeColor = System.Drawing.Color.LightGray;
+            this.label15.Location = new System.Drawing.Point(31, 182);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(660, 25);
+            this.label15.TabIndex = 8;
+            this.label15.Text = "______________________________________________________";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label14.ForeColor = System.Drawing.Color.LightGray;
+            this.label14.Location = new System.Drawing.Point(31, 75);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(660, 25);
+            this.label14.TabIndex = 7;
+            this.label14.Text = "______________________________________________________";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label13.ForeColor = System.Drawing.Color.LightGray;
+            this.label13.Location = new System.Drawing.Point(31, 129);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(660, 25);
+            this.label13.TabIndex = 6;
+            this.label13.Text = "______________________________________________________";
+            // 
             // pnlIsBilgi
             // 
             this.pnlIsBilgi.BackColor = System.Drawing.Color.White;
@@ -440,120 +564,45 @@
             this.pnlIsBilgi.Size = new System.Drawing.Size(800, 279);
             this.pnlIsBilgi.TabIndex = 12;
             // 
-            // lblIletisimBaslik
+            // lblCalisanIDSNC
             // 
-            this.lblIletisimBaslik.AutoSize = true;
-            this.lblIletisimBaslik.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblIletisimBaslik.Location = new System.Drawing.Point(34, 13);
-            this.lblIletisimBaslik.Name = "lblIletisimBaslik";
-            this.lblIletisimBaslik.Size = new System.Drawing.Size(127, 19);
-            this.lblIletisimBaslik.TabIndex = 0;
-            this.lblIletisimBaslik.Text = "İletişim Bilgileri";
+            this.lblCalisanIDSNC.AutoSize = true;
+            this.lblCalisanIDSNC.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblCalisanIDSNC.Location = new System.Drawing.Point(405, 224);
+            this.lblCalisanIDSNC.Name = "lblCalisanIDSNC";
+            this.lblCalisanIDSNC.Size = new System.Drawing.Size(88, 21);
+            this.lblCalisanIDSNC.TabIndex = 19;
+            this.lblCalisanIDSNC.Text = "BT201934";
             // 
-            // lblIsBaslik
+            // lblizinHakSNC
             // 
-            this.lblIsBaslik.AutoSize = true;
-            this.lblIsBaslik.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblIsBaslik.Location = new System.Drawing.Point(34, 13);
-            this.lblIsBaslik.Name = "lblIsBaslik";
-            this.lblIsBaslik.Size = new System.Drawing.Size(84, 19);
-            this.lblIsBaslik.TabIndex = 1;
-            this.lblIsBaslik.Text = "İş Bilgileri";
+            this.lblizinHakSNC.AutoSize = true;
+            this.lblizinHakSNC.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblizinHakSNC.Location = new System.Drawing.Point(405, 171);
+            this.lblizinHakSNC.Name = "lblizinHakSNC";
+            this.lblizinHakSNC.Size = new System.Drawing.Size(30, 21);
+            this.lblizinHakSNC.TabIndex = 18;
+            this.lblizinHakSNC.Text = "14";
             // 
-            // label7
+            // lblYoneticiSNC
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label7.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label7.Location = new System.Drawing.Point(18, 16);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(684, 25);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "________________________________________________________";
+            this.lblYoneticiSNC.AutoSize = true;
+            this.lblYoneticiSNC.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblYoneticiSNC.Location = new System.Drawing.Point(405, 117);
+            this.lblYoneticiSNC.Name = "lblYoneticiSNC";
+            this.lblYoneticiSNC.Size = new System.Drawing.Size(96, 21);
+            this.lblYoneticiSNC.TabIndex = 17;
+            this.lblYoneticiSNC.Text = "Eren Tekin";
             // 
-            // label8
+            // lblisebaslamaTrhSNC
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label8.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label8.Location = new System.Drawing.Point(18, 16);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(684, 25);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "________________________________________________________";
-            // 
-            // lblTelefon
-            // 
-            this.lblTelefon.AutoSize = true;
-            this.lblTelefon.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblTelefon.Location = new System.Drawing.Point(52, 65);
-            this.lblTelefon.Name = "lblTelefon";
-            this.lblTelefon.Size = new System.Drawing.Size(74, 21);
-            this.lblTelefon.TabIndex = 2;
-            this.lblTelefon.Text = "Telefon";
-            // 
-            // lblSirketNo
-            // 
-            this.lblSirketNo.AutoSize = true;
-            this.lblSirketNo.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblSirketNo.Location = new System.Drawing.Point(52, 117);
-            this.lblSirketNo.Name = "lblSirketNo";
-            this.lblSirketNo.Size = new System.Drawing.Size(151, 21);
-            this.lblSirketNo.TabIndex = 3;
-            this.lblSirketNo.Text = "Şirket içi numara";
-            // 
-            // lblAdres
-            // 
-            this.lblAdres.AutoSize = true;
-            this.lblAdres.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblAdres.Location = new System.Drawing.Point(52, 171);
-            this.lblAdres.Name = "lblAdres";
-            this.lblAdres.Size = new System.Drawing.Size(61, 21);
-            this.lblAdres.TabIndex = 4;
-            this.lblAdres.Text = "Adres";
-            // 
-            // lblDogumTrh
-            // 
-            this.lblDogumTrh.AutoSize = true;
-            this.lblDogumTrh.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblDogumTrh.Location = new System.Drawing.Point(52, 224);
-            this.lblDogumTrh.Name = "lblDogumTrh";
-            this.lblDogumTrh.Size = new System.Drawing.Size(121, 21);
-            this.lblDogumTrh.TabIndex = 5;
-            this.lblDogumTrh.Text = "Doğum tarihi";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label13.ForeColor = System.Drawing.Color.LightGray;
-            this.label13.Location = new System.Drawing.Point(31, 129);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(660, 25);
-            this.label13.TabIndex = 6;
-            this.label13.Text = "______________________________________________________";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label14.ForeColor = System.Drawing.Color.LightGray;
-            this.label14.Location = new System.Drawing.Point(31, 75);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(660, 25);
-            this.label14.TabIndex = 7;
-            this.label14.Text = "______________________________________________________";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label15.ForeColor = System.Drawing.Color.LightGray;
-            this.label15.Location = new System.Drawing.Point(31, 182);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(660, 25);
-            this.label15.TabIndex = 8;
-            this.label15.Text = "______________________________________________________";
+            this.lblisebaslamaTrhSNC.AutoSize = true;
+            this.lblisebaslamaTrhSNC.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblisebaslamaTrhSNC.Location = new System.Drawing.Point(405, 65);
+            this.lblisebaslamaTrhSNC.Name = "lblisebaslamaTrhSNC";
+            this.lblisebaslamaTrhSNC.Size = new System.Drawing.Size(100, 21);
+            this.lblisebaslamaTrhSNC.TabIndex = 16;
+            this.lblisebaslamaTrhSNC.Text = "07.12.2019";
             // 
             // lblCalisanID
             // 
@@ -628,85 +677,26 @@
             this.label22.TabIndex = 13;
             this.label22.Text = "______________________________________________________";
             // 
-            // lblTelefonSNC
+            // lblIsBaslik
             // 
-            this.lblTelefonSNC.AutoSize = true;
-            this.lblTelefonSNC.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblTelefonSNC.Location = new System.Drawing.Point(405, 65);
-            this.lblTelefonSNC.Name = "lblTelefonSNC";
-            this.lblTelefonSNC.Size = new System.Drawing.Size(161, 21);
-            this.lblTelefonSNC.TabIndex = 9;
-            this.lblTelefonSNC.Text = "+90 539 250 05 32";
+            this.lblIsBaslik.AutoSize = true;
+            this.lblIsBaslik.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblIsBaslik.Location = new System.Drawing.Point(34, 13);
+            this.lblIsBaslik.Name = "lblIsBaslik";
+            this.lblIsBaslik.Size = new System.Drawing.Size(84, 19);
+            this.lblIsBaslik.TabIndex = 1;
+            this.lblIsBaslik.Text = "İş Bilgileri";
             // 
-            // lblSirketNoSNC
+            // label8
             // 
-            this.lblSirketNoSNC.AutoSize = true;
-            this.lblSirketNoSNC.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblSirketNoSNC.Location = new System.Drawing.Point(405, 117);
-            this.lblSirketNoSNC.Name = "lblSirketNoSNC";
-            this.lblSirketNoSNC.Size = new System.Drawing.Size(50, 21);
-            this.lblSirketNoSNC.TabIndex = 10;
-            this.lblSirketNoSNC.Text = "1234";
-            // 
-            // lblAdresSNC
-            // 
-            this.lblAdresSNC.AutoSize = true;
-            this.lblAdresSNC.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblAdresSNC.Location = new System.Drawing.Point(405, 171);
-            this.lblAdresSNC.Name = "lblAdresSNC";
-            this.lblAdresSNC.Size = new System.Drawing.Size(165, 21);
-            this.lblAdresSNC.TabIndex = 11;
-            this.lblAdresSNC.Text = "Merkez Ofis 3. Kat";
-            // 
-            // lblDogumTrhSNC
-            // 
-            this.lblDogumTrhSNC.AutoSize = true;
-            this.lblDogumTrhSNC.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblDogumTrhSNC.Location = new System.Drawing.Point(405, 224);
-            this.lblDogumTrhSNC.Name = "lblDogumTrhSNC";
-            this.lblDogumTrhSNC.Size = new System.Drawing.Size(100, 21);
-            this.lblDogumTrhSNC.TabIndex = 12;
-            this.lblDogumTrhSNC.Text = "14.01.1982";
-            // 
-            // lblCalisanIDSNC
-            // 
-            this.lblCalisanIDSNC.AutoSize = true;
-            this.lblCalisanIDSNC.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblCalisanIDSNC.Location = new System.Drawing.Point(405, 224);
-            this.lblCalisanIDSNC.Name = "lblCalisanIDSNC";
-            this.lblCalisanIDSNC.Size = new System.Drawing.Size(88, 21);
-            this.lblCalisanIDSNC.TabIndex = 19;
-            this.lblCalisanIDSNC.Text = "BT201934";
-            // 
-            // lblizinHakSNC
-            // 
-            this.lblizinHakSNC.AutoSize = true;
-            this.lblizinHakSNC.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblizinHakSNC.Location = new System.Drawing.Point(405, 171);
-            this.lblizinHakSNC.Name = "lblizinHakSNC";
-            this.lblizinHakSNC.Size = new System.Drawing.Size(30, 21);
-            this.lblizinHakSNC.TabIndex = 18;
-            this.lblizinHakSNC.Text = "14";
-            // 
-            // lblYoneticiSNC
-            // 
-            this.lblYoneticiSNC.AutoSize = true;
-            this.lblYoneticiSNC.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblYoneticiSNC.Location = new System.Drawing.Point(405, 117);
-            this.lblYoneticiSNC.Name = "lblYoneticiSNC";
-            this.lblYoneticiSNC.Size = new System.Drawing.Size(96, 21);
-            this.lblYoneticiSNC.TabIndex = 17;
-            this.lblYoneticiSNC.Text = "Eren Tekin";
-            // 
-            // lblisebaslamaTrhSNC
-            // 
-            this.lblisebaslamaTrhSNC.AutoSize = true;
-            this.lblisebaslamaTrhSNC.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblisebaslamaTrhSNC.Location = new System.Drawing.Point(405, 65);
-            this.lblisebaslamaTrhSNC.Name = "lblisebaslamaTrhSNC";
-            this.lblisebaslamaTrhSNC.Size = new System.Drawing.Size(100, 21);
-            this.lblisebaslamaTrhSNC.TabIndex = 16;
-            this.lblisebaslamaTrhSNC.Text = "07.12.2019";
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label8.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.label8.Location = new System.Drawing.Point(18, 16);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(684, 25);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "________________________________________________________";
             // 
             // pnlPrimBilgi
             // 
@@ -725,6 +715,100 @@
             this.pnlPrimBilgi.Name = "pnlPrimBilgi";
             this.pnlPrimBilgi.Size = new System.Drawing.Size(1670, 214);
             this.pnlPrimBilgi.TabIndex = 13;
+            // 
+            // pnlPrim
+            // 
+            this.pnlPrim.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlPrim.Controls.Add(this.lblPrimTutari);
+            this.pnlPrim.Controls.Add(this.lblPrimTutariSNC);
+            this.pnlPrim.Location = new System.Drawing.Point(1247, 70);
+            this.pnlPrim.Name = "pnlPrim";
+            this.pnlPrim.Size = new System.Drawing.Size(241, 84);
+            this.pnlPrim.TabIndex = 18;
+            // 
+            // lblPrimTutari
+            // 
+            this.lblPrimTutari.AutoSize = true;
+            this.lblPrimTutari.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblPrimTutari.Location = new System.Drawing.Point(24, 14);
+            this.lblPrimTutari.Name = "lblPrimTutari";
+            this.lblPrimTutari.Size = new System.Drawing.Size(198, 29);
+            this.lblPrimTutari.TabIndex = 16;
+            this.lblPrimTutari.Text = "Bu Ay Prim Tutarı";
+            // 
+            // lblPrimTutariSNC
+            // 
+            this.lblPrimTutariSNC.AutoSize = true;
+            this.lblPrimTutariSNC.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblPrimTutariSNC.ForeColor = System.Drawing.Color.SlateBlue;
+            this.lblPrimTutariSNC.Location = new System.Drawing.Point(63, 43);
+            this.lblPrimTutariSNC.Name = "lblPrimTutariSNC";
+            this.lblPrimTutariSNC.Size = new System.Drawing.Size(108, 32);
+            this.lblPrimTutariSNC.TabIndex = 17;
+            this.lblPrimTutariSNC.Text = "2,950₺";
+            // 
+            // lblPerformansPuanSNC
+            // 
+            this.lblPerformansPuanSNC.AutoSize = true;
+            this.lblPerformansPuanSNC.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblPerformansPuanSNC.ForeColor = System.Drawing.Color.Orange;
+            this.lblPerformansPuanSNC.Location = new System.Drawing.Point(956, 123);
+            this.lblPerformansPuanSNC.Name = "lblPerformansPuanSNC";
+            this.lblPerformansPuanSNC.Size = new System.Drawing.Size(108, 32);
+            this.lblPerformansPuanSNC.TabIndex = 8;
+            this.lblPerformansPuanSNC.Text = "95/100";
+            // 
+            // lblCozumSureSNC
+            // 
+            this.lblCozumSureSNC.AutoSize = true;
+            this.lblCozumSureSNC.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblCozumSureSNC.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblCozumSureSNC.Location = new System.Drawing.Point(559, 123);
+            this.lblCozumSureSNC.Name = "lblCozumSureSNC";
+            this.lblCozumSureSNC.Size = new System.Drawing.Size(116, 32);
+            this.lblCozumSureSNC.TabIndex = 7;
+            this.lblCozumSureSNC.Text = "1.5 gün";
+            // 
+            // lblTamamlananSNC
+            // 
+            this.lblTamamlananSNC.AutoSize = true;
+            this.lblTamamlananSNC.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblTamamlananSNC.ForeColor = System.Drawing.Color.ForestGreen;
+            this.lblTamamlananSNC.Location = new System.Drawing.Point(216, 123);
+            this.lblTamamlananSNC.Name = "lblTamamlananSNC";
+            this.lblTamamlananSNC.Size = new System.Drawing.Size(48, 32);
+            this.lblTamamlananSNC.TabIndex = 6;
+            this.lblTamamlananSNC.Text = "35";
+            // 
+            // lblPerformansPuan
+            // 
+            this.lblPerformansPuan.AutoSize = true;
+            this.lblPerformansPuan.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblPerformansPuan.Location = new System.Drawing.Point(904, 84);
+            this.lblPerformansPuan.Name = "lblPerformansPuan";
+            this.lblPerformansPuan.Size = new System.Drawing.Size(204, 29);
+            this.lblPerformansPuan.TabIndex = 5;
+            this.lblPerformansPuan.Text = "Performans Puanı";
+            // 
+            // lblCozumSure
+            // 
+            this.lblCozumSure.AutoSize = true;
+            this.lblCozumSure.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblCozumSure.Location = new System.Drawing.Point(491, 84);
+            this.lblCozumSure.Name = "lblCozumSure";
+            this.lblCozumSure.Size = new System.Drawing.Size(267, 29);
+            this.lblCozumSure.TabIndex = 4;
+            this.lblCozumSure.Text = "Ortalama Çözüm Süresi";
+            // 
+            // lblTamamlanan
+            // 
+            this.lblTamamlanan.AutoSize = true;
+            this.lblTamamlanan.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblTamamlanan.Location = new System.Drawing.Point(148, 84);
+            this.lblTamamlanan.Name = "lblTamamlanan";
+            this.lblTamamlanan.Size = new System.Drawing.Size(218, 29);
+            this.lblTamamlanan.TabIndex = 3;
+            this.lblTamamlanan.Text = "Bu ay Tamamlanan";
             // 
             // lblPerformansPrimBaslik
             // 
@@ -748,100 +832,6 @@
             this.label3.Text = "_________________________________________________________________________________" +
     "____________________________________________________";
             // 
-            // lblTamamlanan
-            // 
-            this.lblTamamlanan.AutoSize = true;
-            this.lblTamamlanan.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblTamamlanan.Location = new System.Drawing.Point(148, 84);
-            this.lblTamamlanan.Name = "lblTamamlanan";
-            this.lblTamamlanan.Size = new System.Drawing.Size(218, 29);
-            this.lblTamamlanan.TabIndex = 3;
-            this.lblTamamlanan.Text = "Bu ay Tamamlanan";
-            // 
-            // lblCozumSure
-            // 
-            this.lblCozumSure.AutoSize = true;
-            this.lblCozumSure.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblCozumSure.Location = new System.Drawing.Point(491, 84);
-            this.lblCozumSure.Name = "lblCozumSure";
-            this.lblCozumSure.Size = new System.Drawing.Size(267, 29);
-            this.lblCozumSure.TabIndex = 4;
-            this.lblCozumSure.Text = "Ortalama Çözüm Süresi";
-            // 
-            // lblPerformansPuan
-            // 
-            this.lblPerformansPuan.AutoSize = true;
-            this.lblPerformansPuan.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblPerformansPuan.Location = new System.Drawing.Point(904, 84);
-            this.lblPerformansPuan.Name = "lblPerformansPuan";
-            this.lblPerformansPuan.Size = new System.Drawing.Size(204, 29);
-            this.lblPerformansPuan.TabIndex = 5;
-            this.lblPerformansPuan.Text = "Performans Puanı";
-            // 
-            // lblTamamlananSNC
-            // 
-            this.lblTamamlananSNC.AutoSize = true;
-            this.lblTamamlananSNC.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblTamamlananSNC.ForeColor = System.Drawing.Color.ForestGreen;
-            this.lblTamamlananSNC.Location = new System.Drawing.Point(216, 123);
-            this.lblTamamlananSNC.Name = "lblTamamlananSNC";
-            this.lblTamamlananSNC.Size = new System.Drawing.Size(48, 32);
-            this.lblTamamlananSNC.TabIndex = 6;
-            this.lblTamamlananSNC.Text = "35";
-            // 
-            // lblCozumSureSNC
-            // 
-            this.lblCozumSureSNC.AutoSize = true;
-            this.lblCozumSureSNC.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblCozumSureSNC.ForeColor = System.Drawing.Color.SteelBlue;
-            this.lblCozumSureSNC.Location = new System.Drawing.Point(559, 123);
-            this.lblCozumSureSNC.Name = "lblCozumSureSNC";
-            this.lblCozumSureSNC.Size = new System.Drawing.Size(116, 32);
-            this.lblCozumSureSNC.TabIndex = 7;
-            this.lblCozumSureSNC.Text = "1.5 gün";
-            // 
-            // lblPerformansPuanSNC
-            // 
-            this.lblPerformansPuanSNC.AutoSize = true;
-            this.lblPerformansPuanSNC.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblPerformansPuanSNC.ForeColor = System.Drawing.Color.Orange;
-            this.lblPerformansPuanSNC.Location = new System.Drawing.Point(956, 123);
-            this.lblPerformansPuanSNC.Name = "lblPerformansPuanSNC";
-            this.lblPerformansPuanSNC.Size = new System.Drawing.Size(108, 32);
-            this.lblPerformansPuanSNC.TabIndex = 8;
-            this.lblPerformansPuanSNC.Text = "95/100";
-            // 
-            // lblPrimTutari
-            // 
-            this.lblPrimTutari.AutoSize = true;
-            this.lblPrimTutari.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblPrimTutari.Location = new System.Drawing.Point(24, 14);
-            this.lblPrimTutari.Name = "lblPrimTutari";
-            this.lblPrimTutari.Size = new System.Drawing.Size(198, 29);
-            this.lblPrimTutari.TabIndex = 16;
-            this.lblPrimTutari.Text = "Bu Ay Prim Tutarı";
-            // 
-            // lblPrimTutariSNC
-            // 
-            this.lblPrimTutariSNC.AutoSize = true;
-            this.lblPrimTutariSNC.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblPrimTutariSNC.ForeColor = System.Drawing.Color.SlateBlue;
-            this.lblPrimTutariSNC.Location = new System.Drawing.Point(63, 43);
-            this.lblPrimTutariSNC.Name = "lblPrimTutariSNC";
-            this.lblPrimTutariSNC.Size = new System.Drawing.Size(108, 32);
-            this.lblPrimTutariSNC.TabIndex = 17;
-            this.lblPrimTutariSNC.Text = "2,950₺";
-            // 
-            // pnlPrim
-            // 
-            this.pnlPrim.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlPrim.Controls.Add(this.lblPrimTutari);
-            this.pnlPrim.Controls.Add(this.lblPrimTutariSNC);
-            this.pnlPrim.Location = new System.Drawing.Point(1247, 70);
-            this.pnlPrim.Name = "pnlPrim";
-            this.pnlPrim.Size = new System.Drawing.Size(241, 84);
-            this.pnlPrim.TabIndex = 18;
-            // 
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
@@ -850,6 +840,18 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(245, 88);
             this.panel7.TabIndex = 19;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(1873, 12);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 6;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // OfficerProfile
             // 
@@ -870,7 +872,6 @@
             this.Text = "OfficerProfile";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).EndInit();
@@ -889,6 +890,7 @@
             this.pnlPrimBilgi.PerformLayout();
             this.pnlPrim.ResumeLayout(false);
             this.pnlPrim.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -897,7 +899,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox ikonCikis;
         private System.Windows.Forms.PictureBox ikonRaporlar;
@@ -959,5 +960,6 @@
         private System.Windows.Forms.Label lblPrimTutariSNC;
         private System.Windows.Forms.Panel pnlPrim;
         private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }

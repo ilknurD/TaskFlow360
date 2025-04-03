@@ -52,5 +52,19 @@ namespace TaskFlow360
         {
 
         }
+
+        private void btnProfil_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            OfficerProfile profile = new OfficerProfile();
+            profile.Show();
+        }
+
+        private void btnRaporlar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            OfficerReportsPage officerReportsPage = new OfficerReportsPage();
+            officerReportsPage.Show();
+        }
     }
 }

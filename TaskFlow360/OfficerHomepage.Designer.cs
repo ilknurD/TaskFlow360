@@ -171,6 +171,7 @@
             this.btnAnasayfa.Text = "Anasayfa";
             this.btnAnasayfa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAnasayfa.UseVisualStyleBackColor = false;
+            this.btnAnasayfa.Click += new System.EventHandler(this.btnAnasayfa_Click);
             // 
             // panel2
             // 
@@ -256,6 +257,7 @@
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1590, 140);
             this.flowLayoutPanel1.TabIndex = 11;
+            this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
             // 
             // label3
             // 

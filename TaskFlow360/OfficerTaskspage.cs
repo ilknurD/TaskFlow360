@@ -143,5 +143,10 @@ namespace TaskFlow360
                 txtArama.ForeColor = Color.Gray;
             }
         }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
