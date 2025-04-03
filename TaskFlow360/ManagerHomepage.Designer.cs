@@ -28,23 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerHomepage));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ikonekipYonetim = new System.Windows.Forms.PictureBox();
             this.btnEkipYonetimi = new System.Windows.Forms.Button();
+            this.ikonCikis = new System.Windows.Forms.PictureBox();
+            this.ikonRaporlar = new System.Windows.Forms.PictureBox();
             this.btnRaporlar = new System.Windows.Forms.Button();
+            this.ikonProfil = new System.Windows.Forms.PictureBox();
+            this.ikonGorevler = new System.Windows.Forms.PictureBox();
+            this.ikonAnasayfa = new System.Windows.Forms.PictureBox();
             this.btnCikis = new System.Windows.Forms.Button();
             this.btnGorevler = new System.Windows.Forms.Button();
             this.btnProfil = new System.Windows.Forms.Button();
             this.btnAnasayfa = new System.Windows.Forms.Button();
+            this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.lblHosgeldiniz = new System.Windows.Forms.Label();
             this.lblBekleyenler = new System.Windows.Forms.Label();
             this.PnlGorevler = new System.Windows.Forms.FlowLayoutPanel();
-            this.label3 = new System.Windows.Forms.Label();
             this.bekleyenCagrilarDGV = new System.Windows.Forms.DataGridView();
+            this.cagriId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.baslik = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.kategori = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.oncelik = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.durum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ataButon = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.label3 = new System.Windows.Forms.Label();
             this.icerikPanel = new System.Windows.Forms.Panel();
             this.ekipUyeleriDGV = new System.Windows.Forms.DataGridView();
             this.calisan = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -54,52 +67,27 @@
             this.ortCozumSuresi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gorevAtaButon = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.SLAuyumuKutu = new System.Windows.Forms.Panel();
-            this.tamamlananKutu = new System.Windows.Forms.Panel();
-            this.devamEdenKutu = new System.Windows.Forms.Panel();
             this.gecikenKutu = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.devamEdenKutu = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tamamlananKutu = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.SLAuyumuKutu = new System.Windows.Forms.Panel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.cagriId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.baslik = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.kategori = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.oncelik = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.durum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ataButon = new System.Windows.Forms.DataGridViewButtonColumn();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.ikonekipYonetim = new System.Windows.Forms.PictureBox();
-            this.ikonCikis = new System.Windows.Forms.PictureBox();
-            this.ikonRaporlar = new System.Windows.Forms.PictureBox();
-            this.ikonProfil = new System.Windows.Forms.PictureBox();
-            this.ikonGorevler = new System.Windows.Forms.PictureBox();
-            this.ikonAnasayfa = new System.Windows.Forms.PictureBox();
-            this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.PnlGorevler.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bekleyenCagrilarDGV)).BeginInit();
-            this.icerikPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ekipUyeleriDGV)).BeginInit();
-            this.panel3.SuspendLayout();
-            this.SLAuyumuKutu.SuspendLayout();
-            this.tamamlananKutu.SuspendLayout();
-            this.devamEdenKutu.SuspendLayout();
-            this.gecikenKutu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonekipYonetim)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).BeginInit();
@@ -107,6 +95,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).BeginInit();
+            this.panel2.SuspendLayout();
+            this.PnlGorevler.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bekleyenCagrilarDGV)).BeginInit();
+            this.icerikPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ekipUyeleriDGV)).BeginInit();
+            this.panel3.SuspendLayout();
+            this.gecikenKutu.SuspendLayout();
+            this.devamEdenKutu.SuspendLayout();
+            this.tamamlananKutu.SuspendLayout();
+            this.SLAuyumuKutu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -131,6 +131,17 @@
             this.panel1.Size = new System.Drawing.Size(295, 1102);
             this.panel1.TabIndex = 10;
             // 
+            // ikonekipYonetim
+            // 
+            this.ikonekipYonetim.BackColor = System.Drawing.Color.Transparent;
+            this.ikonekipYonetim.Image = ((System.Drawing.Image)(resources.GetObject("ikonekipYonetim.Image")));
+            this.ikonekipYonetim.Location = new System.Drawing.Point(25, 437);
+            this.ikonekipYonetim.Name = "ikonekipYonetim";
+            this.ikonekipYonetim.Size = new System.Drawing.Size(40, 40);
+            this.ikonekipYonetim.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonekipYonetim.TabIndex = 13;
+            this.ikonekipYonetim.TabStop = false;
+            // 
             // btnEkipYonetimi
             // 
             this.btnEkipYonetimi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
@@ -147,6 +158,29 @@
             this.btnEkipYonetimi.Text = "Ekip Yönetimi";
             this.btnEkipYonetimi.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnEkipYonetimi.UseVisualStyleBackColor = false;
+            this.btnEkipYonetimi.Click += new System.EventHandler(this.btnEkipYonetimi_Click);
+            // 
+            // ikonCikis
+            // 
+            this.ikonCikis.BackColor = System.Drawing.Color.Transparent;
+            this.ikonCikis.Image = ((System.Drawing.Image)(resources.GetObject("ikonCikis.Image")));
+            this.ikonCikis.Location = new System.Drawing.Point(25, 977);
+            this.ikonCikis.Name = "ikonCikis";
+            this.ikonCikis.Size = new System.Drawing.Size(40, 40);
+            this.ikonCikis.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonCikis.TabIndex = 11;
+            this.ikonCikis.TabStop = false;
+            // 
+            // ikonRaporlar
+            // 
+            this.ikonRaporlar.BackColor = System.Drawing.Color.Transparent;
+            this.ikonRaporlar.Image = ((System.Drawing.Image)(resources.GetObject("ikonRaporlar.Image")));
+            this.ikonRaporlar.Location = new System.Drawing.Point(25, 378);
+            this.ikonRaporlar.Name = "ikonRaporlar";
+            this.ikonRaporlar.Size = new System.Drawing.Size(40, 40);
+            this.ikonRaporlar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonRaporlar.TabIndex = 10;
+            this.ikonRaporlar.TabStop = false;
             // 
             // btnRaporlar
             // 
@@ -165,6 +199,39 @@
             this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnRaporlar.UseVisualStyleBackColor = false;
             this.btnRaporlar.Click += new System.EventHandler(this.btnRaporlar_Click);
+            // 
+            // ikonProfil
+            // 
+            this.ikonProfil.BackColor = System.Drawing.Color.Transparent;
+            this.ikonProfil.Image = ((System.Drawing.Image)(resources.GetObject("ikonProfil.Image")));
+            this.ikonProfil.Location = new System.Drawing.Point(25, 259);
+            this.ikonProfil.Name = "ikonProfil";
+            this.ikonProfil.Size = new System.Drawing.Size(40, 40);
+            this.ikonProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonProfil.TabIndex = 8;
+            this.ikonProfil.TabStop = false;
+            // 
+            // ikonGorevler
+            // 
+            this.ikonGorevler.BackColor = System.Drawing.Color.Transparent;
+            this.ikonGorevler.Image = ((System.Drawing.Image)(resources.GetObject("ikonGorevler.Image")));
+            this.ikonGorevler.Location = new System.Drawing.Point(25, 319);
+            this.ikonGorevler.Name = "ikonGorevler";
+            this.ikonGorevler.Size = new System.Drawing.Size(40, 40);
+            this.ikonGorevler.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonGorevler.TabIndex = 7;
+            this.ikonGorevler.TabStop = false;
+            // 
+            // ikonAnasayfa
+            // 
+            this.ikonAnasayfa.BackColor = System.Drawing.Color.Transparent;
+            this.ikonAnasayfa.Image = ((System.Drawing.Image)(resources.GetObject("ikonAnasayfa.Image")));
+            this.ikonAnasayfa.Location = new System.Drawing.Point(25, 200);
+            this.ikonAnasayfa.Name = "ikonAnasayfa";
+            this.ikonAnasayfa.Size = new System.Drawing.Size(40, 40);
+            this.ikonAnasayfa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonAnasayfa.TabIndex = 6;
+            this.ikonAnasayfa.TabStop = false;
             // 
             // btnCikis
             // 
@@ -237,6 +304,17 @@
             this.btnAnasayfa.UseVisualStyleBackColor = false;
             this.btnAnasayfa.Click += new System.EventHandler(this.btnAnasayfa_Click);
             // 
+            // pctrLogo
+            // 
+            this.pctrLogo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pctrLogo.Image = ((System.Drawing.Image)(resources.GetObject("pctrLogo.Image")));
+            this.pctrLogo.Location = new System.Drawing.Point(0, 0);
+            this.pctrLogo.Name = "pctrLogo";
+            this.pctrLogo.Size = new System.Drawing.Size(295, 188);
+            this.pctrLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrLogo.TabIndex = 0;
+            this.pctrLogo.TabStop = false;
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(103)))), ((int)(((byte)(195)))));
@@ -288,16 +366,6 @@
             this.PnlGorevler.Size = new System.Drawing.Size(1251, 324);
             this.PnlGorevler.TabIndex = 13;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label3.Location = new System.Drawing.Point(349, 805);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(162, 22);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "Görev İstatistikleri";
-            // 
             // bekleyenCagrilarDGV
             // 
             this.bekleyenCagrilarDGV.AllowUserToAddRows = false;
@@ -307,14 +375,14 @@
             this.bekleyenCagrilarDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.bekleyenCagrilarDGV.BackgroundColor = System.Drawing.Color.White;
             this.bekleyenCagrilarDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.bekleyenCagrilarDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.bekleyenCagrilarDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.bekleyenCagrilarDGV.ColumnHeadersHeight = 35;
             this.bekleyenCagrilarDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.bekleyenCagrilarDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -336,6 +404,60 @@
             this.bekleyenCagrilarDGV.TabIndex = 16;
             this.bekleyenCagrilarDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.bekleyenCagrilarDGV_CellClick);
             // 
+            // cagriId
+            // 
+            this.cagriId.HeaderText = "Çağrı ID";
+            this.cagriId.MinimumWidth = 6;
+            this.cagriId.Name = "cagriId";
+            this.cagriId.ReadOnly = true;
+            this.cagriId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.cagriId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // baslik
+            // 
+            this.baslik.HeaderText = "Başlık";
+            this.baslik.MinimumWidth = 6;
+            this.baslik.Name = "baslik";
+            this.baslik.ReadOnly = true;
+            // 
+            // kategori
+            // 
+            this.kategori.HeaderText = "Kategori";
+            this.kategori.MinimumWidth = 6;
+            this.kategori.Name = "kategori";
+            this.kategori.ReadOnly = true;
+            // 
+            // oncelik
+            // 
+            this.oncelik.HeaderText = "Öncelik";
+            this.oncelik.MinimumWidth = 6;
+            this.oncelik.Name = "oncelik";
+            this.oncelik.ReadOnly = true;
+            // 
+            // durum
+            // 
+            this.durum.HeaderText = "Durum";
+            this.durum.MinimumWidth = 6;
+            this.durum.Name = "durum";
+            this.durum.ReadOnly = true;
+            // 
+            // ataButon
+            // 
+            this.ataButon.HeaderText = "İşlem";
+            this.ataButon.MinimumWidth = 6;
+            this.ataButon.Name = "ataButon";
+            this.ataButon.ReadOnly = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label3.Location = new System.Drawing.Point(349, 805);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(162, 22);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "Görev İstatistikleri";
+            // 
             // icerikPanel
             // 
             this.icerikPanel.BackColor = System.Drawing.Color.White;
@@ -354,14 +476,14 @@
             this.ekipUyeleriDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ekipUyeleriDGV.BackgroundColor = System.Drawing.Color.White;
             this.ekipUyeleriDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ekipUyeleriDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ekipUyeleriDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.ekipUyeleriDGV.ColumnHeadersHeight = 35;
             this.ekipUyeleriDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ekipUyeleriDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -438,39 +560,6 @@
             this.panel3.Size = new System.Drawing.Size(411, 324);
             this.panel3.TabIndex = 17;
             // 
-            // SLAuyumuKutu
-            // 
-            this.SLAuyumuKutu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(239)))), ((int)(((byte)(230)))));
-            this.SLAuyumuKutu.Controls.Add(this.label12);
-            this.SLAuyumuKutu.Controls.Add(this.label8);
-            this.SLAuyumuKutu.Controls.Add(this.label4);
-            this.SLAuyumuKutu.Location = new System.Drawing.Point(218, 14);
-            this.SLAuyumuKutu.Name = "SLAuyumuKutu";
-            this.SLAuyumuKutu.Size = new System.Drawing.Size(170, 140);
-            this.SLAuyumuKutu.TabIndex = 0;
-            // 
-            // tamamlananKutu
-            // 
-            this.tamamlananKutu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(244)))), ((int)(((byte)(252)))));
-            this.tamamlananKutu.Controls.Add(this.label11);
-            this.tamamlananKutu.Controls.Add(this.label7);
-            this.tamamlananKutu.Controls.Add(this.label2);
-            this.tamamlananKutu.Location = new System.Drawing.Point(30, 14);
-            this.tamamlananKutu.Name = "tamamlananKutu";
-            this.tamamlananKutu.Size = new System.Drawing.Size(170, 140);
-            this.tamamlananKutu.TabIndex = 1;
-            // 
-            // devamEdenKutu
-            // 
-            this.devamEdenKutu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(247)))), ((int)(((byte)(239)))));
-            this.devamEdenKutu.Controls.Add(this.label14);
-            this.devamEdenKutu.Controls.Add(this.label10);
-            this.devamEdenKutu.Controls.Add(this.label6);
-            this.devamEdenKutu.Location = new System.Drawing.Point(218, 167);
-            this.devamEdenKutu.Name = "devamEdenKutu";
-            this.devamEdenKutu.Size = new System.Drawing.Size(170, 140);
-            this.devamEdenKutu.TabIndex = 2;
-            // 
             // gecikenKutu
             // 
             this.gecikenKutu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(231)))), ((int)(((byte)(235)))));
@@ -482,126 +571,6 @@
             this.gecikenKutu.Size = new System.Drawing.Size(170, 140);
             this.gecikenKutu.TabIndex = 3;
             this.gecikenKutu.Paint += new System.Windows.Forms.PaintEventHandler(this.gecikenKutu_Paint);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Arial Narrow", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.label2.Location = new System.Drawing.Point(53, 5);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 46);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "18";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Arial Narrow", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(126)))), ((int)(((byte)(34)))));
-            this.label4.Location = new System.Drawing.Point(54, 7);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(85, 46);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "82%";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Arial Narrow", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.label5.Location = new System.Drawing.Point(61, 7);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 46);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "3";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Arial Narrow", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(174)))), ((int)(((byte)(96)))));
-            this.label6.Location = new System.Drawing.Point(73, 7);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(38, 46);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "7";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.label7.Location = new System.Drawing.Point(22, 63);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(120, 23);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Tamamlanan";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.label8.Location = new System.Drawing.Point(27, 63);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(111, 23);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "SLA Uyumu";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.label9.Location = new System.Drawing.Point(39, 61);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(82, 23);
-            this.label9.TabIndex = 2;
-            this.label9.Text = "Geciken";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.label10.Location = new System.Drawing.Point(22, 61);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(122, 23);
-            this.label10.TabIndex = 2;
-            this.label10.Text = "Devam Eden";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.label11.Location = new System.Drawing.Point(27, 94);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(109, 21);
-            this.label11.TabIndex = 2;
-            this.label11.Text = "Son 24 Saat";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.label12.Location = new System.Drawing.Point(34, 94);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(96, 21);
-            this.label12.TabIndex = 3;
-            this.label12.Text = "Son 7 Gün";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label13
             // 
@@ -615,6 +584,41 @@
             this.label13.Text = "Son 24 saat";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.label9.Location = new System.Drawing.Point(39, 61);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(82, 23);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "Geciken";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Arial Narrow", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.label5.Location = new System.Drawing.Point(61, 7);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(38, 46);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "3";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // devamEdenKutu
+            // 
+            this.devamEdenKutu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(247)))), ((int)(((byte)(239)))));
+            this.devamEdenKutu.Controls.Add(this.label14);
+            this.devamEdenKutu.Controls.Add(this.label10);
+            this.devamEdenKutu.Controls.Add(this.label6);
+            this.devamEdenKutu.Location = new System.Drawing.Point(218, 167);
+            this.devamEdenKutu.Name = "devamEdenKutu";
+            this.devamEdenKutu.Size = new System.Drawing.Size(170, 140);
+            this.devamEdenKutu.TabIndex = 2;
+            // 
             // label14
             // 
             this.label14.AutoSize = true;
@@ -626,6 +630,124 @@
             this.label14.TabIndex = 3;
             this.label14.Text = "Aktif Görevler";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.label10.Location = new System.Drawing.Point(22, 61);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(122, 23);
+            this.label10.TabIndex = 2;
+            this.label10.Text = "Devam Eden";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Arial Narrow", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(174)))), ((int)(((byte)(96)))));
+            this.label6.Location = new System.Drawing.Point(73, 7);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(38, 46);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "7";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tamamlananKutu
+            // 
+            this.tamamlananKutu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(244)))), ((int)(((byte)(252)))));
+            this.tamamlananKutu.Controls.Add(this.label11);
+            this.tamamlananKutu.Controls.Add(this.label7);
+            this.tamamlananKutu.Controls.Add(this.label2);
+            this.tamamlananKutu.Location = new System.Drawing.Point(30, 14);
+            this.tamamlananKutu.Name = "tamamlananKutu";
+            this.tamamlananKutu.Size = new System.Drawing.Size(170, 140);
+            this.tamamlananKutu.TabIndex = 1;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.label11.Location = new System.Drawing.Point(27, 94);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(109, 21);
+            this.label11.TabIndex = 2;
+            this.label11.Text = "Son 24 Saat";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.label7.Location = new System.Drawing.Point(22, 63);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(120, 23);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Tamamlanan";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial Narrow", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.label2.Location = new System.Drawing.Point(53, 5);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(56, 46);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "18";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // SLAuyumuKutu
+            // 
+            this.SLAuyumuKutu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(239)))), ((int)(((byte)(230)))));
+            this.SLAuyumuKutu.Controls.Add(this.label12);
+            this.SLAuyumuKutu.Controls.Add(this.label8);
+            this.SLAuyumuKutu.Controls.Add(this.label4);
+            this.SLAuyumuKutu.Location = new System.Drawing.Point(218, 14);
+            this.SLAuyumuKutu.Name = "SLAuyumuKutu";
+            this.SLAuyumuKutu.Size = new System.Drawing.Size(170, 140);
+            this.SLAuyumuKutu.TabIndex = 0;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.label12.Location = new System.Drawing.Point(34, 94);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(96, 21);
+            this.label12.TabIndex = 3;
+            this.label12.Text = "Son 7 Gün";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.label8.Location = new System.Drawing.Point(27, 63);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(111, 23);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "SLA Uyumu";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Arial Narrow", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(126)))), ((int)(((byte)(34)))));
+            this.label4.Location = new System.Drawing.Point(54, 7);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(85, 46);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "82%";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label15
             // 
@@ -646,50 +768,6 @@
             this.label16.Size = new System.Drawing.Size(153, 22);
             this.label16.TabIndex = 19;
             this.label16.Text = "Ekip Performansı";
-            // 
-            // cagriId
-            // 
-            this.cagriId.HeaderText = "Çağrı ID";
-            this.cagriId.MinimumWidth = 6;
-            this.cagriId.Name = "cagriId";
-            this.cagriId.ReadOnly = true;
-            this.cagriId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.cagriId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // baslik
-            // 
-            this.baslik.HeaderText = "Başlık";
-            this.baslik.MinimumWidth = 6;
-            this.baslik.Name = "baslik";
-            this.baslik.ReadOnly = true;
-            // 
-            // kategori
-            // 
-            this.kategori.HeaderText = "Kategori";
-            this.kategori.MinimumWidth = 6;
-            this.kategori.Name = "kategori";
-            this.kategori.ReadOnly = true;
-            // 
-            // oncelik
-            // 
-            this.oncelik.HeaderText = "Öncelik";
-            this.oncelik.MinimumWidth = 6;
-            this.oncelik.Name = "oncelik";
-            this.oncelik.ReadOnly = true;
-            // 
-            // durum
-            // 
-            this.durum.HeaderText = "Durum";
-            this.durum.MinimumWidth = 6;
-            this.durum.Name = "durum";
-            this.durum.ReadOnly = true;
-            // 
-            // ataButon
-            // 
-            this.ataButon.HeaderText = "İşlem";
-            this.ataButon.MinimumWidth = 6;
-            this.ataButon.Name = "ataButon";
-            this.ataButon.ReadOnly = true;
             // 
             // pictureBox3
             // 
@@ -715,83 +793,6 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
-            // ikonekipYonetim
-            // 
-            this.ikonekipYonetim.BackColor = System.Drawing.Color.Transparent;
-            this.ikonekipYonetim.Image = ((System.Drawing.Image)(resources.GetObject("ikonekipYonetim.Image")));
-            this.ikonekipYonetim.Location = new System.Drawing.Point(25, 437);
-            this.ikonekipYonetim.Name = "ikonekipYonetim";
-            this.ikonekipYonetim.Size = new System.Drawing.Size(40, 40);
-            this.ikonekipYonetim.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonekipYonetim.TabIndex = 13;
-            this.ikonekipYonetim.TabStop = false;
-            // 
-            // ikonCikis
-            // 
-            this.ikonCikis.BackColor = System.Drawing.Color.Transparent;
-            this.ikonCikis.Image = ((System.Drawing.Image)(resources.GetObject("ikonCikis.Image")));
-            this.ikonCikis.Location = new System.Drawing.Point(25, 977);
-            this.ikonCikis.Name = "ikonCikis";
-            this.ikonCikis.Size = new System.Drawing.Size(40, 40);
-            this.ikonCikis.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonCikis.TabIndex = 11;
-            this.ikonCikis.TabStop = false;
-            // 
-            // ikonRaporlar
-            // 
-            this.ikonRaporlar.BackColor = System.Drawing.Color.Transparent;
-            this.ikonRaporlar.Image = ((System.Drawing.Image)(resources.GetObject("ikonRaporlar.Image")));
-            this.ikonRaporlar.Location = new System.Drawing.Point(25, 378);
-            this.ikonRaporlar.Name = "ikonRaporlar";
-            this.ikonRaporlar.Size = new System.Drawing.Size(40, 40);
-            this.ikonRaporlar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonRaporlar.TabIndex = 10;
-            this.ikonRaporlar.TabStop = false;
-            // 
-            // ikonProfil
-            // 
-            this.ikonProfil.BackColor = System.Drawing.Color.Transparent;
-            this.ikonProfil.Image = ((System.Drawing.Image)(resources.GetObject("ikonProfil.Image")));
-            this.ikonProfil.Location = new System.Drawing.Point(25, 259);
-            this.ikonProfil.Name = "ikonProfil";
-            this.ikonProfil.Size = new System.Drawing.Size(40, 40);
-            this.ikonProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonProfil.TabIndex = 8;
-            this.ikonProfil.TabStop = false;
-            // 
-            // ikonGorevler
-            // 
-            this.ikonGorevler.BackColor = System.Drawing.Color.Transparent;
-            this.ikonGorevler.Image = ((System.Drawing.Image)(resources.GetObject("ikonGorevler.Image")));
-            this.ikonGorevler.Location = new System.Drawing.Point(25, 319);
-            this.ikonGorevler.Name = "ikonGorevler";
-            this.ikonGorevler.Size = new System.Drawing.Size(40, 40);
-            this.ikonGorevler.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonGorevler.TabIndex = 7;
-            this.ikonGorevler.TabStop = false;
-            // 
-            // ikonAnasayfa
-            // 
-            this.ikonAnasayfa.BackColor = System.Drawing.Color.Transparent;
-            this.ikonAnasayfa.Image = ((System.Drawing.Image)(resources.GetObject("ikonAnasayfa.Image")));
-            this.ikonAnasayfa.Location = new System.Drawing.Point(25, 200);
-            this.ikonAnasayfa.Name = "ikonAnasayfa";
-            this.ikonAnasayfa.Size = new System.Drawing.Size(40, 40);
-            this.ikonAnasayfa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonAnasayfa.TabIndex = 6;
-            this.ikonAnasayfa.TabStop = false;
-            // 
-            // pctrLogo
-            // 
-            this.pctrLogo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pctrLogo.Image = ((System.Drawing.Image)(resources.GetObject("pctrLogo.Image")));
-            this.pctrLogo.Location = new System.Drawing.Point(0, 0);
-            this.pctrLogo.Name = "pctrLogo";
-            this.pctrLogo.Size = new System.Drawing.Size(295, 188);
-            this.pctrLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pctrLogo.TabIndex = 0;
-            this.pctrLogo.TabStop = false;
-            // 
             // ManagerHomepage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -815,23 +816,6 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.ManagerHomepage_Load);
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.PnlGorevler.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bekleyenCagrilarDGV)).EndInit();
-            this.icerikPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ekipUyeleriDGV)).EndInit();
-            this.panel3.ResumeLayout(false);
-            this.SLAuyumuKutu.ResumeLayout(false);
-            this.SLAuyumuKutu.PerformLayout();
-            this.tamamlananKutu.ResumeLayout(false);
-            this.tamamlananKutu.PerformLayout();
-            this.devamEdenKutu.ResumeLayout(false);
-            this.devamEdenKutu.PerformLayout();
-            this.gecikenKutu.ResumeLayout(false);
-            this.gecikenKutu.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonekipYonetim)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).EndInit();
@@ -839,6 +823,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.PnlGorevler.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bekleyenCagrilarDGV)).EndInit();
+            this.icerikPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ekipUyeleriDGV)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.gecikenKutu.ResumeLayout(false);
+            this.gecikenKutu.PerformLayout();
+            this.devamEdenKutu.ResumeLayout(false);
+            this.devamEdenKutu.PerformLayout();
+            this.tamamlananKutu.ResumeLayout(false);
+            this.tamamlananKutu.PerformLayout();
+            this.SLAuyumuKutu.ResumeLayout(false);
+            this.SLAuyumuKutu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

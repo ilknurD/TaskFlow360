@@ -55,6 +55,12 @@
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManagerAdminPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManagerAdminPage.Designer.cs">
+      <DependentUpon>ManagerAdminPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="ManagerProfile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +107,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManagerAdminPage.resx">
+      <DependentUpon>ManagerAdminPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManagerProfile.resx">
       <DependentUpon>ManagerProfile.cs</DependentUpon>
