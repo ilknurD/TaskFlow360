@@ -29,9 +29,9 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            this.Close();
             OfficerHomepage officerHomepage = new OfficerHomepage();
             officerHomepage.Show();
+            this.Close();
         }
 
         private void btnGorevler_Click(object sender, EventArgs e)

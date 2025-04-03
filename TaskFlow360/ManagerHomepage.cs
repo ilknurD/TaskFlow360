@@ -74,24 +74,24 @@ namespace TaskFlow360
         private void OrnekVerileriYukle()
         {
             // Bekleyen çağrılar için örnek veriler
-            bekleyenCagrilarDGV.Rows.Add("#2458", "Rapor oluşturma sorunu", "Teknik", "Yüksek");
-            bekleyenCagrilarDGV.Rows.Add("#2459", "Yeni müşteri kaydı hatası", "Yazılım", "Orta");
-            bekleyenCagrilarDGV.Rows.Add("#2460", "Mail sistemi bağlantı sorunu", "Altyapı", "Normal");
-            bekleyenCagrilarDGV.Rows.Add("#2461", "Fatura oluşturma problemi", "Destek", "Orta");
+            bekleyenCagrilarDGV.Rows.Add("#2458", "Rapor oluşturma sorunu", "Teknik", "Yüksek","Bekleniyor");
+            bekleyenCagrilarDGV.Rows.Add("#2459", "Yeni müşteri kaydı hatası", "Yazılım", "Orta", "Bekleniyor");
+            bekleyenCagrilarDGV.Rows.Add("#2460", "Mail sistemi bağlantı sorunu", "Altyapı", "Normal", "Bekleniyor");
+            bekleyenCagrilarDGV.Rows.Add("#2461", "Fatura oluşturma problemi", "Destek", "Orta", "Bekleniyor");
 
-            // Aciliyet hücrelerine renk verme
+            // oncelik hücrelerine renk verme
             foreach (DataGridViewRow row in bekleyenCagrilarDGV.Rows)
             {
-                string aciliyet = row.Cells["aciliyet"].Value.ToString();
-                if (aciliyet == "Yüksek")
-                    row.Cells["aciliyet"].Style.BackColor = ColorTranslator.FromHtml("#f85c5c");
-                else if (aciliyet == "Orta")
-                    row.Cells["aciliyet"].Style.BackColor = ColorTranslator.FromHtml("#f0ad4e");
+                string oncelik = row.Cells["oncelik"].Value.ToString();
+                if (oncelik == "Yüksek")
+                    row.Cells["oncelik"].Style.BackColor = ColorTranslator.FromHtml("#f85c5c");
+                else if (oncelik == "Orta")
+                    row.Cells["oncelik"].Style.BackColor = ColorTranslator.FromHtml("#f0ad4e");
                 else
-                    row.Cells["aciliyet"].Style.BackColor = ColorTranslator.FromHtml("#63c966");
+                    row.Cells["oncelik"].Style.BackColor = ColorTranslator.FromHtml("#63c966");
 
-                row.Cells["aciliyet"].Style.ForeColor = Color.White;
-                row.Cells["aciliyet"].Style.Font = new Font("Arial", 10, FontStyle.Bold);
+                row.Cells["oncelik"].Style.ForeColor = Color.White;
+                row.Cells["oncelik"].Style.Font = new Font("Arial", 10, FontStyle.Bold);
                 row.Cells["ataButon"].Style.BackColor = ColorTranslator.FromHtml("#5d4e9d");
                 row.Cells["ataButon"].Style.ForeColor = Color.White;
             }
@@ -349,6 +349,42 @@ namespace TaskFlow360
         }
 
         private void gecikenKutu_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnAnasayfa_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            ManagerHomepage managerHomepage = new ManagerHomepage();
+            managerHomepage.Show();
+        }
+
+        private void btnGorevler_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            ManagerTasks managerTasks = new ManagerTasks();
+            managerTasks.Show();
+        }
+
+        private void btnProfil_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            ManagerProfile manageProfile = new ManagerProfile();
+            manageProfile.Show();
+        }
+
+        private void btnRaporlar_Click(object sender, EventArgs e)
         {
 
         }

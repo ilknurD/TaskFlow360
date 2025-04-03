@@ -78,23 +78,26 @@ namespace TaskFlow360
 
         private void button1_Click(object sender, EventArgs e)
         {
-            String mail = txtMail.Text;
-            String password = txtPassword.Text;
-            Baglanti baglanti = new Baglanti();
-            baglanti.BaglantiAc();
-            KullaniciGiris kullaniciGiris = new KullaniciGiris(baglanti);
-            bool dogruMu = kullaniciGiris.GirisDogrula(mail, password);
-            if (dogruMu)
-            {
-                MessageBox.Show("Giriş Başarılı");
-                OfficerHomepage officerHomepage = new OfficerHomepage();
-                this.Hide();
-                officerHomepage.Show();
-            }
-            else
-            {
-                MessageBox.Show("Mail veya şifre hatalı!");
-            }
+            //String mail = txtMail.Text;
+            //String password = txtPassword.Text;
+            //Baglanti baglanti = new Baglanti();
+            //baglanti.BaglantiAc();
+            //KullaniciGiris kullaniciGiris = new KullaniciGiris(baglanti);
+            //bool dogruMu = kullaniciGiris.GirisDogrula(mail, password);
+            //if (dogruMu)
+            //{
+            //    MessageBox.Show("Giriş Başarılı");
+            //    OfficerHomepage officerHomepage = new OfficerHomepage();
+            //    this.Hide();
+            //    officerHomepage.Show();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Mail veya şifre hatalı!");
+            //}
+            this.Hide();
+            ManagerHomepage managerHomepage = new ManagerHomepage();
+            managerHomepage.Show();
         }
 
         private void txtUsername_TextChanged(object sender, EventArgs e)

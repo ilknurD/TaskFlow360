@@ -86,6 +86,7 @@
             this.btnRaporlar.Text = "Raporlar";
             this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnRaporlar.UseVisualStyleBackColor = false;
+            this.btnRaporlar.Click += new System.EventHandler(this.btnRaporlar_Click);
             // 
             // btnCikis
             // 
@@ -120,6 +121,7 @@
             this.btnGorevler.Text = "Görevler";
             this.btnGorevler.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGorevler.UseVisualStyleBackColor = false;
+            this.btnGorevler.Click += new System.EventHandler(this.btnGorevler_Click);
             // 
             // btnProfil
             // 
@@ -137,6 +139,7 @@
             this.btnProfil.Text = "Profil";
             this.btnProfil.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnProfil.UseVisualStyleBackColor = false;
+            this.btnProfil.Click += new System.EventHandler(this.btnProfil_Click);
             // 
             // btnAnasayfa
             // 

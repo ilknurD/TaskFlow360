@@ -28,23 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerHomepage));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.ikonekipYonetim = new System.Windows.Forms.PictureBox();
             this.btnEkipYonetimi = new System.Windows.Forms.Button();
-            this.ikonCikis = new System.Windows.Forms.PictureBox();
-            this.ikonRaporlar = new System.Windows.Forms.PictureBox();
             this.btnRaporlar = new System.Windows.Forms.Button();
-            this.ikonProfil = new System.Windows.Forms.PictureBox();
-            this.ikonGorevler = new System.Windows.Forms.PictureBox();
-            this.ikonAnasayfa = new System.Windows.Forms.PictureBox();
             this.btnCikis = new System.Windows.Forms.Button();
             this.btnGorevler = new System.Windows.Forms.Button();
             this.btnProfil = new System.Windows.Forms.Button();
             this.btnAnasayfa = new System.Windows.Forms.Button();
-            this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.lblHosgeldiniz = new System.Windows.Forms.Label();
@@ -52,11 +45,6 @@
             this.PnlGorevler = new System.Windows.Forms.FlowLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.bekleyenCagrilarDGV = new System.Windows.Forms.DataGridView();
-            this.cagriId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.baslik = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.kategori = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.aciliyet = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ataButon = new System.Windows.Forms.DataGridViewButtonColumn();
             this.icerikPanel = new System.Windows.Forms.Panel();
             this.ekipUyeleriDGV = new System.Windows.Forms.DataGridView();
             this.calisan = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -84,14 +72,22 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.cagriId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.baslik = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.kategori = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.oncelik = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.durum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ataButon = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.ikonekipYonetim = new System.Windows.Forms.PictureBox();
+            this.ikonCikis = new System.Windows.Forms.PictureBox();
+            this.ikonRaporlar = new System.Windows.Forms.PictureBox();
+            this.ikonProfil = new System.Windows.Forms.PictureBox();
+            this.ikonGorevler = new System.Windows.Forms.PictureBox();
+            this.ikonAnasayfa = new System.Windows.Forms.PictureBox();
+            this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonekipYonetim)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonProfil)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).BeginInit();
             this.panel2.SuspendLayout();
             this.PnlGorevler.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bekleyenCagrilarDGV)).BeginInit();
@@ -102,6 +98,15 @@
             this.tamamlananKutu.SuspendLayout();
             this.devamEdenKutu.SuspendLayout();
             this.gecikenKutu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonekipYonetim)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonProfil)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -126,17 +131,6 @@
             this.panel1.Size = new System.Drawing.Size(295, 1102);
             this.panel1.TabIndex = 10;
             // 
-            // ikonekipYonetim
-            // 
-            this.ikonekipYonetim.BackColor = System.Drawing.Color.Transparent;
-            this.ikonekipYonetim.Image = ((System.Drawing.Image)(resources.GetObject("ikonekipYonetim.Image")));
-            this.ikonekipYonetim.Location = new System.Drawing.Point(25, 437);
-            this.ikonekipYonetim.Name = "ikonekipYonetim";
-            this.ikonekipYonetim.Size = new System.Drawing.Size(40, 40);
-            this.ikonekipYonetim.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonekipYonetim.TabIndex = 13;
-            this.ikonekipYonetim.TabStop = false;
-            // 
             // btnEkipYonetimi
             // 
             this.btnEkipYonetimi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
@@ -154,28 +148,6 @@
             this.btnEkipYonetimi.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnEkipYonetimi.UseVisualStyleBackColor = false;
             // 
-            // ikonCikis
-            // 
-            this.ikonCikis.BackColor = System.Drawing.Color.Transparent;
-            this.ikonCikis.Image = ((System.Drawing.Image)(resources.GetObject("ikonCikis.Image")));
-            this.ikonCikis.Location = new System.Drawing.Point(25, 977);
-            this.ikonCikis.Name = "ikonCikis";
-            this.ikonCikis.Size = new System.Drawing.Size(40, 40);
-            this.ikonCikis.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonCikis.TabIndex = 11;
-            this.ikonCikis.TabStop = false;
-            // 
-            // ikonRaporlar
-            // 
-            this.ikonRaporlar.BackColor = System.Drawing.Color.Transparent;
-            this.ikonRaporlar.Image = ((System.Drawing.Image)(resources.GetObject("ikonRaporlar.Image")));
-            this.ikonRaporlar.Location = new System.Drawing.Point(25, 378);
-            this.ikonRaporlar.Name = "ikonRaporlar";
-            this.ikonRaporlar.Size = new System.Drawing.Size(40, 40);
-            this.ikonRaporlar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonRaporlar.TabIndex = 10;
-            this.ikonRaporlar.TabStop = false;
-            // 
             // btnRaporlar
             // 
             this.btnRaporlar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
@@ -192,39 +164,7 @@
             this.btnRaporlar.Text = "Raporlar";
             this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnRaporlar.UseVisualStyleBackColor = false;
-            // 
-            // ikonProfil
-            // 
-            this.ikonProfil.BackColor = System.Drawing.Color.Transparent;
-            this.ikonProfil.Image = ((System.Drawing.Image)(resources.GetObject("ikonProfil.Image")));
-            this.ikonProfil.Location = new System.Drawing.Point(25, 259);
-            this.ikonProfil.Name = "ikonProfil";
-            this.ikonProfil.Size = new System.Drawing.Size(40, 40);
-            this.ikonProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonProfil.TabIndex = 8;
-            this.ikonProfil.TabStop = false;
-            // 
-            // ikonGorevler
-            // 
-            this.ikonGorevler.BackColor = System.Drawing.Color.Transparent;
-            this.ikonGorevler.Image = ((System.Drawing.Image)(resources.GetObject("ikonGorevler.Image")));
-            this.ikonGorevler.Location = new System.Drawing.Point(25, 319);
-            this.ikonGorevler.Name = "ikonGorevler";
-            this.ikonGorevler.Size = new System.Drawing.Size(40, 40);
-            this.ikonGorevler.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonGorevler.TabIndex = 7;
-            this.ikonGorevler.TabStop = false;
-            // 
-            // ikonAnasayfa
-            // 
-            this.ikonAnasayfa.BackColor = System.Drawing.Color.Transparent;
-            this.ikonAnasayfa.Image = ((System.Drawing.Image)(resources.GetObject("ikonAnasayfa.Image")));
-            this.ikonAnasayfa.Location = new System.Drawing.Point(25, 200);
-            this.ikonAnasayfa.Name = "ikonAnasayfa";
-            this.ikonAnasayfa.Size = new System.Drawing.Size(40, 40);
-            this.ikonAnasayfa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonAnasayfa.TabIndex = 6;
-            this.ikonAnasayfa.TabStop = false;
+            this.btnRaporlar.Click += new System.EventHandler(this.btnRaporlar_Click);
             // 
             // btnCikis
             // 
@@ -259,6 +199,7 @@
             this.btnGorevler.Text = "Görevler";
             this.btnGorevler.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGorevler.UseVisualStyleBackColor = false;
+            this.btnGorevler.Click += new System.EventHandler(this.btnGorevler_Click);
             // 
             // btnProfil
             // 
@@ -276,6 +217,7 @@
             this.btnProfil.Text = "Profil";
             this.btnProfil.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnProfil.UseVisualStyleBackColor = false;
+            this.btnProfil.Click += new System.EventHandler(this.btnProfil_Click);
             // 
             // btnAnasayfa
             // 
@@ -293,17 +235,7 @@
             this.btnAnasayfa.Text = "Anasayfa";
             this.btnAnasayfa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAnasayfa.UseVisualStyleBackColor = false;
-            // 
-            // pctrLogo
-            // 
-            this.pctrLogo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pctrLogo.Image = ((System.Drawing.Image)(resources.GetObject("pctrLogo.Image")));
-            this.pctrLogo.Location = new System.Drawing.Point(0, 0);
-            this.pctrLogo.Name = "pctrLogo";
-            this.pctrLogo.Size = new System.Drawing.Size(295, 188);
-            this.pctrLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pctrLogo.TabIndex = 0;
-            this.pctrLogo.TabStop = false;
+            this.btnAnasayfa.Click += new System.EventHandler(this.btnAnasayfa_Click);
             // 
             // panel2
             // 
@@ -375,21 +307,22 @@
             this.bekleyenCagrilarDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.bekleyenCagrilarDGV.BackgroundColor = System.Drawing.Color.White;
             this.bekleyenCagrilarDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.bekleyenCagrilarDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.bekleyenCagrilarDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.bekleyenCagrilarDGV.ColumnHeadersHeight = 35;
             this.bekleyenCagrilarDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.bekleyenCagrilarDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cagriId,
             this.baslik,
             this.kategori,
-            this.aciliyet,
+            this.oncelik,
+            this.durum,
             this.ataButon});
             this.bekleyenCagrilarDGV.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.bekleyenCagrilarDGV.Location = new System.Drawing.Point(3, 3);
@@ -402,43 +335,6 @@
             this.bekleyenCagrilarDGV.Size = new System.Drawing.Size(1244, 304);
             this.bekleyenCagrilarDGV.TabIndex = 16;
             this.bekleyenCagrilarDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.bekleyenCagrilarDGV_CellClick);
-            // 
-            // cagriId
-            // 
-            this.cagriId.HeaderText = "Çağrı ID";
-            this.cagriId.MinimumWidth = 6;
-            this.cagriId.Name = "cagriId";
-            this.cagriId.ReadOnly = true;
-            this.cagriId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.cagriId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // baslik
-            // 
-            this.baslik.HeaderText = "Başlık";
-            this.baslik.MinimumWidth = 6;
-            this.baslik.Name = "baslik";
-            this.baslik.ReadOnly = true;
-            // 
-            // kategori
-            // 
-            this.kategori.HeaderText = "Kategori";
-            this.kategori.MinimumWidth = 6;
-            this.kategori.Name = "kategori";
-            this.kategori.ReadOnly = true;
-            // 
-            // aciliyet
-            // 
-            this.aciliyet.HeaderText = "Aciliyet";
-            this.aciliyet.MinimumWidth = 6;
-            this.aciliyet.Name = "aciliyet";
-            this.aciliyet.ReadOnly = true;
-            // 
-            // ataButon
-            // 
-            this.ataButon.HeaderText = "İşlem";
-            this.ataButon.MinimumWidth = 6;
-            this.ataButon.Name = "ataButon";
-            this.ataButon.ReadOnly = true;
             // 
             // icerikPanel
             // 
@@ -458,14 +354,14 @@
             this.ekipUyeleriDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ekipUyeleriDGV.BackgroundColor = System.Drawing.Color.White;
             this.ekipUyeleriDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ekipUyeleriDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ekipUyeleriDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.ekipUyeleriDGV.ColumnHeadersHeight = 35;
             this.ekipUyeleriDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ekipUyeleriDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -751,11 +647,158 @@
             this.label16.TabIndex = 19;
             this.label16.Text = "Ekip Performansı";
             // 
+            // cagriId
+            // 
+            this.cagriId.HeaderText = "Çağrı ID";
+            this.cagriId.MinimumWidth = 6;
+            this.cagriId.Name = "cagriId";
+            this.cagriId.ReadOnly = true;
+            this.cagriId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.cagriId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // baslik
+            // 
+            this.baslik.HeaderText = "Başlık";
+            this.baslik.MinimumWidth = 6;
+            this.baslik.Name = "baslik";
+            this.baslik.ReadOnly = true;
+            // 
+            // kategori
+            // 
+            this.kategori.HeaderText = "Kategori";
+            this.kategori.MinimumWidth = 6;
+            this.kategori.Name = "kategori";
+            this.kategori.ReadOnly = true;
+            // 
+            // oncelik
+            // 
+            this.oncelik.HeaderText = "Öncelik";
+            this.oncelik.MinimumWidth = 6;
+            this.oncelik.Name = "oncelik";
+            this.oncelik.ReadOnly = true;
+            // 
+            // durum
+            // 
+            this.durum.HeaderText = "Durum";
+            this.durum.MinimumWidth = 6;
+            this.durum.Name = "durum";
+            this.durum.ReadOnly = true;
+            // 
+            // ataButon
+            // 
+            this.ataButon.HeaderText = "İşlem";
+            this.ataButon.MinimumWidth = 6;
+            this.ataButon.Name = "ataButon";
+            this.ataButon.ReadOnly = true;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(1834, 12);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 21;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(1873, 12);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 20;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            // 
+            // ikonekipYonetim
+            // 
+            this.ikonekipYonetim.BackColor = System.Drawing.Color.Transparent;
+            this.ikonekipYonetim.Image = ((System.Drawing.Image)(resources.GetObject("ikonekipYonetim.Image")));
+            this.ikonekipYonetim.Location = new System.Drawing.Point(25, 437);
+            this.ikonekipYonetim.Name = "ikonekipYonetim";
+            this.ikonekipYonetim.Size = new System.Drawing.Size(40, 40);
+            this.ikonekipYonetim.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonekipYonetim.TabIndex = 13;
+            this.ikonekipYonetim.TabStop = false;
+            // 
+            // ikonCikis
+            // 
+            this.ikonCikis.BackColor = System.Drawing.Color.Transparent;
+            this.ikonCikis.Image = ((System.Drawing.Image)(resources.GetObject("ikonCikis.Image")));
+            this.ikonCikis.Location = new System.Drawing.Point(25, 977);
+            this.ikonCikis.Name = "ikonCikis";
+            this.ikonCikis.Size = new System.Drawing.Size(40, 40);
+            this.ikonCikis.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonCikis.TabIndex = 11;
+            this.ikonCikis.TabStop = false;
+            // 
+            // ikonRaporlar
+            // 
+            this.ikonRaporlar.BackColor = System.Drawing.Color.Transparent;
+            this.ikonRaporlar.Image = ((System.Drawing.Image)(resources.GetObject("ikonRaporlar.Image")));
+            this.ikonRaporlar.Location = new System.Drawing.Point(25, 378);
+            this.ikonRaporlar.Name = "ikonRaporlar";
+            this.ikonRaporlar.Size = new System.Drawing.Size(40, 40);
+            this.ikonRaporlar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonRaporlar.TabIndex = 10;
+            this.ikonRaporlar.TabStop = false;
+            // 
+            // ikonProfil
+            // 
+            this.ikonProfil.BackColor = System.Drawing.Color.Transparent;
+            this.ikonProfil.Image = ((System.Drawing.Image)(resources.GetObject("ikonProfil.Image")));
+            this.ikonProfil.Location = new System.Drawing.Point(25, 259);
+            this.ikonProfil.Name = "ikonProfil";
+            this.ikonProfil.Size = new System.Drawing.Size(40, 40);
+            this.ikonProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonProfil.TabIndex = 8;
+            this.ikonProfil.TabStop = false;
+            // 
+            // ikonGorevler
+            // 
+            this.ikonGorevler.BackColor = System.Drawing.Color.Transparent;
+            this.ikonGorevler.Image = ((System.Drawing.Image)(resources.GetObject("ikonGorevler.Image")));
+            this.ikonGorevler.Location = new System.Drawing.Point(25, 319);
+            this.ikonGorevler.Name = "ikonGorevler";
+            this.ikonGorevler.Size = new System.Drawing.Size(40, 40);
+            this.ikonGorevler.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonGorevler.TabIndex = 7;
+            this.ikonGorevler.TabStop = false;
+            // 
+            // ikonAnasayfa
+            // 
+            this.ikonAnasayfa.BackColor = System.Drawing.Color.Transparent;
+            this.ikonAnasayfa.Image = ((System.Drawing.Image)(resources.GetObject("ikonAnasayfa.Image")));
+            this.ikonAnasayfa.Location = new System.Drawing.Point(25, 200);
+            this.ikonAnasayfa.Name = "ikonAnasayfa";
+            this.ikonAnasayfa.Size = new System.Drawing.Size(40, 40);
+            this.ikonAnasayfa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonAnasayfa.TabIndex = 6;
+            this.ikonAnasayfa.TabStop = false;
+            // 
+            // pctrLogo
+            // 
+            this.pctrLogo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pctrLogo.Image = ((System.Drawing.Image)(resources.GetObject("pctrLogo.Image")));
+            this.pctrLogo.Location = new System.Drawing.Point(0, 0);
+            this.pctrLogo.Name = "pctrLogo";
+            this.pctrLogo.Size = new System.Drawing.Size(295, 188);
+            this.pctrLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrLogo.TabIndex = 0;
+            this.pctrLogo.TabStop = false;
+            // 
             // ManagerHomepage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1920, 1102);
+            this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.panel3);
@@ -772,13 +815,6 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.ManagerHomepage_Load);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ikonekipYonetim)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonProfil)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.PnlGorevler.ResumeLayout(false);
@@ -794,6 +830,15 @@
             this.devamEdenKutu.PerformLayout();
             this.gecikenKutu.ResumeLayout(false);
             this.gecikenKutu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonekipYonetim)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonProfil)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -822,11 +867,6 @@
         private System.Windows.Forms.FlowLayoutPanel PnlGorevler;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView bekleyenCagrilarDGV;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cagriId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn baslik;
-        private System.Windows.Forms.DataGridViewTextBoxColumn kategori;
-        private System.Windows.Forms.DataGridViewTextBoxColumn aciliyet;
-        private System.Windows.Forms.DataGridViewButtonColumn ataButon;
         private System.Windows.Forms.Panel icerikPanel;
         private System.Windows.Forms.DataGridView ekipUyeleriDGV;
         private System.Windows.Forms.DataGridViewTextBoxColumn calisan;
@@ -854,5 +894,13 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cagriId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn baslik;
+        private System.Windows.Forms.DataGridViewTextBoxColumn kategori;
+        private System.Windows.Forms.DataGridViewTextBoxColumn oncelik;
+        private System.Windows.Forms.DataGridViewTextBoxColumn durum;
+        private System.Windows.Forms.DataGridViewButtonColumn ataButon;
     }
 }
