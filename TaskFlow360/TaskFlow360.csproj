@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssistantHomepage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AssistantHomepage.Designer.cs">
+      <DependentUpon>AssistantHomepage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Baglanti.cs" />
     <Compile Include="Gorev.cs" />
     <Compile Include="KullaniciGiris.cs" />
@@ -105,6 +111,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AssistantHomepage.resx">
+      <DependentUpon>AssistantHomepage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>

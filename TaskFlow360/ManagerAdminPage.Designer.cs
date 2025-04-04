@@ -50,20 +50,20 @@
             this.btnAnasayfa = new System.Windows.Forms.Button();
             this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.aktifLbl = new System.Windows.Forms.Label();
-            this.tamamlananLbl = new System.Windows.Forms.Label();
-            this.SLAlbl = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.aktifSonuc = new System.Windows.Forms.Label();
-            this.tamamlananSonuc = new System.Windows.Forms.Label();
-            this.SLASonuc = new System.Windows.Forms.Label();
+            this.aktifLbl = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.GecikenSonuc = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.SLASonuc = new System.Windows.Forms.Label();
+            this.SLAlbl = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.tamamlananSonuc = new System.Windows.Forms.Label();
+            this.tamamlananLbl = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.ekibimDGV = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
+            this.ekibimDGV = new System.Windows.Forms.DataGridView();
             this.calisan = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.aktifGorevler = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buguntamamlanan = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -328,38 +328,16 @@
             this.panel2.Size = new System.Drawing.Size(300, 106);
             this.panel2.TabIndex = 25;
             // 
-            // panel3
+            // aktifSonuc
             // 
-            this.panel3.BackColor = System.Drawing.Color.White;
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.GecikenSonuc);
-            this.panel3.Controls.Add(this.label4);
-            this.panel3.Location = new System.Drawing.Point(1509, 70);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(300, 106);
-            this.panel3.TabIndex = 26;
-            // 
-            // panel4
-            // 
-            this.panel4.BackColor = System.Drawing.Color.White;
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.SLASonuc);
-            this.panel4.Controls.Add(this.SLAlbl);
-            this.panel4.Location = new System.Drawing.Point(1159, 70);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(300, 106);
-            this.panel4.TabIndex = 26;
-            // 
-            // panel5
-            // 
-            this.panel5.BackColor = System.Drawing.Color.White;
-            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Controls.Add(this.tamamlananSonuc);
-            this.panel5.Controls.Add(this.tamamlananLbl);
-            this.panel5.Location = new System.Drawing.Point(805, 70);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(300, 106);
-            this.panel5.TabIndex = 26;
+            this.aktifSonuc.AutoSize = true;
+            this.aktifSonuc.Font = new System.Drawing.Font("Arial Narrow", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.aktifSonuc.ForeColor = System.Drawing.Color.Green;
+            this.aktifSonuc.Location = new System.Drawing.Point(129, 55);
+            this.aktifSonuc.Name = "aktifSonuc";
+            this.aktifSonuc.Size = new System.Drawing.Size(47, 40);
+            this.aktifSonuc.TabIndex = 1;
+            this.aktifSonuc.Text = "12";
             // 
             // aktifLbl
             // 
@@ -372,27 +350,27 @@
             this.aktifLbl.Text = "Aktif Görevler";
             this.aktifLbl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // tamamlananLbl
+            // panel3
             // 
-            this.tamamlananLbl.AutoSize = true;
-            this.tamamlananLbl.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.tamamlananLbl.Location = new System.Drawing.Point(50, 17);
-            this.tamamlananLbl.Name = "tamamlananLbl";
-            this.tamamlananLbl.Size = new System.Drawing.Size(202, 23);
-            this.tamamlananLbl.TabIndex = 1;
-            this.tamamlananLbl.Text = "Tamamlanan Görevler";
-            this.tamamlananLbl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.panel3.BackColor = System.Drawing.Color.White;
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.GecikenSonuc);
+            this.panel3.Controls.Add(this.label4);
+            this.panel3.Location = new System.Drawing.Point(1509, 70);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(300, 106);
+            this.panel3.TabIndex = 26;
             // 
-            // SLAlbl
+            // GecikenSonuc
             // 
-            this.SLAlbl.AutoSize = true;
-            this.SLAlbl.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.SLAlbl.Location = new System.Drawing.Point(95, 17);
-            this.SLAlbl.Name = "SLAlbl";
-            this.SLAlbl.Size = new System.Drawing.Size(111, 23);
-            this.SLAlbl.TabIndex = 1;
-            this.SLAlbl.Text = "SLA Uyumu";
-            this.SLAlbl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.GecikenSonuc.AutoSize = true;
+            this.GecikenSonuc.Font = new System.Drawing.Font("Arial Narrow", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.GecikenSonuc.ForeColor = System.Drawing.Color.Crimson;
+            this.GecikenSonuc.Location = new System.Drawing.Point(131, 55);
+            this.GecikenSonuc.Name = "GecikenSonuc";
+            this.GecikenSonuc.Size = new System.Drawing.Size(32, 40);
+            this.GecikenSonuc.TabIndex = 2;
+            this.GecikenSonuc.Text = "3";
             // 
             // label4
             // 
@@ -405,27 +383,16 @@
             this.label4.Text = "Geciken Görevler";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // aktifSonuc
+            // panel4
             // 
-            this.aktifSonuc.AutoSize = true;
-            this.aktifSonuc.Font = new System.Drawing.Font("Arial Narrow", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.aktifSonuc.ForeColor = System.Drawing.Color.Green;
-            this.aktifSonuc.Location = new System.Drawing.Point(129, 55);
-            this.aktifSonuc.Name = "aktifSonuc";
-            this.aktifSonuc.Size = new System.Drawing.Size(49, 40);
-            this.aktifSonuc.TabIndex = 1;
-            this.aktifSonuc.Text = "12";
-            // 
-            // tamamlananSonuc
-            // 
-            this.tamamlananSonuc.AutoSize = true;
-            this.tamamlananSonuc.Font = new System.Drawing.Font("Arial Narrow", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.tamamlananSonuc.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.tamamlananSonuc.Location = new System.Drawing.Point(134, 55);
-            this.tamamlananSonuc.Name = "tamamlananSonuc";
-            this.tamamlananSonuc.Size = new System.Drawing.Size(33, 40);
-            this.tamamlananSonuc.TabIndex = 2;
-            this.tamamlananSonuc.Text = "8";
+            this.panel4.BackColor = System.Drawing.Color.White;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.SLASonuc);
+            this.panel4.Controls.Add(this.SLAlbl);
+            this.panel4.Location = new System.Drawing.Point(1159, 70);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(300, 106);
+            this.panel4.TabIndex = 26;
             // 
             // SLASonuc
             // 
@@ -434,20 +401,53 @@
             this.SLASonuc.ForeColor = System.Drawing.Color.Orange;
             this.SLASonuc.Location = new System.Drawing.Point(118, 55);
             this.SLASonuc.Name = "SLASonuc";
-            this.SLASonuc.Size = new System.Drawing.Size(74, 40);
+            this.SLASonuc.Size = new System.Drawing.Size(71, 40);
             this.SLASonuc.TabIndex = 2;
             this.SLASonuc.Text = "85%";
             // 
-            // GecikenSonuc
+            // SLAlbl
             // 
-            this.GecikenSonuc.AutoSize = true;
-            this.GecikenSonuc.Font = new System.Drawing.Font("Arial Narrow", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.GecikenSonuc.ForeColor = System.Drawing.Color.Crimson;
-            this.GecikenSonuc.Location = new System.Drawing.Point(131, 55);
-            this.GecikenSonuc.Name = "GecikenSonuc";
-            this.GecikenSonuc.Size = new System.Drawing.Size(33, 40);
-            this.GecikenSonuc.TabIndex = 2;
-            this.GecikenSonuc.Text = "3";
+            this.SLAlbl.AutoSize = true;
+            this.SLAlbl.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.SLAlbl.Location = new System.Drawing.Point(95, 17);
+            this.SLAlbl.Name = "SLAlbl";
+            this.SLAlbl.Size = new System.Drawing.Size(111, 23);
+            this.SLAlbl.TabIndex = 1;
+            this.SLAlbl.Text = "SLA Uyumu";
+            this.SLAlbl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.White;
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.tamamlananSonuc);
+            this.panel5.Controls.Add(this.tamamlananLbl);
+            this.panel5.Location = new System.Drawing.Point(805, 70);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(300, 106);
+            this.panel5.TabIndex = 26;
+            // 
+            // tamamlananSonuc
+            // 
+            this.tamamlananSonuc.AutoSize = true;
+            this.tamamlananSonuc.Font = new System.Drawing.Font("Arial Narrow", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.tamamlananSonuc.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.tamamlananSonuc.Location = new System.Drawing.Point(134, 55);
+            this.tamamlananSonuc.Name = "tamamlananSonuc";
+            this.tamamlananSonuc.Size = new System.Drawing.Size(32, 40);
+            this.tamamlananSonuc.TabIndex = 2;
+            this.tamamlananSonuc.Text = "8";
+            // 
+            // tamamlananLbl
+            // 
+            this.tamamlananLbl.AutoSize = true;
+            this.tamamlananLbl.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.tamamlananLbl.Location = new System.Drawing.Point(50, 17);
+            this.tamamlananLbl.Name = "tamamlananLbl";
+            this.tamamlananLbl.Size = new System.Drawing.Size(202, 23);
+            this.tamamlananLbl.TabIndex = 1;
+            this.tamamlananLbl.Text = "Tamamlanan Görevler";
+            this.tamamlananLbl.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // panel6
             // 
@@ -458,6 +458,17 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(1680, 843);
             this.panel6.TabIndex = 27;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(8, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(123, 23);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "Ekip Üyeleri";
             // 
             // ekibimDGV
             // 
@@ -490,7 +501,7 @@
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Transparent;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.ekibimDGV.DefaultCellStyle = dataGridViewCellStyle2;
@@ -517,17 +528,6 @@
             this.ekibimDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ekibimDGV.Size = new System.Drawing.Size(1665, 802);
             this.ekibimDGV.TabIndex = 18;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(8, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(123, 23);
-            this.label1.TabIndex = 19;
-            this.label1.Text = "Ekip Üyeleri";
             // 
             // calisan
             // 

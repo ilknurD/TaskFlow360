@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace TaskFlow360
 {
@@ -149,82 +150,54 @@ namespace TaskFlow360
             flowLayoutPanel1.WrapContents = false;
             flowLayoutPanel1.AutoScroll = true;
 
-            Size panelBoyut = new Size(270, 100);
-            Padding panelMargin = new Padding(15, 0, 15, 0); // Sol, üst, sağ, alt boşluk
+            Size panelBoyut = new Size(200, 100); // Panel boyutları
+            Padding panelMargin = new Padding(15, 0, 15, 0); // Panel aralarındaki mesafe
 
-            // Tamamlanan Görevler Kutucuğu
-            Panel tamamlananPanel = new Panel();
-            tamamlananPanel.Size = panelBoyut;
-            tamamlananPanel.BackColor = Color.LightGreen;
-            tamamlananPanel.Margin = panelMargin; // Panel aralarındaki mesafe
-            Label lblTamamlananSayisi = new Label();
-            lblTamamlananSayisi.Text = "24";
-            lblTamamlananSayisi.Font = new Font("Arial", 18, FontStyle.Bold);
-            lblTamamlananSayisi.Location = new Point(50, 20);
-            Label lblTamamlanan = new Label();
-            lblTamamlanan.Text = "Tamamlanan";
-            lblTamamlanan.Location = new Point(30, 60);
-            lblTamamlanan.Font = new Font("Arial", 10);
+            void PanelEkle(Color arkaPlan, string sayi, string metin)
+            {
+                Panel panel = new Panel
+                {
+                    Size = panelBoyut,
+                    BackColor = arkaPlan,
+                    Margin = panelMargin
+                };
 
-            // Devam Eden Görevler Kutucuğu
-            Panel devamEdenPanel = new Panel();
-            devamEdenPanel.Size = panelBoyut;
-            devamEdenPanel.BackColor = Color.LightSalmon;
-            devamEdenPanel.Margin = panelMargin;
-            Label lblDevamEdenSayisi = new Label();
-            lblDevamEdenSayisi.Text = "12";
-            lblDevamEdenSayisi.Font = new Font("Arial", 18, FontStyle.Bold);
-            lblDevamEdenSayisi.Location = new Point(50, 20);
-            Label lblDevamEden = new Label();
-            lblDevamEden.Text = "Devam Eden";
-            lblDevamEden.Location = new Point(30, 60);
-            lblDevamEden.Font = new Font("Arial", 10);
+                Label lblSayi = new Label
+                {
+                    Text = sayi,
+                    Font = new Font("Arial", 18, FontStyle.Bold),
+                    AutoSize = false,
+                    Size = new Size(panel.Width, 30), // Genişlik panel kadar
+                    TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+                };
 
-            // Geciken Görevler Kutucuğu
-            Panel gecikenPanel = new Panel();
-            gecikenPanel.Size = panelBoyut;
-            gecikenPanel.BackColor = Color.LightCoral;
-            gecikenPanel.Margin = panelMargin;
-            Label lblGecikenSayisi = new Label();
-            lblGecikenSayisi.Text = "3";
-            lblGecikenSayisi.Font = new Font("Arial", 18, FontStyle.Bold);
-            lblGecikenSayisi.Location = new Point(50, 20);
-            Label lblGeciken = new Label();
-            lblGeciken.Text = "Geciken";
-            lblGeciken.Location = new Point(50, 60);
-            lblGeciken.Font = new Font("Arial", 10);
+                Label lblMetin = new Label
+                {
+                    Text = metin,
+                    Font = new Font("Arial", 10),
+                    AutoSize = false,
+                    Size = new Size(panel.Width, 30), // Genişlik panel kadar
+                    TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+                };
 
-            // Toplam Görevler Kutucuğu
-            Panel toplamPanel = new Panel();
-            toplamPanel.Size = panelBoyut;
-            toplamPanel.BackColor = Color.LightBlue;
-            toplamPanel.Margin = panelMargin;
-            Label lblToplamSayisi = new Label();
-            lblToplamSayisi.Text = "39";
-            lblToplamSayisi.Font = new Font("Arial", 18, FontStyle.Bold);
-            lblToplamSayisi.Location = new Point(50, 20);
-            Label lblToplam = new Label();
-            lblToplam.Text = "Toplam";
-            lblToplam.Location = new Point(50, 60);
-            lblToplam.Font = new Font("Arial", 10);
+                // Label'ları dikey olarak ortalamak için konum ayarla
+                lblSayi.Location = new Point(0, 20);
+                lblMetin.Location = new Point(0, 60);
 
-            // Kutucukları FlowLayoutPanel'e ekleyin
-            tamamlananPanel.Controls.Add(lblTamamlananSayisi);
-            tamamlananPanel.Controls.Add(lblTamamlanan);
-            flowLayoutPanel1.Controls.Add(tamamlananPanel);
+                panel.Controls.Add(lblSayi);
+                panel.Controls.Add(lblMetin);
+                flowLayoutPanel1.Controls.Add(panel);
+            }
 
-            devamEdenPanel.Controls.Add(lblDevamEdenSayisi);
-            devamEdenPanel.Controls.Add(lblDevamEden);
-            flowLayoutPanel1.Controls.Add(devamEdenPanel);
-
-            gecikenPanel.Controls.Add(lblGecikenSayisi);
-            gecikenPanel.Controls.Add(lblGeciken);
-            flowLayoutPanel1.Controls.Add(gecikenPanel);
-
-            toplamPanel.Controls.Add(lblToplamSayisi);
-            toplamPanel.Controls.Add(lblToplam);
-            flowLayoutPanel1.Controls.Add(toplamPanel);
+            // Panelleri ekleyelim
+            PanelEkle(Color.LightBlue, "24", "Tamamlanan");
+            PanelEkle(Color.LightCoral, "12", "Devam Eden");
+            PanelEkle(Color.MediumAquamarine, "3", "Geciken");
+            PanelEkle(Color.Khaki, "39", "Toplam");
         }
+
+
+
 
         private void button5_Click(object sender, EventArgs e)
         {

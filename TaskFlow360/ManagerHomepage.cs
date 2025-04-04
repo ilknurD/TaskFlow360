@@ -365,23 +365,25 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            this.Close();
+            
             ManagerHomepage managerHomepage = new ManagerHomepage();
             managerHomepage.Show();
+            this.Close();
         }
 
         private void btnGorevler_Click(object sender, EventArgs e)
         {
-            this.Close();
             ManagerTasks managerTasks = new ManagerTasks();
             managerTasks.Show();
+            this.Close();
         }
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
-            this.Close();
             ManagerProfile manageProfile = new ManagerProfile();
             manageProfile.Show();
+            this.Close();
+
         }
 
         private void btnRaporlar_Click(object sender, EventArgs e)
@@ -391,9 +393,10 @@ namespace TaskFlow360
 
         private void btnEkipYonetimi_Click(object sender, EventArgs e)
         {
-            this.Close();
             ManagerAdminPage managerAdminPage = new ManagerAdminPage();
             managerAdminPage.Show();
+            this.Close();
+
         }
     }
 }

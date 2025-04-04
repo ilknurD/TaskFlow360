@@ -67,17 +67,12 @@ namespace TaskFlow360
                 else
                     backColor = Color.White; // Varsayılan renk
 
-                // Satırın arka plan rengini ayarlama
                 row.DefaultCellStyle.BackColor = backColor;
-
-                // Seçim sırasında arka plan rengini aynı yapmak için SelectionBackColor ayarlama
                 row.DefaultCellStyle.SelectionBackColor = backColor;
-
-                // Seçim metin rengini siyah yapmak
                 row.DefaultCellStyle.SelectionForeColor = Color.Black;
 
-                btnColumn.DefaultCellStyle.BackColor = backColor;  // Butonun arka plan rengini değiştir
-                btnColumn.DefaultCellStyle.ForeColor = Color.Black;  // Buton yazı rengini değiştir
+                btnColumn.DefaultCellStyle.BackColor = backColor; 
+                btnColumn.DefaultCellStyle.ForeColor = Color.Black; 
             }
         }
 

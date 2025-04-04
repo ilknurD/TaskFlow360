@@ -95,9 +95,9 @@ namespace TaskFlow360
             //{
             //    MessageBox.Show("Mail veya şifre hatalı!");
             //}
+           OfficerHomepage officerHomepage = new OfficerHomepage();
+            officerHomepage.Show();
             this.Hide();
-            ManagerHomepage managerHomepage = new ManagerHomepage();
-            managerHomepage.Show();
         }
 
         private void txtUsername_TextChanged(object sender, EventArgs e)
