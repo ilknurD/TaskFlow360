@@ -59,6 +59,12 @@
       <DependentUpon>AssistantTaskCreationPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Baglanti.cs" />
+    <Compile Include="CallCenterTaskTracking.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CallCenterTaskTracking.Designer.cs">
+      <DependentUpon>CallCenterTaskTracking.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gorev.cs" />
     <Compile Include="KullaniciGiris.cs" />
     <Compile Include="LoginForm.cs">
@@ -122,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AssistantTaskCreationPage.resx">
       <DependentUpon>AssistantTaskCreationPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CallCenterTaskTracking.resx">
+      <DependentUpon>CallCenterTaskTracking.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
