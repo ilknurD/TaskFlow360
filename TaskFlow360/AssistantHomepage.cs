@@ -124,5 +124,11 @@ namespace TaskFlow360
             }
         }
 
+        private void btnCagriOlustur_Click(object sender, EventArgs e)
+        {
+            AssistantTaskCreationPage assistantTaskCreationPage = new AssistantTaskCreationPage();
+            assistantTaskCreationPage.Show();
+            //this.Close();
+        }
     }
 }
