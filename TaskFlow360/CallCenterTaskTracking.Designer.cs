@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CallCenterTaskTracking));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -58,7 +61,7 @@
             this.lblOncelik = new System.Windows.Forms.Label();
             this.lblDurum = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.bekleyenCagrilarDGV = new System.Windows.Forms.DataGridView();
+            this.CagrilarDGV = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -66,6 +69,9 @@
             this.durum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tarih = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ataButon = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.düzenleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.silToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -78,7 +84,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bekleyenCagrilarDGV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CagrilarDGV)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox3
@@ -436,26 +443,26 @@
             this.panel3.Size = new System.Drawing.Size(1665, 68);
             this.panel3.TabIndex = 28;
             // 
-            // bekleyenCagrilarDGV
+            // CagrilarDGV
             // 
-            this.bekleyenCagrilarDGV.AllowUserToAddRows = false;
-            this.bekleyenCagrilarDGV.AllowUserToDeleteRows = false;
-            this.bekleyenCagrilarDGV.AllowUserToResizeColumns = false;
-            this.bekleyenCagrilarDGV.AllowUserToResizeRows = false;
-            this.bekleyenCagrilarDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.bekleyenCagrilarDGV.BackgroundColor = System.Drawing.Color.White;
-            this.bekleyenCagrilarDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.CagrilarDGV.AllowUserToAddRows = false;
+            this.CagrilarDGV.AllowUserToDeleteRows = false;
+            this.CagrilarDGV.AllowUserToResizeColumns = false;
+            this.CagrilarDGV.AllowUserToResizeRows = false;
+            this.CagrilarDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.CagrilarDGV.BackgroundColor = System.Drawing.Color.White;
+            this.CagrilarDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.bekleyenCagrilarDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.bekleyenCagrilarDGV.ColumnHeadersHeight = 35;
-            this.bekleyenCagrilarDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.bekleyenCagrilarDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CagrilarDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.CagrilarDGV.ColumnHeadersHeight = 35;
+            this.CagrilarDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.CagrilarDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
@@ -463,16 +470,33 @@
             this.durum,
             this.tarih,
             this.ataButon});
-            this.bekleyenCagrilarDGV.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.bekleyenCagrilarDGV.Location = new System.Drawing.Point(327, 159);
-            this.bekleyenCagrilarDGV.Name = "bekleyenCagrilarDGV";
-            this.bekleyenCagrilarDGV.ReadOnly = true;
-            this.bekleyenCagrilarDGV.RowHeadersVisible = false;
-            this.bekleyenCagrilarDGV.RowHeadersWidth = 51;
-            this.bekleyenCagrilarDGV.RowTemplate.Height = 24;
-            this.bekleyenCagrilarDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.bekleyenCagrilarDGV.Size = new System.Drawing.Size(1665, 1500);
-            this.bekleyenCagrilarDGV.TabIndex = 29;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.CagrilarDGV.DefaultCellStyle = dataGridViewCellStyle2;
+            this.CagrilarDGV.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.CagrilarDGV.Location = new System.Drawing.Point(327, 159);
+            this.CagrilarDGV.Name = "CagrilarDGV";
+            this.CagrilarDGV.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.CagrilarDGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.CagrilarDGV.RowHeadersVisible = false;
+            this.CagrilarDGV.RowHeadersWidth = 51;
+            this.CagrilarDGV.RowTemplate.Height = 24;
+            this.CagrilarDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.CagrilarDGV.Size = new System.Drawing.Size(1665, 1500);
+            this.CagrilarDGV.TabIndex = 29;
+            this.CagrilarDGV.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CagrilarDGV_MouseDown);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -525,12 +549,33 @@
             this.ataButon.Name = "ataButon";
             this.ataButon.ReadOnly = true;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.düzenleToolStripMenuItem,
+            this.silToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(133, 52);
+            // 
+            // düzenleToolStripMenuItem
+            // 
+            this.düzenleToolStripMenuItem.Name = "düzenleToolStripMenuItem";
+            this.düzenleToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
+            this.düzenleToolStripMenuItem.Text = "Düzenle";
+            // 
+            // silToolStripMenuItem
+            // 
+            this.silToolStripMenuItem.Name = "silToolStripMenuItem";
+            this.silToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
+            this.silToolStripMenuItem.Text = "Sil";
+            // 
             // CallCenterTaskTracking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1920, 1102);
-            this.Controls.Add(this.bekleyenCagrilarDGV);
+            this.Controls.Add(this.CagrilarDGV);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
@@ -541,6 +586,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CallCenterTaskTracking";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.CallCenterTaskTracking_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -554,7 +600,8 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bekleyenCagrilarDGV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CagrilarDGV)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -589,7 +636,7 @@
         private System.Windows.Forms.Label lblOncelik;
         private System.Windows.Forms.Label lblDurum;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.DataGridView bekleyenCagrilarDGV;
+        private System.Windows.Forms.DataGridView CagrilarDGV;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
@@ -597,5 +644,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn durum;
         private System.Windows.Forms.DataGridViewTextBoxColumn tarih;
         private System.Windows.Forms.DataGridViewButtonColumn ataButon;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem düzenleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem silToolStripMenuItem;
     }
 }

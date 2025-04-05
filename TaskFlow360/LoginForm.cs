@@ -2,7 +2,6 @@
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data.Sql;
-using WindowsFormsApp;
 
 namespace TaskFlow360
 {
@@ -96,8 +95,8 @@ namespace TaskFlow360
             //    MessageBox.Show("Mail veya şifre hatalı!");
             //}
            OfficerHomepage officerHomepage = new OfficerHomepage();
-            officerHomepage.Show();
-            this.Hide();
+           officerHomepage.Show();
+           this.Hide();
         }
 
         private void txtUsername_TextChanged(object sender, EventArgs e)

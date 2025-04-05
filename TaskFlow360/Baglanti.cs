@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TaskFlow360
 {
-     public class Baglanti
+    public class Baglanti
     {
-        private SqlConnection connection;
-        public static string baglantiDizisi = "server=DESKTOP-57F0A7E\\SQLEXPRESS;database=Yurt360;integrated security=True";
-       // Logger Logger = new Logger();
+        private static string baglantiDizisi = @"Server=DESKTOP-57F0A7E\SQLEXPRESS;Database=TaskFlow360;Integrated Security=True";
+        public SqlConnection conn = new SqlConnection(baglantiDizisi);
+
         public static bool MailKontrol(string Mail)
         {
             try
@@ -20,10 +16,9 @@ namespace TaskFlow360
                 using (SqlConnection connection = new SqlConnection(baglantiDizisi))
                 {
                     connection.Open();
-                    string query = "SELECT COUNT(*) FROM Kullanici WHERE mail = @Email";
+                    string query = "SELECT COUNT(*) FROM Kullanici WHERE Email = @Email";
                     SqlCommand cmd = new SqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@Email", Mail);
-
                     int count = (int)cmd.ExecuteScalar();
                     return count > 0;
                 }
@@ -36,17 +31,31 @@ namespace TaskFlow360
 
         public void BaglantiAc()
         {
-            connection = new SqlConnection("connection_string_buraya");
-            connection.Open();
+            try
+            {
+                if (conn == null)
+                    conn = new SqlConnection(baglantiDizisi);
+
+                if (conn.State == ConnectionState.Closed || conn.State == ConnectionState.Broken)
+                    conn.Open();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Veritabanı bağlantısı açılırken hata: " + ex.Message);
+            }
         }
 
         public void BaglantiKapat()
         {
-            if (connection != null && connection.State == ConnectionState.Open)
+            try
             {
-                connection.Close();
+                if (conn != null && conn.State != ConnectionState.Closed)
+                    conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Veritabanı bağlantısı kapatılırken hata: " + ex.Message);
             }
         }
-
     }
 }

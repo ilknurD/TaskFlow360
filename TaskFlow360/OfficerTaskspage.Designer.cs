@@ -83,6 +83,7 @@
             this.btnRaporlar.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
             this.btnRaporlar.Size = new System.Drawing.Size(295, 60);
             this.btnRaporlar.TabIndex = 9;
+            this.btnRaporlar.TabStop = false;
             this.btnRaporlar.Text = "Raporlar";
             this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnRaporlar.UseVisualStyleBackColor = false;
@@ -118,6 +119,7 @@
             this.btnGorevler.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
             this.btnGorevler.Size = new System.Drawing.Size(295, 60);
             this.btnGorevler.TabIndex = 3;
+            this.btnGorevler.TabStop = false;
             this.btnGorevler.Text = "Görevler";
             this.btnGorevler.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGorevler.UseVisualStyleBackColor = false;
@@ -136,6 +138,7 @@
             this.btnProfil.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
             this.btnProfil.Size = new System.Drawing.Size(295, 60);
             this.btnProfil.TabIndex = 2;
+            this.btnProfil.TabStop = false;
             this.btnProfil.Text = "Profil";
             this.btnProfil.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnProfil.UseVisualStyleBackColor = false;
@@ -154,6 +157,7 @@
             this.btnAnasayfa.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
             this.btnAnasayfa.Size = new System.Drawing.Size(295, 60);
             this.btnAnasayfa.TabIndex = 1;
+            this.btnAnasayfa.TabStop = false;
             this.btnAnasayfa.Text = "Anasayfa";
             this.btnAnasayfa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAnasayfa.UseVisualStyleBackColor = false;
@@ -250,13 +254,15 @@
             // 
             this.dgvGorevler.AllowUserToAddRows = false;
             this.dgvGorevler.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvGorevler.BackgroundColor = System.Drawing.Color.White;
             this.dgvGorevler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvGorevler.Location = new System.Drawing.Point(327, 159);
             this.dgvGorevler.Name = "dgvGorevler";
             this.dgvGorevler.RowHeadersWidth = 51;
             this.dgvGorevler.RowTemplate.Height = 24;
-            this.dgvGorevler.Size = new System.Drawing.Size(1580, 1500);
+            this.dgvGorevler.Size = new System.Drawing.Size(1665, 830);
             this.dgvGorevler.TabIndex = 10;
+            //this.dgvGorevler.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGorevler_CellContentClick);
             // 
             // txtArama
             // 

@@ -59,14 +59,14 @@
       <DependentUpon>AssistantTaskCreationPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Baglanti.cs" />
+    <Compile Include="Cagri.cs" />
     <Compile Include="CallCenterTaskTracking.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CallCenterTaskTracking.Designer.cs">
       <DependentUpon>CallCenterTaskTracking.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gorev.cs" />
-    <Compile Include="KullaniciGiris.cs" />
+    <Compile Include="Kullanici.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
