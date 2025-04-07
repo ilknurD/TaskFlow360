@@ -51,9 +51,8 @@
             this.lblDurum = new System.Windows.Forms.Label();
             this.lblOncelik = new System.Windows.Forms.Label();
             this.lblSirala = new System.Windows.Forms.Label();
-            this.cmbSirala = new System.Windows.Forms.ComboBox();
+            this.cmbKategori = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnFiltrele = new System.Windows.Forms.Button();
             this.btnTemizle = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
@@ -262,7 +261,6 @@
             this.dgvGorevler.RowTemplate.Height = 24;
             this.dgvGorevler.Size = new System.Drawing.Size(1665, 830);
             this.dgvGorevler.TabIndex = 10;
-            //this.dgvGorevler.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGorevler_CellContentClick);
             // 
             // txtArama
             // 
@@ -282,6 +280,7 @@
             this.cmbDurum.Name = "cmbDurum";
             this.cmbDurum.Size = new System.Drawing.Size(175, 31);
             this.cmbDurum.TabIndex = 11;
+            this.cmbDurum.SelectedIndexChanged += new System.EventHandler(this.cmbDurum_SelectedIndexChanged);
             // 
             // cmbOncelik
             // 
@@ -291,6 +290,7 @@
             this.cmbOncelik.Name = "cmbOncelik";
             this.cmbOncelik.Size = new System.Drawing.Size(175, 31);
             this.cmbOncelik.TabIndex = 11;
+            this.cmbOncelik.SelectedIndexChanged += new System.EventHandler(this.cmbOncelik_SelectedIndexChanged);
             // 
             // pictureBox1
             // 
@@ -352,28 +352,28 @@
             this.lblSirala.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblSirala.Location = new System.Drawing.Point(903, 23);
             this.lblSirala.Name = "lblSirala";
-            this.lblSirala.Size = new System.Drawing.Size(59, 21);
+            this.lblSirala.Size = new System.Drawing.Size(89, 21);
             this.lblSirala.TabIndex = 18;
-            this.lblSirala.Text = "Sırala:";
+            this.lblSirala.Text = "Kategori:";
             // 
-            // cmbSirala
+            // cmbKategori
             // 
-            this.cmbSirala.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.cmbSirala.FormattingEnabled = true;
-            this.cmbSirala.Location = new System.Drawing.Point(971, 20);
-            this.cmbSirala.Name = "cmbSirala";
-            this.cmbSirala.Size = new System.Drawing.Size(175, 31);
-            this.cmbSirala.TabIndex = 17;
+            this.cmbKategori.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cmbKategori.FormattingEnabled = true;
+            this.cmbKategori.Location = new System.Drawing.Point(1005, 18);
+            this.cmbKategori.Name = "cmbKategori";
+            this.cmbKategori.Size = new System.Drawing.Size(175, 31);
+            this.cmbKategori.TabIndex = 17;
+            this.cmbKategori.SelectedIndexChanged += new System.EventHandler(this.cmbKategori_SelectedIndexChanged);
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.btnFiltrele);
             this.panel2.Controls.Add(this.btnTemizle);
             this.panel2.Controls.Add(this.lblSirala);
             this.panel2.Controls.Add(this.txtArama);
-            this.panel2.Controls.Add(this.cmbSirala);
+            this.panel2.Controls.Add(this.cmbKategori);
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.cmbDurum);
             this.panel2.Controls.Add(this.cmbOncelik);
@@ -384,20 +384,6 @@
             this.panel2.Size = new System.Drawing.Size(1665, 68);
             this.panel2.TabIndex = 19;
             // 
-            // btnFiltrele
-            // 
-            this.btnFiltrele.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnFiltrele.FlatAppearance.BorderSize = 0;
-            this.btnFiltrele.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFiltrele.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnFiltrele.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnFiltrele.Location = new System.Drawing.Point(1233, 15);
-            this.btnFiltrele.Name = "btnFiltrele";
-            this.btnFiltrele.Size = new System.Drawing.Size(157, 40);
-            this.btnFiltrele.TabIndex = 20;
-            this.btnFiltrele.Text = "Filtrele";
-            this.btnFiltrele.UseVisualStyleBackColor = false;
-            // 
             // btnTemizle
             // 
             this.btnTemizle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
@@ -405,18 +391,19 @@
             this.btnTemizle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTemizle.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnTemizle.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnTemizle.Location = new System.Drawing.Point(1415, 15);
+            this.btnTemizle.Location = new System.Drawing.Point(1250, 14);
             this.btnTemizle.Name = "btnTemizle";
             this.btnTemizle.Size = new System.Drawing.Size(157, 40);
             this.btnTemizle.TabIndex = 21;
             this.btnTemizle.Text = "Temizle";
             this.btnTemizle.UseVisualStyleBackColor = false;
+            this.btnTemizle.Click += new System.EventHandler(this.btnTemizle_Click);
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Location = new System.Drawing.Point(327, 101);
+            this.panel3.Location = new System.Drawing.Point(327, 99);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1665, 68);
             this.panel3.TabIndex = 20;
@@ -426,8 +413,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1920, 1033);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.dgvGorevler);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
@@ -479,9 +466,8 @@
         private System.Windows.Forms.Label lblDurum;
         private System.Windows.Forms.Label lblOncelik;
         private System.Windows.Forms.Label lblSirala;
-        private System.Windows.Forms.ComboBox cmbSirala;
+        private System.Windows.Forms.ComboBox cmbKategori;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button btnFiltrele;
         private System.Windows.Forms.Button btnTemizle;
         private System.Windows.Forms.Panel panel3;
     }

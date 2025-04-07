@@ -14,11 +14,14 @@ namespace TaskFlow360
 {
     public partial class OfficerHomepage : Form
     {
+        Baglanti baglanti = new Baglanti();
         public OfficerHomepage()
         {
             InitializeComponent();
             TarihVeSaatGoster();
             IstatislikleriGoster();
+            YeniVeDevamEdenGorevSayilariniGoster();
+            ZamanliGuncelleme();
         }
 
         private void TarihVeSaatGoster()
@@ -31,7 +34,34 @@ namespace TaskFlow360
         private void OfficerHomepage_Load(object sender, EventArgs e)
         {
             List<Cagri> cagriListesi = CagrilariVeritabanindanGetir();
-            CagrileriGoster(cagriListesi);
+            CagrilariGoster(cagriListesi);
+ 
+            string girisYapanID = KullaniciBilgi.KullaniciID;
+
+            try
+            {
+                baglanti.BaglantiAc();
+
+                string query = "SELECT Ad, Soyad FROM Kullanici WHERE KullaniciID = @ID";
+                SqlCommand cmd = new SqlCommand(query, baglanti.conn);
+                cmd.Parameters.AddWithValue("@ID", girisYapanID);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    lblAdSoyad.Text = $"{dr["Ad"]} {dr["Soyad"]}";
+                }
+
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hata: " + ex.Message);
+            }
+            finally
+            {
+                baglanti.BaglantiKapat();
+            }
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -53,7 +83,7 @@ namespace TaskFlow360
             {
                 baglanti.BaglantiAc();
 
-                string query = @"SELECT c.CagriID, c.Baslik, c.CagriAciklama, c.CagriKategori, c.Oncelik, 
+                string query = @"SELECT c.CagriID, c.CagriAciklama, c.Baslik,c.CagriKategori, c.Oncelik, 
                 c.Durum, c.OlusturmaTarihi, c.TeslimTarihi, c.CevapTarihi,
                 c.TalepEden AS TalepEden,
                 ISNULL(k2.Ad + ' ' + k2.Soyad, 'Bilinmiyor') AS AtananKullanici,
@@ -93,7 +123,7 @@ namespace TaskFlow360
                     cagriler.Add(cagri);
                 }
 
-                reader.Close(); // 🔄 Reader kapatılıyor
+                reader.Close();
             }
             catch (Exception ex)
             {
@@ -115,12 +145,14 @@ namespace TaskFlow360
             flowLayoutPanel1.WrapContents = false;
             flowLayoutPanel1.AutoScroll = true;
 
-            Size panelBoyut = new Size(200, 100);
-            Padding panelMargin = new Padding(15, 0, 15, 0);
+            Size panelBoyut = new Size(177, 100);
+            Padding panelMargin = new Padding(10, 0, 10, 0);
 
-            int acik = 0;
-            int geciken = 0;
-            int cozuldu = 0;
+            int beklemede = 0;
+            int tamamlandı = 0;
+            int gecikti = 0;
+            int iptalEdildi = 0;
+            int atandi = 0;
             int toplam = 0;
 
             Baglanti baglanti = new Baglanti();
@@ -129,29 +161,34 @@ namespace TaskFlow360
             {
                 baglanti.BaglantiAc();
 
-                string query = @"SELECT 
-                 SUM(CASE WHEN Durum = 'Açık' THEN 1 ELSE 0 END) AS Açık,
-                 SUM(CASE WHEN Durum = 'Çözüldü' THEN 1 ELSE 0 END) AS Çözüldü,
-                 SUM(CASE 
-                     WHEN Durum = 'Geciken' AND 
-                          GETDATE() > DATEADD(
-                              HOUR, 
-                              TRY_CAST(LEFT(HedefSure, PATINDEX('%[^0-9]%', HedefSure + ' ') - 1) AS int), 
-                              OlusturmaTarihi
-                          ) 
-                     THEN 1 ELSE 0 
-                     END) AS Geciken,
+                string query = @"SELECT
+               SUM(CASE WHEN Durum = 'Beklemede' THEN 1 ELSE 0 END) AS Beklemede,
+               SUM(CASE WHEN Durum = 'Tamamlandı' THEN 1 ELSE 0 END) AS Tamamlandı,
+               SUM(CASE
+               WHEN Durum = 'Gecikti' AND
+                 GETDATE() > DATEADD(
+                     HOUR,
+                     TRY_CAST(LEFT(HedefSure, PATINDEX('%[^0-9]%', HedefSure + ' ') - 1) AS int),
+                     OlusturmaTarihi
+                 )
+                 THEN 1 ELSE 0
+                 END) AS Gecikti,
+                 SUM(CASE WHEN Durum = 'İptal Edildi' THEN 1 ELSE 0 END) AS IptalEdildi,  --Düzenlendi
+                 SUM(CASE WHEN Durum = 'Atandı' THEN 1 ELSE 0 END) AS Atandi,  --Düzenlendi
                  COUNT(*) AS Toplam
-                 FROM Cagri";
+                FROM Cagri";
+
 
                 SqlCommand cmd = new SqlCommand(query, baglanti.conn);
 
                 SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    acik = reader["Açık"] != DBNull.Value ? Convert.ToInt32(reader["Açık"]) : 0;
-                    geciken = reader["Geciken"] != DBNull.Value ? Convert.ToInt32(reader["Geciken"]) : 0;
-                    cozuldu = reader["Çözüldü"] != DBNull.Value ? Convert.ToInt32(reader["Çözüldü"]) : 0;
+                    beklemede = reader["Beklemede"] != DBNull.Value ? Convert.ToInt32(reader["Beklemede"]) : 0;
+                    tamamlandı = reader["Tamamlandı"] != DBNull.Value ? Convert.ToInt32(reader["Tamamlandı"]) : 0;
+                    gecikti = reader["Gecikti"] != DBNull.Value ? Convert.ToInt32(reader["Gecikti"]) : 0;
+                    iptalEdildi = reader["IptalEdildi"] != DBNull.Value ? Convert.ToInt32(reader["IptalEdildi"]) : 0; // Değiştirildi
+                    atandi = reader["Atandi"] != DBNull.Value ? Convert.ToInt32(reader["Atandi"]) : 0; // Değiştirildi
                     toplam = reader["Toplam"] != DBNull.Value ? Convert.ToInt32(reader["Toplam"]) : 0;
                 }
 
@@ -167,7 +204,6 @@ namespace TaskFlow360
                 baglanti.BaglantiKapat();
             }
 
-            // Panel oluşturma işlemi
             void PanelEkle(Color arkaPlan, string sayi, string metin)
             {
                 Panel panel = new Panel
@@ -203,15 +239,66 @@ namespace TaskFlow360
                 flowLayoutPanel1.Controls.Add(panel);
             }
 
-            // Dinamik verilerle panelleri ekle
-            PanelEkle(Color.LightBlue, acik.ToString(), "Açık");
-            PanelEkle(Color.LightCoral, geciken.ToString(), "Geciken");
-            PanelEkle(Color.MediumAquamarine, cozuldu.ToString(), "Çözüldü");
-            PanelEkle(Color.Khaki, toplam.ToString(), "Toplam");
+
+            PanelEkle(Color.FromArgb(187, 222, 251), beklemede.ToString(), "Beklemede"); // Açık Mavi
+            PanelEkle(Color.FromArgb(200, 230, 201), tamamlandı.ToString(), "Tamamlandı"); // Açık Yeşil
+            PanelEkle(Color.FromArgb(255, 204, 188), gecikti.ToString(), "Gecikti"); // Açık Turuncu
+            PanelEkle(Color.FromArgb(144, 164, 174), iptalEdildi.ToString(), "İptal Edildi"); // Açık Gri
+            PanelEkle(Color.FromArgb(255, 249, 196), atandi.ToString(), "Atandı"); // Açık Sarı
+            PanelEkle(Color.FromArgb(209, 196, 233), toplam.ToString(), "Toplam"); // Lavanta
         }
 
+        private void YeniVeDevamEdenGorevSayilariniGoster()
+        {
+            Baglanti baglanti = new Baglanti();
+            int yeniGorevSayisi = 0;
+            int devamEdenGorevSayisi = 0;
 
+            try
+            {
+                baglanti.BaglantiAc();
 
+                string yeniGorevQuery = @"SELECT COUNT(*) FROM Cagri 
+                                 WHERE Durum IN ('Atandı')";
+
+                SqlCommand yeniCmd = new SqlCommand(yeniGorevQuery, baglanti.conn);
+                yeniGorevSayisi = (int)yeniCmd.ExecuteScalar();
+
+                // Devam eden görevleri say (Beklemede ve Atandı durumundakiler)
+                string devamEdenQuery = @"SELECT COUNT(*) FROM Cagri 
+                                 WHERE Durum IN ('Beklemede')";
+
+                SqlCommand devamEdenCmd = new SqlCommand(devamEdenQuery, baglanti.conn);
+                devamEdenGorevSayisi = (int)devamEdenCmd.ExecuteScalar();
+
+                // Label'ları güncelle
+                lblYeniGorevSayisi.Text = yeniGorevSayisi.ToString();
+                lblDevamEdenGorevSayisi.Text = devamEdenGorevSayisi.ToString();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("Görev sayılarını çekerken hata oluştu: " + ex.Message);
+            }
+            finally
+            {
+                baglanti.BaglantiKapat();
+            }
+        }
+
+        private void ZamanliGuncelleme()
+        {
+            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+            timer.Interval = 60000; // 1 dakika
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            TarihVeSaatGoster();
+            IstatislikleriGoster();
+            YeniVeDevamEdenGorevSayilariniGoster();
+        }
 
 
         private void button5_Click(object sender, EventArgs e)
@@ -243,10 +330,10 @@ namespace TaskFlow360
         {
         }
 
-        private void CagrileriGoster(List<Cagri> CagriListesi)
+        private void CagrilariGoster(List<Cagri> CagriListesi)
         {
             PnlGorevler.Controls.Clear();
-            PnlGorevler.FlowDirection = FlowDirection.TopDown; // Dikey
+            PnlGorevler.FlowDirection = FlowDirection.TopDown;
             PnlGorevler.WrapContents = false;
             PnlGorevler.AutoScroll = true;
 
@@ -309,7 +396,6 @@ namespace TaskFlow360
                     lblOncelik.ForeColor = Color.Green;
                 }
 
-                // Tüm label'lara da tıklama olayı ekle (Panel dışı tıklamalarda da çalışması için)
                 foreach (var ctrl in new Control[] { lblGorevAdi, lblTalepEden, lblOlusturmaTarihi, lblOncelik })
                 {
                     ctrl.Click += (s, e) =>
@@ -329,5 +415,9 @@ namespace TaskFlow360
             }
         }
 
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

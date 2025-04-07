@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace TaskFlow360
 {
     public partial class OfficerProfile : Form
     {
+        Baglanti baglanti = new Baglanti();
         public OfficerProfile()
         {
             InitializeComponent();
@@ -65,6 +67,53 @@ namespace TaskFlow360
             this.Close();
             OfficerReportsPage officerReportsPage = new OfficerReportsPage();
             officerReportsPage.Show();
+        }
+
+        private void OfficerProfile_Load(object sender, EventArgs e)
+        {
+            string kullaniciID = KullaniciBilgi.KullaniciID;
+
+            try
+            {
+                baglanti.BaglantiAc();
+
+                string query = @"
+                SELECT 
+                    K.Ad, K.Soyad, K.Email, K.Telefon, K.Adres, 
+                    K.DogumTar, K.IseBaslamaTar, 
+                    D.DepartmanAdi, B.BolumAdi
+                FROM Kullanici K
+                LEFT JOIN Departman D ON K.DepartmanID = D.DepartmanID
+                LEFT JOIN Bolum B ON K.BolumID = B.BolumID
+                WHERE K.KullaniciID = @KullaniciID";
+
+                SqlCommand cmd = new SqlCommand(query, baglanti.conn);
+                cmd.Parameters.AddWithValue("@KullaniciID", kullaniciID);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    lblAdSoyad.Text = $"{dr["Ad"]} {dr["Soyad"]}";
+                    lblEmail.Text = dr["Email"].ToString();
+                    lblTelefonB.Text = dr["Telefon"].ToString();
+                    lblAdresB.Text = dr["Adres"].ToString();
+                    lblDogumTarihi.Text = Convert.ToDateTime(dr["DogumTar"]).ToShortDateString();
+                    lblIseBaslama.Text = Convert.ToDateTime(dr["IseBaslamaTar"]).ToShortDateString();
+                    lbldepartmanB.Text = dr["DepartmanAdi"].ToString();
+                    lblBolum.Text = dr["BolumAdi"].ToString();
+                }
+
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Kullanıcı bilgileri yüklenirken hata oluştu: " + ex.Message);
+            }
+            finally
+            {
+                baglanti.BaglantiKapat();
+            }
         }
     }
 }

@@ -7,10 +7,7 @@ namespace TaskFlow360
 {
     public partial class LoginForm : Form
     {
-        private string connectionString = "Data Source=DESKTOP-57F0A7E\\SQLEXPRESS;Initial Catalog=TaskFlow360;Integrated Security=True;Encrypt=False";
-        SqlConnection conn;
-        SqlDataReader dr;
-        SqlCommand cmd;
+        Baglanti baglanti = new Baglanti();
 
         public LoginForm()
         {
@@ -77,27 +74,51 @@ namespace TaskFlow360
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //String mail = txtMail.Text;
-            //String password = txtPassword.Text;
-            //Baglanti baglanti = new Baglanti();
-            //baglanti.BaglantiAc();
-            //KullaniciGiris kullaniciGiris = new KullaniciGiris(baglanti);
-            //bool dogruMu = kullaniciGiris.GirisDogrula(mail, password);
-            //if (dogruMu)
-            //{
-            //    MessageBox.Show("Giriş Başarılı");
-            //    OfficerHomepage officerHomepage = new OfficerHomepage();
-            //    this.Hide();
-            //    officerHomepage.Show();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Mail veya şifre hatalı!");
-            //}
-           OfficerHomepage officerHomepage = new OfficerHomepage();
-           officerHomepage.Show();
-           this.Hide();
+
+            string email = txtMail.Text.Trim();
+            string sifre = txtPassword.Text.Trim();
+
+            if (email == "Mail" || sifre == "Şifre" || email == "" || sifre == "")
+            {
+                MessageBox.Show("Lütfen e-posta ve şifrenizi girin.");
+                return;
+            }
+
+            try
+            {
+                baglanti.BaglantiAc();
+
+                string query = "SELECT KullaniciID FROM Kullanici WHERE Email = @Email AND Sifre = @Sifre";
+                SqlCommand cmd = new SqlCommand(query, baglanti.conn);
+                cmd.Parameters.AddWithValue("@Email", email);
+                cmd.Parameters.AddWithValue("@Sifre", sifre); // ileride şifreleme uygulanabilir
+
+                object result = cmd.ExecuteScalar();
+
+                if (result != null)
+                {
+                    KullaniciBilgi.KullaniciID = result.ToString(); // Tüm uygulamada kullanacağız
+
+                    OfficerHomepage homepage = new OfficerHomepage();
+                    homepage.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Geçersiz e-posta veya şifre.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hata oluştu: " + ex.Message);
+            }
+            finally
+            {
+                baglanti.BaglantiKapat();
+            }
         }
+
+        
 
         private void txtUsername_TextChanged(object sender, EventArgs e)
         {
@@ -105,6 +126,11 @@ namespace TaskFlow360
         }
 
         private void LoginForm_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

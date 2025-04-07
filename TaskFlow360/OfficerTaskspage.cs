@@ -22,8 +22,6 @@ namespace TaskFlow360
 
         private Baglanti baglantiNesnesi = new Baglanti();
 
-        // Diğer kod parçaları...
-
         private void CagrilariYukle()
         {
             try
@@ -31,7 +29,7 @@ namespace TaskFlow360
                 baglantiNesnesi.BaglantiAc();
 
                 string sorgu = @"SELECT CagriID, Baslik, TalepEden, Durum, OlusturmaTarihi, 
-                               TeslimTarihi, AtananKullaniciID, CagriKategori, Oncelik 
+                               TeslimTarihi, AtananKullaniciID, CagriKategori, Oncelik, HedefSure 
                                FROM Cagri ORDER BY OlusturmaTarihi DESC";
 
                 SqlCommand komut = new SqlCommand(sorgu, baglantiNesnesi.conn);
@@ -39,29 +37,34 @@ namespace TaskFlow360
                 DataTable veriTablosu = new DataTable();
                 adapter.Fill(veriTablosu);
 
-                // Mevcut sütunları temizle
                 dgvGorevler.Columns.Clear();
+                //dgvGorevler.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dgvGorevler.ScrollBars = ScrollBars.Vertical; // Yatay scroll kapatılır
 
-                // DataGridView görünüm ayarları
+                dgvGorevler.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
                 dgvGorevler.AutoGenerateColumns = false;
                 dgvGorevler.BackgroundColor = Color.White;
-                dgvGorevler.GridColor = Color.LightGray;
+                dgvGorevler.GridColor = Color.LightGray;    
                 dgvGorevler.RowTemplate.Height = 40;
                 dgvGorevler.DefaultCellStyle.Font = new Font("Century Gothic", 10, FontStyle.Regular);
-
-                // Sütun başlıkları stil
+                dgvGorevler.ColumnHeadersHeight = 70;
+                dgvGorevler.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
                 dgvGorevler.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(100, 149, 237); // Mavi
                 dgvGorevler.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
                 dgvGorevler.ColumnHeadersDefaultCellStyle.Font = new Font("Century Gothic", 12, FontStyle.Bold);
 
-                // Sütunlar ekle
                 dgvGorevler.Columns.Add("CagriID", "Çağrı No");
                 dgvGorevler.Columns["CagriID"].DataPropertyName = "CagriID";
-                dgvGorevler.Columns["CagriID"].Width = 80;
+                dgvGorevler.Columns["CagriID"].Width = 60;
+                dgvGorevler.Columns["CagriID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                dgvGorevler.Columns["CagriID"].Resizable = DataGridViewTriState.False;
+                dgvGorevler.Columns["CagriID"].MinimumWidth = 30;
+
+
 
                 dgvGorevler.Columns.Add("Baslik", "Başlık");
                 dgvGorevler.Columns["Baslik"].DataPropertyName = "Baslik";
-                dgvGorevler.Columns["Baslik"].Width = 250;
+                dgvGorevler.Columns["Baslik"].Width = 150;
 
                 dgvGorevler.Columns.Add("TalepEden", "Talep Eden");
                 dgvGorevler.Columns["TalepEden"].DataPropertyName = "TalepEden";
@@ -69,11 +72,11 @@ namespace TaskFlow360
 
                 dgvGorevler.Columns.Add("CagriKategori", "Kategori");
                 dgvGorevler.Columns["CagriKategori"].DataPropertyName = "CagriKategori";
-                dgvGorevler.Columns["CagriKategori"].Width = 120;
+                dgvGorevler.Columns["CagriKategori"].Width = 145;
 
                 dgvGorevler.Columns.Add("Oncelik", "Öncelik");
                 dgvGorevler.Columns["Oncelik"].DataPropertyName = "Oncelik";
-                dgvGorevler.Columns["Oncelik"].Width = 100;
+                dgvGorevler.Columns["Oncelik"].Width = 110;
 
                 dgvGorevler.Columns.Add("Durum", "Durum");
                 dgvGorevler.Columns["Durum"].DataPropertyName = "Durum";
@@ -81,15 +84,18 @@ namespace TaskFlow360
 
                 dgvGorevler.Columns.Add("OlusturmaTarihi", "Oluşturma Tarihi");
                 dgvGorevler.Columns["OlusturmaTarihi"].DataPropertyName = "OlusturmaTarihi";
-                dgvGorevler.Columns["OlusturmaTarihi"].Width = 150;
+                dgvGorevler.Columns["OlusturmaTarihi"].Width = 130;
                 dgvGorevler.Columns["OlusturmaTarihi"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
 
                 dgvGorevler.Columns.Add("TeslimTarihi", "Teslim Tarihi");
                 dgvGorevler.Columns["TeslimTarihi"].DataPropertyName = "TeslimTarihi";
-                dgvGorevler.Columns["TeslimTarihi"].Width = 150;
+                dgvGorevler.Columns["TeslimTarihi"].Width = 130;
                 dgvGorevler.Columns["TeslimTarihi"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
 
-                // Detay butonu ekle
+                dgvGorevler.Columns.Add("HedefSure", "Hedef Süre");
+                dgvGorevler.Columns["HedefSure"].DataPropertyName = "HedefSure";
+                dgvGorevler.Columns["HedefSure"].Width = 100;
+
                 DataGridViewButtonColumn btnColumn = new DataGridViewButtonColumn();
                 btnColumn.Name = "Detay";
                 btnColumn.HeaderText = "İşlem";
@@ -97,10 +103,7 @@ namespace TaskFlow360
                 btnColumn.UseColumnTextForButtonValue = true;
                 dgvGorevler.Columns.Add(btnColumn);
 
-                // Veri kaynağını ayarla
                 dgvGorevler.DataSource = veriTablosu;
-
-                // Durum renklerini ayarla
                 SetRenkler();
             }
             catch (Exception ex)
@@ -117,45 +120,81 @@ namespace TaskFlow360
         {
             foreach (DataGridViewRow row in dgvGorevler.Rows)
             {
+                // DURUM kısmı
                 if (row.Cells["Durum"].Value != null)
                 {
                     string durum = row.Cells["Durum"].Value.ToString();
+
+                    Color textColor;
                     Color backColor;
+                    FontStyle fontStyle = FontStyle.Bold;
 
                     switch (durum)
                     {
                         case "Atandı":
-                            backColor = Color.FromArgb(230, 230, 250); // Açık mor  //Durumlar burdaki gibi bütün proje içerisinde düzeltilecek
+                            textColor = Color.MediumSlateBlue;
+                            backColor = Color.FromArgb(235, 230, 250);
                             break;
                         case "Beklemede":
-                            backColor = Color.FromArgb(255, 239, 213); // Açık turuncu
-                            break;
-                        case "Çözüm Bekliyor":
-                            backColor = Color.FromArgb(173, 216, 230); // Açık mavi
+                            textColor = Color.OrangeRed;
+                            backColor = Color.FromArgb(255, 245, 230);
                             break;
                         case "Tamamlandı":
-                            backColor = Color.FromArgb(144, 238, 144); // Açık yeşil
+                            textColor = Color.SeaGreen;
+                            backColor = Color.FromArgb(230, 255, 240);
                             break;
                         case "İptal Edildi":
-                            backColor = Color.FromArgb(211, 211, 211); // Açık gri
+                            textColor = Color.IndianRed;
+                            backColor = Color.FromArgb(250, 230, 230);
+                            break;
+                        case "Gecikti":
+                            textColor = Color.Crimson;
+                            backColor = Color.FromArgb(255, 230, 230);
                             break;
                         default:
-                            backColor = Color.White; // Varsayılan renk
+                            textColor = Color.Black;
+                            backColor = Color.White;
+                            fontStyle = FontStyle.Regular;
                             break;
                     }
 
-                    row.DefaultCellStyle.BackColor = backColor;
-                    row.DefaultCellStyle.SelectionBackColor = Color.FromArgb(
-                        Math.Max(backColor.R - 30, 0),
-                        Math.Max(backColor.G - 30, 0),
-                        Math.Max(backColor.B - 30, 0));
-                    row.DefaultCellStyle.SelectionForeColor = Color.Black;
+                    var durumCell = row.Cells["Durum"];
+                    durumCell.Style.ForeColor = textColor;
+                    durumCell.Style.BackColor = backColor;
+                    durumCell.Style.Font = new Font("Century Gothic", 10, fontStyle);
+                }
+
+                // ÖNCELİK kısmı
+                if (row.Cells["Oncelik"].Value != null)
+                {
+                    string oncelik = row.Cells["Oncelik"].Value.ToString();
+
+                    Color textColor;
+                    FontStyle fontStyle = FontStyle.Bold;
+
+                    switch (oncelik)
+                    {
+                        case "Düşük":
+                            textColor = Color.Green;
+                            break;
+                        case "Orta":
+                            textColor = Color.Orange;
+                            break;
+                        case "Yüksek":
+                            textColor = Color.Red;
+                            break;
+                        default:
+                            textColor = Color.Black;
+                            fontStyle = FontStyle.Regular;
+                            break;
+                    }
+
+                    var oncelikCell = row.Cells["Oncelik"];
+                    oncelikCell.Style.ForeColor = textColor;
+                    oncelikCell.Style.Font = new Font("Century Gothic", 10, fontStyle);
                 }
             }
         }
-
-
-
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
@@ -195,6 +234,12 @@ namespace TaskFlow360
             {
                 txtArama.TextChanged += new EventHandler(txtArama_TextChanged);
             }
+
+            cmbDurum.Items.AddRange(new string[] { "Tümü", "Atandı", "Beklemede", "Tamamlandı", "İptal Edildi", "Gecikti" });
+            cmbOncelik.Items.AddRange(new string[] { "Tümü", "Düşük", "Orta", "Yüksek" });
+            cmbKategori.Items.AddRange(new string[] { "Tümü", "Donanım", "Yazılım", "Ağ", "Erişim Talebi", "Mail Problemleri",
+            "Veri Yedekleme", "Sistem Arızası", "Kullanıcı Eğitimi", "Genel Talep"});
+
         }
 
         private bool IsEventHandlerAttached(Control control, string eventName, string handlerName)
@@ -290,6 +335,51 @@ namespace TaskFlow360
             }
         }
 
+        private void CagrilariFiltrele()
+        {
+            string durum = cmbDurum.SelectedItem?.ToString() ?? "Tümü";
+            string oncelik = cmbOncelik.SelectedItem?.ToString() ?? "Tümü";
+            string kategori = cmbKategori.SelectedItem?.ToString() ?? "Tümü";
+
+            string query = "SELECT * FROM Cagri WHERE 1=1";
+
+            if (durum != "Tümü")
+                query += " AND Durum = @Durum";
+            if (oncelik != "Tümü")
+                query += " AND Oncelik = @Oncelik";
+            if (kategori != "Tümü")
+                query += " AND CagriKategori = @CagriKategori";
+
+            try
+            {
+                baglantiNesnesi.BaglantiAc();
+                SqlCommand cmd = new SqlCommand(query, baglantiNesnesi.conn);
+
+                if (durum != "Tümü")
+                    cmd.Parameters.AddWithValue("@Durum", durum);
+                if (oncelik != "Tümü")
+                    cmd.Parameters.AddWithValue("@Oncelik", oncelik);
+                if (kategori != "Tümü")
+                    cmd.Parameters.AddWithValue("@CagriKategori", kategori);
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                dgvGorevler.DataSource = dt;
+                SetRenkler();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Filtre uygulanırken hata oluştu: " + ex.Message,
+                                "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                baglantiNesnesi.BaglantiKapat();
+            }
+        }
+
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
@@ -313,6 +403,31 @@ namespace TaskFlow360
             this.Close();
             OfficerReportsPage officerReportsPage = new OfficerReportsPage();
             officerReportsPage.Show();
+        }
+
+        private void cmbDurum_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CagrilariFiltrele();
+        }
+
+        private void cmbOncelik_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CagrilariFiltrele();
+        }
+
+        private void cmbKategori_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CagrilariFiltrele();
+        }
+
+        private void btnTemizle_Click(object sender, EventArgs e)
+        {
+            cmbDurum.SelectedIndex = -1;
+            cmbOncelik.SelectedIndex = -1;
+            cmbKategori.SelectedIndex = -1;
+            txtArama.Text = "Ara...";
+            txtArama.ForeColor = Color.Gray;
+            CagrilariYukle(); 
         }
     }
 }

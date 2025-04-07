@@ -67,6 +67,7 @@
       <DependentUpon>CallCenterTaskTracking.cs</DependentUpon>
     </Compile>
     <Compile Include="Kullanici.cs" />
+    <Compile Include="KullaniciBilgi.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
