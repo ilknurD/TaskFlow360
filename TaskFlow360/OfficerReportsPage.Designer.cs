@@ -29,6 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OfficerReportsPage));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -45,13 +53,9 @@
             this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.lblraporlarbaslik = new System.Windows.Forms.Label();
             this.lblraporlarbaslik2 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.btnFiltrele = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.lbltarihAralık = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.chartGunlukDurum = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartHaftalik = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartAylik = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.panel1.SuspendLayout();
@@ -61,7 +65,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).BeginInit();
-            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartGunlukDurum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartHaftalik)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartAylik)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox2
@@ -283,83 +289,59 @@
             this.lblraporlarbaslik2.TabIndex = 11;
             this.lblraporlarbaslik2.Text = "Görev performansınızı ve istatistiklerinizi görüntüleyin.";
             // 
-            // panel2
+            // chartGunlukDurum
             // 
-            this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.Controls.Add(this.btnFiltrele);
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.textBox2);
-            this.panel2.Controls.Add(this.textBox1);
-            this.panel2.Controls.Add(this.lbltarihAralık);
-            this.panel2.Location = new System.Drawing.Point(360, 234);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1461, 73);
-            this.panel2.TabIndex = 12;
+            chartArea1.Name = "ChartArea1";
+            this.chartGunlukDurum.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartGunlukDurum.Legends.Add(legend1);
+            this.chartGunlukDurum.Location = new System.Drawing.Point(360, 211);
+            this.chartGunlukDurum.Name = "chartGunlukDurum";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartGunlukDurum.Series.Add(series1);
+            this.chartGunlukDurum.Size = new System.Drawing.Size(536, 390);
+            this.chartGunlukDurum.TabIndex = 12;
+            this.chartGunlukDurum.Text = "chart1";
             // 
-            // btnFiltrele
+            // chartHaftalik
             // 
-            this.btnFiltrele.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnFiltrele.FlatAppearance.BorderSize = 0;
-            this.btnFiltrele.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFiltrele.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnFiltrele.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnFiltrele.Location = new System.Drawing.Point(827, 16);
-            this.btnFiltrele.Name = "btnFiltrele";
-            this.btnFiltrele.Size = new System.Drawing.Size(157, 40);
-            this.btnFiltrele.TabIndex = 22;
-            this.btnFiltrele.Text = "Filtrele";
-            this.btnFiltrele.UseVisualStyleBackColor = false;
+            chartArea2.Name = "ChartArea1";
+            this.chartHaftalik.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartHaftalik.Legends.Add(legend2);
+            this.chartHaftalik.Location = new System.Drawing.Point(949, 211);
+            this.chartHaftalik.Name = "chartHaftalik";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartHaftalik.Series.Add(series2);
+            this.chartHaftalik.Size = new System.Drawing.Size(903, 390);
+            this.chartHaftalik.TabIndex = 13;
+            this.chartHaftalik.Text = "chart2";
             // 
-            // label1
+            // chartAylik
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label1.Location = new System.Drawing.Point(462, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(16, 20);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "-";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textBox2.Location = new System.Drawing.Point(487, 23);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(214, 27);
-            this.textBox2.TabIndex = 2;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textBox1.Location = new System.Drawing.Point(238, 23);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(214, 27);
-            this.textBox1.TabIndex = 1;
-            // 
-            // lbltarihAralık
-            // 
-            this.lbltarihAralık.AutoSize = true;
-            this.lbltarihAralık.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbltarihAralık.Location = new System.Drawing.Point(124, 25);
-            this.lbltarihAralık.Name = "lbltarihAralık";
-            this.lbltarihAralık.Size = new System.Drawing.Size(108, 21);
-            this.lbltarihAralık.TabIndex = 0;
-            this.lbltarihAralık.Text = "Tarih Aralığı:";
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(377, 824);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1658, 153);
-            this.flowLayoutPanel1.TabIndex = 13;
+            chartArea3.Name = "ChartArea1";
+            this.chartAylik.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chartAylik.Legends.Add(legend3);
+            this.chartAylik.Location = new System.Drawing.Point(360, 684);
+            this.chartAylik.Name = "chartAylik";
+            this.chartAylik.Size = new System.Drawing.Size(1492, 300);
+            this.chartAylik.TabIndex = 14;
+            this.chartAylik.Text = "chart3";
             // 
             // OfficerReportsPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1920, 1033);
-            this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.chartAylik);
+            this.Controls.Add(this.chartHaftalik);
+            this.Controls.Add(this.chartGunlukDurum);
             this.Controls.Add(this.lblraporlarbaslik2);
             this.Controls.Add(this.lblraporlarbaslik);
             this.Controls.Add(this.panel1);
@@ -370,6 +352,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OfficerReportsPage";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.OfficerReportsPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -379,8 +362,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartGunlukDurum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartHaftalik)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartAylik)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -404,12 +388,8 @@
         private System.Windows.Forms.PictureBox pctrLogo;
         private System.Windows.Forms.Label lblraporlarbaslik;
         private System.Windows.Forms.Label lblraporlarbaslik2;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label lbltarihAralık;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button btnFiltrele;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartGunlukDurum;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartHaftalik;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartAylik;
     }
 }

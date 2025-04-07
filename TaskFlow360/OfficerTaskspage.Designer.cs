@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OfficerTaskspage));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnRaporlar = new System.Windows.Forms.Button();
             this.btnCikis = new System.Windows.Forms.Button();
             this.btnGorevler = new System.Windows.Forms.Button();
@@ -252,6 +253,8 @@
             // dgvGorevler
             // 
             this.dgvGorevler.AllowUserToAddRows = false;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Transparent;
+            this.dgvGorevler.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvGorevler.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvGorevler.BackgroundColor = System.Drawing.Color.White;
             this.dgvGorevler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;

@@ -30,16 +30,17 @@ namespace TaskFlow360
 
                 string sorgu = @"SELECT CagriID, Baslik, TalepEden, Durum, OlusturmaTarihi, 
                                TeslimTarihi, AtananKullaniciID, CagriKategori, Oncelik, HedefSure 
-                               FROM Cagri ORDER BY OlusturmaTarihi DESC";
+                               FROM Cagri WHERE AtananKullaniciID = @KullaniciID
+                               ORDER BY OlusturmaTarihi DESC";
 
                 SqlCommand komut = new SqlCommand(sorgu, baglantiNesnesi.conn);
+                komut.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID); 
                 SqlDataAdapter adapter = new SqlDataAdapter(komut);
                 DataTable veriTablosu = new DataTable();
                 adapter.Fill(veriTablosu);
 
                 dgvGorevler.Columns.Clear();
-                //dgvGorevler.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                dgvGorevler.ScrollBars = ScrollBars.Vertical; // Yatay scroll kapatılır
+                dgvGorevler.ScrollBars = ScrollBars.Vertical;
 
                 dgvGorevler.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
                 dgvGorevler.AutoGenerateColumns = false;
@@ -238,7 +239,7 @@ namespace TaskFlow360
             cmbDurum.Items.AddRange(new string[] { "Tümü", "Atandı", "Beklemede", "Tamamlandı", "İptal Edildi", "Gecikti" });
             cmbOncelik.Items.AddRange(new string[] { "Tümü", "Düşük", "Orta", "Yüksek" });
             cmbKategori.Items.AddRange(new string[] { "Tümü", "Donanım", "Yazılım", "Ağ", "Erişim Talebi", "Mail Problemleri",
-            "Veri Yedekleme", "Sistem Arızası", "Kullanıcı Eğitimi", "Genel Talep"});
+            "Veri Yedekleme", "Sistem Arızası", "Kullanıcı İşlemleri", "Genel Talep", "Raporlar"});
 
         }
 
@@ -341,7 +342,9 @@ namespace TaskFlow360
             string oncelik = cmbOncelik.SelectedItem?.ToString() ?? "Tümü";
             string kategori = cmbKategori.SelectedItem?.ToString() ?? "Tümü";
 
-            string query = "SELECT * FROM Cagri WHERE 1=1";
+            string query = "SELECT CagriID, Baslik, TalepEden, Durum, OlusturmaTarihi, " +
+                           "TeslimTarihi, AtananKullaniciID, CagriKategori, Oncelik, HedefSure " +
+                           "FROM Cagri WHERE AtananKullaniciID = @KullaniciID";
 
             if (durum != "Tümü")
                 query += " AND Durum = @Durum";
@@ -350,10 +353,15 @@ namespace TaskFlow360
             if (kategori != "Tümü")
                 query += " AND CagriKategori = @CagriKategori";
 
+            query += " ORDER BY OlusturmaTarihi DESC";
+
             try
             {
                 baglantiNesnesi.BaglantiAc();
                 SqlCommand cmd = new SqlCommand(query, baglantiNesnesi.conn);
+
+                // Always add the user ID parameter
+                cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
 
                 if (durum != "Tümü")
                     cmd.Parameters.AddWithValue("@Durum", durum);

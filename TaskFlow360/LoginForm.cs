@@ -74,7 +74,6 @@ namespace TaskFlow360
 
         private void button1_Click(object sender, EventArgs e)
         {
-
             string email = txtMail.Text.Trim();
             string sifre = txtPassword.Text.Trim();
 
@@ -88,24 +87,60 @@ namespace TaskFlow360
             {
                 baglanti.BaglantiAc();
 
-                string query = "SELECT KullaniciID FROM Kullanici WHERE Email = @Email AND Sifre = @Sifre";
+                // Kullanıcı ID'si ve Rol bilgisini çekiyoruz
+                string query = "SELECT KullaniciID, Rol FROM Kullanici WHERE Email = @Email AND Sifre = @Sifre";
                 SqlCommand cmd = new SqlCommand(query, baglanti.conn);
                 cmd.Parameters.AddWithValue("@Email", email);
-                cmd.Parameters.AddWithValue("@Sifre", sifre); // ileride şifreleme uygulanabilir
+                cmd.Parameters.AddWithValue("@Sifre", sifre);
 
-                object result = cmd.ExecuteScalar();
-
-                if (result != null)
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    KullaniciBilgi.KullaniciID = result.ToString(); // Tüm uygulamada kullanacağız
+                    if (reader.Read())
+                    {
+                        string kullaniciID = reader["KullaniciID"]?.ToString() ?? "";
+                        string rolString = reader["Rol"]?.ToString() ?? "";
 
-                    OfficerHomepage homepage = new OfficerHomepage();
-                    homepage.Show();
-                    this.Hide();
-                }
-                else
-                {
-                    MessageBox.Show("Geçersiz e-posta veya şifre.");
+                        KullaniciBilgi.KullaniciID = kullaniciID;
+
+                        reader.Close();
+
+                        Form homepage = null;
+
+                        // String rol değerine göre ilgili formu aç
+                        switch (rolString)
+                        {
+                            case "1":
+                            case "Ekip Üyesi":
+                                homepage = new OfficerHomepage();
+                                break;
+                            case "2":
+                            case "Ekip Yöneticisi":
+                                homepage = new ManagerHomepage();
+                                break;
+                            case "3":
+                            case "Çağrı Merkezi":
+                                homepage = new AssistantHomepage();
+                                break;
+                            //case "4":
+                            //case "Müdür":
+                            //    homepage = new MudurHomepage();
+                            //    break;
+                            default:
+                                MessageBox.Show("Tanımlanamayan kullanıcı rolü: " + rolString);
+                                return;
+                        }
+
+                        if (homepage != null)
+                        {
+                            homepage.Show();
+                            this.Hide();
+                        }
+                    }
+                    else
+                    {
+                        reader.Close();
+                        MessageBox.Show("Geçersiz e-posta veya şifre.");
+                    }
                 }
             }
             catch (Exception ex)
@@ -118,7 +153,7 @@ namespace TaskFlow360
             }
         }
 
-        
+
 
         private void txtUsername_TextChanged(object sender, EventArgs e)
         {

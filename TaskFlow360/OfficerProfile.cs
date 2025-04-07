@@ -77,14 +77,16 @@ namespace TaskFlow360
             {
                 baglanti.BaglantiAc();
 
-                string query = @"
-                SELECT 
-                    K.Ad, K.Soyad, K.Email, K.Telefon, K.Adres, 
-                    K.DogumTar, K.IseBaslamaTar, 
-                    D.DepartmanAdi, B.BolumAdi
+                string query = @"SELECT 
+                K.Ad, K.Soyad, K.Email, K.Telefon, K.Adres, 
+                K.DogumTar, K.IseBaslamaTar, 
+                D.DepartmanAdi, B.BolumAdi,
+                YK.Ad AS YoneticiAd, YK.Soyad AS YoneticiSoyad,
+                K.Cinsiyet
                 FROM Kullanici K
                 LEFT JOIN Departman D ON K.DepartmanID = D.DepartmanID
                 LEFT JOIN Bolum B ON K.BolumID = B.BolumID
+                LEFT JOIN Kullanici YK ON K.YoneticiID = YK.KullaniciID
                 WHERE K.KullaniciID = @KullaniciID";
 
                 SqlCommand cmd = new SqlCommand(query, baglanti.conn);
@@ -96,15 +98,27 @@ namespace TaskFlow360
                 {
                     lblAdSoyad.Text = $"{dr["Ad"]} {dr["Soyad"]}";
                     lblEmail.Text = dr["Email"].ToString();
-                    lblTelefonB.Text = dr["Telefon"].ToString();
-                    lblAdresB.Text = dr["Adres"].ToString();
+                    lblTelefon.Text = dr["Telefon"].ToString();
+                    lblAdres.Text = dr["Adres"].ToString();
                     lblDogumTarihi.Text = Convert.ToDateTime(dr["DogumTar"]).ToShortDateString();
                     lblIseBaslama.Text = Convert.ToDateTime(dr["IseBaslamaTar"]).ToShortDateString();
-                    lbldepartmanB.Text = dr["DepartmanAdi"].ToString();
-                    lblBolum.Text = dr["BolumAdi"].ToString();
+                    lblDepartman.Text = dr["DepartmanAdi"].ToString();
+                    lblBolum.Text = dr["BolumAdi"].ToString() + " " + "(Rol)";
+
+                    string yoneticiAdSoyad = dr["YoneticiAd"] != DBNull.Value ? $"{dr["YoneticiAd"]} {dr["YoneticiSoyad"]}" : "Yönetici yok";
+                    lblYonetici.Text = yoneticiAdSoyad;
+
+                    string cinsiyet = dr["Cinsiyet"].ToString();
+
+                    if (cinsiyet == "Kadın")
+                        pctrProfil.Image = Properties.Resources.kadin;
+                    else if (cinsiyet == "Erkek")
+                        pctrProfil.Image = Properties.Resources.erkek;
+
                 }
 
                 dr.Close();
+                lblKullaniciID.Text = kullaniciID;
             }
             catch (Exception ex)
             {
@@ -114,6 +128,12 @@ namespace TaskFlow360
             {
                 baglanti.BaglantiKapat();
             }
+        }
+
+
+        private void lbltlfn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

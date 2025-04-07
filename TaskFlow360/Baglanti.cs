@@ -57,5 +57,14 @@ namespace TaskFlow360
                 throw new Exception("Veritabanı bağlantısı kapatılırken hata: " + ex.Message);
             }
         }
+
+        public static SqlConnection BaglantiGetir()
+        {
+            SqlConnection conn = new SqlConnection(baglantiDizisi);
+            if (conn.State == ConnectionState.Closed || conn.State == ConnectionState.Broken)
+                conn.Open();
+            return conn;
+        }
+
     }
 }

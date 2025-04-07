@@ -30,42 +30,36 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OfficerProfile));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.ikonCikis = new System.Windows.Forms.PictureBox();
-            this.ikonRaporlar = new System.Windows.Forms.PictureBox();
             this.btnRaporlar = new System.Windows.Forms.Button();
-            this.ikonProfil = new System.Windows.Forms.PictureBox();
-            this.ikonGorevler = new System.Windows.Forms.PictureBox();
-            this.ikonAnasayfa = new System.Windows.Forms.PictureBox();
             this.btnCikis = new System.Windows.Forms.Button();
             this.btnGorevler = new System.Windows.Forms.Button();
             this.btnProfil = new System.Windows.Forms.Button();
             this.btnAnasayfa = new System.Windows.Forms.Button();
-            this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.lblHosgeldiniz = new System.Windows.Forms.Label();
             this.pnlPrfilBilgi = new System.Windows.Forms.Panel();
+            this.lblDepartman = new System.Windows.Forms.Label();
+            this.lblEmail = new System.Windows.Forms.Label();
             this.lbleposta = new System.Windows.Forms.Label();
-            this.lbldepartmanB = new System.Windows.Forms.Label();
+            this.lbldpatmnB = new System.Windows.Forms.Label();
             this.lblBolum = new System.Windows.Forms.Label();
             this.lblAdSoyad = new System.Windows.Forms.Label();
-            this.btnDegistir = new System.Windows.Forms.Button();
-            this.pctrProfil = new System.Windows.Forms.PictureBox();
             this.pnlIletisimBilgi = new System.Windows.Forms.Panel();
             this.lblDogumTarihi = new System.Windows.Forms.Label();
             this.lblAdres = new System.Windows.Forms.Label();
             this.lblTelefon = new System.Windows.Forms.Label();
-            this.lblDogumTrhB = new System.Windows.Forms.Label();
-            this.lblAdresB = new System.Windows.Forms.Label();
-            this.lblTelefonB = new System.Windows.Forms.Label();
+            this.lbldogumtrh = new System.Windows.Forms.Label();
+            this.lbladrs = new System.Windows.Forms.Label();
+            this.lbltlfn = new System.Windows.Forms.Label();
             this.lblIletisimBaslik = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.pnlIsBilgi = new System.Windows.Forms.Panel();
-            this.lblCalisanIDSNC = new System.Windows.Forms.Label();
-            this.lblYoneticiSNC = new System.Windows.Forms.Label();
+            this.lblKullaniciID = new System.Windows.Forms.Label();
+            this.lblYonetici = new System.Windows.Forms.Label();
             this.lblIseBaslama = new System.Windows.Forms.Label();
             this.lblCalisanID = new System.Windows.Forms.Label();
-            this.lblYonetici = new System.Windows.Forms.Label();
+            this.lblYnetici = new System.Windows.Forms.Label();
             this.lblisebaslamaB = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
@@ -84,23 +78,28 @@
             this.lblPerformansPrimBaslik = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.pctrProfil = new System.Windows.Forms.PictureBox();
+            this.ikonCikis = new System.Windows.Forms.PictureBox();
+            this.ikonRaporlar = new System.Windows.Forms.PictureBox();
+            this.ikonProfil = new System.Windows.Forms.PictureBox();
+            this.ikonGorevler = new System.Windows.Forms.PictureBox();
+            this.ikonAnasayfa = new System.Windows.Forms.PictureBox();
+            this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.lblEmail = new System.Windows.Forms.Label();
-            this.lblDepartman = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.pnlPrfilBilgi.SuspendLayout();
+            this.pnlIletisimBilgi.SuspendLayout();
+            this.pnlIsBilgi.SuspendLayout();
+            this.pnlPrimBilgi.SuspendLayout();
+            this.pnlPrim.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrProfil)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonProfil)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).BeginInit();
-            this.pnlPrfilBilgi.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrProfil)).BeginInit();
-            this.pnlIletisimBilgi.SuspendLayout();
-            this.pnlIsBilgi.SuspendLayout();
-            this.pnlPrimBilgi.SuspendLayout();
-            this.pnlPrim.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -125,28 +124,6 @@
             this.panel1.Size = new System.Drawing.Size(295, 1102);
             this.panel1.TabIndex = 8;
             // 
-            // ikonCikis
-            // 
-            this.ikonCikis.BackColor = System.Drawing.Color.Transparent;
-            this.ikonCikis.Image = ((System.Drawing.Image)(resources.GetObject("ikonCikis.Image")));
-            this.ikonCikis.Location = new System.Drawing.Point(25, 977);
-            this.ikonCikis.Name = "ikonCikis";
-            this.ikonCikis.Size = new System.Drawing.Size(40, 40);
-            this.ikonCikis.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonCikis.TabIndex = 11;
-            this.ikonCikis.TabStop = false;
-            // 
-            // ikonRaporlar
-            // 
-            this.ikonRaporlar.BackColor = System.Drawing.Color.Transparent;
-            this.ikonRaporlar.Image = ((System.Drawing.Image)(resources.GetObject("ikonRaporlar.Image")));
-            this.ikonRaporlar.Location = new System.Drawing.Point(25, 378);
-            this.ikonRaporlar.Name = "ikonRaporlar";
-            this.ikonRaporlar.Size = new System.Drawing.Size(40, 40);
-            this.ikonRaporlar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonRaporlar.TabIndex = 10;
-            this.ikonRaporlar.TabStop = false;
-            // 
             // btnRaporlar
             // 
             this.btnRaporlar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
@@ -165,39 +142,6 @@
             this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnRaporlar.UseVisualStyleBackColor = false;
             this.btnRaporlar.Click += new System.EventHandler(this.btnRaporlar_Click);
-            // 
-            // ikonProfil
-            // 
-            this.ikonProfil.BackColor = System.Drawing.Color.Transparent;
-            this.ikonProfil.Image = ((System.Drawing.Image)(resources.GetObject("ikonProfil.Image")));
-            this.ikonProfil.Location = new System.Drawing.Point(25, 259);
-            this.ikonProfil.Name = "ikonProfil";
-            this.ikonProfil.Size = new System.Drawing.Size(40, 40);
-            this.ikonProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonProfil.TabIndex = 8;
-            this.ikonProfil.TabStop = false;
-            // 
-            // ikonGorevler
-            // 
-            this.ikonGorevler.BackColor = System.Drawing.Color.Transparent;
-            this.ikonGorevler.Image = ((System.Drawing.Image)(resources.GetObject("ikonGorevler.Image")));
-            this.ikonGorevler.Location = new System.Drawing.Point(25, 319);
-            this.ikonGorevler.Name = "ikonGorevler";
-            this.ikonGorevler.Size = new System.Drawing.Size(40, 40);
-            this.ikonGorevler.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonGorevler.TabIndex = 7;
-            this.ikonGorevler.TabStop = false;
-            // 
-            // ikonAnasayfa
-            // 
-            this.ikonAnasayfa.BackColor = System.Drawing.Color.Transparent;
-            this.ikonAnasayfa.Image = ((System.Drawing.Image)(resources.GetObject("ikonAnasayfa.Image")));
-            this.ikonAnasayfa.Location = new System.Drawing.Point(25, 200);
-            this.ikonAnasayfa.Name = "ikonAnasayfa";
-            this.ikonAnasayfa.Size = new System.Drawing.Size(40, 40);
-            this.ikonAnasayfa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonAnasayfa.TabIndex = 6;
-            this.ikonAnasayfa.TabStop = false;
             // 
             // btnCikis
             // 
@@ -273,17 +217,6 @@
             this.btnAnasayfa.UseVisualStyleBackColor = false;
             this.btnAnasayfa.Click += new System.EventHandler(this.btnAnasayfa_Click);
             // 
-            // pctrLogo
-            // 
-            this.pctrLogo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pctrLogo.Image = ((System.Drawing.Image)(resources.GetObject("pctrLogo.Image")));
-            this.pctrLogo.Location = new System.Drawing.Point(0, 0);
-            this.pctrLogo.Name = "pctrLogo";
-            this.pctrLogo.Size = new System.Drawing.Size(295, 188);
-            this.pctrLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pctrLogo.TabIndex = 0;
-            this.pctrLogo.TabStop = false;
-            // 
             // lblHosgeldiniz
             // 
             this.lblHosgeldiniz.AutoSize = true;
@@ -301,15 +234,34 @@
             this.pnlPrfilBilgi.Controls.Add(this.lblDepartman);
             this.pnlPrfilBilgi.Controls.Add(this.lblEmail);
             this.pnlPrfilBilgi.Controls.Add(this.lbleposta);
-            this.pnlPrfilBilgi.Controls.Add(this.lbldepartmanB);
+            this.pnlPrfilBilgi.Controls.Add(this.lbldpatmnB);
             this.pnlPrfilBilgi.Controls.Add(this.lblBolum);
             this.pnlPrfilBilgi.Controls.Add(this.lblAdSoyad);
-            this.pnlPrfilBilgi.Controls.Add(this.btnDegistir);
             this.pnlPrfilBilgi.Controls.Add(this.pctrProfil);
             this.pnlPrfilBilgi.Location = new System.Drawing.Point(327, 98);
             this.pnlPrfilBilgi.Name = "pnlPrfilBilgi";
             this.pnlPrfilBilgi.Size = new System.Drawing.Size(1670, 243);
             this.pnlPrfilBilgi.TabIndex = 10;
+            // 
+            // lblDepartman
+            // 
+            this.lblDepartman.AutoSize = true;
+            this.lblDepartman.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblDepartman.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblDepartman.Location = new System.Drawing.Point(607, 129);
+            this.lblDepartman.Name = "lblDepartman";
+            this.lblDepartman.Size = new System.Drawing.Size(0, 21);
+            this.lblDepartman.TabIndex = 29;
+            // 
+            // lblEmail
+            // 
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblEmail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblEmail.Location = new System.Drawing.Point(575, 160);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(0, 21);
+            this.lblEmail.TabIndex = 28;
             // 
             // lbleposta
             // 
@@ -322,16 +274,16 @@
             this.lbleposta.TabIndex = 27;
             this.lbleposta.Text = "E-posta:";
             // 
-            // lbldepartmanB
+            // lbldpatmnB
             // 
-            this.lbldepartmanB.AutoSize = true;
-            this.lbldepartmanB.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lbldepartmanB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbldepartmanB.Location = new System.Drawing.Point(489, 129);
-            this.lbldepartmanB.Name = "lbldepartmanB";
-            this.lbldepartmanB.Size = new System.Drawing.Size(112, 21);
-            this.lbldepartmanB.TabIndex = 24;
-            this.lbldepartmanB.Text = "Departman:";
+            this.lbldpatmnB.AutoSize = true;
+            this.lbldpatmnB.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbldpatmnB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lbldpatmnB.Location = new System.Drawing.Point(489, 129);
+            this.lbldpatmnB.Name = "lbldpatmnB";
+            this.lbldpatmnB.Size = new System.Drawing.Size(112, 21);
+            this.lbldpatmnB.TabIndex = 24;
+            this.lbldpatmnB.Text = "Departman:";
             // 
             // lblBolum
             // 
@@ -353,39 +305,15 @@
             this.lblAdSoyad.TabIndex = 22;
             this.lblAdSoyad.Text = "İsim Soyisim";
             // 
-            // btnDegistir
-            // 
-            this.btnDegistir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnDegistir.FlatAppearance.BorderSize = 0;
-            this.btnDegistir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDegistir.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnDegistir.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnDegistir.Location = new System.Drawing.Point(136, 192);
-            this.btnDegistir.Name = "btnDegistir";
-            this.btnDegistir.Size = new System.Drawing.Size(157, 40);
-            this.btnDegistir.TabIndex = 21;
-            this.btnDegistir.Text = "Değiştir";
-            this.btnDegistir.UseVisualStyleBackColor = false;
-            // 
-            // pctrProfil
-            // 
-            this.pctrProfil.Image = ((System.Drawing.Image)(resources.GetObject("pctrProfil.Image")));
-            this.pctrProfil.Location = new System.Drawing.Point(117, 16);
-            this.pctrProfil.Name = "pctrProfil";
-            this.pctrProfil.Size = new System.Drawing.Size(195, 170);
-            this.pctrProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pctrProfil.TabIndex = 0;
-            this.pctrProfil.TabStop = false;
-            // 
             // pnlIletisimBilgi
             // 
             this.pnlIletisimBilgi.BackColor = System.Drawing.Color.White;
             this.pnlIletisimBilgi.Controls.Add(this.lblDogumTarihi);
             this.pnlIletisimBilgi.Controls.Add(this.lblAdres);
             this.pnlIletisimBilgi.Controls.Add(this.lblTelefon);
-            this.pnlIletisimBilgi.Controls.Add(this.lblDogumTrhB);
-            this.pnlIletisimBilgi.Controls.Add(this.lblAdresB);
-            this.pnlIletisimBilgi.Controls.Add(this.lblTelefonB);
+            this.pnlIletisimBilgi.Controls.Add(this.lbldogumtrh);
+            this.pnlIletisimBilgi.Controls.Add(this.lbladrs);
+            this.pnlIletisimBilgi.Controls.Add(this.lbltlfn);
             this.pnlIletisimBilgi.Controls.Add(this.lblIletisimBaslik);
             this.pnlIletisimBilgi.Controls.Add(this.label7);
             this.pnlIletisimBilgi.Controls.Add(this.label15);
@@ -426,35 +354,36 @@
             this.lblTelefon.TabIndex = 9;
             this.lblTelefon.Text = "+90 539 250 05 32";
             // 
-            // lblDogumTrhB
+            // lbldogumtrh
             // 
-            this.lblDogumTrhB.AutoSize = true;
-            this.lblDogumTrhB.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblDogumTrhB.Location = new System.Drawing.Point(52, 159);
-            this.lblDogumTrhB.Name = "lblDogumTrhB";
-            this.lblDogumTrhB.Size = new System.Drawing.Size(121, 21);
-            this.lblDogumTrhB.TabIndex = 5;
-            this.lblDogumTrhB.Text = "Doğum tarihi";
+            this.lbldogumtrh.AutoSize = true;
+            this.lbldogumtrh.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbldogumtrh.Location = new System.Drawing.Point(52, 159);
+            this.lbldogumtrh.Name = "lbldogumtrh";
+            this.lbldogumtrh.Size = new System.Drawing.Size(121, 21);
+            this.lbldogumtrh.TabIndex = 5;
+            this.lbldogumtrh.Text = "Doğum tarihi";
             // 
-            // lblAdresB
+            // lbladrs
             // 
-            this.lblAdresB.AutoSize = true;
-            this.lblAdresB.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblAdresB.Location = new System.Drawing.Point(52, 112);
-            this.lblAdresB.Name = "lblAdresB";
-            this.lblAdresB.Size = new System.Drawing.Size(61, 21);
-            this.lblAdresB.TabIndex = 4;
-            this.lblAdresB.Text = "Adres";
+            this.lbladrs.AutoSize = true;
+            this.lbladrs.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbladrs.Location = new System.Drawing.Point(52, 112);
+            this.lbladrs.Name = "lbladrs";
+            this.lbladrs.Size = new System.Drawing.Size(61, 21);
+            this.lbladrs.TabIndex = 4;
+            this.lbladrs.Text = "Adres";
             // 
-            // lblTelefonB
+            // lbltlfn
             // 
-            this.lblTelefonB.AutoSize = true;
-            this.lblTelefonB.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblTelefonB.Location = new System.Drawing.Point(52, 65);
-            this.lblTelefonB.Name = "lblTelefonB";
-            this.lblTelefonB.Size = new System.Drawing.Size(74, 21);
-            this.lblTelefonB.TabIndex = 2;
-            this.lblTelefonB.Text = "Telefon";
+            this.lbltlfn.AutoSize = true;
+            this.lbltlfn.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lbltlfn.Location = new System.Drawing.Point(52, 65);
+            this.lbltlfn.Name = "lbltlfn";
+            this.lbltlfn.Size = new System.Drawing.Size(74, 21);
+            this.lbltlfn.TabIndex = 2;
+            this.lbltlfn.Text = "Telefon";
+            this.lbltlfn.Click += new System.EventHandler(this.lbltlfn_Click);
             // 
             // lblIletisimBaslik
             // 
@@ -502,11 +431,11 @@
             // pnlIsBilgi
             // 
             this.pnlIsBilgi.BackColor = System.Drawing.Color.White;
-            this.pnlIsBilgi.Controls.Add(this.lblCalisanIDSNC);
-            this.pnlIsBilgi.Controls.Add(this.lblYoneticiSNC);
+            this.pnlIsBilgi.Controls.Add(this.lblKullaniciID);
+            this.pnlIsBilgi.Controls.Add(this.lblYonetici);
             this.pnlIsBilgi.Controls.Add(this.lblIseBaslama);
             this.pnlIsBilgi.Controls.Add(this.lblCalisanID);
-            this.pnlIsBilgi.Controls.Add(this.lblYonetici);
+            this.pnlIsBilgi.Controls.Add(this.lblYnetici);
             this.pnlIsBilgi.Controls.Add(this.lblisebaslamaB);
             this.pnlIsBilgi.Controls.Add(this.label21);
             this.pnlIsBilgi.Controls.Add(this.label22);
@@ -517,25 +446,25 @@
             this.pnlIsBilgi.Size = new System.Drawing.Size(800, 211);
             this.pnlIsBilgi.TabIndex = 12;
             // 
-            // lblCalisanIDSNC
+            // lblKullaniciID
             // 
-            this.lblCalisanIDSNC.AutoSize = true;
-            this.lblCalisanIDSNC.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblCalisanIDSNC.Location = new System.Drawing.Point(405, 159);
-            this.lblCalisanIDSNC.Name = "lblCalisanIDSNC";
-            this.lblCalisanIDSNC.Size = new System.Drawing.Size(105, 21);
-            this.lblCalisanIDSNC.TabIndex = 19;
-            this.lblCalisanIDSNC.Text = "MBT201934";
+            this.lblKullaniciID.AutoSize = true;
+            this.lblKullaniciID.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblKullaniciID.Location = new System.Drawing.Point(405, 159);
+            this.lblKullaniciID.Name = "lblKullaniciID";
+            this.lblKullaniciID.Size = new System.Drawing.Size(105, 21);
+            this.lblKullaniciID.TabIndex = 19;
+            this.lblKullaniciID.Text = "MBT201934";
             // 
-            // lblYoneticiSNC
+            // lblYonetici
             // 
-            this.lblYoneticiSNC.AutoSize = true;
-            this.lblYoneticiSNC.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblYoneticiSNC.Location = new System.Drawing.Point(405, 112);
-            this.lblYoneticiSNC.Name = "lblYoneticiSNC";
-            this.lblYoneticiSNC.Size = new System.Drawing.Size(96, 21);
-            this.lblYoneticiSNC.TabIndex = 17;
-            this.lblYoneticiSNC.Text = "Eren Tekin";
+            this.lblYonetici.AutoSize = true;
+            this.lblYonetici.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblYonetici.Location = new System.Drawing.Point(405, 112);
+            this.lblYonetici.Name = "lblYonetici";
+            this.lblYonetici.Size = new System.Drawing.Size(96, 21);
+            this.lblYonetici.TabIndex = 17;
+            this.lblYonetici.Text = "Eren Tekin";
             // 
             // lblIseBaslama
             // 
@@ -557,15 +486,15 @@
             this.lblCalisanID.TabIndex = 12;
             this.lblCalisanID.Text = "Çalışan ID";
             // 
-            // lblYonetici
+            // lblYnetici
             // 
-            this.lblYonetici.AutoSize = true;
-            this.lblYonetici.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblYonetici.Location = new System.Drawing.Point(52, 112);
-            this.lblYonetici.Name = "lblYonetici";
-            this.lblYonetici.Size = new System.Drawing.Size(81, 21);
-            this.lblYonetici.TabIndex = 10;
-            this.lblYonetici.Text = "Yönetici";
+            this.lblYnetici.AutoSize = true;
+            this.lblYnetici.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblYnetici.Location = new System.Drawing.Point(52, 112);
+            this.lblYnetici.Name = "lblYnetici";
+            this.lblYnetici.Size = new System.Drawing.Size(81, 21);
+            this.lblYnetici.TabIndex = 10;
+            this.lblYnetici.Text = "Yönetici";
             // 
             // lblisebaslamaB
             // 
@@ -763,6 +692,81 @@
             this.panel7.Size = new System.Drawing.Size(245, 88);
             this.panel7.TabIndex = 19;
             // 
+            // pctrProfil
+            // 
+            this.pctrProfil.Location = new System.Drawing.Point(122, 23);
+            this.pctrProfil.Name = "pctrProfil";
+            this.pctrProfil.Size = new System.Drawing.Size(190, 190);
+            this.pctrProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pctrProfil.TabIndex = 0;
+            this.pctrProfil.TabStop = false;
+            // 
+            // ikonCikis
+            // 
+            this.ikonCikis.BackColor = System.Drawing.Color.Transparent;
+            this.ikonCikis.Image = ((System.Drawing.Image)(resources.GetObject("ikonCikis.Image")));
+            this.ikonCikis.Location = new System.Drawing.Point(25, 977);
+            this.ikonCikis.Name = "ikonCikis";
+            this.ikonCikis.Size = new System.Drawing.Size(40, 40);
+            this.ikonCikis.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonCikis.TabIndex = 11;
+            this.ikonCikis.TabStop = false;
+            // 
+            // ikonRaporlar
+            // 
+            this.ikonRaporlar.BackColor = System.Drawing.Color.Transparent;
+            this.ikonRaporlar.Image = ((System.Drawing.Image)(resources.GetObject("ikonRaporlar.Image")));
+            this.ikonRaporlar.Location = new System.Drawing.Point(25, 378);
+            this.ikonRaporlar.Name = "ikonRaporlar";
+            this.ikonRaporlar.Size = new System.Drawing.Size(40, 40);
+            this.ikonRaporlar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonRaporlar.TabIndex = 10;
+            this.ikonRaporlar.TabStop = false;
+            // 
+            // ikonProfil
+            // 
+            this.ikonProfil.BackColor = System.Drawing.Color.Transparent;
+            this.ikonProfil.Image = ((System.Drawing.Image)(resources.GetObject("ikonProfil.Image")));
+            this.ikonProfil.Location = new System.Drawing.Point(25, 259);
+            this.ikonProfil.Name = "ikonProfil";
+            this.ikonProfil.Size = new System.Drawing.Size(40, 40);
+            this.ikonProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonProfil.TabIndex = 8;
+            this.ikonProfil.TabStop = false;
+            // 
+            // ikonGorevler
+            // 
+            this.ikonGorevler.BackColor = System.Drawing.Color.Transparent;
+            this.ikonGorevler.Image = ((System.Drawing.Image)(resources.GetObject("ikonGorevler.Image")));
+            this.ikonGorevler.Location = new System.Drawing.Point(25, 319);
+            this.ikonGorevler.Name = "ikonGorevler";
+            this.ikonGorevler.Size = new System.Drawing.Size(40, 40);
+            this.ikonGorevler.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonGorevler.TabIndex = 7;
+            this.ikonGorevler.TabStop = false;
+            // 
+            // ikonAnasayfa
+            // 
+            this.ikonAnasayfa.BackColor = System.Drawing.Color.Transparent;
+            this.ikonAnasayfa.Image = ((System.Drawing.Image)(resources.GetObject("ikonAnasayfa.Image")));
+            this.ikonAnasayfa.Location = new System.Drawing.Point(25, 200);
+            this.ikonAnasayfa.Name = "ikonAnasayfa";
+            this.ikonAnasayfa.Size = new System.Drawing.Size(40, 40);
+            this.ikonAnasayfa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonAnasayfa.TabIndex = 6;
+            this.ikonAnasayfa.TabStop = false;
+            // 
+            // pctrLogo
+            // 
+            this.pctrLogo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pctrLogo.Image = ((System.Drawing.Image)(resources.GetObject("pctrLogo.Image")));
+            this.pctrLogo.Location = new System.Drawing.Point(0, 0);
+            this.pctrLogo.Name = "pctrLogo";
+            this.pctrLogo.Size = new System.Drawing.Size(295, 188);
+            this.pctrLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrLogo.TabIndex = 0;
+            this.pctrLogo.TabStop = false;
+            // 
             // pictureBox3
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -787,28 +791,6 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
-            // lblEmail
-            // 
-            this.lblEmail.AutoSize = true;
-            this.lblEmail.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblEmail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblEmail.Location = new System.Drawing.Point(575, 160);
-            this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(196, 21);
-            this.lblEmail.TabIndex = 28;
-            this.lblEmail.Text = "isim.soyisim@sirket.com";
-            // 
-            // lblDepartman
-            // 
-            this.lblDepartman.AutoSize = true;
-            this.lblDepartman.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblDepartman.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblDepartman.Location = new System.Drawing.Point(607, 129);
-            this.lblDepartman.Name = "lblDepartman";
-            this.lblDepartman.Size = new System.Drawing.Size(136, 21);
-            this.lblDepartman.TabIndex = 29;
-            this.lblDepartman.Text = "Bilgi Teknolojileri";
-            // 
             // OfficerProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -829,15 +811,8 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.OfficerProfile_Load);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonProfil)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).EndInit();
             this.pnlPrfilBilgi.ResumeLayout(false);
             this.pnlPrfilBilgi.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrProfil)).EndInit();
             this.pnlIletisimBilgi.ResumeLayout(false);
             this.pnlIletisimBilgi.PerformLayout();
             this.pnlIsBilgi.ResumeLayout(false);
@@ -846,6 +821,13 @@
             this.pnlPrimBilgi.PerformLayout();
             this.pnlPrim.ResumeLayout(false);
             this.pnlPrim.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrProfil)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonProfil)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
@@ -870,9 +852,7 @@
         private System.Windows.Forms.PictureBox pctrLogo;
         private System.Windows.Forms.Label lblHosgeldiniz;
         private System.Windows.Forms.Panel pnlPrfilBilgi;
-        private System.Windows.Forms.PictureBox pctrProfil;
-        private System.Windows.Forms.Button btnDegistir;
-        private System.Windows.Forms.Label lbldepartmanB;
+        private System.Windows.Forms.Label lbldpatmnB;
         private System.Windows.Forms.Label lblBolum;
         private System.Windows.Forms.Label lblAdSoyad;
         private System.Windows.Forms.Label lbleposta;
@@ -881,22 +861,22 @@
         private System.Windows.Forms.Label lblIletisimBaslik;
         private System.Windows.Forms.Panel pnlIsBilgi;
         private System.Windows.Forms.Label lblIsBaslik;
-        private System.Windows.Forms.Label lblDogumTrhB;
-        private System.Windows.Forms.Label lblAdresB;
-        private System.Windows.Forms.Label lblTelefonB;
+        private System.Windows.Forms.Label lbldogumtrh;
+        private System.Windows.Forms.Label lbladrs;
+        private System.Windows.Forms.Label lbltlfn;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label lblCalisanID;
-        private System.Windows.Forms.Label lblYonetici;
+        private System.Windows.Forms.Label lblYnetici;
         private System.Windows.Forms.Label lblisebaslamaB;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label lblDogumTarihi;
         private System.Windows.Forms.Label lblAdres;
         private System.Windows.Forms.Label lblTelefon;
-        private System.Windows.Forms.Label lblCalisanIDSNC;
-        private System.Windows.Forms.Label lblYoneticiSNC;
+        private System.Windows.Forms.Label lblKullaniciID;
+        private System.Windows.Forms.Label lblYonetici;
         private System.Windows.Forms.Label lblIseBaslama;
         private System.Windows.Forms.Panel pnlPrimBilgi;
         private System.Windows.Forms.Label lblPerformansPrimBaslik;
@@ -914,5 +894,6 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.Label lblDepartman;
+        private System.Windows.Forms.PictureBox pctrProfil;
     }
 }
