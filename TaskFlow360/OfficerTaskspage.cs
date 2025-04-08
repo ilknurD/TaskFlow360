@@ -121,7 +121,6 @@ namespace TaskFlow360
         {
             foreach (DataGridViewRow row in dgvGorevler.Rows)
             {
-                // DURUM kısmı
                 if (row.Cells["Durum"].Value != null)
                 {
                     string durum = row.Cells["Durum"].Value.ToString();
@@ -165,7 +164,6 @@ namespace TaskFlow360
                     durumCell.Style.Font = new Font("Century Gothic", 10, fontStyle);
                 }
 
-                // ÖNCELİK kısmı
                 if (row.Cells["Oncelik"].Value != null)
                 {
                     string oncelik = row.Cells["Oncelik"].Value.ToString();
@@ -209,16 +207,16 @@ namespace TaskFlow360
 
         private void btnCikis_Click(object sender, EventArgs e)
         {
-            this.Close();
             LoginForm loginForm = new LoginForm();
             loginForm.ShowDialog();
+            this.Close();
         }
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            this.Close();
             OfficerHomepage homepage = new OfficerHomepage();
             homepage.ShowDialog();
+            this.Close();
         }
 
         private void OfficerTaskspage_Load(object sender, EventArgs e)
@@ -280,7 +278,6 @@ namespace TaskFlow360
                     dv.RowFilter = string.Format("Baslik LIKE '%{0}%' OR TalepEden LIKE '%{0}%' OR CagriKategori LIKE '%{0}%'",
                                   aramaMetni.Replace("'", "''"));
 
-                    // Renkleri tekrar ayarla
                     SetRenkler();
                 }
             }
@@ -289,7 +286,6 @@ namespace TaskFlow360
                 DataView dv = dt.DefaultView;
                 dv.RowFilter = string.Empty;
 
-                // Renkleri tekrar ayarla
                 SetRenkler();
             }
         }
@@ -300,14 +296,12 @@ namespace TaskFlow360
             {
                 try
                 {
-                    // Seçilen çağrının ID'sini al
                     int cagriID = Convert.ToInt32(dgvGorevler.Rows[e.RowIndex].Cells["CagriID"].Value);
 
                     // Çağrı detay formunu aç
                     //CagriDetay detayForm = new CagriDetay(cagriID);
                     //detayForm.ShowDialog();
 
-                    // Detay formunu kapattıktan sonra verileri yenile
                     CagrilariYukle();
                 }
                 catch (Exception ex)
@@ -360,7 +354,6 @@ namespace TaskFlow360
                 baglantiNesnesi.BaglantiAc();
                 SqlCommand cmd = new SqlCommand(query, baglantiNesnesi.conn);
 
-                // Always add the user ID parameter
                 cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
 
                 if (durum != "Tümü")

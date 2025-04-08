@@ -32,30 +32,30 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            this.Close();
             OfficerHomepage officerHomepage = new OfficerHomepage();
             officerHomepage.Show();
+            this.Close();
         }
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
-            this.Close();
             OfficerProfile officerProfile = new OfficerProfile();   
             officerProfile.Show();
+            this.Close();
         }
 
         private void btnGorevler_Click(object sender, EventArgs e)
         {
-            this.Close();
             OfficerTaskspage officerTaskspage = new OfficerTaskspage();
             officerTaskspage.Show();
+            this.Close();
         }
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
-            this.Close();
             OfficerReportsPage officerReportsPage = new OfficerReportsPage();
             officerReportsPage.Show();
+            this.Close();
         }
 
         private void OfficerReportsPage_Load(object sender, EventArgs e)
@@ -120,14 +120,14 @@ namespace TaskFlow360
             using (SqlConnection conn = Baglanti.BaglantiGetir())
             {
                 string query = @"
-            SELECT FORMAT(RaporTarihi, 'dd.MM') AS Tarih,
+                   SELECT FORMAT(RaporTarihi, 'dd.MM') AS Tarih,
                    SUM(ToplamCagriSayisi) AS CagriSayisi,
                    AVG(OrtalamaCozumSuresi) AS OrtalamaSure
-            FROM PerformansRaporu
-            WHERE KullaniciID = @KullaniciID AND 
-                  RaporTarihi >= DATEADD(DAY, -6, GETDATE())
-            GROUP BY FORMAT(RaporTarihi, 'dd.MM')
-            ORDER BY Tarih";
+                   FROM PerformansRaporu
+                   WHERE KullaniciID = @KullaniciID AND 
+                   RaporTarihi >= DATEADD(DAY, -6, GETDATE())
+                   GROUP BY FORMAT(RaporTarihi, 'dd.MM')
+                   ORDER BY Tarih";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
@@ -152,7 +152,6 @@ namespace TaskFlow360
             chartAylik.Titles.Clear();
             chartAylik.Titles.Add("Son 3 Ay Performansı");
 
-            // 1. Sütun Grafik: Çağrı Sayısı
             Series cagriSeries = new Series("Toplam Çağrı")
             {
                 ChartType = SeriesChartType.Column,
@@ -160,7 +159,6 @@ namespace TaskFlow360
                 YAxisType = AxisType.Primary
             };
 
-            // 2. Çizgi Grafik: Prim
             Series primSeries = new Series("Toplam Prim")
             {
                 ChartType = SeriesChartType.Line,
@@ -194,11 +192,9 @@ namespace TaskFlow360
                 dr.Close();
             }
 
-            // Serileri ekle
             chartAylik.Series.Add(cagriSeries);
             chartAylik.Series.Add(primSeries);
 
-            // Eksen başlıkları
             chartAylik.ChartAreas[0].AxisX.Title = "Ay";
             chartAylik.ChartAreas[0].AxisY.Title = "Çağrı Sayısı";
             chartAylik.ChartAreas[0].AxisY2.Title = "Prim (₺)";
@@ -207,7 +203,11 @@ namespace TaskFlow360
             primSeries.IsValueShownAsLabel = true;
         }
 
-
-
+        private void btnCikis_Click(object sender, EventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Close();
+        }
     }
 }

@@ -42,8 +42,12 @@
             this.btnAnasayfa = new System.Windows.Forms.Button();
             this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblDevamEdenGorevSayisi = new System.Windows.Forms.Label();
             this.lblYeniGorevSayisi = new System.Windows.Forms.Label();
             this.lblHosgeldiniz = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.lblAtananGorevler = new System.Windows.Forms.Label();
             this.PnlGorevler = new System.Windows.Forms.FlowLayoutPanel();
             this.lblTarihSaat = new System.Windows.Forms.Label();
@@ -53,10 +57,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.lblDevamEdenGorevSayisi = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).BeginInit();
@@ -128,6 +128,7 @@
             this.btnRaporlar.Text = "Raporlar";
             this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnRaporlar.UseVisualStyleBackColor = false;
+            this.btnRaporlar.Click += new System.EventHandler(this.btnRaporlar_Click);
             // 
             // ikonProfil
             // 
@@ -262,6 +263,40 @@
             this.panel2.TabIndex = 5;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(346, 59);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(212, 21);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "göreviniz bulunmaktadır.";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(33, 59);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(61, 21);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Bugün";
+            // 
+            // lblDevamEdenGorevSayisi
+            // 
+            this.lblDevamEdenGorevSayisi.AutoSize = true;
+            this.lblDevamEdenGorevSayisi.BackColor = System.Drawing.Color.Transparent;
+            this.lblDevamEdenGorevSayisi.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblDevamEdenGorevSayisi.ForeColor = System.Drawing.Color.White;
+            this.lblDevamEdenGorevSayisi.Location = new System.Drawing.Point(328, 59);
+            this.lblDevamEdenGorevSayisi.Margin = new System.Windows.Forms.Padding(0);
+            this.lblDevamEdenGorevSayisi.Name = "lblDevamEdenGorevSayisi";
+            this.lblDevamEdenGorevSayisi.Size = new System.Drawing.Size(0, 21);
+            this.lblDevamEdenGorevSayisi.TabIndex = 2;
+            // 
             // lblYeniGorevSayisi
             // 
             this.lblYeniGorevSayisi.AutoSize = true;
@@ -284,6 +319,17 @@
             this.lblHosgeldiniz.Size = new System.Drawing.Size(151, 27);
             this.lblHosgeldiniz.TabIndex = 0;
             this.lblHosgeldiniz.Text = "Hoş Geldiniz";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(123, 59);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(184, 21);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "yeni ve devam eden";
             // 
             // lblAtananGorevler
             // 
@@ -372,51 +418,6 @@
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
-            // 
-            // lblDevamEdenGorevSayisi
-            // 
-            this.lblDevamEdenGorevSayisi.AutoSize = true;
-            this.lblDevamEdenGorevSayisi.BackColor = System.Drawing.Color.Transparent;
-            this.lblDevamEdenGorevSayisi.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblDevamEdenGorevSayisi.ForeColor = System.Drawing.Color.White;
-            this.lblDevamEdenGorevSayisi.Location = new System.Drawing.Point(328, 59);
-            this.lblDevamEdenGorevSayisi.Margin = new System.Windows.Forms.Padding(0);
-            this.lblDevamEdenGorevSayisi.Name = "lblDevamEdenGorevSayisi";
-            this.lblDevamEdenGorevSayisi.Size = new System.Drawing.Size(0, 21);
-            this.lblDevamEdenGorevSayisi.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(123, 59);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(184, 21);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "yeni ve devam eden";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(33, 59);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 21);
-            this.label4.TabIndex = 13;
-            this.label4.Text = "Bugün";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(346, 59);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(212, 21);
-            this.label5.TabIndex = 14;
-            this.label5.Text = "göreviniz bulunmaktadır.";
             // 
             // OfficerHomepage
             // 

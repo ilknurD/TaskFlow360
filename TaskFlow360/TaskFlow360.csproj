@@ -117,6 +117,12 @@
     <Compile Include="OfficerReportsPage.Designer.cs">
       <DependentUpon>OfficerReportsPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="OfficerTaskDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OfficerTaskDetail.Designer.cs">
+      <DependentUpon>OfficerTaskDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="OfficerTaskspage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OfficerReportsPage.resx">
       <DependentUpon>OfficerReportsPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OfficerTaskDetail.resx">
+      <DependentUpon>OfficerTaskDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OfficerTaskspage.resx">
       <DependentUpon>OfficerTaskspage.cs</DependentUpon>

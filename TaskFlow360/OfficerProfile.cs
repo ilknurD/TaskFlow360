@@ -38,16 +38,16 @@ namespace TaskFlow360
 
         private void btnGorevler_Click(object sender, EventArgs e)
         {
-            this.Close();
             OfficerTaskspage officerTaskspage = new OfficerTaskspage();
             officerTaskspage.Show();
+            this.Close();
         }
 
         private void btnCikis_Click(object sender, EventArgs e)
         {
-            this.Close();
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
+            this.Close();
         }
 
         private void panel4_Paint(object sender, PaintEventArgs e)
@@ -57,16 +57,16 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
-            this.Close();
             OfficerProfile profile = new OfficerProfile();
             profile.Show();
+            this.Close();
         }
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
-            this.Close();
             OfficerReportsPage officerReportsPage = new OfficerReportsPage();
             officerReportsPage.Show();
+            this.Close();
         }
 
         private void OfficerProfile_Load(object sender, EventArgs e)

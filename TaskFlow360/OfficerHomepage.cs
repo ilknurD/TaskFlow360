@@ -187,8 +187,8 @@ namespace TaskFlow360
                     beklemede = reader["Beklemede"] != DBNull.Value ? Convert.ToInt32(reader["Beklemede"]) : 0;
                     tamamlandı = reader["Tamamlandı"] != DBNull.Value ? Convert.ToInt32(reader["Tamamlandı"]) : 0;
                     gecikti = reader["Gecikti"] != DBNull.Value ? Convert.ToInt32(reader["Gecikti"]) : 0;
-                    iptalEdildi = reader["IptalEdildi"] != DBNull.Value ? Convert.ToInt32(reader["IptalEdildi"]) : 0; // Değiştirildi
-                    atandi = reader["Atandi"] != DBNull.Value ? Convert.ToInt32(reader["Atandi"]) : 0; // Değiştirildi
+                    iptalEdildi = reader["IptalEdildi"] != DBNull.Value ? Convert.ToInt32(reader["IptalEdildi"]) : 0;
+                    atandi = reader["Atandi"] != DBNull.Value ? Convert.ToInt32(reader["Atandi"]) : 0; 
                     toplam = reader["Toplam"] != DBNull.Value ? Convert.ToInt32(reader["Toplam"]) : 0;
                 }
 
@@ -264,14 +264,12 @@ namespace TaskFlow360
                 SqlCommand yeniCmd = new SqlCommand(yeniGorevQuery, baglanti.conn);
                 yeniGorevSayisi = (int)yeniCmd.ExecuteScalar();
 
-                // Devam eden görevleri say (Beklemede ve Atandı durumundakiler)
                 string devamEdenQuery = @"SELECT COUNT(*) FROM Cagri 
                                  WHERE Durum IN ('Beklemede')";
 
                 SqlCommand devamEdenCmd = new SqlCommand(devamEdenQuery, baglanti.conn);
                 devamEdenGorevSayisi = (int)devamEdenCmd.ExecuteScalar();
 
-                // Label'ları güncelle
                 lblYeniGorevSayisi.Text = yeniGorevSayisi.ToString();
                 lblDevamEdenGorevSayisi.Text = devamEdenGorevSayisi.ToString();
             }
@@ -418,6 +416,12 @@ namespace TaskFlow360
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnRaporlar_Click(object sender, EventArgs e)
+        {
+            OfficerReportsPage officerReportsPage = new OfficerReportsPage();
+            officerReportsPage.Show();
         }
     }
 }
