@@ -14,65 +14,178 @@ namespace TaskFlow360
     public partial class OfficerTaskDetail : Form
     {
         Baglanti bgl = new Baglanti();
+        private int _cagriID;
         private int _talepEdenID;
-        public OfficerTaskDetail(int talepEdenID)
+        public OfficerTaskDetail(int cagriID, int talepEdenID)
         {
             InitializeComponent();
+            _cagriID = cagriID;
             _talepEdenID = talepEdenID;
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-        }
-
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Minimized;
         }
 
         private void OfficerTaskDetail_Load(object sender, EventArgs e)
         {
+            YukleCagriBilgileri();
+            YukleTalepEdeninGecmisCagrilari();
+        }
 
-            
-            Label lblLoading = new Label();
-            lblLoading.Text = "Çağrılar yükleniyor...";
-            lblLoading.Location = new Point(pnlgecmisCagrilar.Width / 2 - 60, pnlgecmisCagrilar.Height / 2);
-            lblLoading.AutoSize = true;
-            pnlgecmisCagrilar.Controls.Add(lblLoading);
-            
-
-            int y = 20;
-
-            bgl.BaglantiAc();
-
-            string sorgu = @"SELECT CagriID, Baslik, Durum, OlusturmaTarihi, TeslimTarihi, CagriAciklama
-                     FROM Cagri 
-                     WHERE TalepEdenID = @TalepEdenID
-                     ORDER BY OlusturmaTarihi DESC";
-
-            SqlCommand cmd = new SqlCommand(sorgu, bgl.conn);
-            cmd.Parameters.AddWithValue("@TalepEdenID", _talepEdenID);
-
-            SqlDataReader dr = cmd.ExecuteReader();
-            while (dr.Read())
+        private void YukleCagriBilgileri()
+        {
+            try
             {
-                string tarihSaat = Convert.ToDateTime(dr["OlusturmaTarihi"]).ToString("dd.MM.yyyy HH:mm");
-                string baslik = dr["Baslik"].ToString();
-                string aciklama = dr["CagriAciklama"].ToString();
+                bgl.BaglantiAc();
 
-                AddGecmisCagriItem(tarihSaat, baslik, aciklama, ref y);
+                string sorgu = @"SELECT c.CagriID, c.Baslik, c.CagriAciklama, c.Durum, c.OlusturmaTarihi, 
+                       c.TeslimTarihi, c.CagriKategori, c.Oncelik, c.HedefSure, 
+                       te.TalepEdenID, te.TalepEden, te.TalepEdenAdres, te.TalepEdenTelefon, te.TalepEdenEmail
+                       FROM Cagri c
+                       LEFT JOIN TalepEdenler te ON c.TalepEdenID = te.TalepEdenID
+                       WHERE c.CagriID = @CagriID";
+
+                SqlCommand cmd = new SqlCommand(sorgu, bgl.conn);
+                cmd.Parameters.AddWithValue("@CagriID", _cagriID);
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        // Çağrı Bilgileri
+                        txtCagriID.Text = dr["CagriID"].ToString();
+                        txtBaslik.Text = dr["Baslik"].ToString();
+                        txtAciklama.Text = dr["CagriAciklama"].ToString();
+                        cmbDurum.Text = dr["Durum"].ToString();
+                        txtOlusturmaTarihi.Text = Convert.ToDateTime(dr["OlusturmaTarihi"]).ToString("dd.MM.yyyy HH:mm");
+                        txtTalepEden.Text = dr["TalepEden"].ToString();
+                        //txtAtanan.Text = dr["AtananKullaniciID"].ToString();
+
+                        if (dr["TeslimTarihi"] != DBNull.Value)
+                            txtTeslimTarihi.Text = Convert.ToDateTime(dr["TeslimTarihi"]).ToString("dd.MM.yyyy HH:mm");
+                        else
+                            txtTeslimTarihi.Text = "Henüz teslim edilmedi";
+
+                        cmbKategori.Text = dr["CagriKategori"].ToString();
+                        cmbOncelik.Text = dr["Oncelik"].ToString();
+                        txtHedefSure.Text = dr["HedefSure"].ToString();
+
+                        // TalepEdenID değerini sınıf değişkenine kaydet
+                        if (dr["TalepEdenID"] != DBNull.Value)
+                        {
+                            _talepEdenID = Convert.ToInt32(dr["TalepEdenID"]);
+                        }
+                        else
+                        {
+                            _talepEdenID = 0; // Eğer null ise 0 olarak ayarla
+                        }
+
+                        // Talep Eden Bilgileri
+                        lblTalepEdenID.Text = dr["TalepEdenID"].ToString();
+                        lblTalepEden.Text = dr["TalepEden"].ToString();
+                        lblTalepEdenTelefon.Text = dr["TalepEdenTelefon"].ToString();
+                        lblTalepEdenEmail.Text = dr["TalepEdenEmail"].ToString();
+
+                        txtTalepEdenID.Text = dr["TalepEdenID"].ToString();
+                        txtTalepEdenTelefon.Text = dr["TalepEdenTelefon"].ToString();
+                        txtTalepEdenEmail.Text = dr["TalepEdenEmail"].ToString();
+                        txtTalepEdenAdres.Text = dr["TalepEdenAdres"].ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Çağrı bilgisi bulunamadı.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
             }
-
-            dr.Close();
-            bgl.BaglantiKapat();
-
-            pnlgecmisCagrilar.Controls.Remove(lblLoading); 
+            catch (Exception ex)
+            {
+                MessageBox.Show("Çağrı bilgileri yüklenirken hata oluştu: " + ex.Message,
+                               "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                bgl.BaglantiKapat();
+            }
         }
 
 
+        private void YukleTalepEdeninGecmisCagrilari()
+        {
+            try
+            {
+                // TalepEdenID kontrolü - sınıf değişkeninden alıyoruz artık
+                if (_talepEdenID <= 0)
+                {
+                    MessageBox.Show("Talep eden bilgisi bulunamadı. Geçmiş çağrılar yüklenemeyecek.",
+                                   "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-        private void AddGecmisCagriItem(string dateTime, string title, string description, ref int y)
+                // Panel'i temizle
+                pnlgecmisCagrilar.Controls.Clear();
+
+                // Loading mesajını göster
+                Label lblLoading = new Label();
+                lblLoading.Text = "Çağrılar yükleniyor...";
+                lblLoading.Location = new Point(pnlgecmisCagrilar.Width / 2 - 60, pnlgecmisCagrilar.Height / 2);
+                lblLoading.AutoSize = true;
+                pnlgecmisCagrilar.Controls.Add(lblLoading);
+
+                bgl.BaglantiAc();
+
+                int y = 20;
+
+                // Geçmiş çağrıları getir (şu anki çağrı hariç)
+                string sorgu = @"SELECT CagriID, Baslik, Durum, OlusturmaTarihi, TeslimTarihi, CagriAciklama
+                   FROM Cagri 
+                   WHERE TalepEdenID = @TalepEdenID AND CagriID != @CagriID
+                   ORDER BY OlusturmaTarihi DESC";
+
+                SqlCommand cmd = new SqlCommand(sorgu, bgl.conn);
+                cmd.Parameters.AddWithValue("@TalepEdenID", _talepEdenID);
+                cmd.Parameters.AddWithValue("@CagriID", _cagriID);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                bool hasRecords = false;
+
+                while (dr.Read())
+                {
+                    hasRecords = true;
+
+                    string tarihSaat = Convert.ToDateTime(dr["OlusturmaTarihi"]).ToString("dd.MM.yyyy HH:mm");
+                    string baslik = dr["Baslik"].ToString();
+                    string aciklama = dr["CagriAciklama"].ToString();
+                    string durum = dr["Durum"].ToString();
+
+                    AddGecmisCagriItem(tarihSaat, baslik, aciklama, durum, ref y);
+                }
+
+                dr.Close();
+
+                // Loading mesajını kaldır
+                pnlgecmisCagrilar.Controls.Remove(lblLoading);
+
+                // Eğer hiç geçmiş çağrı yoksa bilgi ver
+                if (!hasRecords)
+                {
+                    Label lblNoRecords = new Label();
+                    lblNoRecords.Text = "Bu talep eden için başka çağrı bulunmamaktadır.";
+                    lblNoRecords.Location = new Point(20, 20);
+                    lblNoRecords.AutoSize = true;
+                    lblNoRecords.ForeColor = Color.Gray;
+                    lblNoRecords.Font = new Font("Segoe UI", 9, FontStyle.Italic);
+                    pnlgecmisCagrilar.Controls.Add(lblNoRecords);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Geçmiş çağrılar yüklenirken hata oluştu: " + ex.Message,
+                               "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                bgl.BaglantiKapat();
+            }
+        }
+
+        private void AddGecmisCagriItem(string dateTime, string title, string description, string status, ref int y)
         {
             // Tarih Zaman
             Label lblDate = new Label();
@@ -85,12 +198,37 @@ namespace TaskFlow360
 
             y += 20;
 
-            // Başlık
+            // Başlık ve Durum
             Label lblTitle = new Label();
-            lblTitle.Text = title;
+            lblTitle.Text = title + " - " + status;
             lblTitle.Location = new Point(20, y);
             lblTitle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            lblTitle.ForeColor = Color.Black;
+
+            // Durum rengini ayarla
+            Color statusColor;
+            switch (status)
+            {
+                case "Atandı":
+                    statusColor = Color.MediumSlateBlue;
+                    break;
+                case "Beklemede":
+                    statusColor = Color.OrangeRed;
+                    break;
+                case "Tamamlandı":
+                    statusColor = Color.SeaGreen;
+                    break;
+                case "İptal Edildi":
+                    statusColor = Color.IndianRed;
+                    break;
+                case "Gecikti":
+                    statusColor = Color.Crimson;
+                    break;
+                default:
+                    statusColor = Color.Black;
+                    break;
+            }
+
+            lblTitle.ForeColor = statusColor;
             lblTitle.AutoSize = true;
             pnlgecmisCagrilar.Controls.Add(lblTitle);
 
@@ -110,7 +248,7 @@ namespace TaskFlow360
 
             y += lblDesc.Height + 15;
 
-            // Ayırıcı çizgi (opsiyonel)
+            // Ayırıcı çizgi
             Panel separator = new Panel();
             separator.BackColor = Color.LightGray;
             separator.Height = 1;
@@ -119,6 +257,61 @@ namespace TaskFlow360
             pnlgecmisCagrilar.Controls.Add(separator);
 
             y += 10;
+        }
+
+        // Durum güncelleme butonu için event handler
+        private void btnDurumGuncelle_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string yeniDurum = cmbDurum.SelectedItem?.ToString();
+                string aciklama = txtAciklama.Text.Trim();
+
+                if (string.IsNullOrEmpty(yeniDurum))
+                {
+                    MessageBox.Show("Lütfen bir durum seçiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(aciklama))
+                {
+                    MessageBox.Show("Lütfen durum güncellemesi için açıklama giriniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                bgl.BaglantiAc();
+
+                // Önce çağrının durumunu güncelle
+                string sorgu1 = "UPDATE Cagri SET Durum = @Durum WHERE CagriID = @CagriID";
+                SqlCommand cmd1 = new SqlCommand(sorgu1, bgl.conn);
+                cmd1.Parameters.AddWithValue("@Durum", yeniDurum);
+                cmd1.Parameters.AddWithValue("@CagriID", _cagriID);
+                cmd1.ExecuteNonQuery();
+
+                // Sonra durum güncellemesini kaydet
+                string sorgu2 = @"INSERT INTO CagriDurumGuncelleme (CagriID, GuncellemeTarihi, Durum, Aciklama, DegistirenKullaniciID) 
+                            VALUES (@CagriID, GETDATE(), @Durum, @Aciklama, @KullaniciID)";
+                SqlCommand cmd2 = new SqlCommand(sorgu2, bgl.conn);
+                cmd2.Parameters.AddWithValue("@CagriID", _cagriID);
+                cmd2.Parameters.AddWithValue("@Durum", yeniDurum);
+                cmd2.Parameters.AddWithValue("@Aciklama", aciklama);
+                cmd2.Parameters.AddWithValue("@KullaniciID", Convert.ToInt32(KullaniciBilgi.KullaniciID));
+                cmd2.ExecuteNonQuery();
+
+                MessageBox.Show("Çağrı durumu başarıyla güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Form'u yeniden yükle
+                YukleCagriBilgileri();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Durum güncellenirken hata oluştu: " + ex.Message,
+                               "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                bgl.BaglantiKapat();
+            }
         }
     }
 }

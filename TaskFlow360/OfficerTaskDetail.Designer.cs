@@ -35,59 +35,57 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.txtAciklama = new System.Windows.Forms.RichTextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.txtHedefSure = new System.Windows.Forms.TextBox();
+            this.txtTeslimTarihi = new System.Windows.Forms.TextBox();
+            this.txtAtanan = new System.Windows.Forms.TextBox();
+            this.cmbKategori = new System.Windows.Forms.ComboBox();
+            this.cmbDurum = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.txtOlusturmaTarihi = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtTalepEden = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtBaslik = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtCagriID = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
+            this.txtTalepEdenAdres = new System.Windows.Forms.TextBox();
+            this.txtTalepEdenID = new System.Windows.Forms.TextBox();
+            this.txtTalepEdenEmail = new System.Windows.Forms.TextBox();
+            this.txtTalepEdenTelefon = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.lblTalepEdenEmail = new System.Windows.Forms.Label();
+            this.lblTalepEdenTelefon = new System.Windows.Forms.Label();
+            this.lblTalepEdenID = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.lblTalepEden = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.pnlgecmisCagrilar = new System.Windows.Forms.Panel();
+            this.label29 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.pnlgecmisCagrilar = new System.Windows.Forms.Panel();
+            this.cmbOncelik = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -128,29 +126,29 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.cmbOncelik);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.richTextBox1);
+            this.tabPage1.Controls.Add(this.txtAciklama);
             this.tabPage1.Controls.Add(this.label13);
-            this.tabPage1.Controls.Add(this.textBox9);
-            this.tabPage1.Controls.Add(this.textBox10);
-            this.tabPage1.Controls.Add(this.textBox11);
-            this.tabPage1.Controls.Add(this.comboBox2);
-            this.tabPage1.Controls.Add(this.comboBox1);
+            this.tabPage1.Controls.Add(this.txtHedefSure);
+            this.tabPage1.Controls.Add(this.txtTeslimTarihi);
+            this.tabPage1.Controls.Add(this.txtAtanan);
+            this.tabPage1.Controls.Add(this.cmbKategori);
+            this.tabPage1.Controls.Add(this.cmbDurum);
             this.tabPage1.Controls.Add(this.label11);
             this.tabPage1.Controls.Add(this.label12);
             this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this.label9);
             this.tabPage1.Controls.Add(this.label10);
-            this.tabPage1.Controls.Add(this.textBox5);
             this.tabPage1.Controls.Add(this.label7);
-            this.tabPage1.Controls.Add(this.textBox4);
+            this.tabPage1.Controls.Add(this.txtOlusturmaTarihi);
             this.tabPage1.Controls.Add(this.label6);
-            this.tabPage1.Controls.Add(this.textBox3);
+            this.tabPage1.Controls.Add(this.txtTalepEden);
             this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.textBox2);
+            this.tabPage1.Controls.Add(this.txtBaslik);
             this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.textBox1);
+            this.tabPage1.Controls.Add(this.txtCagriID);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Location = new System.Drawing.Point(4, 32);
             this.tabPage1.Name = "tabPage1";
@@ -188,13 +186,13 @@
             this.button1.Text = "Değişiklikleri Kaydet";
             this.button1.UseVisualStyleBackColor = false;
             // 
-            // richTextBox1
+            // txtAciklama
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(137, 593);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(1463, 112);
-            this.richTextBox1.TabIndex = 24;
-            this.richTextBox1.Text = "";
+            this.txtAciklama.Location = new System.Drawing.Point(137, 593);
+            this.txtAciklama.Name = "txtAciklama";
+            this.txtAciklama.Size = new System.Drawing.Size(1463, 112);
+            this.txtAciklama.TabIndex = 24;
+            this.txtAciklama.Text = "";
             // 
             // label13
             // 
@@ -206,47 +204,47 @@
             this.label13.TabIndex = 23;
             this.label13.Text = "Açıklama";
             // 
-            // textBox9
+            // txtHedefSure
             // 
-            this.textBox9.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textBox9.Location = new System.Drawing.Point(925, 492);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(675, 36);
-            this.textBox9.TabIndex = 22;
+            this.txtHedefSure.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtHedefSure.Location = new System.Drawing.Point(925, 492);
+            this.txtHedefSure.Name = "txtHedefSure";
+            this.txtHedefSure.Size = new System.Drawing.Size(675, 36);
+            this.txtHedefSure.TabIndex = 22;
             // 
-            // textBox10
+            // txtTeslimTarihi
             // 
-            this.textBox10.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textBox10.Location = new System.Drawing.Point(925, 397);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(675, 36);
-            this.textBox10.TabIndex = 21;
+            this.txtTeslimTarihi.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtTeslimTarihi.Location = new System.Drawing.Point(925, 397);
+            this.txtTeslimTarihi.Name = "txtTeslimTarihi";
+            this.txtTeslimTarihi.Size = new System.Drawing.Size(675, 36);
+            this.txtTeslimTarihi.TabIndex = 21;
             // 
-            // textBox11
+            // txtAtanan
             // 
-            this.textBox11.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textBox11.Location = new System.Drawing.Point(925, 289);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(675, 36);
-            this.textBox11.TabIndex = 20;
+            this.txtAtanan.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtAtanan.Location = new System.Drawing.Point(925, 289);
+            this.txtAtanan.Name = "txtAtanan";
+            this.txtAtanan.Size = new System.Drawing.Size(675, 36);
+            this.txtAtanan.TabIndex = 20;
             // 
-            // comboBox2
+            // cmbKategori
             // 
-            this.comboBox2.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(925, 175);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(675, 35);
-            this.comboBox2.TabIndex = 19;
+            this.cmbKategori.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cmbKategori.FormattingEnabled = true;
+            this.cmbKategori.Location = new System.Drawing.Point(925, 175);
+            this.cmbKategori.Name = "cmbKategori";
+            this.cmbKategori.Size = new System.Drawing.Size(675, 35);
+            this.cmbKategori.TabIndex = 19;
             // 
-            // comboBox1
+            // cmbDurum
             // 
-            this.comboBox1.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(925, 71);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(675, 35);
-            this.comboBox1.TabIndex = 18;
+            this.cmbDurum.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cmbDurum.FormattingEnabled = true;
+            this.cmbDurum.Location = new System.Drawing.Point(925, 71);
+            this.cmbDurum.Name = "cmbDurum";
+            this.cmbDurum.Size = new System.Drawing.Size(675, 35);
+            this.cmbDurum.TabIndex = 18;
             // 
             // label11
             // 
@@ -298,14 +296,6 @@
             this.label10.TabIndex = 10;
             this.label10.Text = "Atanan Personel";
             // 
-            // textBox5
-            // 
-            this.textBox5.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textBox5.Location = new System.Drawing.Point(137, 492);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(675, 36);
-            this.textBox5.TabIndex = 9;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -316,13 +306,13 @@
             this.label7.TabIndex = 8;
             this.label7.Text = "Öncelik";
             // 
-            // textBox4
+            // txtOlusturmaTarihi
             // 
-            this.textBox4.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textBox4.Location = new System.Drawing.Point(137, 397);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(675, 36);
-            this.textBox4.TabIndex = 7;
+            this.txtOlusturmaTarihi.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtOlusturmaTarihi.Location = new System.Drawing.Point(137, 397);
+            this.txtOlusturmaTarihi.Name = "txtOlusturmaTarihi";
+            this.txtOlusturmaTarihi.Size = new System.Drawing.Size(675, 36);
+            this.txtOlusturmaTarihi.TabIndex = 7;
             // 
             // label6
             // 
@@ -334,13 +324,13 @@
             this.label6.TabIndex = 6;
             this.label6.Text = "Oluşturma Tarihi";
             // 
-            // textBox3
+            // txtTalepEden
             // 
-            this.textBox3.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textBox3.Location = new System.Drawing.Point(137, 289);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(675, 36);
-            this.textBox3.TabIndex = 5;
+            this.txtTalepEden.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtTalepEden.Location = new System.Drawing.Point(137, 289);
+            this.txtTalepEden.Name = "txtTalepEden";
+            this.txtTalepEden.Size = new System.Drawing.Size(675, 36);
+            this.txtTalepEden.TabIndex = 5;
             // 
             // label5
             // 
@@ -352,13 +342,13 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "Talep Eden";
             // 
-            // textBox2
+            // txtBaslik
             // 
-            this.textBox2.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textBox2.Location = new System.Drawing.Point(137, 175);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(675, 36);
-            this.textBox2.TabIndex = 3;
+            this.txtBaslik.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtBaslik.Location = new System.Drawing.Point(137, 175);
+            this.txtBaslik.Name = "txtBaslik";
+            this.txtBaslik.Size = new System.Drawing.Size(675, 36);
+            this.txtBaslik.TabIndex = 3;
             // 
             // label4
             // 
@@ -370,13 +360,13 @@
             this.label4.TabIndex = 2;
             this.label4.Text = "Başlık";
             // 
-            // textBox1
+            // txtCagriID
             // 
-            this.textBox1.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.textBox1.Location = new System.Drawing.Point(137, 71);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(675, 36);
-            this.textBox1.TabIndex = 1;
+            this.txtCagriID.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtCagriID.Location = new System.Drawing.Point(137, 71);
+            this.txtCagriID.Name = "txtCagriID";
+            this.txtCagriID.Size = new System.Drawing.Size(675, 36);
+            this.txtCagriID.TabIndex = 1;
             // 
             // label3
             // 
@@ -390,24 +380,22 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.textBox8);
-            this.tabPage2.Controls.Add(this.textBox12);
-            this.tabPage2.Controls.Add(this.textBox7);
-            this.tabPage2.Controls.Add(this.textBox6);
+            this.tabPage2.Controls.Add(this.txtTalepEdenAdres);
+            this.tabPage2.Controls.Add(this.txtTalepEdenID);
+            this.tabPage2.Controls.Add(this.txtTalepEdenEmail);
+            this.tabPage2.Controls.Add(this.txtTalepEdenTelefon);
             this.tabPage2.Controls.Add(this.label27);
             this.tabPage2.Controls.Add(this.label26);
             this.tabPage2.Controls.Add(this.label25);
             this.tabPage2.Controls.Add(this.label24);
             this.tabPage2.Controls.Add(this.label23);
-            this.tabPage2.Controls.Add(this.label20);
-            this.tabPage2.Controls.Add(this.label21);
-            this.tabPage2.Controls.Add(this.label22);
+            this.tabPage2.Controls.Add(this.lblTalepEdenEmail);
+            this.tabPage2.Controls.Add(this.lblTalepEdenTelefon);
+            this.tabPage2.Controls.Add(this.lblTalepEdenID);
             this.tabPage2.Controls.Add(this.label19);
             this.tabPage2.Controls.Add(this.label18);
             this.tabPage2.Controls.Add(this.label17);
-            this.tabPage2.Controls.Add(this.label16);
-            this.tabPage2.Controls.Add(this.label15);
-            this.tabPage2.Controls.Add(this.label14);
+            this.tabPage2.Controls.Add(this.lblTalepEden);
             this.tabPage2.Controls.Add(this.pictureBox1);
             this.tabPage2.Controls.Add(this.label28);
             this.tabPage2.Location = new System.Drawing.Point(4, 32);
@@ -418,45 +406,176 @@
             this.tabPage2.Text = "İletişim Bilgileri";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // txtTalepEdenAdres
+            // 
+            this.txtTalepEdenAdres.Location = new System.Drawing.Point(993, 593);
+            this.txtTalepEdenAdres.Name = "txtTalepEdenAdres";
+            this.txtTalepEdenAdres.Size = new System.Drawing.Size(493, 32);
+            this.txtTalepEdenAdres.TabIndex = 18;
+            // 
+            // txtTalepEdenID
+            // 
+            this.txtTalepEdenID.Location = new System.Drawing.Point(993, 448);
+            this.txtTalepEdenID.Name = "txtTalepEdenID";
+            this.txtTalepEdenID.Size = new System.Drawing.Size(493, 32);
+            this.txtTalepEdenID.TabIndex = 17;
+            // 
+            // txtTalepEdenEmail
+            // 
+            this.txtTalepEdenEmail.Location = new System.Drawing.Point(406, 593);
+            this.txtTalepEdenEmail.Name = "txtTalepEdenEmail";
+            this.txtTalepEdenEmail.Size = new System.Drawing.Size(493, 32);
+            this.txtTalepEdenEmail.TabIndex = 16;
+            // 
+            // txtTalepEdenTelefon
+            // 
+            this.txtTalepEdenTelefon.Location = new System.Drawing.Point(406, 448);
+            this.txtTalepEdenTelefon.Name = "txtTalepEdenTelefon";
+            this.txtTalepEdenTelefon.Size = new System.Drawing.Size(493, 32);
+            this.txtTalepEdenTelefon.TabIndex = 15;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label27.Location = new System.Drawing.Point(989, 543);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(98, 22);
+            this.label27.TabIndex = 14;
+            this.label27.Text = "Lokasyon:";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label26.Location = new System.Drawing.Point(402, 543);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(81, 22);
+            this.label26.TabIndex = 13;
+            this.label26.Text = "E-posta:";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label25.Location = new System.Drawing.Point(402, 407);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(79, 22);
+            this.label25.TabIndex = 12;
+            this.label25.Text = "Telefon:";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label24.Location = new System.Drawing.Point(989, 407);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(111, 22);
+            this.label24.TabIndex = 11;
+            this.label24.Text = "Kullanıcı ID:";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.label23.Location = new System.Drawing.Point(49, 33);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(176, 27);
+            this.label23.TabIndex = 10;
+            this.label23.Text = "İletişim Bilgileri";
+            // 
+            // lblTalepEdenEmail
+            // 
+            this.lblTalepEdenEmail.AutoSize = true;
+            this.lblTalepEdenEmail.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblTalepEdenEmail.Location = new System.Drawing.Point(890, 266);
+            this.lblTalepEdenEmail.Name = "lblTalepEdenEmail";
+            this.lblTalepEdenEmail.Size = new System.Drawing.Size(210, 21);
+            this.lblTalepEdenEmail.TabIndex = 9;
+            this.lblTalepEdenEmail.Text = "isim.soyisim@firma.com";
+            // 
+            // lblTalepEdenTelefon
+            // 
+            this.lblTalepEdenTelefon.AutoSize = true;
+            this.lblTalepEdenTelefon.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblTalepEdenTelefon.Location = new System.Drawing.Point(888, 232);
+            this.lblTalepEdenTelefon.Name = "lblTalepEdenTelefon";
+            this.lblTalepEdenTelefon.Size = new System.Drawing.Size(135, 21);
+            this.lblTalepEdenTelefon.TabIndex = 8;
+            this.lblTalepEdenTelefon.Text = "0539 562 25 65";
+            // 
+            // lblTalepEdenID
+            // 
+            this.lblTalepEdenID.AutoSize = true;
+            this.lblTalepEdenID.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblTalepEdenID.Location = new System.Drawing.Point(920, 200);
+            this.lblTalepEdenID.Name = "lblTalepEdenID";
+            this.lblTalepEdenID.Size = new System.Drawing.Size(50, 21);
+            this.lblTalepEdenID.TabIndex = 7;
+            this.lblTalepEdenID.Text = "1234";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label19.Location = new System.Drawing.Point(803, 265);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(81, 22);
+            this.label19.TabIndex = 6;
+            this.label19.Text = "E-posta:";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label18.Location = new System.Drawing.Point(803, 231);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(79, 22);
+            this.label18.TabIndex = 5;
+            this.label18.Text = "Telefon:";
+            // 
             // label17
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label17.Location = new System.Drawing.Point(807, 220);
+            this.label17.Location = new System.Drawing.Point(803, 199);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(111, 22);
             this.label17.TabIndex = 4;
             this.label17.Text = "Kullanıcı ID:";
             // 
-            // label16
+            // lblTalepEden
             // 
-            this.label16.AutoSize = true;
-            this.label16.ForeColor = System.Drawing.Color.Gray;
-            this.label16.Location = new System.Drawing.Point(996, 185);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(125, 23);
-            this.label16.TabIndex = 3;
-            this.label16.Text = "- Kendi Rolu";
+            this.lblTalepEden.AutoSize = true;
+            this.lblTalepEden.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblTalepEden.Location = new System.Drawing.Point(806, 145);
+            this.lblTalepEden.Name = "lblTalepEden";
+            this.lblTalepEden.Size = new System.Drawing.Size(146, 27);
+            this.lblTalepEden.TabIndex = 1;
+            this.lblTalepEden.Text = "İsim Soyisim";
             // 
-            // label15
+            // pictureBox1
             // 
-            this.label15.AutoSize = true;
-            this.label15.ForeColor = System.Drawing.Color.Gray;
-            this.label15.Location = new System.Drawing.Point(807, 185);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(183, 23);
-            this.label15.TabIndex = 2;
-            this.label15.Text = "Bağlı Departmanı";
+            this.pictureBox1.Image = global::TaskFlow360.Properties.Resources.user__8_;
+            this.pictureBox1.Location = new System.Drawing.Point(611, 167);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(120, 120);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
-            // label14
+            // label28
             // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label14.Location = new System.Drawing.Point(806, 145);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(146, 27);
-            this.label14.TabIndex = 1;
-            this.label14.Text = "İsim Soyisim";
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Century Gothic", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.label28.Location = new System.Drawing.Point(-13, 33);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(1751, 39);
+            this.label28.TabIndex = 19;
+            this.label28.Text = "_________________________________________________________________________________" +
+    "_____________________";
             // 
             // tabPage3
             // 
@@ -470,180 +589,13 @@
             this.tabPage3.Text = " İşlem Geçmişi ";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // label18
+            // pnlgecmisCagrilar
             // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label18.Location = new System.Drawing.Point(807, 252);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(79, 22);
-            this.label18.TabIndex = 5;
-            this.label18.Text = "Telefon:";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label19.Location = new System.Drawing.Point(807, 286);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(81, 22);
-            this.label19.TabIndex = 6;
-            this.label19.Text = "E-posta:";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label20.Location = new System.Drawing.Point(894, 287);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(210, 21);
-            this.label20.TabIndex = 9;
-            this.label20.Text = "isim.soyisim@firma.com";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label21.Location = new System.Drawing.Point(892, 253);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(135, 21);
-            this.label21.TabIndex = 8;
-            this.label21.Text = "0539 562 25 65";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label22.Location = new System.Drawing.Point(924, 221);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(50, 21);
-            this.label22.TabIndex = 7;
-            this.label22.Text = "1234";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.label23.Location = new System.Drawing.Point(49, 33);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(176, 27);
-            this.label23.TabIndex = 10;
-            this.label23.Text = "İletişim Bilgileri";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label24.Location = new System.Drawing.Point(989, 407);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(111, 22);
-            this.label24.TabIndex = 11;
-            this.label24.Text = "Kullanıcı ID:";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label25.Location = new System.Drawing.Point(402, 407);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(79, 22);
-            this.label25.TabIndex = 12;
-            this.label25.Text = "Telefon:";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label26.Location = new System.Drawing.Point(402, 543);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(81, 22);
-            this.label26.TabIndex = 13;
-            this.label26.Text = "E-posta:";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label27.Location = new System.Drawing.Point(989, 543);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(98, 22);
-            this.label27.TabIndex = 14;
-            this.label27.Text = "Lokasyon:";
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(406, 448);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(493, 32);
-            this.textBox6.TabIndex = 15;
-            // 
-            // textBox7
-            // 
-            this.textBox7.Location = new System.Drawing.Point(406, 593);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(493, 32);
-            this.textBox7.TabIndex = 16;
-            // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(993, 593);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(493, 32);
-            this.textBox8.TabIndex = 18;
-            // 
-            // textBox12
-            // 
-            this.textBox12.Location = new System.Drawing.Point(993, 448);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(493, 32);
-            this.textBox12.TabIndex = 17;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::TaskFlow360.Properties.Resources.user__8_;
-            this.pictureBox1.Location = new System.Drawing.Point(611, 167);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(120, 120);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(1816, 12);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(35, 35);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 9;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(1855, 12);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(35, 35);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 8;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Century Gothic", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.label28.Location = new System.Drawing.Point(-13, 33);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(1751, 40);
-            this.label28.TabIndex = 19;
-            this.label28.Text = "_________________________________________________________________________________" +
-    "_____________________";
+            this.pnlgecmisCagrilar.AutoScroll = true;
+            this.pnlgecmisCagrilar.Location = new System.Drawing.Point(50, 81);
+            this.pnlgecmisCagrilar.Name = "pnlgecmisCagrilar";
+            this.pnlgecmisCagrilar.Size = new System.Drawing.Size(1710, 700);
+            this.pnlgecmisCagrilar.TabIndex = 12;
             // 
             // label29
             // 
@@ -656,13 +608,36 @@
             this.label29.TabIndex = 11;
             this.label29.Text = "Çağrı İşlem Geçmişi";
             // 
-            // pnlgecmisCagrilar
+            // pictureBox3
             // 
-            this.pnlgecmisCagrilar.AutoScroll = true;
-            this.pnlgecmisCagrilar.Location = new System.Drawing.Point(50, 81);
-            this.pnlgecmisCagrilar.Name = "pnlgecmisCagrilar";
-            this.pnlgecmisCagrilar.Size = new System.Drawing.Size(1710, 700);
-            this.pnlgecmisCagrilar.TabIndex = 12;
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(1816, 12);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 9;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(1855, 12);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 8;
+            this.pictureBox2.TabStop = false;
+            // 
+            // cmbOncelik
+            // 
+            this.cmbOncelik.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cmbOncelik.FormattingEnabled = true;
+            this.cmbOncelik.Location = new System.Drawing.Point(137, 493);
+            this.cmbOncelik.Name = "cmbOncelik";
+            this.cmbOncelik.Size = new System.Drawing.Size(675, 35);
+            this.cmbOncelik.TabIndex = 27;
             // 
             // OfficerTaskDetail
             // 
@@ -685,9 +660,9 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
@@ -703,53 +678,51 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtCagriID;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox txtHedefSure;
+        private System.Windows.Forms.TextBox txtTeslimTarihi;
+        private System.Windows.Forms.TextBox txtAtanan;
+        private System.Windows.Forms.ComboBox cmbKategori;
+        private System.Windows.Forms.ComboBox cmbDurum;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox txtOlusturmaTarihi;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtTalepEden;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtBaslik;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox txtAciklama;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lblTalepEden;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label lblTalepEdenEmail;
+        private System.Windows.Forms.Label lblTalepEdenTelefon;
+        private System.Windows.Forms.Label lblTalepEdenID;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox12;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox txtTalepEdenAdres;
+        private System.Windows.Forms.TextBox txtTalepEdenID;
+        private System.Windows.Forms.TextBox txtTalepEdenEmail;
+        private System.Windows.Forms.TextBox txtTalepEdenTelefon;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Panel pnlgecmisCagrilar;
+        private System.Windows.Forms.ComboBox cmbOncelik;
     }
 }

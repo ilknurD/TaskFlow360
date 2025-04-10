@@ -18,6 +18,7 @@ namespace TaskFlow360
         public OfficerTaskspage()
         {
             InitializeComponent();
+            dgvGorevler.CellClick += new DataGridViewCellEventHandler(dgvGorevler_CellClick);
         }
 
         private Baglanti baglantiNesnesi = new Baglanti();
@@ -35,13 +36,13 @@ namespace TaskFlow360
                     return;
                 }
 
+                // Sorguyu düzeltelim - te.TalepEden alanını string olarak alıyoruz
                 string sorgu = @"SELECT c.CagriID, c.Baslik, te.TalepEden, c.Durum, c.OlusturmaTarihi, 
-                           c.TeslimTarihi, c.AtananKullaniciID, c.CagriKategori, c.Oncelik, c.HedefSure 
-                           FROM Cagri c
-                           LEFT JOIN TalepEdenler te ON c.TalepEdenID = te.TalepEdenID
-                           WHERE c.AtananKullaniciID = @KullaniciID
-                           ORDER BY c.OlusturmaTarihi DESC";
-
+                   c.TeslimTarihi, c.AtananKullaniciID, c.CagriKategori, c.Oncelik, c.HedefSure 
+                   FROM Cagri c
+                   LEFT JOIN TalepEdenler te ON c.TalepEdenID = te.TalepEdenID
+                   WHERE c.AtananKullaniciID = @KullaniciID
+                   ORDER BY c.OlusturmaTarihi DESC";
 
                 SqlCommand komut = new SqlCommand(sorgu, baglantiNesnesi.conn);
                 int kullaniciID;
@@ -62,7 +63,9 @@ namespace TaskFlow360
                                         "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
-                    // DataGridView ayarlarını yap
+                    // DataGridView'i temizle ve yeniden ayarla
+                    dgvGorevler.DataSource = null;
+                    dgvGorevler.Columns.Clear();
                     dgvGorevler.DataSource = veriTablosu;
                     SutunAyarla();
                     SetRenkler();
@@ -164,19 +167,89 @@ namespace TaskFlow360
 
         private void SutunAyarla()
         {
-            if (dgvGorevler.Columns.Contains("AtananKullaniciID"))
-                dgvGorevler.Columns["AtananKullaniciID"].Visible = false;
+            try
+            {
+                if (dgvGorevler.Columns.Contains("AtananKullaniciID"))
+                    dgvGorevler.Columns["AtananKullaniciID"].Visible = false;
 
-            dgvGorevler.Columns["CagriID"].DisplayIndex = 0;
-            dgvGorevler.Columns["Baslik"].DisplayIndex = 1;
-            dgvGorevler.Columns["TalepEden"].DisplayIndex = 2;
-            dgvGorevler.Columns["CagriKategori"].DisplayIndex = 3;
-            dgvGorevler.Columns["Oncelik"].DisplayIndex = 4;
-            dgvGorevler.Columns["Durum"].DisplayIndex = 5;
-            dgvGorevler.Columns["OlusturmaTarihi"].DisplayIndex = 6;
-            dgvGorevler.Columns["TeslimTarihi"].DisplayIndex = 7;
-            dgvGorevler.Columns["HedefSure"].DisplayIndex = 8;
+                dgvGorevler.Columns["CagriID"].DisplayIndex = 0;
+                dgvGorevler.Columns["Baslik"].DisplayIndex = 1;
+                dgvGorevler.Columns["TalepEden"].DisplayIndex = 2;
+                dgvGorevler.Columns["CagriKategori"].DisplayIndex = 3;
+                dgvGorevler.Columns["Oncelik"].DisplayIndex = 4;
+                dgvGorevler.Columns["Durum"].DisplayIndex = 5;
+                dgvGorevler.Columns["OlusturmaTarihi"].DisplayIndex = 6;
+                dgvGorevler.Columns["TeslimTarihi"].DisplayIndex = 7;
+                dgvGorevler.Columns["HedefSure"].DisplayIndex = 8;
+
+                // Detay butonu için sütun oluştur
+                DataGridViewButtonColumn detayButonu = new DataGridViewButtonColumn();
+                detayButonu.HeaderText = "Detay";
+                detayButonu.Text = "Detay";
+                detayButonu.UseColumnTextForButtonValue = true;
+                detayButonu.Name = "Detay";
+                dgvGorevler.Columns.Add(detayButonu);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Sütunlar ayarlanırken hata oluştu: " + ex.Message,
+                                "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
+        private void dgvGorevler_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                // Geçerli bir satır ve sütuna tıklandı mı?
+                if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+                {
+                    // Tıklanan sütun Detay butonu mu?
+                    DataGridViewColumn column = dgvGorevler.Columns[e.ColumnIndex];
+
+                    if (column is DataGridViewButtonColumn && column.Name == "Detay")
+                    {
+                        // CagriID'yi al
+                        object cagriIDObj = dgvGorevler.Rows[e.RowIndex].Cells["CagriID"].Value;
+                        // TalepEden bilgisini al
+                        object talepEdenObj = dgvGorevler.Rows[e.RowIndex].Cells["TalepEden"].Value;
+
+                        if (cagriIDObj != null && cagriIDObj != DBNull.Value)
+                        {
+                            int cagriID = Convert.ToInt32(cagriIDObj);
+                            int talepEdenID = 0;
+
+                            // TalepEden adından ID'sini al
+                            if (talepEdenObj != null && talepEdenObj != DBNull.Value)
+                            {
+                                string talepEdenAd = talepEdenObj.ToString();
+                                talepEdenID = GetTalepEdenIDByName(talepEdenAd);
+                            }
+
+                            // Detay formunu cagriID ve talepEdenID ile oluştur ve göster
+                            using (OfficerTaskDetail detayForm = new OfficerTaskDetail(cagriID, talepEdenID))
+                            {
+                                detayForm.ShowDialog();
+                            }
+
+                            // Form kapandığında listeyi yenile
+                            CagrilariYukle();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Çağrı ID'si bulunamadı.",
+                                            "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Çağrı detayı açılırken hata oluştu: " + ex.Message,
+                                "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -277,33 +350,7 @@ namespace TaskFlow360
 
         private void dgvGorevler_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex == dgvGorevler.Columns["Detay"].Index)
-            {
-                try
-                {
-                    int cagriID = Convert.ToInt32(dgvGorevler.Rows[e.RowIndex].Cells["CagriID"].Value);
-
-                    if (dgvGorevler.Rows[e.RowIndex].Cells["TalepEden"].Value != DBNull.Value)
-                    {
-                        int talepEdenID = Convert.ToInt32(dgvGorevler.Rows[e.RowIndex].Cells["TalepEden"].Value);
-
-
-                        OfficerTaskDetail detailForm = new OfficerTaskDetail(talepEdenID);
-                        detailForm.Show();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Talep Eden bilgisi mevcut değil.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Çağrı detayı açılırken hata oluştu: " + ex.Message,
-                                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
         }
-
 
         private void txtArama_Enter_1(object sender, EventArgs e)
         {
@@ -386,10 +433,6 @@ namespace TaskFlow360
                 baglantiNesnesi.BaglantiKapat();
             }
         }
-
-
-
-
         private int GetTalepEdenIDByName(string talepEdenAd)
         {
             int talepEdenID = -1;
