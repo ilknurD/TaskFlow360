@@ -33,6 +33,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.cmbOncelik = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.txtAciklama = new System.Windows.Forms.RichTextBox();
@@ -80,7 +81,6 @@
             this.label29 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.cmbOncelik = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -157,6 +157,15 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = " Çağrı Detayları ";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // cmbOncelik
+            // 
+            this.cmbOncelik.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cmbOncelik.FormattingEnabled = true;
+            this.cmbOncelik.Location = new System.Drawing.Point(137, 493);
+            this.cmbOncelik.Name = "cmbOncelik";
+            this.cmbOncelik.Size = new System.Drawing.Size(675, 35);
+            this.cmbOncelik.TabIndex = 27;
             // 
             // button2
             // 
@@ -618,6 +627,7 @@
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 9;
             this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
             // pictureBox2
             // 
@@ -629,15 +639,7 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 8;
             this.pictureBox2.TabStop = false;
-            // 
-            // cmbOncelik
-            // 
-            this.cmbOncelik.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.cmbOncelik.FormattingEnabled = true;
-            this.cmbOncelik.Location = new System.Drawing.Point(137, 493);
-            this.cmbOncelik.Name = "cmbOncelik";
-            this.cmbOncelik.Size = new System.Drawing.Size(675, 35);
-            this.cmbOncelik.TabIndex = 27;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // OfficerTaskDetail
             // 

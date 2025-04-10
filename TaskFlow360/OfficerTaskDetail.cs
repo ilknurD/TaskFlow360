@@ -27,6 +27,43 @@ namespace TaskFlow360
         {
             YukleCagriBilgileri();
             YukleTalepEdeninGecmisCagrilari();
+            Duzenlenebilirler();
+        }
+
+        private void Duzenlenebilirler()
+        {
+            txtCagriID.ReadOnly = true;
+            AlanıEtkileşimsizYap(txtCagriID);
+            txtBaslik.ReadOnly = true;
+            AlanıEtkileşimsizYap(txtBaslik);
+            txtTalepEden.ReadOnly = true;
+            AlanıEtkileşimsizYap(txtTalepEden);
+            txtOlusturmaTarihi.ReadOnly = true;
+            AlanıEtkileşimsizYap(txtOlusturmaTarihi);
+            cmbOncelik.Enabled = false;
+            txtAciklama.ReadOnly = false;
+            cmbDurum.Enabled = true;
+            cmbKategori.Enabled = false;
+            txtAtanan.ReadOnly = true;
+            AlanıEtkileşimsizYap(txtAtanan);
+            txtTeslimTarihi.ReadOnly = true;
+            AlanıEtkileşimsizYap(txtTeslimTarihi);
+            txtHedefSure.ReadOnly = true;
+            AlanıEtkileşimsizYap(txtHedefSure);
+        }
+        private void AlanıEtkileşimsizYap(TextBox textBox)
+        {
+            textBox.ReadOnly = true;
+            textBox.TabStop = false;  // Tab ile üzerine gelinmesini engeller
+            textBox.Cursor = Cursors.Default;  // Metin imleci yerine normal fare imleci gösterir
+            textBox.GotFocus += TextBox_GotFocus;  // Odak kazandığında odağı kaybetmesini sağlar
+
+            textBox.BackColor = Color.FromArgb(245, 245, 245);  
+        }
+        private void TextBox_GotFocus(object sender, EventArgs e)
+        {
+            // Odağı başka bir kontrole ver (örneğin form)
+            this.ActiveControl = null;
         }
 
         private void YukleCagriBilgileri()
@@ -37,9 +74,11 @@ namespace TaskFlow360
 
                 string sorgu = @"SELECT c.CagriID, c.Baslik, c.CagriAciklama, c.Durum, c.OlusturmaTarihi, 
                        c.TeslimTarihi, c.CagriKategori, c.Oncelik, c.HedefSure, 
-                       te.TalepEdenID, te.TalepEden, te.TalepEdenAdres, te.TalepEdenTelefon, te.TalepEdenEmail
+                       te.TalepEdenID, te.TalepEden, te.TalepEdenAdres, te.TalepEdenTelefon, te.TalepEdenEmail,
+                       k.Ad AS AtananKullaniciAd, k.Soyad AS AtananKullaniciSoyad
                        FROM Cagri c
                        LEFT JOIN TalepEdenler te ON c.TalepEdenID = te.TalepEdenID
+                       LEFT JOIN Kullanici k ON c.AtananKullaniciID = k.KullaniciID
                        WHERE c.CagriID = @CagriID";
 
                 SqlCommand cmd = new SqlCommand(sorgu, bgl.conn);
@@ -56,7 +95,11 @@ namespace TaskFlow360
                         cmbDurum.Text = dr["Durum"].ToString();
                         txtOlusturmaTarihi.Text = Convert.ToDateTime(dr["OlusturmaTarihi"]).ToString("dd.MM.yyyy HH:mm");
                         txtTalepEden.Text = dr["TalepEden"].ToString();
-                        //txtAtanan.Text = dr["AtananKullaniciID"].ToString();
+                        if (dr["AtananKullaniciAd"] != DBNull.Value && dr["AtananKullaniciSoyad"] != DBNull.Value)
+                            txtAtanan.Text = dr["AtananKullaniciAd"].ToString() + " " + dr["AtananKullaniciSoyad"].ToString();
+                        else
+                            txtAtanan.Text = "Atanmadı";
+
 
                         if (dr["TeslimTarihi"] != DBNull.Value)
                             txtTeslimTarihi.Text = Convert.ToDateTime(dr["TeslimTarihi"]).ToString("dd.MM.yyyy HH:mm");
@@ -259,7 +302,6 @@ namespace TaskFlow360
             y += 10;
         }
 
-        // Durum güncelleme butonu için event handler
         private void btnDurumGuncelle_Click(object sender, EventArgs e)
         {
             try
@@ -312,6 +354,16 @@ namespace TaskFlow360
             {
                 bgl.BaglantiKapat();
             }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
         }
     }
 }
