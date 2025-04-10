@@ -85,14 +85,15 @@ namespace TaskFlow360
 
                 string query = @"SELECT c.CagriID, c.CagriAciklama, c.Baslik,c.CagriKategori, c.Oncelik, 
                 c.Durum, c.OlusturmaTarihi, c.TeslimTarihi, c.CevapTarihi,
-                c.TalepEden AS TalepEden,
+                ISNULL(te.TalepEden, 'Bilinmiyor') AS TalepEden,
                 ISNULL(k2.Ad + ' ' + k2.Soyad, 'Bilinmiyor') AS AtananKullanici,
                 ISNULL(k3.Ad + ' ' + k3.Soyad, 'Bilinmiyor') AS OlusturanKullanici,
                 c.HedefSure,
-                c.AtananKullaniciID, c.OlusturanKullaniciID
+                c.AtananKullaniciID, c.OlusturanKullaniciID, c.TalepEdenID
          FROM Cagri c
          LEFT JOIN Kullanici k2 ON c.AtananKullaniciID = k2.KullaniciID
-         LEFT JOIN Kullanici k3 ON c.OlusturanKullaniciID = k3.KullaniciID";
+         LEFT JOIN Kullanici k3 ON c.OlusturanKullaniciID = k3.KullaniciID
+         LEFT JOIN TalepEdenler te ON c.TalepEdenID = te.TalepEdenID";
 
 
                 SqlCommand cmd = new SqlCommand(query, baglanti.conn);

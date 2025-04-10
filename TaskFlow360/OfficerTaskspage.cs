@@ -28,84 +28,50 @@ namespace TaskFlow360
             {
                 baglantiNesnesi.BaglantiAc();
 
-                string sorgu = @"SELECT CagriID, Baslik, TalepEden, Durum, OlusturmaTarihi, 
-                               TeslimTarihi, AtananKullaniciID, CagriKategori, Oncelik, HedefSure 
-                               FROM Cagri WHERE AtananKullaniciID = @KullaniciID
-                               ORDER BY OlusturmaTarihi DESC";
+                if (string.IsNullOrEmpty(KullaniciBilgi.KullaniciID))
+                {
+                    MessageBox.Show("Kullanıcı bilgisi alınamadı. Lütfen tekrar giriş yapın.",
+                                    "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string sorgu = @"SELECT c.CagriID, c.Baslik, te.TalepEden, c.Durum, c.OlusturmaTarihi, 
+                           c.TeslimTarihi, c.AtananKullaniciID, c.CagriKategori, c.Oncelik, c.HedefSure 
+                           FROM Cagri c
+                           LEFT JOIN TalepEdenler te ON c.TalepEdenID = te.TalepEdenID
+                           WHERE c.AtananKullaniciID = @KullaniciID
+                           ORDER BY c.OlusturmaTarihi DESC";
+
 
                 SqlCommand komut = new SqlCommand(sorgu, baglantiNesnesi.conn);
-                komut.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID); 
-                SqlDataAdapter adapter = new SqlDataAdapter(komut);
-                DataTable veriTablosu = new DataTable();
-                adapter.Fill(veriTablosu);
+                int kullaniciID;
 
-                dgvGorevler.Columns.Clear();
-                dgvGorevler.ScrollBars = ScrollBars.Vertical;
+                if (int.TryParse(KullaniciBilgi.KullaniciID, out kullaniciID))
+                {
+                    komut.Parameters.AddWithValue("@KullaniciID", kullaniciID);
 
-                dgvGorevler.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-                dgvGorevler.AutoGenerateColumns = false;
-                dgvGorevler.BackgroundColor = Color.White;
-                dgvGorevler.GridColor = Color.LightGray;    
-                dgvGorevler.RowTemplate.Height = 40;
-                dgvGorevler.DefaultCellStyle.Font = new Font("Century Gothic", 10, FontStyle.Regular);
-                dgvGorevler.ColumnHeadersHeight = 70;
-                dgvGorevler.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-                dgvGorevler.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(100, 149, 237); // Mavi
-                dgvGorevler.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-                dgvGorevler.ColumnHeadersDefaultCellStyle.Font = new Font("Century Gothic", 12, FontStyle.Bold);
+                    // Veri çekme işlemini dene
+                    SqlDataAdapter adapter = new SqlDataAdapter(komut);
+                    DataTable veriTablosu = new DataTable();
+                    adapter.Fill(veriTablosu);
 
-                dgvGorevler.Columns.Add("CagriID", "Çağrı No");
-                dgvGorevler.Columns["CagriID"].DataPropertyName = "CagriID";
-                dgvGorevler.Columns["CagriID"].Width = 60;
-                dgvGorevler.Columns["CagriID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-                dgvGorevler.Columns["CagriID"].Resizable = DataGridViewTriState.False;
-                dgvGorevler.Columns["CagriID"].MinimumWidth = 30;
+                    // Veri geldi mi kontrol et
+                    if (veriTablosu.Rows.Count == 0)
+                    {
+                        MessageBox.Show("Bu kullanıcıya atanmış görev bulunamadı.",
+                                        "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
 
-
-
-                dgvGorevler.Columns.Add("Baslik", "Başlık");
-                dgvGorevler.Columns["Baslik"].DataPropertyName = "Baslik";
-                dgvGorevler.Columns["Baslik"].Width = 150;
-
-                dgvGorevler.Columns.Add("TalepEden", "Talep Eden");
-                dgvGorevler.Columns["TalepEden"].DataPropertyName = "TalepEden";
-                dgvGorevler.Columns["TalepEden"].Width = 150;
-
-                dgvGorevler.Columns.Add("CagriKategori", "Kategori");
-                dgvGorevler.Columns["CagriKategori"].DataPropertyName = "CagriKategori";
-                dgvGorevler.Columns["CagriKategori"].Width = 145;
-
-                dgvGorevler.Columns.Add("Oncelik", "Öncelik");
-                dgvGorevler.Columns["Oncelik"].DataPropertyName = "Oncelik";
-                dgvGorevler.Columns["Oncelik"].Width = 110;
-
-                dgvGorevler.Columns.Add("Durum", "Durum");
-                dgvGorevler.Columns["Durum"].DataPropertyName = "Durum";
-                dgvGorevler.Columns["Durum"].Width = 120;
-
-                dgvGorevler.Columns.Add("OlusturmaTarihi", "Oluşturma Tarihi");
-                dgvGorevler.Columns["OlusturmaTarihi"].DataPropertyName = "OlusturmaTarihi";
-                dgvGorevler.Columns["OlusturmaTarihi"].Width = 130;
-                dgvGorevler.Columns["OlusturmaTarihi"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
-
-                dgvGorevler.Columns.Add("TeslimTarihi", "Teslim Tarihi");
-                dgvGorevler.Columns["TeslimTarihi"].DataPropertyName = "TeslimTarihi";
-                dgvGorevler.Columns["TeslimTarihi"].Width = 130;
-                dgvGorevler.Columns["TeslimTarihi"].DefaultCellStyle.Format = "dd.MM.yyyy HH:mm";
-
-                dgvGorevler.Columns.Add("HedefSure", "Hedef Süre");
-                dgvGorevler.Columns["HedefSure"].DataPropertyName = "HedefSure";
-                dgvGorevler.Columns["HedefSure"].Width = 100;
-
-                DataGridViewButtonColumn btnColumn = new DataGridViewButtonColumn();
-                btnColumn.Name = "Detay";
-                btnColumn.HeaderText = "İşlem";
-                btnColumn.Text = "Detay";
-                btnColumn.UseColumnTextForButtonValue = true;
-                dgvGorevler.Columns.Add(btnColumn);
-
-                dgvGorevler.DataSource = veriTablosu;
-                SetRenkler();
+                    // DataGridView ayarlarını yap
+                    dgvGorevler.DataSource = veriTablosu;
+                    SutunAyarla();
+                    SetRenkler();
+                }
+                else
+                {
+                    MessageBox.Show("Kullanıcı ID'si geçersiz.",
+                                    "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
@@ -117,6 +83,7 @@ namespace TaskFlow360
                 baglantiNesnesi.BaglantiKapat();
             }
         }
+
         private void SetRenkler()
         {
             foreach (DataGridViewRow row in dgvGorevler.Rows)
@@ -195,6 +162,23 @@ namespace TaskFlow360
             }
         }
 
+        private void SutunAyarla()
+        {
+            if (dgvGorevler.Columns.Contains("AtananKullaniciID"))
+                dgvGorevler.Columns["AtananKullaniciID"].Visible = false;
+
+            dgvGorevler.Columns["CagriID"].DisplayIndex = 0;
+            dgvGorevler.Columns["Baslik"].DisplayIndex = 1;
+            dgvGorevler.Columns["TalepEden"].DisplayIndex = 2;
+            dgvGorevler.Columns["CagriKategori"].DisplayIndex = 3;
+            dgvGorevler.Columns["Oncelik"].DisplayIndex = 4;
+            dgvGorevler.Columns["Durum"].DisplayIndex = 5;
+            dgvGorevler.Columns["OlusturmaTarihi"].DisplayIndex = 6;
+            dgvGorevler.Columns["TeslimTarihi"].DisplayIndex = 7;
+            dgvGorevler.Columns["HedefSure"].DisplayIndex = 8;
+        }
+
+
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -221,6 +205,7 @@ namespace TaskFlow360
 
         private void OfficerTaskspage_Load(object sender, EventArgs e)
         {
+
             txtArama.Text = "Ara...";
             txtArama.ForeColor = Color.Gray;
 
@@ -298,11 +283,18 @@ namespace TaskFlow360
                 {
                     int cagriID = Convert.ToInt32(dgvGorevler.Rows[e.RowIndex].Cells["CagriID"].Value);
 
-                    // Çağrı detay formunu aç
-                    //CagriDetay detayForm = new CagriDetay(cagriID);
-                    //detayForm.ShowDialog();
+                    if (dgvGorevler.Rows[e.RowIndex].Cells["TalepEden"].Value != DBNull.Value)
+                    {
+                        int talepEdenID = Convert.ToInt32(dgvGorevler.Rows[e.RowIndex].Cells["TalepEden"].Value);
 
-                    CagrilariYukle();
+
+                        OfficerTaskDetail detailForm = new OfficerTaskDetail(talepEdenID);
+                        detailForm.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Talep Eden bilgisi mevcut değil.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -311,6 +303,7 @@ namespace TaskFlow360
                 }
             }
         }
+
 
         private void txtArama_Enter_1(object sender, EventArgs e)
         {
@@ -332,54 +325,101 @@ namespace TaskFlow360
 
         private void CagrilariFiltrele()
         {
-            string durum = cmbDurum.SelectedItem?.ToString() ?? "Tümü";
-            string oncelik = cmbOncelik.SelectedItem?.ToString() ?? "Tümü";
-            string kategori = cmbKategori.SelectedItem?.ToString() ?? "Tümü";
-
-            string query = "SELECT CagriID, Baslik, TalepEden, Durum, OlusturmaTarihi, " +
-                           "TeslimTarihi, AtananKullaniciID, CagriKategori, Oncelik, HedefSure " +
-                           "FROM Cagri WHERE AtananKullaniciID = @KullaniciID";
-
-            if (durum != "Tümü")
-                query += " AND Durum = @Durum";
-            if (oncelik != "Tümü")
-                query += " AND Oncelik = @Oncelik";
-            if (kategori != "Tümü")
-                query += " AND CagriKategori = @CagriKategori";
-
-            query += " ORDER BY OlusturmaTarihi DESC";
-
             try
             {
-                baglantiNesnesi.BaglantiAc();
-                SqlCommand cmd = new SqlCommand(query, baglantiNesnesi.conn);
+                string durum = cmbDurum.SelectedItem?.ToString() ?? "Tümü";
+                string oncelik = cmbOncelik.SelectedItem?.ToString() ?? "Tümü";
+                string kategori = cmbKategori.SelectedItem?.ToString() ?? "Tümü";
 
-                cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                // Temel sorgu
+                string query = @"SELECT c.CagriID, c.Baslik, te.TalepEden, c.Durum, c.OlusturmaTarihi, 
+                       c.TeslimTarihi, c.AtananKullaniciID, c.CagriKategori, c.Oncelik, c.HedefSure 
+                       FROM Cagri c
+                       LEFT JOIN TalepEdenler te ON c.TalepEdenID = te.TalepEdenID
+                       WHERE c.AtananKullaniciID = @KullaniciID";
 
+                // Filtreleri koşullu olarak ekle
                 if (durum != "Tümü")
-                    cmd.Parameters.AddWithValue("@Durum", durum);
+                    query += " AND c.Durum = @Durum";
+
                 if (oncelik != "Tümü")
-                    cmd.Parameters.AddWithValue("@Oncelik", oncelik);
+                    query += " AND c.Oncelik = @Oncelik";
+
                 if (kategori != "Tümü")
-                    cmd.Parameters.AddWithValue("@CagriKategori", kategori);
+                    query += " AND c.CagriKategori = @Kategori";
 
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
+                query += " ORDER BY c.OlusturmaTarihi DESC";
 
-                dgvGorevler.DataSource = dt;
-                SetRenkler();
+                baglantiNesnesi.BaglantiAc();
+
+                using (SqlCommand cmd = new SqlCommand(query, baglantiNesnesi.conn))
+                {
+                    // Her zaman KullaniciID parametresini ekle
+                    cmd.Parameters.AddWithValue("@KullaniciID", int.Parse(KullaniciBilgi.KullaniciID));
+
+                    // Sadece gerekli parametreleri ekle
+                    if (durum != "Tümü")
+                        cmd.Parameters.AddWithValue("@Durum", durum);
+
+                    if (oncelik != "Tümü")
+                        cmd.Parameters.AddWithValue("@Oncelik", oncelik);
+
+                    if (kategori != "Tümü")
+                        cmd.Parameters.AddWithValue("@Kategori", kategori);
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    dgvGorevler.DataSource = dt;
+                    SutunAyarla();
+                    SetRenkler();
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Filtre uygulanırken hata oluştu: " + ex.Message,
-                                "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Filtreleme sırasında hata oluştu: " + ex.Message,
+                               "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
                 baglantiNesnesi.BaglantiKapat();
             }
         }
+
+
+
+
+        private int GetTalepEdenIDByName(string talepEdenAd)
+        {
+            int talepEdenID = -1;
+
+            try
+            {
+                string sorgu = "SELECT TalepEdenID FROM TalepEdenler WHERE TalepEden = @TalepEden";
+                SqlCommand cmd = new SqlCommand(sorgu, baglantiNesnesi.conn);
+                cmd.Parameters.AddWithValue("@TalepEden", talepEdenAd);
+
+                baglantiNesnesi.BaglantiAc();
+                object sonuc = cmd.ExecuteScalar();
+
+                if (sonuc != null && int.TryParse(sonuc.ToString(), out int id))
+                {
+                    talepEdenID = id;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Talep Eden ID alınırken hata oluştu: " + ex.Message);
+            }
+            finally
+            {
+                baglantiNesnesi.BaglantiKapat();
+            }
+
+            return talepEdenID;
+        }
+
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
@@ -429,6 +469,11 @@ namespace TaskFlow360
             txtArama.Text = "Ara...";
             txtArama.ForeColor = Color.Gray;
             CagrilariYukle(); 
+        }
+
+        private void dgvGorevler_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

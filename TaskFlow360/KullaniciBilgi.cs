@@ -9,5 +9,7 @@ namespace TaskFlow360
     public static class KullaniciBilgi
     {
         public static string KullaniciID { get; set; }
+
     }
+
 }
