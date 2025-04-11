@@ -34,8 +34,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.cmbOncelik = new System.Windows.Forms.ComboBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnVagzec = new System.Windows.Forms.Button();
+            this.btnDurumGuncelle = new System.Windows.Forms.Button();
             this.txtAciklama = new System.Windows.Forms.RichTextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.txtHedefSure = new System.Windows.Forms.TextBox();
@@ -127,8 +127,8 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.cmbOncelik);
-            this.tabPage1.Controls.Add(this.button2);
-            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.btnVagzec);
+            this.tabPage1.Controls.Add(this.btnDurumGuncelle);
             this.tabPage1.Controls.Add(this.txtAciklama);
             this.tabPage1.Controls.Add(this.label13);
             this.tabPage1.Controls.Add(this.txtHedefSure);
@@ -167,33 +167,35 @@
             this.cmbOncelik.Size = new System.Drawing.Size(675, 35);
             this.cmbOncelik.TabIndex = 27;
             // 
-            // button2
+            // btnVagzec
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.button2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.button2.Location = new System.Drawing.Point(608, 744);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(214, 65);
-            this.button2.TabIndex = 26;
-            this.button2.Text = "Vazgeç";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnVagzec.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.btnVagzec.FlatAppearance.BorderSize = 0;
+            this.btnVagzec.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVagzec.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnVagzec.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnVagzec.Location = new System.Drawing.Point(608, 744);
+            this.btnVagzec.Name = "btnVagzec";
+            this.btnVagzec.Size = new System.Drawing.Size(214, 65);
+            this.btnVagzec.TabIndex = 26;
+            this.btnVagzec.Text = "Vazgeç";
+            this.btnVagzec.UseVisualStyleBackColor = false;
+            this.btnVagzec.Click += new System.EventHandler(this.btnVagzec_Click);
             // 
-            // button1
+            // btnDurumGuncelle
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.button1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.button1.Location = new System.Drawing.Point(838, 744);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(214, 65);
-            this.button1.TabIndex = 25;
-            this.button1.Text = "Değişiklikleri Kaydet";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnDurumGuncelle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnDurumGuncelle.FlatAppearance.BorderSize = 0;
+            this.btnDurumGuncelle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDurumGuncelle.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnDurumGuncelle.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnDurumGuncelle.Location = new System.Drawing.Point(838, 744);
+            this.btnDurumGuncelle.Name = "btnDurumGuncelle";
+            this.btnDurumGuncelle.Size = new System.Drawing.Size(214, 65);
+            this.btnDurumGuncelle.TabIndex = 25;
+            this.btnDurumGuncelle.Text = "Değişiklikleri Kaydet";
+            this.btnDurumGuncelle.UseVisualStyleBackColor = false;
+            this.btnDurumGuncelle.Click += new System.EventHandler(this.btnDurumGuncelle_Click);
             // 
             // txtAciklama
             // 
@@ -248,8 +250,15 @@
             // 
             // cmbDurum
             // 
+            this.cmbDurum.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDurum.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.cmbDurum.FormattingEnabled = true;
+            this.cmbDurum.Items.AddRange(new object[] {
+            "Atandı",
+            "Tamamlandı",
+            "Beklemede",
+            "Gecikti",
+            "İptal Edildi"});
             this.cmbDurum.Location = new System.Drawing.Point(925, 71);
             this.cmbDurum.Name = "cmbDurum";
             this.cmbDurum.Size = new System.Drawing.Size(675, 35);
@@ -703,8 +712,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RichTextBox txtAciklama;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnVagzec;
+        private System.Windows.Forms.Button btnDurumGuncelle;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label lblTalepEden;
         private System.Windows.Forms.PictureBox pictureBox1;

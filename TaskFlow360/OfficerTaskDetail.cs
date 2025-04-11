@@ -58,7 +58,7 @@ namespace TaskFlow360
             textBox.Cursor = Cursors.Default;  // Metin imleci yerine normal fare imleci gösterir
             textBox.GotFocus += TextBox_GotFocus;  // Odak kazandığında odağı kaybetmesini sağlar
 
-            textBox.BackColor = Color.FromArgb(245, 245, 245);  
+            textBox.BackColor = Color.FromArgb(245, 245, 245);
         }
         private void TextBox_GotFocus(object sender, EventArgs e)
         {
@@ -88,7 +88,6 @@ namespace TaskFlow360
                 {
                     if (dr.Read())
                     {
-                        // Çağrı Bilgileri
                         txtCagriID.Text = dr["CagriID"].ToString();
                         txtBaslik.Text = dr["Baslik"].ToString();
                         txtAciklama.Text = dr["CagriAciklama"].ToString();
@@ -117,10 +116,9 @@ namespace TaskFlow360
                         }
                         else
                         {
-                            _talepEdenID = 0; // Eğer null ise 0 olarak ayarla
+                            _talepEdenID = 0;
                         }
 
-                        // Talep Eden Bilgileri
                         lblTalepEdenID.Text = dr["TalepEdenID"].ToString();
                         lblTalepEden.Text = dr["TalepEden"].ToString();
                         lblTalepEdenTelefon.Text = dr["TalepEdenTelefon"].ToString();
@@ -153,7 +151,6 @@ namespace TaskFlow360
         {
             try
             {
-                // TalepEdenID kontrolü - sınıf değişkeninden alıyoruz artık
                 if (_talepEdenID <= 0)
                 {
                     MessageBox.Show("Talep eden bilgisi bulunamadı. Geçmiş çağrılar yüklenemeyecek.",
@@ -161,10 +158,8 @@ namespace TaskFlow360
                     return;
                 }
 
-                // Panel'i temizle
                 pnlgecmisCagrilar.Controls.Clear();
 
-                // Loading mesajını göster
                 Label lblLoading = new Label();
                 lblLoading.Text = "Çağrılar yükleniyor...";
                 lblLoading.Location = new Point(pnlgecmisCagrilar.Width / 2 - 60, pnlgecmisCagrilar.Height / 2);
@@ -175,7 +170,6 @@ namespace TaskFlow360
 
                 int y = 20;
 
-                // Geçmiş çağrıları getir (şu anki çağrı hariç)
                 string sorgu = @"SELECT CagriID, Baslik, Durum, OlusturmaTarihi, TeslimTarihi, CagriAciklama
                    FROM Cagri 
                    WHERE TalepEdenID = @TalepEdenID AND CagriID != @CagriID
@@ -202,10 +196,8 @@ namespace TaskFlow360
 
                 dr.Close();
 
-                // Loading mesajını kaldır
                 pnlgecmisCagrilar.Controls.Remove(lblLoading);
 
-                // Eğer hiç geçmiş çağrı yoksa bilgi ver
                 if (!hasRecords)
                 {
                     Label lblNoRecords = new Label();
@@ -308,46 +300,89 @@ namespace TaskFlow360
             {
                 string yeniDurum = cmbDurum.SelectedItem?.ToString();
                 string aciklama = txtAciklama.Text.Trim();
+                bool degisiklikVar = false;
 
-                if (string.IsNullOrEmpty(yeniDurum))
-                {
-                    MessageBox.Show("Lütfen bir durum seçiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(aciklama))
-                {
-                    MessageBox.Show("Lütfen durum güncellemesi için açıklama giriniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                string mevcutDurum = "";
+                string mevcutAciklama = "";
 
                 bgl.BaglantiAc();
 
-                // Önce çağrının durumunu güncelle
-                string sorgu1 = "UPDATE Cagri SET Durum = @Durum WHERE CagriID = @CagriID";
-                SqlCommand cmd1 = new SqlCommand(sorgu1, bgl.conn);
-                cmd1.Parameters.AddWithValue("@Durum", yeniDurum);
-                cmd1.Parameters.AddWithValue("@CagriID", _cagriID);
-                cmd1.ExecuteNonQuery();
+                // Mevcut değerleri oku
+                string sorgula = "SELECT Durum, CagriAciklama FROM Cagri WHERE CagriID = @CagriID";
+                SqlCommand cmdSorgula = new SqlCommand(sorgula, bgl.conn);
+                cmdSorgula.Parameters.AddWithValue("@CagriID", _cagriID);
 
-                // Sonra durum güncellemesini kaydet
-                string sorgu2 = @"INSERT INTO CagriDurumGuncelleme (CagriID, GuncellemeTarihi, Durum, Aciklama, DegistirenKullaniciID) 
-                            VALUES (@CagriID, GETDATE(), @Durum, @Aciklama, @KullaniciID)";
-                SqlCommand cmd2 = new SqlCommand(sorgu2, bgl.conn);
-                cmd2.Parameters.AddWithValue("@CagriID", _cagriID);
-                cmd2.Parameters.AddWithValue("@Durum", yeniDurum);
-                cmd2.Parameters.AddWithValue("@Aciklama", aciklama);
-                cmd2.Parameters.AddWithValue("@KullaniciID", Convert.ToInt32(KullaniciBilgi.KullaniciID));
-                cmd2.ExecuteNonQuery();
+                using (SqlDataReader dr = cmdSorgula.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        mevcutDurum = dr["Durum"].ToString();
+                        mevcutAciklama = dr["CagriAciklama"].ToString();
+                    }
+                }
 
-                MessageBox.Show("Çağrı durumu başarıyla güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (!string.IsNullOrEmpty(yeniDurum) && yeniDurum != mevcutDurum)
+                {
+                    degisiklikVar = true;
+                }
 
-                // Form'u yeniden yükle
+                if (aciklama != mevcutAciklama)
+                {
+                    degisiklikVar = true;
+                }
+
+                if (!degisiklikVar)
+                {
+                    MessageBox.Show("Herhangi bir değişiklik yapmadınız.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    bgl.BaglantiKapat();
+                    return;
+                }
+
+                // SQL komutunu oluştur
+                StringBuilder updateSql = new StringBuilder("UPDATE Cagri SET ");
+                List<SqlParameter> parameters = new List<SqlParameter>();
+
+                if (!string.IsNullOrEmpty(yeniDurum) && yeniDurum != mevcutDurum)
+                {
+                    updateSql.Append("Durum = @Durum");
+                    parameters.Add(new SqlParameter("@Durum", yeniDurum));
+                }
+
+                if (aciklama != mevcutAciklama)
+                {
+                    if (parameters.Count > 0) updateSql.Append(", ");
+                    updateSql.Append("CagriAciklama = @Aciklama");
+                    parameters.Add(new SqlParameter("@Aciklama", aciklama));
+                }
+
+                updateSql.Append(" WHERE CagriID = @CagriID");
+                parameters.Add(new SqlParameter("@CagriID", _cagriID));
+
+                // Güncelleme sorgusunu çalıştır
+                SqlCommand cmdUpdate = new SqlCommand(updateSql.ToString(), bgl.conn);
+                cmdUpdate.Parameters.AddRange(parameters.ToArray());
+                cmdUpdate.ExecuteNonQuery();
+
+                // Durumda değişiklik varsa, durum güncellemesini kaydet
+                if (!string.IsNullOrEmpty(yeniDurum) && yeniDurum != mevcutDurum)
+                {
+                    string sorgu2 = @"INSERT INTO CagriDurumGuncelleme (CagriID, GuncellemeTarihi, Durum, Aciklama, DegistirenKullaniciID) 
+                VALUES (@CagriID, GETDATE(), @Durum, @Aciklama, @KullaniciID)";
+                    SqlCommand cmd2 = new SqlCommand(sorgu2, bgl.conn);
+                    cmd2.Parameters.AddWithValue("@CagriID", _cagriID);
+                    cmd2.Parameters.AddWithValue("@Durum", yeniDurum);
+                    cmd2.Parameters.AddWithValue("@Aciklama", aciklama);
+                    cmd2.Parameters.AddWithValue("@KullaniciID", Convert.ToInt32(KullaniciBilgi.KullaniciID));
+                    cmd2.ExecuteNonQuery();
+                }
+
+                MessageBox.Show("Çağrı başarıyla güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 YukleCagriBilgileri();
+                this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Durum güncellenirken hata oluştu: " + ex.Message,
+                MessageBox.Show("Güncelleme sırasında hata oluştu: " + ex.Message,
                                "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -358,12 +393,22 @@ namespace TaskFlow360
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnVagzec_Click(object sender, EventArgs e)
+        {  
+            DialogResult sonuc = MessageBox.Show("Değişiklikleri iptal etmek istiyor musunuz?","Vazgeç", MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            if (sonuc == DialogResult.Yes)
+            {
+                YukleCagriBilgileri();
+                this.Close();
+            }
         }
     }
 }
