@@ -273,7 +273,6 @@
             this.dgvGorevler.RowTemplate.Height = 24;
             this.dgvGorevler.Size = new System.Drawing.Size(1665, 830);
             this.dgvGorevler.TabIndex = 10;
-            this.dgvGorevler.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGorevler_CellContentClick_1);
             // 
             // txtArama
             // 

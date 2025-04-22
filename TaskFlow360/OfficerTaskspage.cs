@@ -182,13 +182,15 @@ namespace TaskFlow360
                 dgvGorevler.Columns["TeslimTarihi"].DisplayIndex = 7;
                 dgvGorevler.Columns["HedefSure"].DisplayIndex = 8;
 
-                // Detay butonu için sütun oluştur
-                DataGridViewButtonColumn detayButonu = new DataGridViewButtonColumn();
-                detayButonu.HeaderText = "Detay";
-                detayButonu.Text = "Detay";
-                detayButonu.UseColumnTextForButtonValue = true;
-                detayButonu.Name = "Detay";
-                dgvGorevler.Columns.Add(detayButonu);
+                if (!dgvGorevler.Columns.Contains("Detay"))
+                {
+                    DataGridViewButtonColumn detayButonu = new DataGridViewButtonColumn();
+                    detayButonu.HeaderText = "Detay";
+                    detayButonu.Text = "Detay";
+                    detayButonu.UseColumnTextForButtonValue = true;
+                    detayButonu.Name = "Detay";
+                    dgvGorevler.Columns.Add(detayButonu);
+                }
             }
             catch (Exception ex)
             {
@@ -346,10 +348,6 @@ namespace TaskFlow360
 
                 SetRenkler();
             }
-        }
-
-        private void dgvGorevler_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
         }
 
         private void txtArama_Enter_1(object sender, EventArgs e)
@@ -512,11 +510,6 @@ namespace TaskFlow360
             txtArama.Text = "Ara...";
             txtArama.ForeColor = Color.Gray;
             CagrilariYukle(); 
-        }
-
-        private void dgvGorevler_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }
