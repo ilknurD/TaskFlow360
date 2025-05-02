@@ -62,7 +62,7 @@ namespace TaskFlow360
         {
             PieChartGunlukDurum();
             ColumnChartHaftalikPerformans();
-            AylikPerformansGrafik();
+            //AylikPerformansGrafik();
         }
 
         private void PieChartGunlukDurum()
@@ -79,11 +79,11 @@ namespace TaskFlow360
             using (SqlConnection conn = Baglanti.BaglantiGetir())
             {
                 string query = @"
-                SELECT Durum, COUNT(*) AS Adet
-                FROM Cagri
-                WHERE AtananKullaniciID = @KullaniciID AND 
-                CAST(OlusturmaTarihi AS DATE) = CAST(GETDATE() AS DATE)
-                GROUP BY Durum";
+            SELECT Durum, COUNT(*) AS Adet
+            FROM Cagri
+            WHERE AtananKullaniciID = @KullaniciID AND 
+                  CAST(OlusturmaTarihi AS DATE) = CAST(GETDATE() AS DATE)
+            GROUP BY Durum";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
@@ -98,6 +98,7 @@ namespace TaskFlow360
 
             chartGunlukDurum.Series.Add(durumSeries);
         }
+
         private void ColumnChartHaftalikPerformans()
         {
             chartHaftalik.Series.Clear();
@@ -120,14 +121,15 @@ namespace TaskFlow360
             using (SqlConnection conn = Baglanti.BaglantiGetir())
             {
                 string query = @"
-                   SELECT FORMAT(RaporTarihi, 'dd.MM') AS Tarih,
-                   SUM(ToplamCagriSayisi) AS CagriSayisi,
-                   AVG(OrtalamaCozumSuresi) AS OrtalamaSure
-                   FROM PerformansRaporu
-                   WHERE KullaniciID = @KullaniciID AND 
-                   RaporTarihi >= DATEADD(DAY, -6, GETDATE())
-                   GROUP BY FORMAT(RaporTarihi, 'dd.MM')
-                   ORDER BY Tarih";
+            SELECT FORMAT(OlusturmaTarihi, 'dd.MM') AS Tarih,
+                   COUNT(*) AS CagriSayisi,
+                   AVG(DATEDIFF(MINUTE, OlusturmaTarihi, TeslimTarihi)) AS OrtalamaSure
+            FROM Cagri
+            WHERE AtananKullaniciID = @KullaniciID AND
+                  OlusturmaTarihi >= DATEADD(DAY, -6, GETDATE()) AND
+                  TeslimTarihi IS NOT NULL
+            GROUP BY FORMAT(OlusturmaTarihi, 'dd.MM')
+            ORDER BY Tarih";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
@@ -146,62 +148,64 @@ namespace TaskFlow360
             chartHaftalik.Series.Add(sureSeries);
         }
 
-        private void AylikPerformansGrafik()
-        {
-            chartAylik.Series.Clear();
-            chartAylik.Titles.Clear();
-            chartAylik.Titles.Add("Son 3 Ay Performansı");
 
-            Series cagriSeries = new Series("Toplam Çağrı")
-            {
-                ChartType = SeriesChartType.Column,
-                Color = Color.MediumSeaGreen,
-                YAxisType = AxisType.Primary
-            };
+        //Yeni oluşturulacak prim tablosuna göre güncellenecek. Geçmiş aylar primleri de gerekli çünkü
+        //private void AylikPerformansGrafik()
+        //{
+        //    chartAylik.Series.Clear();
+        //    chartAylik.Titles.Clear();
+        //    chartAylik.Titles.Add("Son 3 Ay Performansı");
 
-            Series primSeries = new Series("Toplam Prim")
-            {
-                ChartType = SeriesChartType.Line,
-                BorderWidth = 3,
-                Color = Color.OrangeRed,
-                YAxisType = AxisType.Secondary
-            };
+        //    Series cagriSeries = new Series("Toplam Çağrı")
+        //    {
+        //        ChartType = SeriesChartType.Column,
+        //        Color = Color.MediumSeaGreen,
+        //        YAxisType = AxisType.Primary
+        //    };
 
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
-            {
-                string query = @"
-                   SELECT FORMAT(RaporTarihi, 'yyyy-MM') AS Ay,
-                   SUM(ToplamCagriSayisi) AS ToplamCagri,
-                   SUM(Prim) AS ToplamPrim
-                   FROM PerformansRaporu
-                   WHERE KullaniciID = @KullaniciID AND
-                   RaporTarihi >= DATEADD(MONTH, -2, GETDATE())
-                   GROUP BY FORMAT(RaporTarihi, 'yyyy-MM')
-                   ORDER BY Ay";
+        //    Series primSeries = new Series("Toplam Prim")
+        //    {
+        //        ChartType = SeriesChartType.Line,
+        //        BorderWidth = 3,
+        //        Color = Color.OrangeRed,
+        //        YAxisType = AxisType.Secondary
+        //    };
 
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+        //    using (SqlConnection conn = Baglanti.BaglantiGetir())
+        //    {
+        //        string query = @"
+        //           SELECT FORMAT(RaporTarihi, 'yyyy-MM') AS Ay,
+        //           SUM(ToplamCagriSayisi) AS ToplamCagri,
+        //           SUM(Prim) AS ToplamPrim
+        //           FROM PerformansRaporu
+        //           WHERE KullaniciID = @KullaniciID AND
+        //           RaporTarihi >= DATEADD(MONTH, -2, GETDATE())
+        //           GROUP BY FORMAT(RaporTarihi, 'yyyy-MM')
+        //           ORDER BY Ay";
 
-                SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
-                {
-                    string ay = dr["Ay"].ToString();
-                    cagriSeries.Points.AddXY(ay, dr["ToplamCagri"]);
-                    primSeries.Points.AddXY(ay, dr["ToplamPrim"]);
-                }
-                dr.Close();
-            }
+        //        SqlCommand cmd = new SqlCommand(query, conn);
+        //        cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
 
-            chartAylik.Series.Add(cagriSeries);
-            chartAylik.Series.Add(primSeries);
+        //        SqlDataReader dr = cmd.ExecuteReader();
+        //        while (dr.Read())
+        //        {
+        //            string ay = dr["Ay"].ToString();
+        //            cagriSeries.Points.AddXY(ay, dr["ToplamCagri"]);
+        //            primSeries.Points.AddXY(ay, dr["ToplamPrim"]);
+        //        }
+        //        dr.Close();
+        //    }
 
-            chartAylik.ChartAreas[0].AxisX.Title = "Ay";
-            chartAylik.ChartAreas[0].AxisY.Title = "Çağrı Sayısı";
-            chartAylik.ChartAreas[0].AxisY2.Title = "Prim (₺)";
-            chartAylik.ChartAreas[0].AxisY2.Enabled = AxisEnabled.True;
-            cagriSeries.IsValueShownAsLabel = true;
-            primSeries.IsValueShownAsLabel = true;
-        }
+        //    chartAylik.Series.Add(cagriSeries);
+        //    chartAylik.Series.Add(primSeries);
+
+        //    chartAylik.ChartAreas[0].AxisX.Title = "Ay";
+        //    chartAylik.ChartAreas[0].AxisY.Title = "Çağrı Sayısı";
+        //    chartAylik.ChartAreas[0].AxisY2.Title = "Prim (₺)";
+        //    chartAylik.ChartAreas[0].AxisY2.Enabled = AxisEnabled.True;
+        //    cagriSeries.IsValueShownAsLabel = true;
+        //    primSeries.IsValueShownAsLabel = true;
+        //}
 
         private void btnCikis_Click(object sender, EventArgs e)
         {

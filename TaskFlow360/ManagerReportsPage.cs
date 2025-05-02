@@ -89,7 +89,7 @@ namespace TaskFlow360
             LoadDepartmentPerformance();    
             LoadTeamPerformance();
             LoadCallStatusDistribution();
-            LoadMonthlyPrimReport();
+            //AylikPrimDagilimi();
         }
 
         private void LoadDepartmentPerformance()
@@ -257,50 +257,50 @@ namespace TaskFlow360
             chartCallStatus.Series.Add(series);
         }
 
+        //Yeni oluşturulacak prim tablosuna göre güncellenecek. Geçmiş aylar primleri de gerekli çünkü
+        //private void AylikPrimDagilimi()
+        //{
+        //    BeautifyChart(chartMonthlyPrim);
 
-        private void LoadMonthlyPrimReport()
-{
-    BeautifyChart(chartMonthlyPrim);
+        //    chartMonthlyPrim.Series.Clear();
+        //    chartMonthlyPrim.Titles.Clear();
+        //    chartMonthlyPrim.Titles.Add("Aylık Prim Dağılımı");
+        //    chartMonthlyPrim.Titles[0].Font = new Font("Segoe UI", 12, FontStyle.Bold);
+        //    chartMonthlyPrim.Titles[0].ForeColor = Color.FromArgb(126, 87, 194);
 
-    chartMonthlyPrim.Series.Clear();
-    chartMonthlyPrim.Titles.Clear();
-    chartMonthlyPrim.Titles.Add("Aylık Prim Dağılımı");
-    chartMonthlyPrim.Titles[0].Font = new Font("Segoe UI", 12, FontStyle.Bold);
-    chartMonthlyPrim.Titles[0].ForeColor = Color.FromArgb(126, 87, 194);
+        //    Series primSeries = new Series("Toplam Prim")
+        //    {
+        //        ChartType = SeriesChartType.Column,
+        //        Color = Color.FromArgb(255, 193, 7), // Hardal sarısı
+        //        IsValueShownAsLabel = true,
+        //        Font = new Font("Segoe UI", 8, FontStyle.Bold)
+        //    };
 
-    Series primSeries = new Series("Toplam Prim")
-    {
-        ChartType = SeriesChartType.Column,
-        Color = Color.FromArgb(255, 193, 7), // Hardal sarısı
-        IsValueShownAsLabel = true,
-        Font = new Font("Segoe UI", 8, FontStyle.Bold)
-    };
+        //    using (SqlConnection conn = Baglanti.BaglantiGetir())
+        //    {
+        //        string query = @"
+        //        SELECT FORMAT(pr.RaporTarihi, 'yyyy-MM') AS Ay,
+        //               SUM(pr.Prim) AS ToplamPrim
+        //        FROM PerformansRaporu pr
+        //        JOIN Kullanici k ON pr.KullaniciID = k.KullaniciID
+        //        WHERE k.YoneticiID = @YoneticiID AND
+        //              pr.RaporTarihi >= DATEADD(MONTH, -5, GETDATE())
+        //        GROUP BY FORMAT(pr.RaporTarihi, 'yyyy-MM')
+        //        ORDER BY Ay";
 
-    using (SqlConnection conn = Baglanti.BaglantiGetir())
-    {
-        string query = @"
-            SELECT FORMAT(pr.RaporTarihi, 'yyyy-MM') AS Ay,
-                   SUM(pr.Prim) AS ToplamPrim
-            FROM PerformansRaporu pr
-            JOIN Kullanici k ON pr.KullaniciID = k.KullaniciID
-            WHERE k.YoneticiID = @YoneticiID AND
-                  pr.RaporTarihi >= DATEADD(MONTH, -5, GETDATE())
-            GROUP BY FORMAT(pr.RaporTarihi, 'yyyy-MM')
-            ORDER BY Ay";
+        //        SqlCommand cmd = new SqlCommand(query, conn);
+        //        cmd.Parameters.AddWithValue("@YoneticiID", KullaniciBilgi.KullaniciID);
 
-        SqlCommand cmd = new SqlCommand(query, conn);
-        cmd.Parameters.AddWithValue("@YoneticiID", KullaniciBilgi.KullaniciID);
+        //        SqlDataReader dr = cmd.ExecuteReader();
+        //        while (dr.Read())
+        //        {
+        //            primSeries.Points.AddXY(dr["Ay"].ToString(), dr["ToplamPrim"]);
+        //        }
+        //        dr.Close();
+        //    }
 
-        SqlDataReader dr = cmd.ExecuteReader();
-        while (dr.Read())
-        {
-            primSeries.Points.AddXY(dr["Ay"].ToString(), dr["ToplamPrim"]);
-        }
-        dr.Close();
-    }
-
-    chartMonthlyPrim.Series.Add(primSeries);
-}
+        //    chartMonthlyPrim.Series.Add(primSeries);
+        //}
 
     }
 }

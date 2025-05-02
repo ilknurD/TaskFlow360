@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UsersSalary));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -52,21 +52,22 @@
             this.lblBaslik = new System.Windows.Forms.Label();
             this.dataGridViewKullanicilar = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtDusuk = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.chartAylikPrim = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtOrta = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtYuksek = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.btnKaydet = new System.Windows.Forms.Button();
             this.txtMinGorevSayisi = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.btnKaydet = new System.Windows.Forms.Button();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.label7 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtYuksek = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtOrta = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtDusuk = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cmbAyFiltre = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -79,8 +80,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKullanicilar)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartAylikPrim)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox3
@@ -329,18 +330,19 @@
             this.dataGridViewKullanicilar.AllowUserToResizeRows = false;
             this.dataGridViewKullanicilar.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewKullanicilar.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewKullanicilar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridViewKullanicilar.ColumnHeadersHeight = 45;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewKullanicilar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewKullanicilar.ColumnHeadersHeight = 35;
             this.dataGridViewKullanicilar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewKullanicilar.EnableHeadersVisualStyles = false;
-            this.dataGridViewKullanicilar.Location = new System.Drawing.Point(35, 74);
+            this.dataGridViewKullanicilar.GridColor = System.Drawing.Color.Black;
+            this.dataGridViewKullanicilar.Location = new System.Drawing.Point(35, 53);
             this.dataGridViewKullanicilar.MultiSelect = false;
             this.dataGridViewKullanicilar.Name = "dataGridViewKullanicilar";
             this.dataGridViewKullanicilar.ReadOnly = true;
@@ -348,15 +350,16 @@
             this.dataGridViewKullanicilar.RowHeadersWidth = 51;
             this.dataGridViewKullanicilar.RowTemplate.Height = 24;
             this.dataGridViewKullanicilar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewKullanicilar.Size = new System.Drawing.Size(922, 867);
+            this.dataGridViewKullanicilar.Size = new System.Drawing.Size(1586, 483);
             this.dataGridViewKullanicilar.TabIndex = 30;
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.Window;
+            this.panel2.Controls.Add(this.cmbAyFiltre);
             this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.label7);
-            this.panel2.Controls.Add(this.chart1);
+            this.panel2.Controls.Add(this.chartAylikPrim);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.dataGridViewKullanicilar);
             this.panel2.Location = new System.Drawing.Point(330, 76);
@@ -364,24 +367,47 @@
             this.panel2.Size = new System.Drawing.Size(1665, 967);
             this.panel2.TabIndex = 31;
             // 
-            // label3
+            // button2
             // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.White;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label3.Location = new System.Drawing.Point(7, 78);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 23);
-            this.label3.TabIndex = 31;
-            this.label3.Text = "Düşük";
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.button2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.button2.Location = new System.Drawing.Point(1402, 7);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(240, 40);
+            this.button2.TabIndex = 42;
+            this.button2.Text = "Prim Hesapla - Kaydet";
+            this.button2.UseVisualStyleBackColor = false;
             // 
-            // txtDusuk
+            // label7
             // 
-            this.txtDusuk.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.txtDusuk.Location = new System.Drawing.Point(11, 104);
-            this.txtDusuk.Name = "txtDusuk";
-            this.txtDusuk.Size = new System.Drawing.Size(617, 36);
-            this.txtDusuk.TabIndex = 32;
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label7.Location = new System.Drawing.Point(30, 8);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(233, 27);
+            this.label7.TabIndex = 35;
+            this.label7.Text = "Çalışan Maaş Listesi";
+            // 
+            // chartAylikPrim
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.chartAylikPrim.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartAylikPrim.Legends.Add(legend2);
+            this.chartAylikPrim.Location = new System.Drawing.Point(855, 562);
+            this.chartAylikPrim.Name = "chartAylikPrim";
+            this.chartAylikPrim.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartAylikPrim.Series.Add(series2);
+            this.chartAylikPrim.Size = new System.Drawing.Size(817, 379);
+            this.chartAylikPrim.TabIndex = 34;
+            this.chartAylikPrim.Text = "chart1";
             // 
             // panel3
             // 
@@ -397,89 +423,10 @@
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.txtDusuk);
             this.panel3.Controls.Add(this.label3);
-            this.panel3.Location = new System.Drawing.Point(978, 74);
+            this.panel3.Location = new System.Drawing.Point(35, 562);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(654, 442);
+            this.panel3.Size = new System.Drawing.Size(780, 388);
             this.panel3.TabIndex = 33;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(3, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(186, 34);
-            this.label1.TabIndex = 33;
-            this.label1.Text = "Prim Ayarları";
-            // 
-            // txtOrta
-            // 
-            this.txtOrta.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.txtOrta.Location = new System.Drawing.Point(11, 184);
-            this.txtOrta.Name = "txtOrta";
-            this.txtOrta.Size = new System.Drawing.Size(617, 36);
-            this.txtOrta.TabIndex = 35;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.White;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label2.Location = new System.Drawing.Point(7, 158);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 23);
-            this.label2.TabIndex = 34;
-            this.label2.Text = "Orta";
-            // 
-            // txtYuksek
-            // 
-            this.txtYuksek.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.txtYuksek.Location = new System.Drawing.Point(11, 268);
-            this.txtYuksek.Name = "txtYuksek";
-            this.txtYuksek.Size = new System.Drawing.Size(617, 36);
-            this.txtYuksek.TabIndex = 37;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.White;
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label4.Location = new System.Drawing.Point(7, 242);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(76, 23);
-            this.label4.TabIndex = 36;
-            this.label4.Text = "Yüksek";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(5, 37);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(537, 21);
-            this.label5.TabIndex = 38;
-            this.label5.Text = "(Önceliklere göre görev başına düşen prim miktarını hesaplayın.)";
-            // 
-            // txtMinGorevSayisi
-            // 
-            this.txtMinGorevSayisi.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.txtMinGorevSayisi.Location = new System.Drawing.Point(102, 333);
-            this.txtMinGorevSayisi.Name = "txtMinGorevSayisi";
-            this.txtMinGorevSayisi.Size = new System.Drawing.Size(526, 36);
-            this.txtMinGorevSayisi.TabIndex = 40;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.White;
-            this.label6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label6.Location = new System.Drawing.Point(7, 340);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(92, 23);
-            this.label6.TabIndex = 39;
-            this.label6.Text = "Alt Limit:";
             // 
             // btnKaydet
             // 
@@ -488,7 +435,7 @@
             this.btnKaydet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnKaydet.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnKaydet.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnKaydet.Location = new System.Drawing.Point(9, 375);
+            this.btnKaydet.Location = new System.Drawing.Point(287, 338);
             this.btnKaydet.Name = "btnKaydet";
             this.btnKaydet.Size = new System.Drawing.Size(181, 40);
             this.btnKaydet.TabIndex = 41;
@@ -496,48 +443,112 @@
             this.btnKaydet.UseVisualStyleBackColor = false;
             this.btnKaydet.Click += new System.EventHandler(this.btnKaydet_Click);
             // 
-            // chart1
+            // txtMinGorevSayisi
             // 
-            chartArea5.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.chart1.Legends.Add(legend5);
-            this.chart1.Location = new System.Drawing.Point(1006, 588);
-            this.chart1.Name = "chart1";
-            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series5.ChartArea = "ChartArea1";
-            series5.Legend = "Legend1";
-            series5.Name = "Series1";
-            this.chart1.Series.Add(series5);
-            this.chart1.Size = new System.Drawing.Size(572, 300);
-            this.chart1.TabIndex = 34;
-            this.chart1.Text = "chart1";
+            this.txtMinGorevSayisi.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtMinGorevSayisi.Location = new System.Drawing.Point(131, 295);
+            this.txtMinGorevSayisi.Name = "txtMinGorevSayisi";
+            this.txtMinGorevSayisi.Size = new System.Drawing.Size(583, 36);
+            this.txtMinGorevSayisi.TabIndex = 40;
             // 
-            // label7
+            // label6
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label7.Location = new System.Drawing.Point(30, 44);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(233, 27);
-            this.label7.TabIndex = 35;
-            this.label7.Text = "Çalışan Maaş Listesi";
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.White;
+            this.label6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label6.Location = new System.Drawing.Point(36, 302);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(92, 23);
+            this.label6.TabIndex = 39;
+            this.label6.Text = "Alt Limit:";
             // 
-            // button2
+            // label5
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.button2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.button2.Location = new System.Drawing.Point(717, 28);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(240, 40);
-            this.button2.TabIndex = 42;
-            this.button2.Text = "Prim Hesapla - Kaydet";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(176, 10);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(537, 21);
+            this.label5.TabIndex = 38;
+            this.label5.Text = "(Önceliklere göre görev başına düşen prim miktarını hesaplayın.)";
+            // 
+            // txtYuksek
+            // 
+            this.txtYuksek.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtYuksek.Location = new System.Drawing.Point(40, 230);
+            this.txtYuksek.Name = "txtYuksek";
+            this.txtYuksek.Size = new System.Drawing.Size(674, 36);
+            this.txtYuksek.TabIndex = 37;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.White;
+            this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label4.Location = new System.Drawing.Point(36, 204);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(76, 23);
+            this.label4.TabIndex = 36;
+            this.label4.Text = "Yüksek";
+            // 
+            // txtOrta
+            // 
+            this.txtOrta.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtOrta.Location = new System.Drawing.Point(40, 146);
+            this.txtOrta.Name = "txtOrta";
+            this.txtOrta.Size = new System.Drawing.Size(674, 36);
+            this.txtOrta.TabIndex = 35;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.White;
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label2.Location = new System.Drawing.Point(36, 120);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(54, 23);
+            this.label2.TabIndex = 34;
+            this.label2.Text = "Orta";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(6, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(152, 27);
+            this.label1.TabIndex = 33;
+            this.label1.Text = "Prim Ayarları";
+            // 
+            // txtDusuk
+            // 
+            this.txtDusuk.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtDusuk.Location = new System.Drawing.Point(40, 66);
+            this.txtDusuk.Name = "txtDusuk";
+            this.txtDusuk.Size = new System.Drawing.Size(674, 36);
+            this.txtDusuk.TabIndex = 32;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.White;
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label3.Location = new System.Drawing.Point(36, 40);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(67, 23);
+            this.label3.TabIndex = 31;
+            this.label3.Text = "Düşük";
+            // 
+            // cmbAyFiltre
+            // 
+            this.cmbAyFiltre.FormattingEnabled = true;
+            this.cmbAyFiltre.Location = new System.Drawing.Point(387, 18);
+            this.cmbAyFiltre.Name = "cmbAyFiltre";
+            this.cmbAyFiltre.Size = new System.Drawing.Size(197, 24);
+            this.cmbAyFiltre.TabIndex = 43;
+            this.cmbAyFiltre.SelectedIndexChanged += new System.EventHandler(this.cmbAyFiltre_SelectedIndexChanged);
             // 
             // UsersSalary
             // 
@@ -568,9 +579,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKullanicilar)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartAylikPrim)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -608,9 +619,10 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtMinGorevSayisi;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartAylikPrim;
         private System.Windows.Forms.Button btnKaydet;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ComboBox cmbAyFiltre;
     }
 }
