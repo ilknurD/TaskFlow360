@@ -1,6 +1,6 @@
 ﻿namespace TaskFlow360
 {
-    partial class BossUsersControl
+    partial class UsersSalary
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BossUsersControl));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UsersSalary));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ikonRaporlar = new System.Windows.Forms.PictureBox();
             this.btnRaporlar = new System.Windows.Forms.Button();
@@ -44,20 +49,26 @@
             this.btnProfil = new System.Windows.Forms.Button();
             this.btnAnasayfa = new System.Windows.Forms.Button();
             this.pctrLogo = new System.Windows.Forms.PictureBox();
+            this.lblBaslik = new System.Windows.Forms.Label();
             this.dataGridViewKullanicilar = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnEkle = new System.Windows.Forms.Button();
-            this.btnDuzenle = new System.Windows.Forms.Button();
-            this.btnSil = new System.Windows.Forms.Button();
-            this.lblSeciliKullanici = new System.Windows.Forms.Label();
-            this.btnTemizle = new System.Windows.Forms.Button();
-            this.cmbDepartman = new System.Windows.Forms.ComboBox();
-            this.lblDurum = new System.Windows.Forms.Label();
-            this.txtArama = new System.Windows.Forms.TextBox();
-            this.lblKullaniciSayisi = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtDusuk = new System.Windows.Forms.TextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtOrta = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtYuksek = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtMinGorevSayisi = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnKaydet = new System.Windows.Forms.Button();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label7 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -68,10 +79,33 @@
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKullanicilar)).BeginInit();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(1834, 12);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 27;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(1873, 12);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 26;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // panel1
             // 
@@ -93,7 +127,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(295, 1102);
-            this.panel1.TabIndex = 26;
+            this.panel1.TabIndex = 28;
             // 
             // ikonRaporlar
             // 
@@ -122,7 +156,7 @@
             this.btnRaporlar.Text = "Raporlar";
             this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnRaporlar.UseVisualStyleBackColor = false;
-            this.btnRaporlar.Click += new System.EventHandler(this.button2_Click);
+            this.btnRaporlar.Click += new System.EventHandler(this.btnRaporlar_Click);
             // 
             // pictureBox4
             // 
@@ -278,23 +312,35 @@
             this.pctrLogo.TabIndex = 0;
             this.pctrLogo.TabStop = false;
             // 
+            // lblBaslik
+            // 
+            this.lblBaslik.AutoSize = true;
+            this.lblBaslik.Font = new System.Drawing.Font("Century Gothic", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblBaslik.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(103)))), ((int)(((byte)(195)))));
+            this.lblBaslik.Location = new System.Drawing.Point(324, 22);
+            this.lblBaslik.Name = "lblBaslik";
+            this.lblBaslik.Size = new System.Drawing.Size(442, 34);
+            this.lblBaslik.TabIndex = 29;
+            this.lblBaslik.Text = "Prim Hesaplama ve Maaş Listesi";
+            // 
             // dataGridViewKullanicilar
             // 
             this.dataGridViewKullanicilar.AllowUserToResizeColumns = false;
             this.dataGridViewKullanicilar.AllowUserToResizeRows = false;
+            this.dataGridViewKullanicilar.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewKullanicilar.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewKullanicilar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewKullanicilar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridViewKullanicilar.ColumnHeadersHeight = 45;
             this.dataGridViewKullanicilar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewKullanicilar.EnableHeadersVisualStyles = false;
-            this.dataGridViewKullanicilar.Location = new System.Drawing.Point(327, 200);
+            this.dataGridViewKullanicilar.Location = new System.Drawing.Point(35, 74);
             this.dataGridViewKullanicilar.MultiSelect = false;
             this.dataGridViewKullanicilar.Name = "dataGridViewKullanicilar";
             this.dataGridViewKullanicilar.ReadOnly = true;
@@ -302,189 +348,215 @@
             this.dataGridViewKullanicilar.RowHeadersWidth = 51;
             this.dataGridViewKullanicilar.RowTemplate.Height = 24;
             this.dataGridViewKullanicilar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewKullanicilar.Size = new System.Drawing.Size(1665, 789);
-            this.dataGridViewKullanicilar.TabIndex = 27;
-            this.dataGridViewKullanicilar.SelectionChanged += new System.EventHandler(this.dataGridViewKullanicilar_SelectionChanged);
+            this.dataGridViewKullanicilar.Size = new System.Drawing.Size(922, 867);
+            this.dataGridViewKullanicilar.TabIndex = 30;
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.btnEkle);
-            this.panel2.Controls.Add(this.btnDuzenle);
-            this.panel2.Controls.Add(this.btnSil);
-            this.panel2.Controls.Add(this.lblSeciliKullanici);
-            this.panel2.Controls.Add(this.btnTemizle);
-            this.panel2.Controls.Add(this.cmbDepartman);
-            this.panel2.Controls.Add(this.lblDurum);
-            this.panel2.Location = new System.Drawing.Point(327, 86);
+            this.panel2.BackColor = System.Drawing.SystemColors.Window;
+            this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.label7);
+            this.panel2.Controls.Add(this.chart1);
+            this.panel2.Controls.Add(this.panel3);
+            this.panel2.Controls.Add(this.dataGridViewKullanicilar);
+            this.panel2.Location = new System.Drawing.Point(330, 76);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1665, 68);
-            this.panel2.TabIndex = 28;
+            this.panel2.Size = new System.Drawing.Size(1665, 967);
+            this.panel2.TabIndex = 31;
             // 
-            // btnEkle
+            // label3
             // 
-            this.btnEkle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnEkle.FlatAppearance.BorderSize = 0;
-            this.btnEkle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEkle.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnEkle.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnEkle.Location = new System.Drawing.Point(902, 16);
-            this.btnEkle.Name = "btnEkle";
-            this.btnEkle.Size = new System.Drawing.Size(157, 40);
-            this.btnEkle.TabIndex = 34;
-            this.btnEkle.Text = "Ekle";
-            this.btnEkle.UseVisualStyleBackColor = false;
-            this.btnEkle.Click += new System.EventHandler(this.btnEkle_Click);
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.White;
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label3.Location = new System.Drawing.Point(7, 78);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(67, 23);
+            this.label3.TabIndex = 31;
+            this.label3.Text = "Düşük";
             // 
-            // btnDuzenle
+            // txtDusuk
             // 
-            this.btnDuzenle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnDuzenle.FlatAppearance.BorderSize = 0;
-            this.btnDuzenle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDuzenle.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnDuzenle.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnDuzenle.Location = new System.Drawing.Point(1249, 16);
-            this.btnDuzenle.Name = "btnDuzenle";
-            this.btnDuzenle.Size = new System.Drawing.Size(157, 40);
-            this.btnDuzenle.TabIndex = 33;
-            this.btnDuzenle.Text = "Düzenle";
-            this.btnDuzenle.UseVisualStyleBackColor = false;
-            this.btnDuzenle.Click += new System.EventHandler(this.btnDuzenle_Click);
+            this.txtDusuk.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtDusuk.Location = new System.Drawing.Point(11, 104);
+            this.txtDusuk.Name = "txtDusuk";
+            this.txtDusuk.Size = new System.Drawing.Size(617, 36);
+            this.txtDusuk.TabIndex = 32;
             // 
-            // btnSil
+            // panel3
             // 
-            this.btnSil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnSil.FlatAppearance.BorderSize = 0;
-            this.btnSil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSil.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnSil.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSil.Location = new System.Drawing.Point(1423, 16);
-            this.btnSil.Name = "btnSil";
-            this.btnSil.Size = new System.Drawing.Size(157, 40);
-            this.btnSil.TabIndex = 32;
-            this.btnSil.Text = "Sil";
-            this.btnSil.UseVisualStyleBackColor = false;
-            this.btnSil.Click += new System.EventHandler(this.btnSil_Click);
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.btnKaydet);
+            this.panel3.Controls.Add(this.txtMinGorevSayisi);
+            this.panel3.Controls.Add(this.label6);
+            this.panel3.Controls.Add(this.label5);
+            this.panel3.Controls.Add(this.txtYuksek);
+            this.panel3.Controls.Add(this.label4);
+            this.panel3.Controls.Add(this.txtOrta);
+            this.panel3.Controls.Add(this.label2);
+            this.panel3.Controls.Add(this.label1);
+            this.panel3.Controls.Add(this.txtDusuk);
+            this.panel3.Controls.Add(this.label3);
+            this.panel3.Location = new System.Drawing.Point(978, 74);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(654, 442);
+            this.panel3.TabIndex = 33;
             // 
-            // lblSeciliKullanici
+            // label1
             // 
-            this.lblSeciliKullanici.AutoSize = true;
-            this.lblSeciliKullanici.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblSeciliKullanici.Location = new System.Drawing.Point(17, 24);
-            this.lblSeciliKullanici.Name = "lblSeciliKullanici";
-            this.lblSeciliKullanici.Size = new System.Drawing.Size(72, 23);
-            this.lblSeciliKullanici.TabIndex = 31;
-            this.lblSeciliKullanici.Text = "label1";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(3, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(186, 34);
+            this.label1.TabIndex = 33;
+            this.label1.Text = "Prim Ayarları";
             // 
-            // btnTemizle
+            // txtOrta
             // 
-            this.btnTemizle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnTemizle.FlatAppearance.BorderSize = 0;
-            this.btnTemizle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTemizle.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnTemizle.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnTemizle.Location = new System.Drawing.Point(1077, 16);
-            this.btnTemizle.Name = "btnTemizle";
-            this.btnTemizle.Size = new System.Drawing.Size(157, 40);
-            this.btnTemizle.TabIndex = 21;
-            this.btnTemizle.Text = "Temizle";
-            this.btnTemizle.UseVisualStyleBackColor = false;
-            this.btnTemizle.Click += new System.EventHandler(this.btnTemizle_Click);
+            this.txtOrta.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtOrta.Location = new System.Drawing.Point(11, 184);
+            this.txtOrta.Name = "txtOrta";
+            this.txtOrta.Size = new System.Drawing.Size(617, 36);
+            this.txtOrta.TabIndex = 35;
             // 
-            // cmbDepartman
+            // label2
             // 
-            this.cmbDepartman.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbDepartman.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.cmbDepartman.FormattingEnabled = true;
-            this.cmbDepartman.Location = new System.Drawing.Point(510, 21);
-            this.cmbDepartman.Name = "cmbDepartman";
-            this.cmbDepartman.Size = new System.Drawing.Size(264, 31);
-            this.cmbDepartman.TabIndex = 11;
-            this.cmbDepartman.SelectedIndexChanged += new System.EventHandler(this.cmbDepartman_SelectedIndexChanged);
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.White;
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label2.Location = new System.Drawing.Point(7, 158);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(54, 23);
+            this.label2.TabIndex = 34;
+            this.label2.Text = "Orta";
             // 
-            // lblDurum
+            // txtYuksek
             // 
-            this.lblDurum.AutoSize = true;
-            this.lblDurum.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblDurum.Location = new System.Drawing.Point(383, 26);
-            this.lblDurum.Name = "lblDurum";
-            this.lblDurum.Size = new System.Drawing.Size(116, 21);
-            this.lblDurum.TabIndex = 13;
-            this.lblDurum.Text = "Departman:";
+            this.txtYuksek.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtYuksek.Location = new System.Drawing.Point(11, 268);
+            this.txtYuksek.Name = "txtYuksek";
+            this.txtYuksek.Size = new System.Drawing.Size(617, 36);
+            this.txtYuksek.TabIndex = 37;
             // 
-            // txtArama
+            // label4
             // 
-            this.txtArama.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.txtArama.Location = new System.Drawing.Point(369, 162);
-            this.txtArama.Name = "txtArama";
-            this.txtArama.Size = new System.Drawing.Size(283, 32);
-            this.txtArama.TabIndex = 9;
-            this.txtArama.TextChanged += new System.EventHandler(this.txtArama_TextChanged);
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.White;
+            this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label4.Location = new System.Drawing.Point(7, 242);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(76, 23);
+            this.label4.TabIndex = 36;
+            this.label4.Text = "Yüksek";
             // 
-            // lblKullaniciSayisi
+            // label5
             // 
-            this.lblKullaniciSayisi.AutoSize = true;
-            this.lblKullaniciSayisi.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblKullaniciSayisi.Location = new System.Drawing.Point(345, 62);
-            this.lblKullaniciSayisi.Name = "lblKullaniciSayisi";
-            this.lblKullaniciSayisi.Size = new System.Drawing.Size(60, 21);
-            this.lblKullaniciSayisi.TabIndex = 30;
-            this.lblKullaniciSayisi.Text = "label1";
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(5, 37);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(537, 21);
+            this.label5.TabIndex = 38;
+            this.label5.Text = "(Önceliklere göre görev başına düşen prim miktarını hesaplayın.)";
             // 
-            // pictureBox1
+            // txtMinGorevSayisi
             // 
-            this.pictureBox1.Image = global::TaskFlow360.Properties.Resources.search__1_;
-            this.pictureBox1.Location = new System.Drawing.Point(327, 162);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(42, 32);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 10;
-            this.pictureBox1.TabStop = false;
+            this.txtMinGorevSayisi.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtMinGorevSayisi.Location = new System.Drawing.Point(102, 333);
+            this.txtMinGorevSayisi.Name = "txtMinGorevSayisi";
+            this.txtMinGorevSayisi.Size = new System.Drawing.Size(526, 36);
+            this.txtMinGorevSayisi.TabIndex = 40;
             // 
-            // pictureBox3
+            // label6
             // 
-            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(1834, 12);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(35, 35);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 25;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.White;
+            this.label6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label6.Location = new System.Drawing.Point(7, 340);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(92, 23);
+            this.label6.TabIndex = 39;
+            this.label6.Text = "Alt Limit:";
             // 
-            // pictureBox2
+            // btnKaydet
             // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(1873, 12);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(35, 35);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 24;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            this.btnKaydet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.btnKaydet.FlatAppearance.BorderSize = 0;
+            this.btnKaydet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnKaydet.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnKaydet.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnKaydet.Location = new System.Drawing.Point(9, 375);
+            this.btnKaydet.Name = "btnKaydet";
+            this.btnKaydet.Size = new System.Drawing.Size(181, 40);
+            this.btnKaydet.TabIndex = 41;
+            this.btnKaydet.Text = "Ayarları kaydet";
+            this.btnKaydet.UseVisualStyleBackColor = false;
+            this.btnKaydet.Click += new System.EventHandler(this.btnKaydet_Click);
             // 
-            // BossUsersControl
+            // chart1
+            // 
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.chart1.Legends.Add(legend5);
+            this.chart1.Location = new System.Drawing.Point(1006, 588);
+            this.chart1.Name = "chart1";
+            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
+            series5.ChartArea = "ChartArea1";
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            this.chart1.Series.Add(series5);
+            this.chart1.Size = new System.Drawing.Size(572, 300);
+            this.chart1.TabIndex = 34;
+            this.chart1.Text = "chart1";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label7.Location = new System.Drawing.Point(30, 44);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(233, 27);
+            this.label7.TabIndex = 35;
+            this.label7.Text = "Çalışan Maaş Listesi";
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.button2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.button2.Location = new System.Drawing.Point(717, 28);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(240, 40);
+            this.button2.TabIndex = 42;
+            this.button2.Text = "Prim Hesapla - Kaydet";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // UsersSalary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1920, 1102);
-            this.Controls.Add(this.lblKullaniciSayisi);
-            this.Controls.Add(this.dataGridViewKullanicilar);
             this.Controls.Add(this.panel2);
+            this.Controls.Add(this.lblBaslik);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.txtArama);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "BossUsersControl";
+            this.Name = "UsersSalary";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "BossUsersControl";
+            this.Text = "UsersSalary";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.BossUsersControl_Load);
+            this.Load += new System.EventHandler(this.UsersSalary_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
@@ -496,9 +568,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKullanicilar)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -509,6 +581,10 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox ikonRaporlar;
+        private System.Windows.Forms.Button btnRaporlar;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox ikonCikis;
         private System.Windows.Forms.PictureBox ikonProfil;
         private System.Windows.Forms.PictureBox ikonGorevler;
@@ -518,21 +594,23 @@
         private System.Windows.Forms.Button btnProfil;
         private System.Windows.Forms.Button btnAnasayfa;
         private System.Windows.Forms.PictureBox pctrLogo;
+        private System.Windows.Forms.Label lblBaslik;
         private System.Windows.Forms.DataGridView dataGridViewKullanicilar;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button btnTemizle;
-        private System.Windows.Forms.TextBox txtArama;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ComboBox cmbDepartman;
-        private System.Windows.Forms.Label lblKullaniciSayisi;
-        private System.Windows.Forms.Label lblDurum;
-        private System.Windows.Forms.Label lblSeciliKullanici;
-        private System.Windows.Forms.Button btnDuzenle;
-        private System.Windows.Forms.Button btnSil;
-        private System.Windows.Forms.Button btnEkle;
-        private System.Windows.Forms.Button btnRaporlar;
-        private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.PictureBox ikonRaporlar;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtDusuk;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtYuksek;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtOrta;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtMinGorevSayisi;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Button btnKaydet;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button2;
     }
 }

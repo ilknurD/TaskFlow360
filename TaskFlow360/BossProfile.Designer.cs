@@ -28,17 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BossProfile));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BossProfile));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ikonRaporlar = new System.Windows.Forms.PictureBox();
+            this.btnRaporlar = new System.Windows.Forms.Button();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.ikonCikis = new System.Windows.Forms.PictureBox();
+            this.ikonProfil = new System.Windows.Forms.PictureBox();
+            this.ikonGorevler = new System.Windows.Forms.PictureBox();
+            this.ikonAnasayfa = new System.Windows.Forms.PictureBox();
             this.btnCikis = new System.Windows.Forms.Button();
             this.btnKullaniciIslem = new System.Windows.Forms.Button();
             this.btnProfil = new System.Windows.Forms.Button();
             this.btnAnasayfa = new System.Windows.Forms.Button();
+            this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.lblHosgeldiniz = new System.Windows.Forms.Label();
             this.pnlPrfilBilgi = new System.Windows.Forms.Panel();
             this.lblDepartman = new System.Windows.Forms.Label();
@@ -48,6 +57,7 @@
             this.lblBolum = new System.Windows.Forms.Label();
             this.lblAdSoyad = new System.Windows.Forms.Label();
             this.btnDegistir = new System.Windows.Forms.Button();
+            this.pctrProfil = new System.Windows.Forms.PictureBox();
             this.pnlIsBilgi = new System.Windows.Forms.Panel();
             this.lblKullaniciID = new System.Windows.Forms.Label();
             this.lblYonetici = new System.Windows.Forms.Label();
@@ -79,27 +89,9 @@
             this.ekipUyeSayi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblPerformansPrimBaslik = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnRaporlar = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.pctrProfil = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.ikonRaporlar = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.ikonCikis = new System.Windows.Forms.PictureBox();
-            this.ikonProfil = new System.Windows.Forms.PictureBox();
-            this.ikonGorevler = new System.Windows.Forms.PictureBox();
-            this.ikonAnasayfa = new System.Windows.Forms.PictureBox();
-            this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            this.pnlPrfilBilgi.SuspendLayout();
-            this.pnlIsBilgi.SuspendLayout();
-            this.pnlIletisimBilgi.SuspendLayout();
-            this.icerikPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.yoneticilerDGV)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrProfil)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).BeginInit();
@@ -107,6 +99,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).BeginInit();
+            this.pnlPrfilBilgi.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrProfil)).BeginInit();
+            this.pnlIsBilgi.SuspendLayout();
+            this.pnlIletisimBilgi.SuspendLayout();
+            this.icerikPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.yoneticilerDGV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -130,6 +130,108 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(295, 1102);
             this.panel1.TabIndex = 25;
+            // 
+            // ikonRaporlar
+            // 
+            this.ikonRaporlar.BackColor = System.Drawing.Color.Transparent;
+            this.ikonRaporlar.Image = ((System.Drawing.Image)(resources.GetObject("ikonRaporlar.Image")));
+            this.ikonRaporlar.Location = new System.Drawing.Point(33, 438);
+            this.ikonRaporlar.Name = "ikonRaporlar";
+            this.ikonRaporlar.Size = new System.Drawing.Size(40, 40);
+            this.ikonRaporlar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonRaporlar.TabIndex = 20;
+            this.ikonRaporlar.TabStop = false;
+            // 
+            // btnRaporlar
+            // 
+            this.btnRaporlar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.btnRaporlar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnRaporlar.FlatAppearance.BorderSize = 0;
+            this.btnRaporlar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRaporlar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnRaporlar.ForeColor = System.Drawing.Color.White;
+            this.btnRaporlar.Location = new System.Drawing.Point(0, 428);
+            this.btnRaporlar.Name = "btnRaporlar";
+            this.btnRaporlar.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
+            this.btnRaporlar.Size = new System.Drawing.Size(295, 60);
+            this.btnRaporlar.TabIndex = 19;
+            this.btnRaporlar.Text = "Raporlar";
+            this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRaporlar.UseVisualStyleBackColor = false;
+            this.btnRaporlar.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
+            this.pictureBox4.Location = new System.Drawing.Point(33, 377);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(40, 40);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 18;
+            this.pictureBox4.TabStop = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(0, 368);
+            this.button1.Name = "button1";
+            this.button1.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
+            this.button1.Size = new System.Drawing.Size(295, 60);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "Ödeme İşlemleri";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // ikonCikis
+            // 
+            this.ikonCikis.BackColor = System.Drawing.Color.Transparent;
+            this.ikonCikis.Image = ((System.Drawing.Image)(resources.GetObject("ikonCikis.Image")));
+            this.ikonCikis.Location = new System.Drawing.Point(25, 977);
+            this.ikonCikis.Name = "ikonCikis";
+            this.ikonCikis.Size = new System.Drawing.Size(40, 40);
+            this.ikonCikis.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonCikis.TabIndex = 11;
+            this.ikonCikis.TabStop = false;
+            // 
+            // ikonProfil
+            // 
+            this.ikonProfil.BackColor = System.Drawing.Color.Transparent;
+            this.ikonProfil.Image = ((System.Drawing.Image)(resources.GetObject("ikonProfil.Image")));
+            this.ikonProfil.Location = new System.Drawing.Point(33, 259);
+            this.ikonProfil.Name = "ikonProfil";
+            this.ikonProfil.Size = new System.Drawing.Size(40, 40);
+            this.ikonProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonProfil.TabIndex = 8;
+            this.ikonProfil.TabStop = false;
+            // 
+            // ikonGorevler
+            // 
+            this.ikonGorevler.BackColor = System.Drawing.Color.Transparent;
+            this.ikonGorevler.Image = ((System.Drawing.Image)(resources.GetObject("ikonGorevler.Image")));
+            this.ikonGorevler.Location = new System.Drawing.Point(33, 319);
+            this.ikonGorevler.Name = "ikonGorevler";
+            this.ikonGorevler.Size = new System.Drawing.Size(40, 40);
+            this.ikonGorevler.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonGorevler.TabIndex = 7;
+            this.ikonGorevler.TabStop = false;
+            // 
+            // ikonAnasayfa
+            // 
+            this.ikonAnasayfa.BackColor = System.Drawing.Color.Transparent;
+            this.ikonAnasayfa.Image = ((System.Drawing.Image)(resources.GetObject("ikonAnasayfa.Image")));
+            this.ikonAnasayfa.Location = new System.Drawing.Point(33, 200);
+            this.ikonAnasayfa.Name = "ikonAnasayfa";
+            this.ikonAnasayfa.Size = new System.Drawing.Size(40, 40);
+            this.ikonAnasayfa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonAnasayfa.TabIndex = 6;
+            this.ikonAnasayfa.TabStop = false;
             // 
             // btnCikis
             // 
@@ -200,6 +302,17 @@
             this.btnAnasayfa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAnasayfa.UseVisualStyleBackColor = false;
             this.btnAnasayfa.Click += new System.EventHandler(this.btnAnasayfa_Click);
+            // 
+            // pctrLogo
+            // 
+            this.pctrLogo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pctrLogo.Image = ((System.Drawing.Image)(resources.GetObject("pctrLogo.Image")));
+            this.pctrLogo.Location = new System.Drawing.Point(0, 0);
+            this.pctrLogo.Name = "pctrLogo";
+            this.pctrLogo.Size = new System.Drawing.Size(295, 188);
+            this.pctrLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrLogo.TabIndex = 0;
+            this.pctrLogo.TabStop = false;
             // 
             // lblHosgeldiniz
             // 
@@ -303,6 +416,15 @@
             this.btnDegistir.TabIndex = 21;
             this.btnDegistir.Text = "Değiştir";
             this.btnDegistir.UseVisualStyleBackColor = false;
+            // 
+            // pctrProfil
+            // 
+            this.pctrProfil.Location = new System.Drawing.Point(117, 16);
+            this.pctrProfil.Name = "pctrProfil";
+            this.pctrProfil.Size = new System.Drawing.Size(195, 170);
+            this.pctrProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pctrProfil.TabIndex = 0;
+            this.pctrProfil.TabStop = false;
             // 
             // pnlIsBilgi
             // 
@@ -685,50 +807,6 @@
             this.label3.Text = "_________________________________________________________________________________" +
     "_________________________________________";
             // 
-            // btnRaporlar
-            // 
-            this.btnRaporlar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnRaporlar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnRaporlar.FlatAppearance.BorderSize = 0;
-            this.btnRaporlar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRaporlar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnRaporlar.ForeColor = System.Drawing.Color.White;
-            this.btnRaporlar.Location = new System.Drawing.Point(0, 428);
-            this.btnRaporlar.Name = "btnRaporlar";
-            this.btnRaporlar.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
-            this.btnRaporlar.Size = new System.Drawing.Size(295, 60);
-            this.btnRaporlar.TabIndex = 19;
-            this.btnRaporlar.Text = "Raporlar";
-            this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRaporlar.UseVisualStyleBackColor = false;
-            this.btnRaporlar.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(0, 368);
-            this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
-            this.button1.Size = new System.Drawing.Size(295, 60);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "Ödeme İşlemleri";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.UseVisualStyleBackColor = false;
-            // 
-            // pctrProfil
-            // 
-            this.pctrProfil.Location = new System.Drawing.Point(117, 16);
-            this.pctrProfil.Name = "pctrProfil";
-            this.pctrProfil.Size = new System.Drawing.Size(195, 170);
-            this.pctrProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pctrProfil.TabIndex = 0;
-            this.pctrProfil.TabStop = false;
-            // 
             // pictureBox3
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -753,83 +831,6 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
-            // ikonRaporlar
-            // 
-            this.ikonRaporlar.BackColor = System.Drawing.Color.Transparent;
-            this.ikonRaporlar.Image = ((System.Drawing.Image)(resources.GetObject("ikonRaporlar.Image")));
-            this.ikonRaporlar.Location = new System.Drawing.Point(33, 438);
-            this.ikonRaporlar.Name = "ikonRaporlar";
-            this.ikonRaporlar.Size = new System.Drawing.Size(40, 40);
-            this.ikonRaporlar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonRaporlar.TabIndex = 20;
-            this.ikonRaporlar.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(33, 377);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(40, 40);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 18;
-            this.pictureBox4.TabStop = false;
-            // 
-            // ikonCikis
-            // 
-            this.ikonCikis.BackColor = System.Drawing.Color.Transparent;
-            this.ikonCikis.Image = ((System.Drawing.Image)(resources.GetObject("ikonCikis.Image")));
-            this.ikonCikis.Location = new System.Drawing.Point(25, 977);
-            this.ikonCikis.Name = "ikonCikis";
-            this.ikonCikis.Size = new System.Drawing.Size(40, 40);
-            this.ikonCikis.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonCikis.TabIndex = 11;
-            this.ikonCikis.TabStop = false;
-            // 
-            // ikonProfil
-            // 
-            this.ikonProfil.BackColor = System.Drawing.Color.Transparent;
-            this.ikonProfil.Image = ((System.Drawing.Image)(resources.GetObject("ikonProfil.Image")));
-            this.ikonProfil.Location = new System.Drawing.Point(33, 259);
-            this.ikonProfil.Name = "ikonProfil";
-            this.ikonProfil.Size = new System.Drawing.Size(40, 40);
-            this.ikonProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonProfil.TabIndex = 8;
-            this.ikonProfil.TabStop = false;
-            // 
-            // ikonGorevler
-            // 
-            this.ikonGorevler.BackColor = System.Drawing.Color.Transparent;
-            this.ikonGorevler.Image = ((System.Drawing.Image)(resources.GetObject("ikonGorevler.Image")));
-            this.ikonGorevler.Location = new System.Drawing.Point(33, 319);
-            this.ikonGorevler.Name = "ikonGorevler";
-            this.ikonGorevler.Size = new System.Drawing.Size(40, 40);
-            this.ikonGorevler.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonGorevler.TabIndex = 7;
-            this.ikonGorevler.TabStop = false;
-            // 
-            // ikonAnasayfa
-            // 
-            this.ikonAnasayfa.BackColor = System.Drawing.Color.Transparent;
-            this.ikonAnasayfa.Image = ((System.Drawing.Image)(resources.GetObject("ikonAnasayfa.Image")));
-            this.ikonAnasayfa.Location = new System.Drawing.Point(33, 200);
-            this.ikonAnasayfa.Name = "ikonAnasayfa";
-            this.ikonAnasayfa.Size = new System.Drawing.Size(40, 40);
-            this.ikonAnasayfa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonAnasayfa.TabIndex = 6;
-            this.ikonAnasayfa.TabStop = false;
-            // 
-            // pctrLogo
-            // 
-            this.pctrLogo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pctrLogo.Image = ((System.Drawing.Image)(resources.GetObject("pctrLogo.Image")));
-            this.pctrLogo.Location = new System.Drawing.Point(0, 0);
-            this.pctrLogo.Name = "pctrLogo";
-            this.pctrLogo.Size = new System.Drawing.Size(295, 188);
-            this.pctrLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pctrLogo.TabIndex = 0;
-            this.pctrLogo.TabStop = false;
-            // 
             // BossProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -850,18 +851,6 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.BossProfile_Load);
             this.panel1.ResumeLayout(false);
-            this.pnlPrfilBilgi.ResumeLayout(false);
-            this.pnlPrfilBilgi.PerformLayout();
-            this.pnlIsBilgi.ResumeLayout(false);
-            this.pnlIsBilgi.PerformLayout();
-            this.pnlIletisimBilgi.ResumeLayout(false);
-            this.pnlIletisimBilgi.PerformLayout();
-            this.icerikPanel.ResumeLayout(false);
-            this.icerikPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.yoneticilerDGV)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrProfil)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).EndInit();
@@ -869,6 +858,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).EndInit();
+            this.pnlPrfilBilgi.ResumeLayout(false);
+            this.pnlPrfilBilgi.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrProfil)).EndInit();
+            this.pnlIsBilgi.ResumeLayout(false);
+            this.pnlIsBilgi.PerformLayout();
+            this.pnlIletisimBilgi.ResumeLayout(false);
+            this.pnlIletisimBilgi.PerformLayout();
+            this.icerikPanel.ResumeLayout(false);
+            this.icerikPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.yoneticilerDGV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

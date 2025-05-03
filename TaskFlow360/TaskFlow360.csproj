@@ -203,6 +203,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsersSalary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UsersSalary.Designer.cs">
+      <DependentUpon>UsersSalary.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AsistantProfile.resx">
       <DependentUpon>AsistantProfile.cs</DependentUpon>
     </EmbeddedResource>
@@ -287,6 +293,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TasksAssignmentForm.resx">
       <DependentUpon>TasksAssignmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UsersSalary.resx">
+      <DependentUpon>UsersSalary.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
