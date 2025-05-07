@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,9 +14,11 @@ namespace TaskFlow360
 {
     public partial class ManagerProfile : Form
     {
+        Baglanti baglanti = new Baglanti();
         public ManagerProfile()
         {
             InitializeComponent();
+            ekibimDGV.DataError += ekibimDGV_DataError;
         }
 
         private void btnProfil_Click(object sender, EventArgs e)
@@ -34,7 +38,7 @@ namespace TaskFlow360
         private void btnGorevler_Click(object sender, EventArgs e)
         {
             this.Close();
-            ManagerTasks managerTasks = new ManagerTasks(); 
+            ManagerTasks managerTasks = new ManagerTasks();
             managerTasks.Show();
         }
 
@@ -47,7 +51,7 @@ namespace TaskFlow360
 
         private void btnEkipYonetimi_Click(object sender, EventArgs e)
         {
-
+            // Ekip yönetimi butonu işlevi
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -62,36 +66,125 @@ namespace TaskFlow360
 
         private void ManagerProfile_Load(object sender, EventArgs e)
         {
-            OrnekVerileriYukle();
             ConfigureEkibimDGV();
-        }
-        private void OrnekVerileriYukle()
-        {
-            // Ekip üyeleri için örnek veriler
-            ekibimDGV.Rows.Add("Ayşe Kaya", "3", "85%", "3.2 saat");
-            ekibimDGV.Rows.Add("Mustafa Şahin", "4", "70%", "3.8 saat");
-            ekibimDGV.Rows.Add("Elif Aksu", "1", "95%", "2.5 saat");
-            ekibimDGV.Rows.Add("Kemal Bulut", "0", "90%", "2.8 saat");
+            LoadManagedTeamMembers(); // Yönetilen ekip üyelerini yükle
+            string kullaniciID = KullaniciBilgi.KullaniciID;
 
-            // Aylık performans hücreleri için renk ayarları
-            foreach (DataGridViewRow row in ekibimDGV.Rows)
+            try
             {
-                string performans = row.Cells["ortCozumSuresi"].Value.ToString();
-                int performansYuzde = int.Parse(performans.Replace("%", ""));
+                baglanti.BaglantiAc();
 
-                Color performansRenk;
-                if (performansYuzde >= 90)
-                    performansRenk = ColorTranslator.FromHtml("#27ae60");
-                else if (performansYuzde >= 80)
-                    performansRenk = ColorTranslator.FromHtml("#2ecc71");
-                else if (performansYuzde >= 70)
-                    performansRenk = ColorTranslator.FromHtml("#f39c12");
+                string query = @"SELECT 
+                    K.Ad, K.Soyad, K.Email, K.Telefon, K.Adres, 
+                    K.DogumTar, K.IseBaslamaTar, 
+                    D.DepartmanAdi, B.BolumAdi,
+                    YK.Ad AS YoneticiAd, YK.Soyad AS YoneticiSoyad,
+                    K.Cinsiyet
+                    FROM Kullanici K
+                    LEFT JOIN Departman D ON K.DepartmanID = D.DepartmanID
+                    LEFT JOIN Bolum B ON K.BolumID = B.BolumID
+                    LEFT JOIN Kullanici YK ON K.YoneticiID = YK.KullaniciID
+                    WHERE K.KullaniciID = @KullaniciID";
+
+                SqlCommand cmd = new SqlCommand(query, baglanti.conn);
+                cmd.Parameters.AddWithValue("@KullaniciID", kullaniciID);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.HasRows && dr.Read())
+                {
+                    lblAdSoyad.Text = $"{dr["Ad"]} {dr["Soyad"]}";
+                    lblEmail.Text = dr["Email"].ToString();
+                    lblTelefon.Text = dr["Telefon"].ToString();
+                    lblAdres.Text = dr["Adres"].ToString();
+                    lblDogumTarihi.Text = Convert.ToDateTime(dr["DogumTar"]).ToShortDateString();
+                    lblIseBaslama.Text = Convert.ToDateTime(dr["IseBaslamaTar"]).ToShortDateString();
+                    lblDepartmanb.Text = dr["DepartmanAdi"].ToString();
+                    lblBolum.Text = dr["BolumAdi"].ToString() + " " + "(Rol)";
+
+                    string yoneticiAdSoyad = dr["YoneticiAd"] != DBNull.Value ? $"{dr["YoneticiAd"]} {dr["YoneticiSoyad"]}" : "Yönetici yok";
+                    lblYoneticib.Text = yoneticiAdSoyad;
+
+                    string cinsiyet = dr["Cinsiyet"].ToString();
+
+                    if (cinsiyet == "Kadın")
+                        pctrProfil.Image = Properties.Resources.kadin;
+                    else if (cinsiyet == "Erkek")
+                        pctrProfil.Image = Properties.Resources.erkek;
+                }
                 else
-                    performansRenk = ColorTranslator.FromHtml("#e74c3c");
+                {
+                    MessageBox.Show("Kullanıcı bilgileri bulunamadı.");
+                }
 
-                row.Cells["ortCozumSuresi"].Style.ForeColor = performansRenk;
-                row.Cells["ortCozumSuresi"].Style.Font = new Font("Arial", 10, FontStyle.Bold);
+                dr.Close();
+                lblKullaniciID.Text = kullaniciID;
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Kullanıcı bilgileri yüklenirken hata oluştu: " + ex.Message);
+            }
+            finally
+            {
+                baglanti.BaglantiKapat();
+            }
+        }
+
+        private void LoadManagedTeamMembers()
+        {
+            string managerID = KullaniciBilgi.KullaniciID;
+
+            try
+            {
+                baglanti.BaglantiAc();
+
+                string query = @"SELECT 
+                K.Ad + ' ' + K.Soyad AS [Personel Adı],
+                COUNT(C.CagriID) AS [Aktif Görev Sayısı],
+                ISNULL(AVG(DATEDIFF(HOUR, C.OlusturmaTarihi, C.TeslimTarihi)), 0) AS [Ortalama Çözüm Süresi (Saat)]
+                FROM Kullanici K
+                LEFT JOIN Cagri C ON K.KullaniciID = C.OlusturanKullaniciID
+                WHERE K.YoneticiID = @YoneticiID
+                GROUP BY K.Ad, K.Soyad
+                ORDER BY K.Ad, K.Soyad";
+
+                SqlCommand cmd = new SqlCommand(query, baglanti.conn);
+                cmd.Parameters.AddWithValue("@YoneticiID", managerID);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ekibimDGV.DataSource = dt;
+
+                FormatEkibimDGV(); // Stil ve format ayarlarını ayrı bir metodda yaptık
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ekip üyeleri yüklenirken hata oluştu: " + ex.Message);
+            }
+            finally
+            {
+                baglanti.BaglantiKapat();
+            }
+        }
+
+        private void FormatEkibimDGV()
+        {
+            if (ekibimDGV.Columns.Count >= 4)
+            {
+                ekibimDGV.Columns["Ortalama Çözüm Süresi (Saat)"].DefaultCellStyle.Format = "N1";
+
+                // Hizalama ayarları
+                ekibimDGV.Columns["Personel Adı"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                ekibimDGV.Columns["Aktif Görev Sayısı"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                ekibimDGV.Columns["Ortalama Çözüm Süresi (Saat)"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+        }
+
+        private void ekibimDGV_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+             MessageBox.Show("Veri işleme sırasında bir sorun oluştu. Lütfen yöneticiyle iletişime geçin.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void ConfigureEkibimDGV()
@@ -112,10 +205,20 @@ namespace TaskFlow360
             ekibimDGV.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             ekibimDGV.GridColor = Color.FromArgb(240, 240, 240);
 
+            // Yazı tipi ve hizalama
+            ekibimDGV.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            ekibimDGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ekibimDGV.DefaultCellStyle.Font = new Font("Segoe UI", 12);
+            ekibimDGV.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
             // Event bağlantıları
             ekibimDGV.CellClick += (s, e) => ekibimDGV.ClearSelection();
             ekibimDGV.DataBindingComplete += (s, e) => ekibimDGV.ClearSelection();
         }
 
+        private void pnlIletisimBilgi_Paint(object sender, PaintEventArgs e)
+        {
+            // Panel boyama işlemleri
+        }
     }
 }

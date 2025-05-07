@@ -8,7 +8,6 @@ namespace TaskFlow360
     public partial class LoginForm : Form
     {
         Baglanti baglanti = new Baglanti();
-
         public LoginForm()
         {
             InitializeComponent();

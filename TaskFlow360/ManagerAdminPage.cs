@@ -12,9 +12,11 @@ namespace TaskFlow360
 {
     public partial class ManagerAdminPage : Form
     {
-        public ManagerAdminPage()
+        private int yoneticiId;
+        public ManagerAdminPage(int yoneticiId = 0)
         {
             InitializeComponent();
+            this.yoneticiId = yoneticiId;
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)

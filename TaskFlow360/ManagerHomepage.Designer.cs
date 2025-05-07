@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerHomepage));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ikonekipYonetim = new System.Windows.Forms.PictureBox();
             this.btnEkipYonetimi = new System.Windows.Forms.Button();
@@ -51,12 +50,6 @@
             this.lblBekleyenler = new System.Windows.Forms.Label();
             this.PnlGorevler = new System.Windows.Forms.FlowLayoutPanel();
             this.bekleyenCagrilarDGV = new System.Windows.Forms.DataGridView();
-            this.cagriId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.baslik = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.kategori = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.oncelik = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.durum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ataButon = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.icerikPanel = new System.Windows.Forms.Panel();
             this.ekipUyeleriDGV = new System.Windows.Forms.DataGridView();
@@ -70,23 +63,24 @@
             this.gecikenKutu = new System.Windows.Forms.Panel();
             this.label13 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblGeciken = new System.Windows.Forms.Label();
             this.devamEdenKutu = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lblAtanan = new System.Windows.Forms.Label();
             this.tamamlananKutu = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblTamamlanan = new System.Windows.Forms.Label();
             this.SLAuyumuKutu = new System.Windows.Forms.Panel();
             this.label12 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblBeklemede = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.lblAdSoyad = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikonekipYonetim)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).BeginInit();
@@ -368,85 +362,14 @@
             // 
             // bekleyenCagrilarDGV
             // 
-            this.bekleyenCagrilarDGV.AllowUserToAddRows = false;
-            this.bekleyenCagrilarDGV.AllowUserToDeleteRows = false;
-            this.bekleyenCagrilarDGV.AllowUserToResizeColumns = false;
-            this.bekleyenCagrilarDGV.AllowUserToResizeRows = false;
-            this.bekleyenCagrilarDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.bekleyenCagrilarDGV.BackgroundColor = System.Drawing.Color.White;
-            this.bekleyenCagrilarDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.bekleyenCagrilarDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.bekleyenCagrilarDGV.ColumnHeadersHeight = 35;
-            this.bekleyenCagrilarDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.bekleyenCagrilarDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.cagriId,
-            this.baslik,
-            this.kategori,
-            this.oncelik,
-            this.durum,
-            this.ataButon});
-            this.bekleyenCagrilarDGV.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.bekleyenCagrilarDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.bekleyenCagrilarDGV.Location = new System.Drawing.Point(3, 3);
             this.bekleyenCagrilarDGV.Name = "bekleyenCagrilarDGV";
-            this.bekleyenCagrilarDGV.ReadOnly = true;
-            this.bekleyenCagrilarDGV.RowHeadersVisible = false;
             this.bekleyenCagrilarDGV.RowHeadersWidth = 51;
             this.bekleyenCagrilarDGV.RowTemplate.Height = 24;
-            this.bekleyenCagrilarDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.bekleyenCagrilarDGV.Size = new System.Drawing.Size(1244, 304);
-            this.bekleyenCagrilarDGV.TabIndex = 16;
-            this.bekleyenCagrilarDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.bekleyenCagrilarDGV_CellClick);
-            // 
-            // cagriId
-            // 
-            this.cagriId.HeaderText = "Çağrı ID";
-            this.cagriId.MinimumWidth = 6;
-            this.cagriId.Name = "cagriId";
-            this.cagriId.ReadOnly = true;
-            this.cagriId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.cagriId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // baslik
-            // 
-            this.baslik.HeaderText = "Başlık";
-            this.baslik.MinimumWidth = 6;
-            this.baslik.Name = "baslik";
-            this.baslik.ReadOnly = true;
-            // 
-            // kategori
-            // 
-            this.kategori.HeaderText = "Kategori";
-            this.kategori.MinimumWidth = 6;
-            this.kategori.Name = "kategori";
-            this.kategori.ReadOnly = true;
-            // 
-            // oncelik
-            // 
-            this.oncelik.HeaderText = "Öncelik";
-            this.oncelik.MinimumWidth = 6;
-            this.oncelik.Name = "oncelik";
-            this.oncelik.ReadOnly = true;
-            // 
-            // durum
-            // 
-            this.durum.HeaderText = "Durum";
-            this.durum.MinimumWidth = 6;
-            this.durum.Name = "durum";
-            this.durum.ReadOnly = true;
-            // 
-            // ataButon
-            // 
-            this.ataButon.HeaderText = "İşlem";
-            this.ataButon.MinimumWidth = 6;
-            this.ataButon.Name = "ataButon";
-            this.ataButon.ReadOnly = true;
+            this.bekleyenCagrilarDGV.Size = new System.Drawing.Size(1245, 315);
+            this.bekleyenCagrilarDGV.TabIndex = 0;
             // 
             // label3
             // 
@@ -476,14 +399,14 @@
             this.ekipUyeleriDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ekipUyeleriDGV.BackgroundColor = System.Drawing.Color.White;
             this.ekipUyeleriDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ekipUyeleriDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ekipUyeleriDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.ekipUyeleriDGV.ColumnHeadersHeight = 35;
             this.ekipUyeleriDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ekipUyeleriDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -504,7 +427,6 @@
             this.ekipUyeleriDGV.Size = new System.Drawing.Size(1677, 499);
             this.ekipUyeleriDGV.TabIndex = 0;
             this.ekipUyeleriDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ekipUyeleriDGV_CellClick);
-            this.ekipUyeleriDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ekipUyeleriDGV_CellContentClick);
             // 
             // calisan
             // 
@@ -565,23 +487,22 @@
             this.gecikenKutu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(231)))), ((int)(((byte)(235)))));
             this.gecikenKutu.Controls.Add(this.label13);
             this.gecikenKutu.Controls.Add(this.label9);
-            this.gecikenKutu.Controls.Add(this.label5);
+            this.gecikenKutu.Controls.Add(this.lblGeciken);
             this.gecikenKutu.Location = new System.Drawing.Point(30, 167);
             this.gecikenKutu.Name = "gecikenKutu";
             this.gecikenKutu.Size = new System.Drawing.Size(170, 140);
             this.gecikenKutu.TabIndex = 3;
-            this.gecikenKutu.Paint += new System.Windows.Forms.PaintEventHandler(this.gecikenKutu_Paint);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.label13.Location = new System.Drawing.Point(30, 93);
+            this.label13.Location = new System.Drawing.Point(41, 93);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(106, 21);
+            this.label13.Size = new System.Drawing.Size(79, 21);
             this.label13.TabIndex = 3;
-            this.label13.Text = "Son 24 saat";
+            this.label13.Text = "Görevler";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label9
@@ -596,24 +517,23 @@
             this.label9.Text = "Geciken";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label5
+            // lblGeciken
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Arial Narrow", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.label5.Location = new System.Drawing.Point(61, 7);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 46);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "3";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblGeciken.AutoSize = true;
+            this.lblGeciken.Font = new System.Drawing.Font("Arial Narrow", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblGeciken.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.lblGeciken.Location = new System.Drawing.Point(77, 7);
+            this.lblGeciken.Name = "lblGeciken";
+            this.lblGeciken.Size = new System.Drawing.Size(0, 46);
+            this.lblGeciken.TabIndex = 1;
+            this.lblGeciken.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // devamEdenKutu
             // 
             this.devamEdenKutu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(247)))), ((int)(((byte)(239)))));
             this.devamEdenKutu.Controls.Add(this.label14);
             this.devamEdenKutu.Controls.Add(this.label10);
-            this.devamEdenKutu.Controls.Add(this.label6);
+            this.devamEdenKutu.Controls.Add(this.lblAtanan);
             this.devamEdenKutu.Location = new System.Drawing.Point(218, 167);
             this.devamEdenKutu.Name = "devamEdenKutu";
             this.devamEdenKutu.Size = new System.Drawing.Size(170, 140);
@@ -636,31 +556,30 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.label10.Location = new System.Drawing.Point(22, 61);
+            this.label10.Location = new System.Drawing.Point(48, 61);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(122, 23);
+            this.label10.Size = new System.Drawing.Size(71, 23);
             this.label10.TabIndex = 2;
-            this.label10.Text = "Devam Eden";
+            this.label10.Text = "Atanan";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label6
+            // lblAtanan
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Arial Narrow", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(174)))), ((int)(((byte)(96)))));
-            this.label6.Location = new System.Drawing.Point(73, 7);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(38, 46);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "7";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblAtanan.AutoSize = true;
+            this.lblAtanan.Font = new System.Drawing.Font("Arial Narrow", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblAtanan.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(174)))), ((int)(((byte)(96)))));
+            this.lblAtanan.Location = new System.Drawing.Point(73, 7);
+            this.lblAtanan.Name = "lblAtanan";
+            this.lblAtanan.Size = new System.Drawing.Size(0, 46);
+            this.lblAtanan.TabIndex = 1;
+            this.lblAtanan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tamamlananKutu
             // 
             this.tamamlananKutu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(244)))), ((int)(((byte)(252)))));
             this.tamamlananKutu.Controls.Add(this.label11);
             this.tamamlananKutu.Controls.Add(this.label7);
-            this.tamamlananKutu.Controls.Add(this.label2);
+            this.tamamlananKutu.Controls.Add(this.lblTamamlanan);
             this.tamamlananKutu.Location = new System.Drawing.Point(30, 14);
             this.tamamlananKutu.Name = "tamamlananKutu";
             this.tamamlananKutu.Size = new System.Drawing.Size(170, 140);
@@ -671,11 +590,11 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            this.label11.Location = new System.Drawing.Point(27, 94);
+            this.label11.Location = new System.Drawing.Point(38, 94);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(109, 21);
+            this.label11.Size = new System.Drawing.Size(79, 21);
             this.label11.TabIndex = 2;
-            this.label11.Text = "Son 24 Saat";
+            this.label11.Text = "Görevler";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label7
@@ -690,24 +609,23 @@
             this.label7.Text = "Tamamlanan";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // lblTamamlanan
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Arial Narrow", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.label2.Location = new System.Drawing.Point(53, 5);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 46);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "18";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTamamlanan.AutoSize = true;
+            this.lblTamamlanan.Font = new System.Drawing.Font("Arial Narrow", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblTamamlanan.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.lblTamamlanan.Location = new System.Drawing.Point(79, 7);
+            this.lblTamamlanan.Name = "lblTamamlanan";
+            this.lblTamamlanan.Size = new System.Drawing.Size(0, 46);
+            this.lblTamamlanan.TabIndex = 0;
+            this.lblTamamlanan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SLAuyumuKutu
             // 
             this.SLAuyumuKutu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(239)))), ((int)(((byte)(230)))));
             this.SLAuyumuKutu.Controls.Add(this.label12);
             this.SLAuyumuKutu.Controls.Add(this.label8);
-            this.SLAuyumuKutu.Controls.Add(this.label4);
+            this.SLAuyumuKutu.Controls.Add(this.lblBeklemede);
             this.SLAuyumuKutu.Location = new System.Drawing.Point(218, 14);
             this.SLAuyumuKutu.Name = "SLAuyumuKutu";
             this.SLAuyumuKutu.Size = new System.Drawing.Size(170, 140);
@@ -720,9 +638,9 @@
             this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
             this.label12.Location = new System.Drawing.Point(34, 94);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(96, 21);
+            this.label12.Size = new System.Drawing.Size(122, 21);
             this.label12.TabIndex = 3;
-            this.label12.Text = "Son 7 Gün";
+            this.label12.Text = "Olan Görevler";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label8
@@ -732,22 +650,21 @@
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.label8.Location = new System.Drawing.Point(27, 63);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(111, 23);
+            this.label8.Size = new System.Drawing.Size(108, 23);
             this.label8.TabIndex = 2;
-            this.label8.Text = "SLA Uyumu";
+            this.label8.Text = "Beklemede";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label4
+            // lblBeklemede
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Arial Narrow", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(126)))), ((int)(((byte)(34)))));
-            this.label4.Location = new System.Drawing.Point(54, 7);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(85, 46);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "82%";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblBeklemede.AutoSize = true;
+            this.lblBeklemede.Font = new System.Drawing.Font("Arial Narrow", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblBeklemede.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(126)))), ((int)(((byte)(34)))));
+            this.lblBeklemede.Location = new System.Drawing.Point(73, 11);
+            this.lblBeklemede.Name = "lblBeklemede";
+            this.lblBeklemede.Size = new System.Drawing.Size(0, 46);
+            this.lblBeklemede.TabIndex = 1;
+            this.lblBeklemede.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label15
             // 
@@ -793,11 +710,21 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
+            // lblAdSoyad
+            // 
+            this.lblAdSoyad.AutoSize = true;
+            this.lblAdSoyad.Location = new System.Drawing.Point(1507, 78);
+            this.lblAdSoyad.Name = "lblAdSoyad";
+            this.lblAdSoyad.Size = new System.Drawing.Size(44, 16);
+            this.lblAdSoyad.TabIndex = 22;
+            this.lblAdSoyad.Text = "label2";
+            // 
             // ManagerHomepage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1920, 1102);
+            this.Controls.Add(this.lblAdSoyad);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label16);
@@ -867,7 +794,6 @@
         private System.Windows.Forms.Label lblBekleyenler;
         private System.Windows.Forms.FlowLayoutPanel PnlGorevler;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridView bekleyenCagrilarDGV;
         private System.Windows.Forms.Panel icerikPanel;
         private System.Windows.Forms.DataGridView ekipUyeleriDGV;
         private System.Windows.Forms.DataGridViewTextBoxColumn calisan;
@@ -881,10 +807,10 @@
         private System.Windows.Forms.Panel devamEdenKutu;
         private System.Windows.Forms.Panel tamamlananKutu;
         private System.Windows.Forms.Panel SLAuyumuKutu;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblGeciken;
+        private System.Windows.Forms.Label lblAtanan;
+        private System.Windows.Forms.Label lblTamamlanan;
+        private System.Windows.Forms.Label lblBeklemede;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label7;
@@ -897,11 +823,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cagriId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn baslik;
-        private System.Windows.Forms.DataGridViewTextBoxColumn kategori;
-        private System.Windows.Forms.DataGridViewTextBoxColumn oncelik;
-        private System.Windows.Forms.DataGridViewTextBoxColumn durum;
-        private System.Windows.Forms.DataGridViewButtonColumn ataButon;
+        private System.Windows.Forms.DataGridView bekleyenCagrilarDGV;
+        private System.Windows.Forms.Label lblAdSoyad;
     }
 }

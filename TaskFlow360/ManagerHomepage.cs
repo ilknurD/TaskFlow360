@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,11 +14,46 @@ namespace TaskFlow360
 {
     public partial class ManagerHomepage : Form
     {
-       
+        Baglanti baglanti = new Baglanti();
+        // Yönetici ID'sini KullaniciBilgi sınıfından alacağız
+        private string yoneticiId;
+
         public ManagerHomepage()
         {
             InitializeComponent();
-            //IstatislikleriGoster();
+            SetupDataGridViewColumns();
+
+            // Yönetici ID'sini KullaniciBilgi sınıfından alalım
+            yoneticiId = KullaniciBilgi.KullaniciID;
+            Debug.WriteLine("Yönetici ID konstruktörde set edildi: " + yoneticiId);
+        }
+
+        private void SetupDataGridViewColumns()
+        {
+            // Bekleyen Çağrılar DataGridView sütunları
+            if (bekleyenCagrilarDGV.Columns.Count == 0)
+            {
+                bekleyenCagrilarDGV.Columns.Add("cagriId", "ID");
+                bekleyenCagrilarDGV.Columns.Add("baslik", "Başlık");
+                bekleyenCagrilarDGV.Columns.Add("kategori", "Kategori");
+                bekleyenCagrilarDGV.Columns.Add("oncelik", "Öncelik");
+                bekleyenCagrilarDGV.Columns.Add("durum", "Durum");
+                bekleyenCagrilarDGV.Columns.Add("ataButon", "İşlem");
+
+                // ID sütununu gizle
+                bekleyenCagrilarDGV.Columns["cagriId"].Visible = false;
+            }
+
+            // Ekip Üyeleri DataGridView sütunları
+            if (ekipUyeleriDGV.Columns.Count == 0)
+            {
+                ekipUyeleriDGV.Columns.Add("calisan", "Çalışan");
+                ekipUyeleriDGV.Columns.Add("aktifGorev", "Aktif Görevler");
+                ekipUyeleriDGV.Columns.Add("tamamlananGorev", "Tamamlanan Görevler");
+                ekipUyeleriDGV.Columns.Add("aylikPerformans", "Aylık Performans");
+                ekipUyeleriDGV.Columns.Add("ortalamaSure", "Ortalama Çözüm Süresi");
+                ekipUyeleriDGV.Columns.Add("gorevAtaButon", "İşlem");
+            }
         }
 
         private void btnCikis_Click(object sender, EventArgs e)
@@ -25,7 +62,7 @@ namespace TaskFlow360
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
         }
-        // Tasarım zamanında veya Form_Load'da çağırın
+
         private void ConfigureBekleyenCagrilarDGV()
         {
             // Temel seçim ayarları
@@ -58,299 +95,291 @@ namespace TaskFlow360
             ekipUyeleriDGV.SelectionMode = DataGridViewSelectionMode.CellSelect;
             ekipUyeleriDGV.DefaultCellStyle.SelectionBackColor = ekipUyeleriDGV.DefaultCellStyle.BackColor;
             ekipUyeleriDGV.DefaultCellStyle.SelectionForeColor = ekipUyeleriDGV.DefaultCellStyle.ForeColor;
-
-
-            //// Çift tıklamayı yönetme
-            //ekipUyeleriDGV.CellDoubleClick += (s, e) => {
-            //    if (e.RowIndex >= 0)
-            //    {
-            //        // Örnek: Seçili kullanıcıyı işleme alma
-            //        var selectedUser = ekipUyeleriDGV.Rows[e.RowIndex].Cells["KullaniciAdi"].Value.ToString();
-            //        MessageBox.Show($"{selectedUser} kullanıcısı seçildi");
-            //    }
-            //};
         }
-
-        private void OrnekVerileriYukle()
-        {
-            // Bekleyen çağrılar için örnek veriler
-            bekleyenCagrilarDGV.Rows.Add("#2458", "Rapor oluşturma sorunu", "Teknik", "Yüksek","Bekleniyor");
-            bekleyenCagrilarDGV.Rows.Add("#2459", "Yeni müşteri kaydı hatası", "Yazılım", "Orta", "Bekleniyor");
-            bekleyenCagrilarDGV.Rows.Add("#2460", "Mail sistemi bağlantı sorunu", "Altyapı", "Normal", "Bekleniyor");
-            bekleyenCagrilarDGV.Rows.Add("#2461", "Fatura oluşturma problemi", "Destek", "Orta", "Bekleniyor");
-
-            // oncelik hücrelerine renk verme
-            foreach (DataGridViewRow row in bekleyenCagrilarDGV.Rows)
-            {
-                string oncelik = row.Cells["oncelik"].Value.ToString();
-                if (oncelik == "Yüksek")
-                    row.Cells["oncelik"].Style.BackColor = ColorTranslator.FromHtml("#f85c5c");
-                else if (oncelik == "Orta")
-                    row.Cells["oncelik"].Style.BackColor = ColorTranslator.FromHtml("#f0ad4e");
-                else
-                    row.Cells["oncelik"].Style.BackColor = ColorTranslator.FromHtml("#63c966");
-
-                row.Cells["oncelik"].Style.ForeColor = Color.White;
-                row.Cells["oncelik"].Style.Font = new Font("Arial", 10, FontStyle.Bold);
-                row.Cells["ataButon"].Style.BackColor = ColorTranslator.FromHtml("#5d4e9d");
-                row.Cells["ataButon"].Style.ForeColor = Color.White;
-            }
-
-            // Ekip üyeleri için örnek veriler
-            ekipUyeleriDGV.Rows.Add("Ayşe Kaya", "3", "2", "85%", "3.2 saat");
-            ekipUyeleriDGV.Rows.Add("Mustafa Şahin", "4", "1", "80%", "3.8 saat");
-            ekipUyeleriDGV.Rows.Add("Elif Aksu", "1", "3", "95%", "2.5 saat");
-            ekipUyeleriDGV.Rows.Add("Kemal Bulut", "0", "4", "90%", "2.8 saat");
-
-            // Aylık performans hücreleri için renk ayarları
-            foreach (DataGridViewRow row in ekipUyeleriDGV.Rows)
-            {
-                string performans = row.Cells["aylikPerformans"].Value.ToString();
-                int performansYuzde = int.Parse(performans.Replace("%", ""));
-
-                Color performansRenk;
-                if (performansYuzde >= 90)
-                    performansRenk = ColorTranslator.FromHtml("#27ae60");
-                else if (performansYuzde >= 80)
-                    performansRenk = ColorTranslator.FromHtml("#2ecc71");
-                else if (performansYuzde >= 70)
-                    performansRenk = ColorTranslator.FromHtml("#f39c12");
-                else
-                    performansRenk = ColorTranslator.FromHtml("#e74c3c");
-
-                row.Cells["aylikPerformans"].Style.ForeColor = performansRenk;
-                row.Cells["aylikPerformans"].Style.Font = new Font("Arial", 10, FontStyle.Bold);
-                row.Cells["gorevAtaButon"].Style.BackColor = ColorTranslator.FromHtml("#5d4e9d");
-                row.Cells["gorevAtaButon"].Style.ForeColor = Color.White;
-            }
-        }
-
-        //private void GorevleriGoster(List<Gorev> gorevListesi)
-        //{
-        //    PnlGorevler.Controls.Clear();
-        //    PnlGorevler.FlowDirection = FlowDirection.TopDown; // Dikey 
-        //    PnlGorevler.WrapContents = false;
-        //    PnlGorevler.AutoScroll = true;
-
-        //    // Her bir görev için bir panel oluştur
-        //    foreach (var gorev in gorevListesi)
-        //    {
-        //        Panel gorevPaneli = new Panel();
-        //        int panelYuksekligi = 120; // Varsayılan yükseklik
-        //        int panelGenisligi = PnlGorevler.Width - 20; // PnlGorevler genişliğine göre ayarlayın
-        //        gorevPaneli.Size = new Size(panelGenisligi, panelYuksekligi);
-        //        gorevPaneli.BorderStyle = BorderStyle.FixedSingle;
-        //        gorevPaneli.BackColor = Color.White;
-
-        //        Label lblGorevAdi = new Label();
-        //        lblGorevAdi.Text = gorev.GorevAdi;
-        //        lblGorevAdi.Location = new Point(10, 10);
-        //        lblGorevAdi.Font = new Font("Century Gothic", 12, FontStyle.Bold);
-        //        lblGorevAdi.AutoSize = true;
-
-        //        // İlgili kişiyi gösteren label
-        //        Label lblIlgiliKisi = new Label();
-        //        lblIlgiliKisi.Text = "İlgili Kişi: " + gorev.IlgiliKisi;
-        //        lblIlgiliKisi.Location = new Point(10, 30);
-        //        lblIlgiliKisi.Font = new Font("Century Gothic", 10);
-        //        lblIlgiliKisi.AutoSize = true;
-
-        //        // Teslim tarihini gösteren label
-        //        Label lblTeslimTarihi = new Label();
-        //        lblTeslimTarihi.Text = "Teslim: " + gorev.TeslimTarihi.ToString("dd MMMM yyyy HH:mm");
-        //        lblTeslimTarihi.Location = new Point(10, 50);
-        //        lblTeslimTarihi.Font = new Font("Century Gothic", 9);
-        //        lblTeslimTarihi.AutoSize = true;
-
-        //        // Öncelik durumu için label
-        //        Label lblOncelik = new Label();
-        //        lblOncelik.Text = gorev.Oncelik;
-        //        lblOncelik.Location = new Point(gorevPaneli.Width - 80, 10);
-        //        lblOncelik.Font = new Font("Century Gothic", 10, FontStyle.Bold);
-        //        lblOncelik.AutoSize = true;
-
-        //        // Önceliğe göre arka plan rengi
-        //        if (gorev.Oncelik == "Yüksek")
-        //        {
-        //            lblOncelik.ForeColor = Color.Red;
-        //        }
-        //        else if (gorev.Oncelik == "Orta")
-        //        {
-        //            lblOncelik.ForeColor = Color.Orange;
-        //        }
-        //        else
-        //        {
-        //            lblOncelik.ForeColor = Color.Green;
-        //        }
-
-        //        gorevPaneli.Controls.Add(lblGorevAdi);
-        //        gorevPaneli.Controls.Add(lblIlgiliKisi);
-        //        gorevPaneli.Controls.Add(lblTeslimTarihi);
-        //        gorevPaneli.Controls.Add(lblOncelik);
-
-        //        PnlGorevler.Controls.Add(gorevPaneli);
-        //    }
-        //}
-
-        //private void IstatislikleriGoster()
-        //{
-        //    flowLayoutPanel1.Controls.Clear();
-        //    flowLayoutPanel1.FlowDirection = FlowDirection.LeftToRight;
-        //    flowLayoutPanel1.WrapContents = false;
-        //    flowLayoutPanel1.AutoScroll = true;
-
-        //    Size panelBoyut = new Size(270, 100);
-        //    Padding panelMargin = new Padding(15, 0, 15, 0); // Sol, üst, sağ, alt boşluk
-
-        //    // Tamamlanan Görevler Kutucuğu
-        //    Panel tamamlananPanel = new Panel();
-        //    tamamlananPanel.Size = panelBoyut;
-        //    tamamlananPanel.BackColor = Color.LightGreen;
-        //    tamamlananPanel.Margin = panelMargin; // Panel aralarındaki mesafe
-        //    Label lblTamamlananSayisi = new Label();
-        //    lblTamamlananSayisi.Text = "Tamamlanan Görevler";
-        //    lblTamamlananSayisi.Font = new Font("Arial", 18, FontStyle.Bold);
-        //    lblTamamlananSayisi.Location = new Point(50, 20);
-        //    Label lblTamamlanan = new Label();
-        //    lblTamamlanan.Text = "24";
-        //    lblTamamlanan.Location = new Point(30, 60);
-        //    lblTamamlanan.Font = new Font("Arial", 10);
-
-        //    // Ortalama Çözüm Süresi Görevler Kutucuğu
-        //    Panel ortalamaCozumSuresiPanel = new Panel();
-        //    ortalamaCozumSuresiPanel.Size = panelBoyut;
-        //    ortalamaCozumSuresiPanel.BackColor = Color.LightSalmon;
-        //    ortalamaCozumSuresiPanel.Margin = panelMargin;
-        //    Label lblortalamaCozumSuresiPanel = new Label();
-        //    lblortalamaCozumSuresiPanel.Text = "Ortalama Çözüm Süresi";
-        //    lblortalamaCozumSuresiPanel.Font = new Font("Arial", 18, FontStyle.Bold);
-        //    lblortalamaCozumSuresiPanel.Location = new Point(50, 20);
-        //    Label lblortalamaCozum = new Label();
-        //    lblortalamaCozum.Text = "1.2 Gün";
-        //    lblortalamaCozum.Location = new Point(30, 60);
-        //    lblortalamaCozum.Font = new Font("Arial", 10);
-
-        //    // Performans Görevler Kutucuğu
-        //    Panel performansPanel = new Panel();
-        //    performansPanel.Size = panelBoyut;
-        //    performansPanel.BackColor = Color.LightCoral;
-        //    performansPanel.Margin = panelMargin;
-        //    Label lblperformansPanel = new Label();
-        //    lblperformansPanel.Text = "Performans Puanı";
-        //    lblperformansPanel.Font = new Font("Arial", 18, FontStyle.Bold);
-        //    lblperformansPanel.Location = new Point(50, 20);
-        //    Label lblPerformans = new Label();
-        //    lblPerformans.Text = "87/100";
-        //    lblPerformans.Location = new Point(50, 60);
-        //    lblPerformans.Font = new Font("Arial", 10);
-
-        //    // Prim Tahmini Görevler Kutucuğu
-        //    Panel primPanel = new Panel();
-        //    primPanel.Size = panelBoyut;
-        //    primPanel.BackColor = Color.LightBlue;
-        //    primPanel.Margin = panelMargin;
-        //    Label lblprimTahmin = new Label();
-        //    lblprimTahmin.Text = "Aylık Prim Tahmini";
-        //    lblprimTahmin.Font = new Font("Arial", 18, FontStyle.Bold);
-        //    lblprimTahmin.Location = new Point(50, 20);
-        //    Label lblPrim = new Label();
-        //    lblPrim.Text = "₺ 1,500";
-        //    lblPrim.Location = new Point(50, 60);
-        //    lblPrim.Font = new Font("Arial", 10);
-
-        //    // Kutucukları FlowLayoutPanel'e ekleyin
-        //    tamamlananPanel.Controls.Add(lblTamamlananSayisi);
-        //    tamamlananPanel.Controls.Add(lblTamamlanan);
-        //    flowLayoutPanel1.Controls.Add(tamamlananPanel);
-
-        //    ortalamaCozumSuresiPanel.Controls.Add(lblortalamaCozumSuresiPanel);
-        //    ortalamaCozumSuresiPanel.Controls.Add(lblortalamaCozum);
-        //    flowLayoutPanel1.Controls.Add(ortalamaCozumSuresiPanel);
-
-        //    performansPanel.Controls.Add(lblperformansPanel);
-        //    performansPanel.Controls.Add(lblPerformans);
-        //    flowLayoutPanel1.Controls.Add(performansPanel);
-
-        //    primPanel.Controls.Add(lblprimTahmin);
-        //    primPanel.Controls.Add(lblPrim);
-        //    flowLayoutPanel1.Controls.Add(primPanel);
-        //}
 
         private void ManagerHomepage_Load(object sender, EventArgs e)
         {
-            OrnekVerileriYukle();
+           
+            // Debug mesajları ekleyelim
+            Debug.WriteLine("Manager Homepage yükleniyor. Yönetici ID: " + yoneticiId);
+
+            // Eğer yoneticiId boşsa, KullaniciBilgi'den tekrar almayı deneyelim
+            if (string.IsNullOrEmpty(yoneticiId))
+            {
+                yoneticiId = KullaniciBilgi.KullaniciID;
+                Debug.WriteLine("Yönetici ID Load event'te tekrar alındı: " + yoneticiId);
+
+                // Hala boşsa, kullanıcıyı login formuna yönlendirelim
+                if (string.IsNullOrEmpty(yoneticiId))
+                {
+                    MessageBox.Show("Oturum bilgileriniz geçersiz. Lütfen tekrar giriş yapın.", "Oturum Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                    LoginForm loginForm = new LoginForm();
+                    loginForm.Show();
+                    return;
+                }
+
+            }
+
             ConfigureBekleyenCagrilarDGV();
             ConfigureEkipUyeleriDGV();
-            //List<Gorev> gorevListesi = new List<Gorev>()
-            //{
-            //    new Gorev()
-            //    {
-            //        GorevAdi = "Haftalık raporun hazırlanması",
-            //        IlgiliKisi = "Mehmet Demir",
-            //        TeslimTarihi = DateTime.Now.AddHours(5),
-            //        Oncelik = "Yüksek",
-            //        Durum = "Atandı",
-            //        BaslangicTarihi = DateTime.Now,
-            //        BitisTarihi = DateTime.Now.AddHours(5)
-            //    },
-            //    new Gorev()
-            //    {
-            //        GorevAdi = "Müşteri toplantısı için sunum hazırlama",
-            //        IlgiliKisi = "Ayşe Kaya",
-            //        TeslimTarihi = DateTime.Now.AddHours(3),
-            //        Oncelik = "Orta",
-            //        Durum = "Beklemede",
-            //        BaslangicTarihi = DateTime.Now,
-            //        BitisTarihi = DateTime.Now.AddHours(2)
-            //    },
-            //    new Gorev()
-            //    {
-            //        GorevAdi = "Proje dökümanlarının gözden geçirilmesi",
-            //        IlgiliKisi = "Mustafa Şahin",
-            //        TeslimTarihi = DateTime.Now.AddDays(1),
-            //        Oncelik = "Normal",
-            //        Durum = "Çözüm Bekliyor",
-            //        BaslangicTarihi = DateTime.Now.AddDays(-1),
-            //        BitisTarihi = DateTime.Now.AddDays(1)
-            //    }
-            //};
 
-            //GorevleriGoster(gorevListesi);
+            // Veritabanı işlemlerini deneyelim
+            try
+            {
+                BekleyenCagrilariYukle();
+                EkipUyeleriniYukle();
+                IstatistikleriGoster();
+                Debug.WriteLine("Tüm veriler başarıyla yüklendi.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Veriler yüklenirken bir hata oluştu: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine("Veri yükleme hatası: " + ex.ToString());
+            }
+        }
+
+        private void BekleyenCagrilariYukle()
+        {
+            try
+            {
+                Debug.WriteLine("Bekleyen çağrılar yükleniyor...");
+                baglanti.BaglantiAc();
+
+                // Sorgunuzun doğruluğunu kontrol etmek için önce test edelim
+                SqlCommand testKomut = new SqlCommand("SELECT COUNT(*) FROM Cagri WHERE Durum = 'Beklemede'", baglanti.conn);
+                int sayac = Convert.ToInt32(testKomut.ExecuteScalar());
+                Debug.WriteLine($"Bekleyen çağrı sayısı: {sayac}");
+
+                // Asıl sorguyu çalıştıralım
+                SqlCommand komut = new SqlCommand(
+                    @"SELECT CagriID, Baslik, CagriKategori, CagriAciklama, Oncelik, Durum 
+                    FROM Cagri 
+                    WHERE Durum = 'Beklemede' AND AtananKullaniciID IS NULL", baglanti.conn);
+
+                SqlDataReader dr = komut.ExecuteReader();
+                bekleyenCagrilarDGV.Rows.Clear();
+
+                int satirSayisi = 0;
+                while (dr.Read())
+                {
+                    satirSayisi++;
+                    int rowIndex = bekleyenCagrilarDGV.Rows.Add();
+                    DataGridViewRow row = bekleyenCagrilarDGV.Rows[rowIndex];
+
+                    row.Cells["cagriId"].Value = dr["CagriID"];
+                    row.Cells["baslik"].Value = dr["Baslik"];
+                    row.Cells["kategori"].Value = dr["CagriKategori"];
+                    row.Cells["oncelik"].Value = dr["Oncelik"];
+                    row.Cells["durum"].Value = dr["Durum"];
+                    row.Cells["ataButon"].Value = "Ata";
+
+                    // Renk ayarları
+                    string oncelik = dr["Oncelik"].ToString();
+                    if (oncelik == "Yüksek")
+                        row.Cells["oncelik"].Style.BackColor = System.Drawing.ColorTranslator.FromHtml("#f85c5c");
+                    else if (oncelik == "Orta")
+                        row.Cells["oncelik"].Style.BackColor = System.Drawing.ColorTranslator.FromHtml("#f0ad4e");
+                    else
+                        row.Cells["oncelik"].Style.BackColor = System.Drawing.ColorTranslator.FromHtml("#63c966");
+
+                    row.Cells["oncelik"].Style.ForeColor = System.Drawing.Color.White;
+                }
+
+                Debug.WriteLine($"Toplam {satirSayisi} adet bekleyen çağrı yüklendi.");
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Bekleyen çağrılar yüklenirken hata oluştu: " + ex.Message, "Veri Yükleme Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine("BekleyenCagrilariYukle hata detayı: " + ex.ToString());
+            }
+            finally
+            {
+                baglanti.BaglantiKapat();
+            }
+        }
+
+        private void EkipUyeleriniYukle()
+        {
+            try
+            {
+                Debug.WriteLine("Ekip üyeleri yükleniyor... Yönetici ID: " + yoneticiId);
+                baglanti.BaglantiAc();
+
+                // Test sorgusu
+                SqlCommand testKomut = new SqlCommand(
+                    "SELECT COUNT(*) FROM Kullanici WHERE Rol = '1' AND YoneticiID = @yoneticiId",
+                    baglanti.conn);
+                testKomut.Parameters.AddWithValue("@yoneticiId", yoneticiId);
+                int uyeSayisi = Convert.ToInt32(testKomut.ExecuteScalar());
+                Debug.WriteLine($"Yöneticiye bağlı ekip üyesi sayısı: {uyeSayisi}");
+
+                // Ana sorgu - Rol değerini '1' (Ekip Üyesi) olarak güncelledim
+                SqlCommand komut = new SqlCommand(
+                    @"SELECT 
+                    k.KullaniciID, 
+                    k.Ad + ' ' + k.Soyad AS AdSoyad, 
+                    COUNT(CASE WHEN c.Durum = 'Beklemede' OR c.Durum = 'Atandı' THEN 1 END) AS AktifGorevSayisi, 
+                    COUNT(CASE WHEN c.Durum = 'Tamamlandı' THEN 1 END) AS TamamlananGorevSayisi,
+                    AVG(CASE 
+                        WHEN c.HedefSure IS NOT NULL THEN
+                            TRY_CONVERT(float, REPLACE(REPLACE(REPLACE(c.HedefSure, ' Saat', ''), ' saat', ''), ',', '.'))
+                        ELSE NULL
+                    END) AS OrtalamaSure
+                  FROM Kullanici k 
+                  LEFT JOIN Cagri c ON k.KullaniciID = c.AtananKullaniciID 
+                  WHERE k.Rol = '1' AND k.YoneticiID = @yoneticiId 
+                  GROUP BY k.KullaniciID, k.Ad, k.Soyad",
+                    baglanti.conn);
+
+                komut.Parameters.AddWithValue("@yoneticiId", yoneticiId);
+                SqlDataReader dr = komut.ExecuteReader();
+
+                ekipUyeleriDGV.Rows.Clear();
+                int satirSayisi = 0;
+
+                while (dr.Read())
+                {
+                    satirSayisi++;
+                    int rowIndex = ekipUyeleriDGV.Rows.Add();
+                    DataGridViewRow row = ekipUyeleriDGV.Rows[rowIndex];
+
+                    int kullaniciID = Convert.ToInt32(dr["KullaniciID"]);
+                    row.Cells["calisan"].Value = dr["AdSoyad"];
+                    row.Cells["aktifGorev"].Value = dr["AktifGorevSayisi"];
+                    row.Cells["tamamlananGorev"].Value = dr["TamamlananGorevSayisi"];
+
+                    // Hesaplanan performans yüzdesi
+                    int tamamlananGorevSayisi = Convert.ToInt32(dr["TamamlananGorevSayisi"]);
+                    int aktifGorevSayisi = Convert.ToInt32(dr["AktifGorevSayisi"]);
+                    int toplamGorevSayisi = tamamlananGorevSayisi + aktifGorevSayisi;
+                    int performansYuzdesi = toplamGorevSayisi > 0 ? (tamamlananGorevSayisi * 100) / toplamGorevSayisi : 0;
+
+                    row.Cells["aylikPerformans"].Value = performansYuzdesi.ToString() + "%";
+
+                    if (!dr.IsDBNull(dr.GetOrdinal("OrtalamaSure")))
+                    {
+                        double sure = Convert.ToDouble(dr["OrtalamaSure"]);
+                        row.Cells["ortalamaSure"].Value = $"{Math.Round(sure, 1)} saat";
+                    }
+                    else
+                    {
+                        row.Cells["ortalamaSure"].Value = "Veri yok";
+                    }
+
+                    row.Cells["gorevAtaButon"].Value = "Görev Ata";
+                    row.Tag = kullaniciID;
+                }
+
+                Debug.WriteLine($"Toplam {satirSayisi} adet ekip üyesi yüklendi.");
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ekip üyeleri yüklenirken hata oluştu: " + ex.Message, "Veri Yükleme Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine("EkipUyeleriniYukle hata detayı: " + ex.ToString());
+            }
+            finally
+            {
+                baglanti.BaglantiKapat();
+            }
+        }
+
+        private void IstatistikleriGoster()
+        {
+            try
+            {
+                baglanti.BaglantiAc();
+
+                // Toplam bekleyen çağrı sayısı
+                SqlCommand bekleyenCagri = new SqlCommand(
+                    "SELECT COUNT(*) FROM Cagri WHERE Durum = 'Beklemede'", baglanti.conn);
+                int bekleyenCagriSayisi = Convert.ToInt32(bekleyenCagri.ExecuteScalar());
+                lblBeklemede.Text = bekleyenCagriSayisi.ToString();
+
+                SqlCommand atananCagri = new SqlCommand(
+                    "SELECT COUNT(*) FROM Cagri WHERE Durum = 'Atandı'", baglanti.conn);
+                int atananCagriSayisi = Convert.ToInt32(atananCagri.ExecuteScalar());
+                lblAtanan.Text = atananCagriSayisi.ToString();
+
+                // Toplam tamamlanan çağrı sayısı (Son 30 gün)
+                SqlCommand tamamlananCagri = new SqlCommand(
+                    "SELECT COUNT(*) FROM Cagri WHERE Durum = 'Tamamlandı' AND TeslimTarihi >= DATEADD(day, -30, GETDATE())", baglanti.conn);
+                int tamamlananCagriSayisi = Convert.ToInt32(tamamlananCagri.ExecuteScalar());
+                lblTamamlanan.Text = tamamlananCagriSayisi.ToString();
+
+                // Geciken çağrı sayısı - HedefSure için düzeltilmiş sorgu
+                SqlCommand gecikenCagri = new SqlCommand(@"
+                    SELECT COUNT(*) FROM Cagri 
+                    WHERE Durum != 'Tamamlandı' 
+                    AND TRY_CONVERT(float, REPLACE(REPLACE(REPLACE(HedefSure, ' Saat', ''), ' saat', ''), ',', '.')) < 
+                        DATEDIFF(hour, OlusturmaTarihi, GETDATE())", baglanti.conn);
+                int gecikenCagriSayisi = Convert.ToInt32(gecikenCagri.ExecuteScalar());
+                lblGeciken.Text = gecikenCagriSayisi.ToString();
+
+                // Ekip üyesi sayısı - Rol değerini '1' (Ekip Üyesi) olarak güncelledim
+                SqlCommand ekipUyesiSayisi = new SqlCommand(
+                    "SELECT COUNT(*) FROM Kullanici WHERE Rol = '1' AND YoneticiID = @yoneticiId", baglanti.conn);
+                ekipUyesiSayisi.Parameters.AddWithValue("@yoneticiId", yoneticiId);
+                int toplamEkipUyesiSayisi = Convert.ToInt32(ekipUyesiSayisi.ExecuteScalar());
+                // Eğer lblEkipUyesi kontrolü bulunuyorsa
+                // lblEkipUyesi.Text = toplamEkipUyesiSayisi.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("İstatistikler yüklenirken hata oluştu: " + ex.Message);
+            }
+            finally
+            {
+                baglanti.BaglantiKapat();
+            }
         }
 
         private void bekleyenCagrilarDGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             // "Ata" butonuna tıklandığında görev atama işlemi
-            if (e.ColumnIndex == 4 && e.RowIndex >= 0) // 4 = "Ata" butonu kolonu
+            if (e.ColumnIndex == bekleyenCagrilarDGV.Columns["ataButon"].Index && e.RowIndex >= 0)
             {
-                string cagriId = bekleyenCagrilarDGV.Rows[e.RowIndex].Cells["cagriId"].Value.ToString();
+                int cagriId = Convert.ToInt32(bekleyenCagrilarDGV.Rows[e.RowIndex].Cells["cagriId"].Value);
                 string baslik = bekleyenCagrilarDGV.Rows[e.RowIndex].Cells["baslik"].Value.ToString();
 
-                // Görev atama penceresi veya diyalog kutusu gösterilebilir
-                MessageBox.Show($"'{baslik}' başlıklı çağrı (ID: {cagriId}) için görev atama işlemi başlatıldı.");
+                // Çağrı atama formunu aç
+                MessageBox.Show($"Çağrı ID: {cagriId}, Başlık: {baslik} için atama işlemi yapılacak.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Form sınıfı aktif değilse yorum satırını kaldırabilirsiniz
+                // CagriAtamaForm cagriAtamaForm = new CagriAtamaForm(cagriId, baslik, yoneticiId);
+                // if (cagriAtamaForm.ShowDialog() == DialogResult.OK)
+                // {
+                //     // Atama başarılı olduğunda tabloları yenile
+                //     BekleyenCagrilariYukle();
+                //     EkipUyeleriniYukle();
+                //     IstatistikleriGoster();
+                // }
             }
-        }
-
-        private void ekipUyeleriDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void ekipUyeleriDGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             // "Görev Ata" butonuna tıklandığında çalışana görev atama işlemi
-            if (e.ColumnIndex == 5 && e.RowIndex >= 0) // 5 = "Görev Ata" butonu kolonu
+            if (e.ColumnIndex == ekipUyeleriDGV.Columns["gorevAtaButon"].Index && e.RowIndex >= 0)
             {
+                int kullaniciId = (int)ekipUyeleriDGV.Rows[e.RowIndex].Tag;
                 string calisan = ekipUyeleriDGV.Rows[e.RowIndex].Cells["calisan"].Value.ToString();
 
-                // Çalışana görev atama penceresi veya diyalog kutusu gösterilebilir
-                MessageBox.Show($"{calisan} için görev atama işlemi başlatıldı.");
+                // Çalışana görev atama formu
+                MessageBox.Show($"Kullanıcı ID: {kullaniciId}, Çalışan: {calisan} için görev atama işlemi yapılacak.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Form sınıfı aktif değilse yorum satırını kaldırabilirsiniz
+                // CalisanaGorevAtaForm gorevAtaForm = new CalisanaGorevAtaForm(kullaniciId, calisan);
+                // if (gorevAtaForm.ShowDialog() == DialogResult.OK)
+                // {
+                //     // Atama başarılı olduğunda tabloları yenile
+                //     BekleyenCagrilariYukle();
+                //     EkipUyeleriniYukle();
+                //     IstatistikleriGoster();
+                // }
             }
-        }
-
-        private void gecikenKutu_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -365,7 +394,7 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            
+            // Zaten anasayfadayız, yeniden yükle
             ManagerHomepage managerHomepage = new ManagerHomepage();
             managerHomepage.Show();
             this.Close();
@@ -380,15 +409,18 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
-            ManagerProfile manageProfile = new ManagerProfile();
-            manageProfile.Show();
+            ManagerProfile managerProfile = new ManagerProfile();
+            managerProfile.Show();
             this.Close();
-
         }
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
-
+            // Form sınıfı aktif değilse yorum satırını kaldırabilirsiniz
+            // ManagerReports managerReports = new ManagerReports(yoneticiId);
+            // managerReports.Show();
+            // this.Close();
+            MessageBox.Show("Raporlar ekranı henüz aktif değil.");
         }
 
         private void btnEkipYonetimi_Click(object sender, EventArgs e)
@@ -396,7 +428,6 @@ namespace TaskFlow360
             ManagerAdminPage managerAdminPage = new ManagerAdminPage();
             managerAdminPage.Show();
             this.Close();
-
         }
     }
 }

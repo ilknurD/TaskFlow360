@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ namespace TaskFlow360
 {
     public partial class ManagerTasks : Form
     {
+        private Baglanti baglanti = new Baglanti();
+
         public ManagerTasks()
         {
             InitializeComponent();
@@ -48,30 +51,190 @@ namespace TaskFlow360
 
         private void ManagerTasks_Load(object sender, EventArgs e)
         {
-            OrnekVerileriYukle();
-            ConfigureBekleyenCagrilarDGV();
-            ConfigureEkipUyeleriDGV();
+            try
+            {
+                LoadDataFromDatabase();
+                LoadTeamMembers();
+                ConfigureBekleyenCagrilarDGV();
+                ConfigureEkipUyeleriDGV();
+                FormatDataGridViews();
+
+                CagrilarDGV.RowTemplate.Height = 40;
+                ekipUyeleriDGV.RowTemplate.Height = 40;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Veriler yüklenirken bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
+        private void LoadDataFromDatabase()
+        {
+            try
+            {
+                if (baglanti.conn.State != ConnectionState.Open)
+                    baglanti.conn.Open();
+
+                string managerID = KullaniciBilgi.KullaniciID;
+
+                string queryForSelf = @"SELECT 
+    '#' + CAST(C.CagriID AS NVARCHAR(10)) AS CagriNumarasi,
+    C.Baslik AS Baslik,
+    C.CagriKategori AS CagriKategori,
+    C.Oncelik AS Oncelik,
+    C.Durum AS Durum
+FROM 
+    [dbo].[Cagri] C
+WHERE 
+    C.AtananKullaniciID = @ManagerID
+ORDER BY 
+    CASE C.Oncelik
+        WHEN 'Yüksek' THEN 1
+        WHEN 'Orta' THEN 2
+        WHEN 'Normal' THEN 3
+        ELSE 4
+    END";
+
+                // Sütunlar temizlenip yeniden ekleniyor
+                CagrilarDGV.Columns.Clear();
+                CagrilarDGV.Columns.Add("CagriNumarasi", "Çağrı No");
+                CagrilarDGV.Columns.Add("Baslik", "Başlık");
+                CagrilarDGV.Columns.Add("CagriKategori", "Kategori");
+                CagrilarDGV.Columns.Add("Oncelik", "Öncelik");
+                CagrilarDGV.Columns.Add("Durum", "Durum");
+
+                CagrilarDGV.Rows.Clear();
+
+                using (SqlCommand cmd = new SqlCommand(queryForSelf, baglanti.conn))
+                {
+                    cmd.Parameters.AddWithValue("@ManagerID", managerID);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            CagrilarDGV.Rows.Add(
+                                reader["CagriNumarasi"].ToString(),
+                                reader["Baslik"].ToString(),
+                                reader["CagriKategori"].ToString(),
+                                reader["Oncelik"].ToString(),
+                                reader["Durum"].ToString()
+                            );
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"SQL Hatası: {ex.ToString()}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (baglanti.conn.State == ConnectionState.Open)
+                    baglanti.conn.Close();
+            }
+        }
+
+        private void FormatDataGridViews()
+        {
+            foreach (DataGridViewRow row in CagrilarDGV.Rows)
+            {
+                if (row.Cells["Oncelik"].Value != null) // Büyük/küçük harfe dikkat!
+                {
+                    string oncelik = row.Cells["Oncelik"].Value.ToString();
+                    if (oncelik == "Yüksek")
+                        row.Cells["Oncelik"].Style.BackColor = ColorTranslator.FromHtml("#f85c5c");
+                    else if (oncelik == "Orta")
+                        row.Cells["Oncelik"].Style.BackColor = ColorTranslator.FromHtml("#f0ad4e");
+                    else
+                        row.Cells["Oncelik"].Style.BackColor = ColorTranslator.FromHtml("#63c966");
+
+                    row.Cells["Oncelik"].Style.ForeColor = Color.White;
+                    row.Cells["Oncelik"].Style.Font = new Font("Arial", 10, FontStyle.Bold);
+                }
+            }
+        }
+        private void CagriAtama(string memberID, string taskId)
+        {
+            try
+            {
+                // Bağlantıyı açın
+                if (baglanti.conn.State != ConnectionState.Open)
+                    baglanti.conn.Open();
+
+                string query = @"UPDATE dbo.Cagri
+                        SET AtananKullaniciID = @MemberID
+                        WHERE CagriID = @TaskID";
+
+                using (SqlCommand cmd = new SqlCommand(query, baglanti.conn))
+                {
+                    cmd.Parameters.AddWithValue("@MemberID", memberID);
+                    cmd.Parameters.AddWithValue("@TaskID", taskId);
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Çağrı başarıyla üyeye atandı.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // Bağlantıyı kapatıp tekrar açıp verileri yeniliyoruz
+                        if (baglanti.conn.State == ConnectionState.Open)
+                            baglanti.conn.Close();
+
+                        LoadDataFromDatabase(); // Verileri yenile
+                    }
+                    else
+                    {
+                        MessageBox.Show("Çağrı atama sırasında bir hata oluştu.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Çağrı atama sırasında bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // İşlem bittiğinde bağlantıyı kapatın
+                if (baglanti.conn.State == ConnectionState.Open)
+                    baglanti.conn.Close();
+            }
+        }
+
+        private void ekipUyeleriDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                DataGridViewRow row = ekipUyeleriDGV.Rows[e.RowIndex];
+                string memberID = row.Cells["KullaniciID"].Value.ToString(); // Üye ID'si
+                string taskId = row.Cells["CagriNumarasi"].Value.ToString().Replace("#", ""); // Çağrı ID'si
+
+                // Görev Ata Butonu tıklandıysa
+                if (ekipUyeleriDGV.Columns[e.ColumnIndex].Name == "gorevAtaButon")
+                {
+                    CagriAtama(memberID, taskId);
+                }
+            }
+        }
+
         private void ConfigureBekleyenCagrilarDGV()
         {
             // Temel seçim ayarları
-            bekleyenCagrilarDGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            bekleyenCagrilarDGV.DefaultCellStyle.SelectionBackColor = bekleyenCagrilarDGV.DefaultCellStyle.BackColor;
-            bekleyenCagrilarDGV.DefaultCellStyle.SelectionForeColor = bekleyenCagrilarDGV.DefaultCellStyle.ForeColor;
+            CagrilarDGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            CagrilarDGV.DefaultCellStyle.SelectionBackColor = CagrilarDGV.DefaultCellStyle.BackColor;
+            CagrilarDGV.DefaultCellStyle.SelectionForeColor = CagrilarDGV.DefaultCellStyle.ForeColor;
 
             // Başlık ayarları
-            bekleyenCagrilarDGV.EnableHeadersVisualStyles = false;
-            bekleyenCagrilarDGV.ColumnHeadersDefaultCellStyle.SelectionBackColor = bekleyenCagrilarDGV.ColumnHeadersDefaultCellStyle.BackColor;
-            bekleyenCagrilarDGV.RowHeadersDefaultCellStyle.SelectionBackColor = Color.Transparent;
+            CagrilarDGV.EnableHeadersVisualStyles = false;
+            CagrilarDGV.ColumnHeadersDefaultCellStyle.SelectionBackColor = CagrilarDGV.ColumnHeadersDefaultCellStyle.BackColor;
+            CagrilarDGV.RowHeadersDefaultCellStyle.SelectionBackColor = Color.Transparent;
 
             // Görsel iyileştirmeler
-            bekleyenCagrilarDGV.BorderStyle = BorderStyle.None;
-            bekleyenCagrilarDGV.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            bekleyenCagrilarDGV.GridColor = Color.FromArgb(240, 240, 240);
+            CagrilarDGV.BorderStyle = BorderStyle.None;
+            CagrilarDGV.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            CagrilarDGV.GridColor = Color.FromArgb(240, 240, 240);
 
             // Event bağlantıları
-            bekleyenCagrilarDGV.CellClick += (s, e) => bekleyenCagrilarDGV.ClearSelection();
-            bekleyenCagrilarDGV.DataBindingComplete += (s, e) => bekleyenCagrilarDGV.ClearSelection();
+            CagrilarDGV.CellClick += (s, e) => CagrilarDGV.ClearSelection();
+            CagrilarDGV.DataBindingComplete += (s, e) => CagrilarDGV.ClearSelection();
         }
 
         private void ConfigureEkipUyeleriDGV()
@@ -84,90 +247,75 @@ namespace TaskFlow360
             ekipUyeleriDGV.SelectionMode = DataGridViewSelectionMode.CellSelect;
             ekipUyeleriDGV.DefaultCellStyle.SelectionBackColor = ekipUyeleriDGV.DefaultCellStyle.BackColor;
             ekipUyeleriDGV.DefaultCellStyle.SelectionForeColor = ekipUyeleriDGV.DefaultCellStyle.ForeColor;
-
-
-            //// Çift tıklamayı yönetme
-            //ekipUyeleriDGV.CellDoubleClick += (s, e) => {
-            //    if (e.RowIndex >= 0)
-            //    {
-            //        // Örnek: Seçili kullanıcıyı işleme alma
-            //        var selectedUser = ekipUyeleriDGV.Rows[e.RowIndex].Cells["KullaniciAdi"].Value.ToString();
-            //        MessageBox.Show($"{selectedUser} kullanıcısı seçildi");
-            //    }
-            //};
         }
-
-        private void OrnekVerileriYukle()
+        private void LoadTeamMembers()
         {
-            // Bekleyen çağrılar için örnek veriler
-            bekleyenCagrilarDGV.Rows.Add("#2458", "Rapor oluşturma sorunu", "Teknik", "Yüksek", "Bekleniyor");
-            bekleyenCagrilarDGV.Rows.Add("#2459", "Yeni müşteri kaydı hatası", "Yazılım", "Orta", "Bekleniyor");
-            bekleyenCagrilarDGV.Rows.Add("#2460", "Mail sistemi bağlantı sorunu", "Altyapı", "Normal", "Bekleniyor");
-            bekleyenCagrilarDGV.Rows.Add("#2461", "Fatura oluşturma problemi", "Destek", "Orta", "Bekleniyor");
-            bekleyenCagrilarDGV.Rows.Add("#2458", "Rapor oluşturma sorunu", "Teknik", "Yüksek", "Bekleniyor");
-            bekleyenCagrilarDGV.Rows.Add("#2459", "Yeni müşteri kaydı hatası", "Yazılım", "Orta", "Bekleniyor");
-            bekleyenCagrilarDGV.Rows.Add("#2460", "Mail sistemi bağlantı sorunu", "Altyapı", "Normal", "Bekleniyor");
-            bekleyenCagrilarDGV.Rows.Add("#2461", "Fatura oluşturma problemi", "Destek", "Orta", "Bekleniyor");
-            bekleyenCagrilarDGV.Rows.Add("#2458", "Rapor oluşturma sorunu", "Teknik", "Yüksek", "Bekleniyor");
-            bekleyenCagrilarDGV.Rows.Add("#2459", "Yeni müşteri kaydı hatası", "Yazılım", "Orta", "Bekleniyor");
-            bekleyenCagrilarDGV.Rows.Add("#2460", "Mail sistemi bağlantı sorunu", "Altyapı", "Normal", "Bekleniyor");
-            bekleyenCagrilarDGV.Rows.Add("#2461", "Fatura oluşturma problemi", "Destek", "Orta", "Bekleniyor");
-
-            // oncelik hücrelerine renk verme
-            foreach (DataGridViewRow row in bekleyenCagrilarDGV.Rows)
+            try
             {
-                string oncelik = row.Cells["oncelik"].Value.ToString();
-                if (oncelik == "Yüksek")
-                    row.Cells["oncelik"].Style.BackColor = ColorTranslator.FromHtml("#f85c5c");
-                else if (oncelik == "Orta")
-                    row.Cells["oncelik"].Style.BackColor = ColorTranslator.FromHtml("#f0ad4e");
-                else
-                    row.Cells["oncelik"].Style.BackColor = ColorTranslator.FromHtml("#63c966");
+                // Bağlantıyı açın
+                if (baglanti.conn.State != ConnectionState.Open)
+                    baglanti.conn.Open();
 
-                row.Cells["oncelik"].Style.ForeColor = Color.White;
-                row.Cells["oncelik"].Style.Font = new Font("Arial", 10, FontStyle.Bold);
-                row.Cells["ataButon"].Style.BackColor = ColorTranslator.FromHtml("#5d4e9d");
-                row.Cells["ataButon"].Style.ForeColor = Color.White;
+                string managerID = KullaniciBilgi.KullaniciID;
+
+                string query = @"SELECT 
+    K.KullaniciID,
+    K.Ad + ' ' + K.Soyad AS AdSoyad,
+    -- Aktif görev sayısı
+    (SELECT COUNT(*) FROM Cagri C WHERE C.AtananKullaniciID = K.KullaniciID AND C.Durum IN ('Atandı', 'Beklemede')) AS AktifGorevler,
+    
+    -- Bugün tamamlanan görevler
+    (SELECT COUNT(*) FROM Cagri C WHERE C.AtananKullaniciID = K.KullaniciID AND C.Durum = 'Tamamlandı' AND CAST(C.TeslimTarihi AS DATE) = CAST(GETDATE() AS DATE)) AS BugunTamamlanan,
+
+    -- Son 30 gün içindeki performans
+    (SELECT COUNT(*) FROM Cagri C WHERE C.AtananKullaniciID = K.KullaniciID AND C.Durum = 'Tamamlandı' AND C.TeslimTarihi >= DATEADD(DAY, -30, GETDATE())) AS AylikPerformans,
+
+    -- Ortalama çözüm süresi (saat cinsinden)
+    (SELECT 
+        AVG(DATEDIFF(MINUTE, C.OlusturmaTarihi, C.TeslimTarihi)) / 60.0
+     FROM 
+        Cagri C 
+     WHERE 
+        C.AtananKullaniciID = K.KullaniciID 
+        AND C.Durum = 'Tamamlandı'
+        AND C.TeslimTarihi IS NOT NULL
+    ) AS OrtalamaSureSaat
+
+FROM 
+    Kullanici K
+WHERE 
+    K.YoneticiID = @ManagerID
+";
+                ekipUyeleriDGV.Rows.Clear();
+                using (SqlCommand cmd = new SqlCommand(query, baglanti.conn))
+                {
+                    cmd.Parameters.AddWithValue("@ManagerID", managerID);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int rowIndex = ekipUyeleriDGV.Rows.Add(
+                                reader["AdSoyad"].ToString(),
+                                reader["AktifGorevler"].ToString(),
+                                reader["BugunTamamlanan"].ToString(),
+                                reader["AylikPerformans"].ToString(),
+                                string.Format("{0:0.00} saat", reader["OrtalamaSureSaat"] is DBNull ? 0 : reader["OrtalamaSureSaat"]),
+                                "Detay" 
+                            );
+                            ekipUyeleriDGV.Rows[rowIndex].Tag = reader["KullaniciID"].ToString();
+                        }
+                    }
+                }
             }
-
-            // Ekip üyeleri için örnek veriler
-            ekipUyeleriDGV.Rows.Add("Ayşe Kaya", "3", "2", "85%", "3.2 saat");
-            ekipUyeleriDGV.Rows.Add("Mustafa Şahin", "4", "1", "80%", "3.8 saat");
-            ekipUyeleriDGV.Rows.Add("Elif Aksu", "1", "3", "95%", "2.5 saat");
-            ekipUyeleriDGV.Rows.Add("Kemal Bulut", "0", "4", "90%", "2.8 saat");
-            ekipUyeleriDGV.Rows.Add("Ayşe Kaya", "3", "2", "85%", "3.2 saat");
-            ekipUyeleriDGV.Rows.Add("Mustafa Şahin", "4", "1", "80%", "3.8 saat");
-            ekipUyeleriDGV.Rows.Add("Elif Aksu", "1", "3", "95%", "2.5 saat");
-            ekipUyeleriDGV.Rows.Add("Kemal Bulut", "0", "4", "90%", "2.8 saat");
-            ekipUyeleriDGV.Rows.Add("Ayşe Kaya", "3", "2", "85%", "3.2 saat");
-            ekipUyeleriDGV.Rows.Add("Mustafa Şahin", "4", "1", "80%", "3.8 saat");
-            ekipUyeleriDGV.Rows.Add("Elif Aksu", "1", "3", "95%", "2.5 saat");
-            ekipUyeleriDGV.Rows.Add("Kemal Bulut", "0", "4", "90%", "2.8 saat");
-            ekipUyeleriDGV.Rows.Add("Ayşe Kaya", "3", "2", "85%", "3.2 saat");
-            ekipUyeleriDGV.Rows.Add("Mustafa Şahin", "4", "1", "80%", "3.8 saat");
-            ekipUyeleriDGV.Rows.Add("Elif Aksu", "1", "3", "95%", "2.5 saat");
-            ekipUyeleriDGV.Rows.Add("Kemal Bulut", "0", "4", "90%", "2.8 saat");
-
-            // Aylık performans hücreleri için renk ayarları
-            foreach (DataGridViewRow row in ekipUyeleriDGV.Rows)
+            catch (Exception ex)
             {
-                string performans = row.Cells["aylikPerformans"].Value.ToString();
-                int performansYuzde = int.Parse(performans.Replace("%", ""));
-
-                Color performansRenk;
-                if (performansYuzde >= 90)
-                    performansRenk = ColorTranslator.FromHtml("#27ae60");
-                else if (performansYuzde >= 80)
-                    performansRenk = ColorTranslator.FromHtml("#2ecc71");
-                else if (performansYuzde >= 70)
-                    performansRenk = ColorTranslator.FromHtml("#f39c12");
-                else
-                    performansRenk = ColorTranslator.FromHtml("#e74c3c");
-
-                row.Cells["aylikPerformans"].Style.ForeColor = performansRenk;
-                row.Cells["aylikPerformans"].Style.Font = new Font("Arial", 10, FontStyle.Bold);
-                row.Cells["gorevAtaButon"].Style.BackColor = ColorTranslator.FromHtml("#5d4e9d");
-                row.Cells["gorevAtaButon"].Style.ForeColor = Color.White;
+                MessageBox.Show("Ekip bilgileri yüklenirken hata oluştu: " + ex.Message);
+            }
+            finally
+            {
+                if (baglanti.conn.State == ConnectionState.Open)
+                    baglanti.conn.Close();
             }
         }
 
@@ -188,6 +336,27 @@ namespace TaskFlow360
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtAra_TextChanged_1(object sender, EventArgs e)
+        {
+            string searchText = txtAra.Text.Trim();
+
+            foreach (DataGridViewRow row in CagrilarDGV.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                bool match = false;
+
+                // Çağrı ID veya Başlıkta arama yap
+                if (row.Cells["CagriNumarasi"].Value.ToString().Contains(searchText) ||
+                    row.Cells["Baslik"].Value.ToString().Contains(searchText))
+                {
+                    match = true;
+                }
+
+                row.Visible = match;
+            }
         }
     }
 }
