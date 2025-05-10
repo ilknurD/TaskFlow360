@@ -416,11 +416,9 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
-            // Form sınıfı aktif değilse yorum satırını kaldırabilirsiniz
-            // ManagerReports managerReports = new ManagerReports(yoneticiId);
-            // managerReports.Show();
-            // this.Close();
-            MessageBox.Show("Raporlar ekranı henüz aktif değil.");
+            ManagerReportsPage managerReports = new ManagerReportsPage();
+            managerReports.Show();
+            this.Close();
         }
 
         private void btnEkipYonetimi_Click(object sender, EventArgs e)

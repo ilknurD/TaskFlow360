@@ -62,6 +62,8 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.pnlPrfilBilgi = new System.Windows.Forms.Panel();
+            this.lblDepartman = new System.Windows.Forms.Label();
+            this.lblEmail = new System.Windows.Forms.Label();
             this.lbleposta = new System.Windows.Forms.Label();
             this.lblDepartmanb = new System.Windows.Forms.Label();
             this.lblBolum = new System.Windows.Forms.Label();
@@ -84,8 +86,6 @@
             this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.lblEmail = new System.Windows.Forms.Label();
-            this.lblDepartman = new System.Windows.Forms.Label();
             this.pnlPrimBilgi.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ekibimDGV)).BeginInit();
             this.pnlIsBilgi.SuspendLayout();
@@ -466,6 +466,26 @@
             this.pnlPrfilBilgi.Size = new System.Drawing.Size(1670, 243);
             this.pnlPrfilBilgi.TabIndex = 15;
             // 
+            // lblDepartman
+            // 
+            this.lblDepartman.AutoSize = true;
+            this.lblDepartman.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblDepartman.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblDepartman.Location = new System.Drawing.Point(612, 129);
+            this.lblDepartman.Name = "lblDepartman";
+            this.lblDepartman.Size = new System.Drawing.Size(0, 21);
+            this.lblDepartman.TabIndex = 29;
+            // 
+            // lblEmail
+            // 
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblEmail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblEmail.Location = new System.Drawing.Point(570, 165);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(0, 21);
+            this.lblEmail.TabIndex = 28;
+            // 
             // lbleposta
             // 
             this.lbleposta.AutoSize = true;
@@ -620,6 +640,7 @@
             this.btnRaporlar.Text = "Raporlar";
             this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnRaporlar.UseVisualStyleBackColor = false;
+            this.btnRaporlar.Click += new System.EventHandler(this.btnRaporlar_Click);
             // 
             // ikonProfil
             // 
@@ -759,26 +780,6 @@
             this.pictureBox2.TabIndex = 20;
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
-            // 
-            // lblEmail
-            // 
-            this.lblEmail.AutoSize = true;
-            this.lblEmail.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblEmail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblEmail.Location = new System.Drawing.Point(570, 165);
-            this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(0, 21);
-            this.lblEmail.TabIndex = 28;
-            // 
-            // lblDepartman
-            // 
-            this.lblDepartman.AutoSize = true;
-            this.lblDepartman.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblDepartman.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblDepartman.Location = new System.Drawing.Point(612, 129);
-            this.lblDepartman.Name = "lblDepartman";
-            this.lblDepartman.Size = new System.Drawing.Size(0, 21);
-            this.lblDepartman.TabIndex = 29;
             // 
             // ManagerProfile
             // 
