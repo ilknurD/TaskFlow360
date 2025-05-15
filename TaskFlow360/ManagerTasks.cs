@@ -232,9 +232,7 @@ ORDER BY
             CagrilarDGV.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             CagrilarDGV.GridColor = Color.FromArgb(240, 240, 240);
 
-            // Event bağlantıları
-            CagrilarDGV.CellClick += (s, e) => CagrilarDGV.ClearSelection();
-            CagrilarDGV.DataBindingComplete += (s, e) => CagrilarDGV.ClearSelection();
+            CagrilarDGV.CellFormatting += CagrilarDGV_CellFormatting;
         }
 
         private void ConfigureEkipUyeleriDGV()
@@ -357,6 +355,24 @@ WHERE
 
                 row.Visible = match;
             }
+        }
+
+        private void CagrilarDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+
+            //if (CagrilarDGV.Rows[e.RowIndex].Selected)
+            //{
+            //    e.CellStyle.ForeColor = Color.Black; 
+            //}
+            //else
+            //{
+            //    e.CellStyle.ForeColor = CagrilarDGV.DefaultCellStyle.ForeColor;
+            //}
+        }
+
+        private void CagrilarDGV_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            CagrilarDGV.ClearSelection();
         }
     }
 }

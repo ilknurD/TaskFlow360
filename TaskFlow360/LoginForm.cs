@@ -87,7 +87,7 @@ namespace TaskFlow360
                 baglanti.BaglantiAc();
 
                 // Kullanıcı ID'si ve Rol bilgisini çekiyoruz
-                string query = "SELECT KullaniciID, Rol FROM Kullanici WHERE Email = @Email AND Sifre = @Sifre";
+                string query = "SELECT KullaniciID, Rol, Ad, Soyad FROM Kullanici WHERE Email = @Email AND Sifre = @Sifre";
                 SqlCommand cmd = new SqlCommand(query, baglanti.conn);
                 cmd.Parameters.AddWithValue("@Email", email);
                 cmd.Parameters.AddWithValue("@Sifre", sifre);
@@ -98,6 +98,12 @@ namespace TaskFlow360
                     {
                         string kullaniciID = reader["KullaniciID"]?.ToString() ?? "";
                         string rolString = reader["Rol"]?.ToString() ?? "";
+
+                        // Ad ve Soyad bilgilerini KullaniciBilgi'ye aktaralım
+                        KullaniciBilgi.KullaniciID = kullaniciID;
+                        KullaniciBilgi.Rol = rolString;
+                        KullaniciBilgi.Ad = reader["Ad"]?.ToString() ?? "";
+                        KullaniciBilgi.Soyad = reader["Soyad"]?.ToString() ?? "";
 
                         KullaniciBilgi.KullaniciID = kullaniciID;
 

@@ -47,6 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssigningTasksOfficer.cs" />
+    <Compile Include="AssigningTasksOfficer.Designer.cs">
+      <DependentUpon>AssigningTasksOfficer.cs</DependentUpon>
+    </Compile>
     <Compile Include="AssistantHomepage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +65,12 @@
     </Compile>
     <Compile Include="Baglanti.cs" />
     <Compile Include="Cagri.cs" />
+    <Compile Include="TasksAssignmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TasksAssignmentForm.Designer.cs">
+      <DependentUpon>TasksAssignmentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CallCenterTaskTracking.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,6 +147,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AssigningTasksOfficer.resx">
+      <DependentUpon>AssigningTasksOfficer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AssistantHomepage.resx">
       <DependentUpon>AssistantHomepage.cs</DependentUpon>
     </EmbeddedResource>
@@ -189,6 +202,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TasksAssignmentForm.resx">
+      <DependentUpon>TasksAssignmentForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -361,7 +361,7 @@
             // 
             this.lblMerhaba.AutoSize = true;
             this.lblMerhaba.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblMerhaba.Location = new System.Drawing.Point(1763, 84);
+            this.lblMerhaba.Location = new System.Drawing.Point(1793, 84);
             this.lblMerhaba.Name = "lblMerhaba";
             this.lblMerhaba.Size = new System.Drawing.Size(94, 21);
             this.lblMerhaba.TabIndex = 9;
@@ -371,7 +371,7 @@
             // 
             this.lblAdSoyad.AutoSize = true;
             this.lblAdSoyad.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblAdSoyad.Location = new System.Drawing.Point(1863, 84);
+            this.lblAdSoyad.Location = new System.Drawing.Point(1893, 84);
             this.lblAdSoyad.Name = "lblAdSoyad";
             this.lblAdSoyad.Size = new System.Drawing.Size(100, 21);
             this.lblAdSoyad.TabIndex = 10;
