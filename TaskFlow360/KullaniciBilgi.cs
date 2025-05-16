@@ -14,7 +14,6 @@ namespace TaskFlow360
         public static string Ad { get; set; }
         public static string Soyad { get; set; }
 
-        // Statik sınıfı genişletmek için kullanıcı bilgilerini temizleme metodu
         public static void BilgileriTemizle()
         {
             KullaniciID = null;
@@ -23,7 +22,6 @@ namespace TaskFlow360
             Soyad = null;
         }
 
-        // Yardımcı metot - Ad Soyad birleşik gösterimi
         public static string TamAd()
         {
             if (!string.IsNullOrEmpty(Ad) && !string.IsNullOrEmpty(Soyad))

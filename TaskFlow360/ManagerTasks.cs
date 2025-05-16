@@ -59,6 +59,13 @@ namespace TaskFlow360
                 ConfigureEkipUyeleriDGV();
                 FormatDataGridViews();
 
+                CagrilarDGV.CellContentClick += CagrilarDGV_CellContentClick;
+                CagrilarDGV.DataBindingComplete += CagrilarDGV_DataBindingComplete;
+                CagrilarDGV.CellFormatting += CagrilarDGV_CellFormatting;
+                ekipUyeleriDGV.CellContentClick += ekipUyeleriDGV_CellContentClick;
+                ekipUyeleriDGV.DataBindingComplete += ekipUyeleriDGV_DataBindingComplete;
+                ekipUyeleriDGV.CellFormatting += ekipUyeleriDGV_CellFormatting;
+
                 CagrilarDGV.RowTemplate.Height = 40;
                 ekipUyeleriDGV.RowTemplate.Height = 40;
             }
@@ -103,6 +110,13 @@ ORDER BY
                 CagrilarDGV.Columns.Add("Oncelik", "Öncelik");
                 CagrilarDGV.Columns.Add("Durum", "Durum");
 
+                DataGridViewButtonColumn islemButon = new DataGridViewButtonColumn();
+                islemButon.Name = "islemButon";
+                islemButon.HeaderText = "İşlem";
+                islemButon.Text = "Düzenle";
+                islemButon.UseColumnTextForButtonValue = true;
+                CagrilarDGV.Columns.Add(islemButon);
+
                 CagrilarDGV.Rows.Clear();
 
                 using (SqlCommand cmd = new SqlCommand(queryForSelf, baglanti.conn))
@@ -137,9 +151,10 @@ ORDER BY
 
         private void FormatDataGridViews()
         {
+            // CagrilarDGV formatlama
             foreach (DataGridViewRow row in CagrilarDGV.Rows)
             {
-                if (row.Cells["Oncelik"].Value != null) // Büyük/küçük harfe dikkat!
+                if (row.Cells["Oncelik"].Value != null)
                 {
                     string oncelik = row.Cells["Oncelik"].Value.ToString();
                     if (oncelik == "Yüksek")
@@ -150,7 +165,19 @@ ORDER BY
                         row.Cells["Oncelik"].Style.BackColor = ColorTranslator.FromHtml("#63c966");
 
                     row.Cells["Oncelik"].Style.ForeColor = Color.White;
-                    row.Cells["Oncelik"].Style.Font = new Font("Arial", 10, FontStyle.Bold);
+                    row.Cells["Oncelik"].Style.Font = new Font("Century Gothic", 12, FontStyle.Bold);
+                }
+            }
+            
+            // EkipUyeleriDGV formatlama
+            foreach (DataGridViewRow row in ekipUyeleriDGV.Rows)
+            {
+                // Örnek: Aktif görev sayısı 5'ten fazlaysa özel renk
+                if (row.Cells["AktifGorevler"].Value != null &&
+                    int.TryParse(row.Cells["AktifGorevler"].Value.ToString(), out int gorevSayisi) &&
+                    gorevSayisi > 5)
+                {
+                    row.Cells["AktifGorevler"].Style.BackColor = Color.LightSalmon;
                 }
             }
         }
@@ -158,7 +185,6 @@ ORDER BY
         {
             try
             {
-                // Bağlantıyı açın
                 if (baglanti.conn.State != ConnectionState.Open)
                     baglanti.conn.Open();
 
@@ -175,11 +201,10 @@ ORDER BY
                     if (rowsAffected > 0)
                     {
                         MessageBox.Show("Çağrı başarıyla üyeye atandı.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        // Bağlantıyı kapatıp tekrar açıp verileri yeniliyoruz
-                        if (baglanti.conn.State == ConnectionState.Open)
+                        if (baglanti.conn.State == ConnectionState.Open) //yenileme
                             baglanti.conn.Close();
 
-                        LoadDataFromDatabase(); // Verileri yenile
+                        LoadDataFromDatabase(); 
                     }
                     else
                     {
@@ -193,25 +218,37 @@ ORDER BY
             }
             finally
             {
-                // İşlem bittiğinde bağlantıyı kapatın
                 if (baglanti.conn.State == ConnectionState.Open)
                     baglanti.conn.Close();
             }
         }
-
         private void ekipUyeleriDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            try
             {
-                DataGridViewRow row = ekipUyeleriDGV.Rows[e.RowIndex];
-                string memberID = row.Cells["KullaniciID"].Value.ToString(); // Üye ID'si
-                string taskId = row.Cells["CagriNumarasi"].Value.ToString().Replace("#", ""); // Çağrı ID'si
+                if (e.RowIndex < 0 || e.ColumnIndex < 0 || e.RowIndex >= ekipUyeleriDGV.Rows.Count)
+                    return;
 
-                // Görev Ata Butonu tıklandıysa
-                if (ekipUyeleriDGV.Columns[e.ColumnIndex].Name == "gorevAtaButon")
+                if (ekipUyeleriDGV.Columns[e.ColumnIndex].Name != "gorevAtaButon")
+                    return;
+
+                // Kullanıcı ID'sini al Tag'den
+                DataGridViewRow selectedRow = ekipUyeleriDGV.Rows[e.RowIndex];
+                string memberID = selectedRow.Tag?.ToString();
+
+                if (string.IsNullOrEmpty(memberID))
                 {
-                    CagriAtama(memberID, taskId);
+                    MessageBox.Show("Üye seçimi geçersiz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
+
+                // Yeni formu aç ve memberID'yi gönder
+                //TaskAssignmentForm assignmentForm = new TaskAssignmentForm(memberID);
+                //assignmentForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"İşlem sırasında bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -232,25 +269,44 @@ ORDER BY
             CagrilarDGV.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             CagrilarDGV.GridColor = Color.FromArgb(240, 240, 240);
 
-            CagrilarDGV.CellFormatting += CagrilarDGV_CellFormatting;
+            // Buton sütunu stil ayarı
+            if (CagrilarDGV.Columns.Contains("islemButon"))
+            {
+                CagrilarDGV.Columns["islemButon"].DefaultCellStyle.BackColor = Color.FromArgb(126, 87, 194);
+                CagrilarDGV.Columns["islemButon"].DefaultCellStyle.ForeColor = Color.White;
+                CagrilarDGV.Columns["islemButon"].DefaultCellStyle.Font = new Font("Century Gothic", 12, FontStyle.Bold);
+            }
         }
 
         private void ConfigureEkipUyeleriDGV()
         {
-            // Özel renk şeması
-            ekipUyeleriDGV.DefaultCellStyle.BackColor = Color.White;
-            ekipUyeleriDGV.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
-
-            // Seçim efekti kaldırma
-            ekipUyeleriDGV.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            // Temel seçim ayarları (CagrilarDGV ile aynı)
+            ekipUyeleriDGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ekipUyeleriDGV.DefaultCellStyle.SelectionBackColor = ekipUyeleriDGV.DefaultCellStyle.BackColor;
             ekipUyeleriDGV.DefaultCellStyle.SelectionForeColor = ekipUyeleriDGV.DefaultCellStyle.ForeColor;
+
+            // Başlık ayarları
+            ekipUyeleriDGV.EnableHeadersVisualStyles = false;
+            ekipUyeleriDGV.ColumnHeadersDefaultCellStyle.SelectionBackColor = ekipUyeleriDGV.ColumnHeadersDefaultCellStyle.BackColor;
+            ekipUyeleriDGV.RowHeadersDefaultCellStyle.SelectionBackColor = Color.Transparent;
+
+            // Görsel iyileştirmeler
+            ekipUyeleriDGV.BorderStyle = BorderStyle.None;
+            ekipUyeleriDGV.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            ekipUyeleriDGV.GridColor = Color.FromArgb(240, 240, 240);
+
+            if (ekipUyeleriDGV.Columns.Contains("gorevAtaButon"))
+            {
+                ekipUyeleriDGV.Columns["gorevAtaButon"].DefaultCellStyle.BackColor = Color.FromArgb(126, 87, 194);
+                ekipUyeleriDGV.Columns["gorevAtaButon"].DefaultCellStyle.ForeColor = Color.White;
+                ekipUyeleriDGV.Columns["gorevAtaButon"].DefaultCellStyle.Font = new Font("Century Gothic", 12, FontStyle.Bold);
+            }
         }
+
         private void LoadTeamMembers()
         {
             try
             {
-                // Bağlantıyı açın
                 if (baglanti.conn.State != ConnectionState.Open)
                     baglanti.conn.Open();
 
@@ -284,7 +340,21 @@ FROM
 WHERE 
     K.YoneticiID = @ManagerID
 ";
+                ekipUyeleriDGV.Columns.Clear();
+                ekipUyeleriDGV.Columns.Add("AdSoyad", "Ad Soyad");
+                ekipUyeleriDGV.Columns.Add("AktifGorevler", "Aktif Görevler");
+                ekipUyeleriDGV.Columns.Add("BugunTamamlanan", "Bugün Tamamlanan");
+                ekipUyeleriDGV.Columns.Add("AylikPerformans", "Aylık Performans");
+                ekipUyeleriDGV.Columns.Add("OrtalamaSureSaat", "Ortalama Süre (saat)");
+
+                DataGridViewButtonColumn gorevAtaButon = new DataGridViewButtonColumn();
+                gorevAtaButon.Name = "gorevAtaButon";
+                gorevAtaButon.HeaderText = "Görev Ata";
+                gorevAtaButon.Text = "Görev Ata";
+                gorevAtaButon.UseColumnTextForButtonValue = true;
+                ekipUyeleriDGV.Columns.Add(gorevAtaButon);
                 ekipUyeleriDGV.Rows.Clear();
+
                 using (SqlCommand cmd = new SqlCommand(query, baglanti.conn))
                 {
                     cmd.Parameters.AddWithValue("@ManagerID", managerID);
@@ -298,13 +368,13 @@ WHERE
                                 reader["AktifGorevler"].ToString(),
                                 reader["BugunTamamlanan"].ToString(),
                                 reader["AylikPerformans"].ToString(),
-                                string.Format("{0:0.00} saat", reader["OrtalamaSureSaat"] is DBNull ? 0 : reader["OrtalamaSureSaat"]),
-                                "Detay" 
+                                string.Format("{0:0.00} saat", reader["OrtalamaSureSaat"] is DBNull ? 0 : reader["OrtalamaSureSaat"])
                             );
                             ekipUyeleriDGV.Rows[rowIndex].Tag = reader["KullaniciID"].ToString();
                         }
                     }
                 }
+                ConfigureEkipUyeleriDGV();
             }
             catch (Exception ex)
             {
@@ -336,9 +406,10 @@ WHERE
 
         }
 
-        private void txtAra_TextChanged_1(object sender, EventArgs e)
+        private void txtAraCagri_TextChanged(object sender, EventArgs e)
         {
-            string searchText = txtAra.Text.Trim();
+            string searchText = txtAraCagri.Text.Trim().ToLower();
+            CagrilarDGV.ClearSelection();
 
             foreach (DataGridViewRow row in CagrilarDGV.Rows)
             {
@@ -346,9 +417,11 @@ WHERE
 
                 bool match = false;
 
-                // Çağrı ID veya Başlıkta arama yap
-                if (row.Cells["CagriNumarasi"].Value.ToString().Contains(searchText) ||
-                    row.Cells["Baslik"].Value.ToString().Contains(searchText))
+                if (row.Cells["CagriNumarasi"].Value != null && row.Cells["CagriNumarasi"].Value.ToString().ToLower().Contains(searchText) ||
+                    row.Cells["Baslik"].Value != null && row.Cells["Baslik"].Value.ToString().ToLower().Contains(searchText) ||
+                    row.Cells["CagriKategori"].Value != null && row.Cells["CagriKategori"].Value.ToString().ToLower().Contains(searchText) ||
+                    row.Cells["Oncelik"].Value != null && row.Cells["Oncelik"].Value.ToString().ToLower().Contains(searchText) ||
+                    row.Cells["Durum"].Value != null && row.Cells["Durum"].Value.ToString().ToLower().Contains(searchText))
                 {
                     match = true;
                 }
@@ -357,22 +430,144 @@ WHERE
             }
         }
 
+
         private void CagrilarDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
 
-            //if (CagrilarDGV.Rows[e.RowIndex].Selected)
-            //{
-            //    e.CellStyle.ForeColor = Color.Black; 
-            //}
-            //else
-            //{
-            //    e.CellStyle.ForeColor = CagrilarDGV.DefaultCellStyle.ForeColor;
-            //}
+            // Tüm hücreler için temel font ayarı
+            e.CellStyle.Font = new Font("Century Gothic", 12, FontStyle.Regular);
+
+            // İşlem butonu için özel stil
+            if (CagrilarDGV.Columns[e.ColumnIndex].Name == "islemButon")
+            {
+                e.CellStyle.BackColor = Color.FromArgb(126, 87, 194);
+                e.CellStyle.ForeColor = Color.White;
+                e.CellStyle.Font = new Font("Century Gothic", 12, FontStyle.Regular);
+                e.CellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                e.CellStyle.SelectionBackColor = Color.FromArgb(126, 87, 194); // Seçili durumda da rengi koru
+                return;
+            }
+
+            // Öncelik sütunu için renklendirme
+            if (CagrilarDGV.Columns[e.ColumnIndex].Name == "Oncelik" && e.Value != null)
+            {
+                string oncelik = e.Value.ToString();
+                if (oncelik == "Yüksek")
+                {
+                    e.CellStyle.BackColor = ColorTranslator.FromHtml("#f85c5c");
+                    e.CellStyle.SelectionBackColor = ColorTranslator.FromHtml("#f85c5c");
+                }
+                else if (oncelik == "Orta")
+                {
+                    e.CellStyle.BackColor = ColorTranslator.FromHtml("#f0ad4e");
+                    e.CellStyle.SelectionBackColor = ColorTranslator.FromHtml("#f0ad4e");
+                }
+                else
+                {
+                    e.CellStyle.BackColor = ColorTranslator.FromHtml("#63c966");
+                    e.CellStyle.SelectionBackColor = ColorTranslator.FromHtml("#63c966");
+                }
+                e.CellStyle.ForeColor = Color.White;
+                return;
+            }
+
+            // Seçili satır için genel ayarlar
+            if (CagrilarDGV.Rows[e.RowIndex].Selected)
+            {
+                // Özel renklendirme yapılmamış sütunlar için varsayılan seçim rengi
+                if (CagrilarDGV.Columns[e.ColumnIndex].Name != "Oncelik" &&
+                    CagrilarDGV.Columns[e.ColumnIndex].Name != "islemButon")
+                {
+                    e.CellStyle.SelectionBackColor = Color.FromArgb(240, 240, 240);
+                    e.CellStyle.SelectionForeColor = Color.Black;
+                }
+                e.CellStyle.Font = new Font("Century Gothic", 12, FontStyle.Bold);
+            }
         }
 
         private void CagrilarDGV_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             CagrilarDGV.ClearSelection();
+        }
+
+        private void txtAraEkip_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = txtAraEkip.Text.Trim().ToLower();
+            ekipUyeleriDGV.ClearSelection();
+
+            foreach (DataGridViewRow row in ekipUyeleriDGV.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                bool match = false;
+
+                for (int i = 0; i < ekipUyeleriDGV.Columns.Count - 1; i++) //son sütun buton, onu komtrol etme
+                {
+                    if (row.Cells[i].Value != null && row.Cells[i].Value.ToString().ToLower().Contains(searchText))
+                    {
+                        match = true;
+                        break;
+                    }
+                }
+
+                row.Visible = match;
+            }
+        }
+
+        private void ekipUyeleriDGV_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            ekipUyeleriDGV.ClearSelection();
+        }
+
+        private void CagrilarDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+        //    try
+        //    {
+        //        if (e.RowIndex >= 0 && e.ColumnIndex == CagrilarDGV.Columns["islemButon"].Index)
+        //        {
+        //            // Satırı seç
+        //            CagrilarDGV.Rows[e.RowIndex].Selected = true;
+
+        //            string cagriID = CagrilarDGV.Rows[e.RowIndex].Cells["CagriNumarasi"].Value.ToString().Replace("#", "");
+
+        //            // İşlemlerinizi burada yapın
+        //            //EditCallForm editForm = new EditCallForm(cagriID);
+        //            //editForm.ShowDialog();
+
+        //            LoadDataFromDatabase();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"İşlem sırasında bir hata oluştu: {ex.Message}", "Hata",
+        //                      MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //
+        }
+
+        private void ekipUyeleriDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+
+            // Buton sütunu hariç diğer sütunlar için formatlama
+            if (ekipUyeleriDGV.Columns[e.ColumnIndex].Name != "gorevAtaButon")
+            {
+                // Satır seçiliyse arka plan rengi
+                if (ekipUyeleriDGV.Rows[e.RowIndex].Selected)
+                {
+                    e.CellStyle.SelectionBackColor = Color.FromArgb(240, 240, 240);
+                    e.CellStyle.SelectionForeColor = Color.Black;
+                }
+            }
+            else
+            {
+                // Görev Ata butonu için özel stil
+                e.CellStyle.BackColor = Color.FromArgb(126, 87, 194);
+                e.CellStyle.ForeColor = Color.Black;
+                e.CellStyle.Font = new Font("Century Gothic", 12, FontStyle.Bold);
+                e.CellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
         }
     }
 }

@@ -153,19 +153,15 @@ namespace TaskFlow360
                 }
             }
 
-            // Kullanıcı adı ve soyadını görüntüleyelim
             lblAdSoyad.Text = KullaniciBilgi.TamAd();
             lblHosgeldiniz.Text = $"Hoş Geldiniz, {KullaniciBilgi.TamAd()}";
 
-            // DataGridView'leri yapılandır
             ConfigureBekleyenCagrilarDGV();
             ConfigureEkipUyeleriDGV();
 
-            // DataGridView'lerin görünür olduğundan emin olalım
             bekleyenCagrilarDGV.Visible = true;
             ekipUyeleriDGV.Visible = true;
 
-            // Veritabanı işlemlerini deneyelim
             try
             {
                 BekleyenCagrilariYukle();
@@ -187,7 +183,6 @@ namespace TaskFlow360
                 e.CellStyle.ForeColor = System.Drawing.Color.White;
             }
 
-            // Öncelik sütununu renklendirme
             if (e.ColumnIndex == bekleyenCagrilarDGV.Columns["oncelik"].Index && e.RowIndex >= 0 && e.Value != null)
             {
                 string oncelik = e.Value.ToString();
@@ -483,7 +478,7 @@ namespace TaskFlow360
 
                 dr.Close();
 
-                // Yükleme sonrası kontrol edelim
+                // Yükleme sonrası kontrol
                 if (ekipUyeleriDGV.Rows.Count == 0 && kullaniciSayisi > 0)
                 {
                     MessageBox.Show("Ekip üyeleri grid'e yüklenemedi.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -522,7 +517,7 @@ namespace TaskFlow360
                 int tamamlananCagriSayisi = Convert.ToInt32(tamamlananCagri.ExecuteScalar());
                 lblTamamlanan.Text = tamamlananCagriSayisi.ToString();
 
-                // Geciken çağrı sayısı - HedefSure için düzeltilmiş sorgu
+                // Geciken çağrı sayısı 
                 SqlCommand gecikenCagri = new SqlCommand(@"
                     SELECT COUNT(*) FROM Cagri 
                     WHERE Durum != 'Tamamlandı' 
