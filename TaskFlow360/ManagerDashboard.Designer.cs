@@ -37,6 +37,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -53,7 +54,7 @@
             this.btnProfil = new System.Windows.Forms.Button();
             this.btnAnasayfa = new System.Windows.Forms.Button();
             this.pctrLogo = new System.Windows.Forms.PictureBox();
-            this.chartEkibimHaftalıkTamamlama = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartCagriDurum = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.EkipDGV = new System.Windows.Forms.DataGridView();
             this.SonGorevlerDGV = new System.Windows.Forms.DataGridView();
             this.SonIslemlerDGV = new System.Windows.Forms.DataGridView();
@@ -70,7 +71,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartEkibimHaftalıkTamamlama)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartCagriDurum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EkipDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SonGorevlerDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SonIslemlerDGV)).BeginInit();
@@ -305,25 +306,27 @@
             this.pctrLogo.TabIndex = 0;
             this.pctrLogo.TabStop = false;
             // 
-            // chartEkibimHaftalıkTamamlama
+            // chartCagriDurum
             // 
             chartArea1.Name = "ChartArea1";
-            this.chartEkibimHaftalıkTamamlama.ChartAreas.Add(chartArea1);
+            this.chartCagriDurum.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
-            this.chartEkibimHaftalıkTamamlama.Legends.Add(legend1);
-            this.chartEkibimHaftalıkTamamlama.Location = new System.Drawing.Point(1529, 95);
-            this.chartEkibimHaftalıkTamamlama.Name = "chartEkibimHaftalıkTamamlama";
+            this.chartCagriDurum.Legends.Add(legend1);
+            this.chartCagriDurum.Location = new System.Drawing.Point(1548, 95);
+            this.chartCagriDurum.Name = "chartCagriDurum";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
-            this.chartEkibimHaftalıkTamamlama.Series.Add(series1);
-            this.chartEkibimHaftalıkTamamlama.Size = new System.Drawing.Size(375, 307);
-            this.chartEkibimHaftalıkTamamlama.TabIndex = 18;
-            this.chartEkibimHaftalıkTamamlama.Text = "chart1";
+            this.chartCagriDurum.Series.Add(series1);
+            this.chartCagriDurum.Size = new System.Drawing.Size(375, 307);
+            this.chartCagriDurum.TabIndex = 18;
+            this.chartCagriDurum.Text = "chart1";
             // 
             // EkipDGV
             // 
+            this.EkipDGV.AllowUserToResizeColumns = false;
+            this.EkipDGV.AllowUserToResizeRows = false;
             this.EkipDGV.BackgroundColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
@@ -333,7 +336,8 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.EkipDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.EkipDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.EkipDGV.ColumnHeadersHeight = 29;
+            this.EkipDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -342,15 +346,22 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.EkipDGV.DefaultCellStyle = dataGridViewCellStyle2;
+            this.EkipDGV.EnableHeadersVisualStyles = false;
             this.EkipDGV.Location = new System.Drawing.Point(330, 95);
+            this.EkipDGV.MultiSelect = false;
             this.EkipDGV.Name = "EkipDGV";
+            this.EkipDGV.ReadOnly = true;
+            this.EkipDGV.RowHeadersVisible = false;
             this.EkipDGV.RowHeadersWidth = 51;
             this.EkipDGV.RowTemplate.Height = 24;
-            this.EkipDGV.Size = new System.Drawing.Size(1170, 307);
+            this.EkipDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.EkipDGV.Size = new System.Drawing.Size(1193, 307);
             this.EkipDGV.TabIndex = 19;
             // 
             // SonGorevlerDGV
             // 
+            this.SonGorevlerDGV.AllowUserToResizeColumns = false;
+            this.SonGorevlerDGV.AllowUserToResizeRows = false;
             this.SonGorevlerDGV.BackgroundColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
@@ -360,7 +371,8 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.SonGorevlerDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.SonGorevlerDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.SonGorevlerDGV.ColumnHeadersHeight = 29;
+            this.SonGorevlerDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -369,29 +381,51 @@
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.SonGorevlerDGV.DefaultCellStyle = dataGridViewCellStyle4;
+            this.SonGorevlerDGV.EnableHeadersVisualStyles = false;
             this.SonGorevlerDGV.Location = new System.Drawing.Point(330, 468);
+            this.SonGorevlerDGV.MultiSelect = false;
             this.SonGorevlerDGV.Name = "SonGorevlerDGV";
+            this.SonGorevlerDGV.ReadOnly = true;
+            this.SonGorevlerDGV.RowHeadersVisible = false;
             this.SonGorevlerDGV.RowHeadersWidth = 51;
             this.SonGorevlerDGV.RowTemplate.Height = 24;
-            this.SonGorevlerDGV.Size = new System.Drawing.Size(1574, 230);
+            this.SonGorevlerDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.SonGorevlerDGV.Size = new System.Drawing.Size(1593, 230);
             this.SonGorevlerDGV.TabIndex = 20;
             // 
             // SonIslemlerDGV
             // 
-            this.SonIslemlerDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.SonIslemlerDGV.AllowUserToResizeColumns = false;
+            this.SonIslemlerDGV.AllowUserToResizeRows = false;
+            this.SonIslemlerDGV.BackgroundColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Transparent;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.SonIslemlerDGV.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.SonIslemlerDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.SonIslemlerDGV.ColumnHeadersHeight = 29;
+            this.SonIslemlerDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.SonIslemlerDGV.DefaultCellStyle = dataGridViewCellStyle6;
+            this.SonIslemlerDGV.EnableHeadersVisualStyles = false;
             this.SonIslemlerDGV.Location = new System.Drawing.Point(330, 757);
+            this.SonIslemlerDGV.MultiSelect = false;
             this.SonIslemlerDGV.Name = "SonIslemlerDGV";
+            this.SonIslemlerDGV.ReadOnly = true;
+            this.SonIslemlerDGV.RowHeadersVisible = false;
             this.SonIslemlerDGV.RowHeadersWidth = 51;
             this.SonIslemlerDGV.RowTemplate.Height = 24;
-            this.SonIslemlerDGV.Size = new System.Drawing.Size(1574, 255);
+            this.SonIslemlerDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.SonIslemlerDGV.Size = new System.Drawing.Size(1593, 255);
             this.SonIslemlerDGV.TabIndex = 21;
             // 
             // lblEkibimBaslik
@@ -435,7 +469,7 @@
             this.Controls.Add(this.SonIslemlerDGV);
             this.Controls.Add(this.SonGorevlerDGV);
             this.Controls.Add(this.EkipDGV);
-            this.Controls.Add(this.chartEkibimHaftalıkTamamlama);
+            this.Controls.Add(this.chartCagriDurum);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
@@ -455,7 +489,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartEkibimHaftalıkTamamlama)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartCagriDurum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EkipDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SonGorevlerDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SonIslemlerDGV)).EndInit();
@@ -482,7 +516,7 @@
         private System.Windows.Forms.Button btnProfil;
         private System.Windows.Forms.Button btnAnasayfa;
         private System.Windows.Forms.PictureBox pctrLogo;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartEkibimHaftalıkTamamlama;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartCagriDurum;
         private System.Windows.Forms.DataGridView EkipDGV;
         private System.Windows.Forms.DataGridView SonGorevlerDGV;
         private System.Windows.Forms.DataGridView SonIslemlerDGV;
