@@ -65,6 +65,12 @@
     </Compile>
     <Compile Include="Baglanti.cs" />
     <Compile Include="Cagri.cs" />
+    <Compile Include="ManagerDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManagerDashboard.Designer.cs">
+      <DependentUpon>ManagerDashboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="TasksAssignmentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ManagerAdminPage.resx">
       <DependentUpon>ManagerAdminPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManagerDashboard.resx">
+      <DependentUpon>ManagerDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManagerProfile.resx">
       <DependentUpon>ManagerProfile.cs</DependentUpon>

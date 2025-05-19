@@ -1,6 +1,6 @@
 ﻿namespace TaskFlow360
 {
-    partial class ManagerReportsPage
+    partial class ManagerDashboard
     {
         /// <summary>
         /// Required designer variable.
@@ -28,22 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerReportsPage));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerDashboard));
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.chartTeamPerformance = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chartDepartmentPerformance = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chartCallStatus = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ikonekipYonetim = new System.Windows.Forms.PictureBox();
             this.btnEkipYonetimi = new System.Windows.Forms.Button();
@@ -58,14 +53,15 @@
             this.btnProfil = new System.Windows.Forms.Button();
             this.btnAnasayfa = new System.Windows.Forms.Button();
             this.pctrLogo = new System.Windows.Forms.PictureBox();
-            this.chartMonthlyPrim = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.lblraporlarbaslik2 = new System.Windows.Forms.Label();
-            this.lblraporlarbaslik = new System.Windows.Forms.Label();
+            this.chartEkibimHaftalıkTamamlama = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.EkipDGV = new System.Windows.Forms.DataGridView();
+            this.SonGorevlerDGV = new System.Windows.Forms.DataGridView();
+            this.SonIslemlerDGV = new System.Windows.Forms.DataGridView();
+            this.lblEkibimBaslik = new System.Windows.Forms.Label();
+            this.lblSonGorevlerBaslik = new System.Windows.Forms.Label();
+            this.lblSonİslemlerBaslik = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartTeamPerformance)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartDepartmentPerformance)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartCallStatus)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikonekipYonetim)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).BeginInit();
@@ -74,18 +70,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartMonthlyPrim)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartEkibimHaftalıkTamamlama)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EkipDGV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SonGorevlerDGV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SonIslemlerDGV)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox3
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(1816, 12);
+            this.pictureBox3.Location = new System.Drawing.Point(1832, 12);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(35, 35);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 10;
+            this.pictureBox3.TabIndex = 12;
             this.pictureBox3.TabStop = false;
             this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
@@ -93,58 +92,13 @@
             // 
             this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(1855, 12);
+            this.pictureBox2.Location = new System.Drawing.Point(1873, 12);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(35, 35);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 9;
+            this.pictureBox2.TabIndex = 11;
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
-            // 
-            // chartTeamPerformance
-            // 
-            chartArea1.Name = "ChartArea1";
-            this.chartTeamPerformance.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartTeamPerformance.Legends.Add(legend1);
-            this.chartTeamPerformance.Location = new System.Drawing.Point(360, 211);
-            this.chartTeamPerformance.Name = "chartTeamPerformance";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartTeamPerformance.Series.Add(series1);
-            this.chartTeamPerformance.Size = new System.Drawing.Size(536, 390);
-            this.chartTeamPerformance.TabIndex = 13;
-            this.chartTeamPerformance.Text = "chart1";
-            // 
-            // chartDepartmentPerformance
-            // 
-            chartArea2.Name = "ChartArea1";
-            this.chartDepartmentPerformance.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartDepartmentPerformance.Legends.Add(legend2);
-            this.chartDepartmentPerformance.Location = new System.Drawing.Point(949, 211);
-            this.chartDepartmentPerformance.Name = "chartDepartmentPerformance";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartDepartmentPerformance.Series.Add(series2);
-            this.chartDepartmentPerformance.Size = new System.Drawing.Size(903, 390);
-            this.chartDepartmentPerformance.TabIndex = 14;
-            this.chartDepartmentPerformance.Text = "chart2";
-            // 
-            // chartCallStatus
-            // 
-            chartArea3.Name = "ChartArea1";
-            this.chartCallStatus.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chartCallStatus.Legends.Add(legend3);
-            this.chartCallStatus.Location = new System.Drawing.Point(360, 684);
-            this.chartCallStatus.Name = "chartCallStatus";
-            this.chartCallStatus.Size = new System.Drawing.Size(536, 300);
-            this.chartCallStatus.TabIndex = 15;
-            this.chartCallStatus.Text = "chart3";
             // 
             // panel1
             // 
@@ -165,8 +119,8 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(295, 986);
-            this.panel1.TabIndex = 16;
+            this.panel1.Size = new System.Drawing.Size(295, 1102);
+            this.panel1.TabIndex = 17;
             // 
             // ikonekipYonetim
             // 
@@ -285,7 +239,6 @@
             this.btnCikis.Text = "Çıkış";
             this.btnCikis.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCikis.UseVisualStyleBackColor = false;
-            this.btnCikis.Click += new System.EventHandler(this.btnCikis_Click);
             // 
             // btnGorevler
             // 
@@ -352,64 +305,148 @@
             this.pctrLogo.TabIndex = 0;
             this.pctrLogo.TabStop = false;
             // 
-            // chartMonthlyPrim
+            // chartEkibimHaftalıkTamamlama
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chartMonthlyPrim.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.chartMonthlyPrim.Legends.Add(legend4);
-            this.chartMonthlyPrim.Location = new System.Drawing.Point(949, 684);
-            this.chartMonthlyPrim.Name = "chartMonthlyPrim";
-            this.chartMonthlyPrim.Size = new System.Drawing.Size(903, 300);
-            this.chartMonthlyPrim.TabIndex = 17;
-            this.chartMonthlyPrim.Text = "chart3";
+            chartArea1.Name = "ChartArea1";
+            this.chartEkibimHaftalıkTamamlama.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartEkibimHaftalıkTamamlama.Legends.Add(legend1);
+            this.chartEkibimHaftalıkTamamlama.Location = new System.Drawing.Point(1529, 95);
+            this.chartEkibimHaftalıkTamamlama.Name = "chartEkibimHaftalıkTamamlama";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartEkibimHaftalıkTamamlama.Series.Add(series1);
+            this.chartEkibimHaftalıkTamamlama.Size = new System.Drawing.Size(375, 307);
+            this.chartEkibimHaftalıkTamamlama.TabIndex = 18;
+            this.chartEkibimHaftalıkTamamlama.Text = "chart1";
             // 
-            // lblraporlarbaslik2
+            // EkipDGV
             // 
-            this.lblraporlarbaslik2.AutoSize = true;
-            this.lblraporlarbaslik2.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblraporlarbaslik2.Location = new System.Drawing.Point(356, 153);
-            this.lblraporlarbaslik2.Name = "lblraporlarbaslik2";
-            this.lblraporlarbaslik2.Size = new System.Drawing.Size(418, 21);
-            this.lblraporlarbaslik2.TabIndex = 19;
-            this.lblraporlarbaslik2.Text = "Ekip performansınızı ve istatistiklerinizi görüntüleyin.";
+            this.EkipDGV.BackgroundColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.EkipDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.EkipDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.EkipDGV.DefaultCellStyle = dataGridViewCellStyle2;
+            this.EkipDGV.Location = new System.Drawing.Point(330, 95);
+            this.EkipDGV.Name = "EkipDGV";
+            this.EkipDGV.RowHeadersWidth = 51;
+            this.EkipDGV.RowTemplate.Height = 24;
+            this.EkipDGV.Size = new System.Drawing.Size(1170, 307);
+            this.EkipDGV.TabIndex = 19;
             // 
-            // lblraporlarbaslik
+            // SonGorevlerDGV
             // 
-            this.lblraporlarbaslik.AutoSize = true;
-            this.lblraporlarbaslik.Font = new System.Drawing.Font("Century Gothic", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblraporlarbaslik.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.lblraporlarbaslik.Location = new System.Drawing.Point(354, 113);
-            this.lblraporlarbaslik.Name = "lblraporlarbaslik";
-            this.lblraporlarbaslik.Size = new System.Drawing.Size(161, 34);
-            this.lblraporlarbaslik.TabIndex = 18;
-            this.lblraporlarbaslik.Text = "Raporlarım";
+            this.SonGorevlerDGV.BackgroundColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.SonGorevlerDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.SonGorevlerDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.SonGorevlerDGV.DefaultCellStyle = dataGridViewCellStyle4;
+            this.SonGorevlerDGV.Location = new System.Drawing.Point(330, 468);
+            this.SonGorevlerDGV.Name = "SonGorevlerDGV";
+            this.SonGorevlerDGV.RowHeadersWidth = 51;
+            this.SonGorevlerDGV.RowTemplate.Height = 24;
+            this.SonGorevlerDGV.Size = new System.Drawing.Size(1574, 230);
+            this.SonGorevlerDGV.TabIndex = 20;
             // 
-            // ManagerReportsPage
+            // SonIslemlerDGV
+            // 
+            this.SonIslemlerDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.SonIslemlerDGV.DefaultCellStyle = dataGridViewCellStyle5;
+            this.SonIslemlerDGV.Location = new System.Drawing.Point(330, 757);
+            this.SonIslemlerDGV.Name = "SonIslemlerDGV";
+            this.SonIslemlerDGV.RowHeadersWidth = 51;
+            this.SonIslemlerDGV.RowTemplate.Height = 24;
+            this.SonIslemlerDGV.Size = new System.Drawing.Size(1574, 255);
+            this.SonIslemlerDGV.TabIndex = 21;
+            // 
+            // lblEkibimBaslik
+            // 
+            this.lblEkibimBaslik.AutoSize = true;
+            this.lblEkibimBaslik.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblEkibimBaslik.Location = new System.Drawing.Point(326, 65);
+            this.lblEkibimBaslik.Name = "lblEkibimBaslik";
+            this.lblEkibimBaslik.Size = new System.Drawing.Size(86, 27);
+            this.lblEkibimBaslik.TabIndex = 14;
+            this.lblEkibimBaslik.Text = "Ekibim";
+            // 
+            // lblSonGorevlerBaslik
+            // 
+            this.lblSonGorevlerBaslik.AutoSize = true;
+            this.lblSonGorevlerBaslik.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblSonGorevlerBaslik.Location = new System.Drawing.Point(326, 438);
+            this.lblSonGorevlerBaslik.Name = "lblSonGorevlerBaslik";
+            this.lblSonGorevlerBaslik.Size = new System.Drawing.Size(156, 27);
+            this.lblSonGorevlerBaslik.TabIndex = 22;
+            this.lblSonGorevlerBaslik.Text = "Son Görevler";
+            // 
+            // lblSonİslemlerBaslik
+            // 
+            this.lblSonİslemlerBaslik.AutoSize = true;
+            this.lblSonİslemlerBaslik.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblSonİslemlerBaslik.Location = new System.Drawing.Point(326, 727);
+            this.lblSonİslemlerBaslik.Name = "lblSonİslemlerBaslik";
+            this.lblSonİslemlerBaslik.Size = new System.Drawing.Size(146, 27);
+            this.lblSonİslemlerBaslik.TabIndex = 23;
+            this.lblSonİslemlerBaslik.Text = "Son İşlemler";
+            // 
+            // ManagerDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1902, 986);
-            this.Controls.Add(this.lblraporlarbaslik2);
-            this.Controls.Add(this.lblraporlarbaslik);
-            this.Controls.Add(this.chartMonthlyPrim);
+            this.ClientSize = new System.Drawing.Size(1920, 1102);
+            this.Controls.Add(this.lblSonİslemlerBaslik);
+            this.Controls.Add(this.lblSonGorevlerBaslik);
+            this.Controls.Add(this.lblEkibimBaslik);
+            this.Controls.Add(this.SonIslemlerDGV);
+            this.Controls.Add(this.SonGorevlerDGV);
+            this.Controls.Add(this.EkipDGV);
+            this.Controls.Add(this.chartEkibimHaftalıkTamamlama);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.chartCallStatus);
-            this.Controls.Add(this.chartDepartmentPerformance);
-            this.Controls.Add(this.chartTeamPerformance);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "ManagerReportsPage";
+            this.Name = "ManagerDashboard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ManagerReportsPage";
+            this.Text = "ManagerDashboard";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.ManagerReportsPage_Load);
+            this.Load += new System.EventHandler(this.ManagerDashboard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartTeamPerformance)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartDepartmentPerformance)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartCallStatus)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ikonekipYonetim)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).EndInit();
@@ -418,7 +455,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartMonthlyPrim)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartEkibimHaftalıkTamamlama)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EkipDGV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SonGorevlerDGV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SonIslemlerDGV)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -428,9 +468,6 @@
 
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartTeamPerformance;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartDepartmentPerformance;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartCallStatus;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox ikonekipYonetim;
         private System.Windows.Forms.Button btnEkipYonetimi;
@@ -445,8 +482,12 @@
         private System.Windows.Forms.Button btnProfil;
         private System.Windows.Forms.Button btnAnasayfa;
         private System.Windows.Forms.PictureBox pctrLogo;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartMonthlyPrim;
-        private System.Windows.Forms.Label lblraporlarbaslik2;
-        private System.Windows.Forms.Label lblraporlarbaslik;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartEkibimHaftalıkTamamlama;
+        private System.Windows.Forms.DataGridView EkipDGV;
+        private System.Windows.Forms.DataGridView SonGorevlerDGV;
+        private System.Windows.Forms.DataGridView SonIslemlerDGV;
+        private System.Windows.Forms.Label lblEkibimBaslik;
+        private System.Windows.Forms.Label lblSonGorevlerBaslik;
+        private System.Windows.Forms.Label lblSonİslemlerBaslik;
     }
 }

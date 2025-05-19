@@ -631,8 +631,8 @@ namespace TaskFlow360
 
         private void btnEkipYonetimi_Click(object sender, EventArgs e)
         {
-            ManagerAdminPage managerAdminPage = new ManagerAdminPage();
-            managerAdminPage.Show();
+            ManagerDashboard managerDashboard = new ManagerDashboard();
+            managerDashboard.Show();
             this.Close();
         }
     }
