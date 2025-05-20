@@ -11,6 +11,7 @@ namespace TaskFlow360
     {
         Baglanti baglanti = new Baglanti();
         public int CagriID { get; set; }
+        public int yoneticiId { get; set; }
         public string CagriAciklama { get; set; }
         public string CagriKategori { get; set; }
         public string Oncelik { get; set; }

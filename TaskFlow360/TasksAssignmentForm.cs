@@ -70,14 +70,20 @@ namespace TaskFlow360
                     return;
                 }
 
+                int yoneticiIdInt;
+                if (!int.TryParse(yoneticiId, out yoneticiIdInt))
+                {
+                    MessageBox.Show("Geçerli bir yönetici ID'si bulunamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 baglanti.BaglantiAc();
 
-                // Çağrının güncellemesini yap
                 Cagri.CagriDurumGuncelle(
-                    cagriId,
-                    "Görev Atandı",                      // Sabit durum metni
-                    aciklama,                            // Kullanıcının girdiği açıklama
-                    yoneticiId,
+                    cagriId, // Burada da cagriId'nin int olduğundan emin olun
+                    "Görev Atandı",
+                    aciklama,
+                    yoneticiIdInt, // Dönüştürülmüş integer değeri kullanın
                     baglanti.conn
                 );
 

@@ -292,7 +292,6 @@ namespace TaskFlow360
                     }
                     bekleyenCagrilarDGV.Visible = true;
                 }
-
                 string sorgu = @"
             SELECT CagriID, Baslik, CagriKategori, Oncelik, Durum 
             FROM Cagri 
