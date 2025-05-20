@@ -51,7 +51,9 @@ namespace TaskFlow360
 
         private void btnEkipYonetimi_Click(object sender, EventArgs e)
         {
-            // Ekip yönetimi butonu işlevi
+            ManagerDashboard managerDashboard = new ManagerDashboard();
+            managerDashboard.Show();
+            this.Close();
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -67,7 +69,7 @@ namespace TaskFlow360
         private void ManagerProfile_Load(object sender, EventArgs e)
         {
             ConfigureEkibimDGV();
-            LoadManagedTeamMembers(); // Yönetilen ekip üyelerini yükle
+            LoadManagedTeamMembers();
             string kullaniciID = KullaniciBilgi.KullaniciID;
 
             try
@@ -157,7 +159,7 @@ namespace TaskFlow360
 
                 ekibimDGV.DataSource = dt;
 
-                FormatEkibimDGV(); // Stil ve format ayarlarını ayrı bir metodda yaptık
+                FormatEkibimDGV(); 
             }
             catch (Exception ex)
             {
@@ -218,7 +220,7 @@ namespace TaskFlow360
 
         private void pnlIletisimBilgi_Paint(object sender, PaintEventArgs e)
         {
-            // Panel boyama işlemleri
+            
         }
 
         private void btnRaporlar_Click(object sender, EventArgs e)

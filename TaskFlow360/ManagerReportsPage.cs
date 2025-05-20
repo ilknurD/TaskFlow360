@@ -63,11 +63,14 @@ namespace TaskFlow360
 
         private void btnEkipYonetimi_Click(object sender, EventArgs e)
         {
-            // Implementation for team management would go here
+            ManagerDashboard managerDashboard = new ManagerDashboard();
+            managerDashboard.Show();
+            this.Close();
         }
 
         private void ManagerReportsPage_Load(object sender, EventArgs e)
         {
+            
             LoadDepartmentPerformance();    
             LoadTeamPerformance();
             LoadCallStatusDistribution();

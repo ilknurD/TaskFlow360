@@ -35,9 +35,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerTasks));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerTasks));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.gorevlerTab = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -47,6 +47,12 @@
             this.button2 = new System.Windows.Forms.Button();
             this.txtAraEkip = new System.Windows.Forms.TextBox();
             this.ekipUyeleriDGV = new System.Windows.Forms.DataGridView();
+            this.calisan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aktifGorevler = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bugunTamamlanan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aylikPerformans = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ortCozumSuresi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gorevAtaButon = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.lblHosgeldiniz = new System.Windows.Forms.Label();
@@ -66,12 +72,6 @@
             this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.calisan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.aktifGorevler = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bugunTamamlanan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.aylikPerformans = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ortCozumSuresi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gorevAtaButon = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabControl1.SuspendLayout();
             this.gorevlerTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CagrilarDGV)).BeginInit();
@@ -150,7 +150,7 @@
             this.CagrilarDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Transparent;
@@ -244,7 +244,7 @@
             this.ekipUyeleriDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Transparent;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
@@ -261,7 +261,7 @@
             this.gorevAtaButon});
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             dataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Transparent;
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
@@ -283,6 +283,54 @@
             this.ekipUyeleriDGV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ekipUyeleriDGV_CellContentClick);
             this.ekipUyeleriDGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.ekipUyeleriDGV_CellFormatting);
             this.ekipUyeleriDGV.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.ekipUyeleriDGV_DataBindingComplete);
+            // 
+            // calisan
+            // 
+            dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.calisan.DefaultCellStyle = dataGridViewCellStyle6;
+            this.calisan.HeaderText = "Çalışan";
+            this.calisan.MinimumWidth = 6;
+            this.calisan.Name = "calisan";
+            this.calisan.ReadOnly = true;
+            // 
+            // aktifGorevler
+            // 
+            this.aktifGorevler.HeaderText = "Aktif Görevler";
+            this.aktifGorevler.MinimumWidth = 6;
+            this.aktifGorevler.Name = "aktifGorevler";
+            this.aktifGorevler.ReadOnly = true;
+            // 
+            // bugunTamamlanan
+            // 
+            this.bugunTamamlanan.HeaderText = "Bugün Tamamlanan";
+            this.bugunTamamlanan.MinimumWidth = 6;
+            this.bugunTamamlanan.Name = "bugunTamamlanan";
+            this.bugunTamamlanan.ReadOnly = true;
+            // 
+            // aylikPerformans
+            // 
+            this.aylikPerformans.HeaderText = "Aylık Performans";
+            this.aylikPerformans.MinimumWidth = 6;
+            this.aylikPerformans.Name = "aylikPerformans";
+            this.aylikPerformans.ReadOnly = true;
+            // 
+            // ortCozumSuresi
+            // 
+            this.ortCozumSuresi.HeaderText = "Ortalama Çözüm Süresi";
+            this.ortCozumSuresi.MinimumWidth = 6;
+            this.ortCozumSuresi.Name = "ortCozumSuresi";
+            this.ortCozumSuresi.ReadOnly = true;
+            // 
+            // gorevAtaButon
+            // 
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.gorevAtaButon.DefaultCellStyle = dataGridViewCellStyle7;
+            this.gorevAtaButon.HeaderText = "İşlem";
+            this.gorevAtaButon.MinimumWidth = 6;
+            this.gorevAtaButon.Name = "gorevAtaButon";
+            this.gorevAtaButon.ReadOnly = true;
+            this.gorevAtaButon.Text = "İşlem";
             // 
             // panel2
             // 
@@ -365,6 +413,7 @@
             this.btnEkipYonetimi.Text = "Ekip Yönetimi";
             this.btnEkipYonetimi.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnEkipYonetimi.UseVisualStyleBackColor = false;
+            this.btnEkipYonetimi.Click += new System.EventHandler(this.btnEkipYonetimi_Click);
             // 
             // ikonCikis
             // 
@@ -544,54 +593,6 @@
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
-            // 
-            // calisan
-            // 
-            dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.calisan.DefaultCellStyle = dataGridViewCellStyle6;
-            this.calisan.HeaderText = "Çalışan";
-            this.calisan.MinimumWidth = 6;
-            this.calisan.Name = "calisan";
-            this.calisan.ReadOnly = true;
-            // 
-            // aktifGorevler
-            // 
-            this.aktifGorevler.HeaderText = "Aktif Görevler";
-            this.aktifGorevler.MinimumWidth = 6;
-            this.aktifGorevler.Name = "aktifGorevler";
-            this.aktifGorevler.ReadOnly = true;
-            // 
-            // bugunTamamlanan
-            // 
-            this.bugunTamamlanan.HeaderText = "Bugün Tamamlanan";
-            this.bugunTamamlanan.MinimumWidth = 6;
-            this.bugunTamamlanan.Name = "bugunTamamlanan";
-            this.bugunTamamlanan.ReadOnly = true;
-            // 
-            // aylikPerformans
-            // 
-            this.aylikPerformans.HeaderText = "Aylık Performans";
-            this.aylikPerformans.MinimumWidth = 6;
-            this.aylikPerformans.Name = "aylikPerformans";
-            this.aylikPerformans.ReadOnly = true;
-            // 
-            // ortCozumSuresi
-            // 
-            this.ortCozumSuresi.HeaderText = "Ortalama Çözüm Süresi";
-            this.ortCozumSuresi.MinimumWidth = 6;
-            this.ortCozumSuresi.Name = "ortCozumSuresi";
-            this.ortCozumSuresi.ReadOnly = true;
-            // 
-            // gorevAtaButon
-            // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.gorevAtaButon.DefaultCellStyle = dataGridViewCellStyle7;
-            this.gorevAtaButon.HeaderText = "İşlem";
-            this.gorevAtaButon.MinimumWidth = 6;
-            this.gorevAtaButon.Name = "gorevAtaButon";
-            this.gorevAtaButon.ReadOnly = true;
-            this.gorevAtaButon.Text = "İşlem";
             // 
             // ManagerTasks
             // 

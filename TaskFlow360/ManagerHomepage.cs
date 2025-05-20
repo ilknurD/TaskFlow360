@@ -15,7 +15,6 @@ namespace TaskFlow360
     public partial class ManagerHomepage : Form
     {
         Baglanti baglanti = new Baglanti();
-        // Yönetici ID'sini KullaniciBilgi sınıfından alacağız
         private string yoneticiId;
 
         public ManagerHomepage()
@@ -23,13 +22,52 @@ namespace TaskFlow360
             InitializeComponent();
             SetupDataGridViewColumns();
 
-            // Yönetici ID'sini KullaniciBilgi sınıfından alalım
             yoneticiId = KullaniciBilgi.KullaniciID;
+        }
+        private void ManagerHomepage_Load(object sender, EventArgs e)
+        {
+            bekleyenCagrilarDGV.DefaultCellStyle.Font = new Font("Century Gothic", 12, FontStyle.Regular);
+            bekleyenCagrilarDGV.ColumnHeadersDefaultCellStyle.Font = new Font("Century Gothic", 12, FontStyle.Bold);
+
+            // Eğer yoneticiId boşsa, KullaniciBilgi'den tekrar almayı deneyelim
+            if (string.IsNullOrEmpty(yoneticiId))
+            {
+                yoneticiId = KullaniciBilgi.KullaniciID;
+
+                // Hala boşsa, kullanıcıyı login formuna yönlendirelim
+                if (string.IsNullOrEmpty(yoneticiId))
+                {
+                    MessageBox.Show("Oturum bilgileriniz geçersiz. Lütfen tekrar giriş yapın.", "Oturum Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                    LoginForm loginForm = new LoginForm();
+                    loginForm.Show();
+                    return;
+                }
+            }
+
+            lblAdSoyad.Text = KullaniciBilgi.TamAd();
+            lblHosgeldiniz.Text = $"Hoş Geldiniz, {KullaniciBilgi.TamAd()}";
+
+            ConfigureBekleyenCagrilarDGV();
+            ConfigureEkipUyeleriDGV();
+
+            bekleyenCagrilarDGV.Visible = true;
+            ekipUyeleriDGV.Visible = true;
+
+            try
+            {
+                BekleyenCagrilariYukle();
+                EkipUyeleriniYukle();
+                IstatistikleriGoster();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Veriler yüklenirken bir hata oluştu: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void SetupDataGridViewColumns()
         {
-            // Bekleyen Çağrılar DataGridView sütunları
             if (bekleyenCagrilarDGV.Columns.Count == 0)
             {
                 bekleyenCagrilarDGV.Columns.Add("cagriId", "ID");
@@ -38,12 +76,9 @@ namespace TaskFlow360
                 bekleyenCagrilarDGV.Columns.Add("oncelik", "Öncelik");
                 bekleyenCagrilarDGV.Columns.Add("durum", "Durum");
                 bekleyenCagrilarDGV.Columns.Add("ataButon", "İşlem");
-
-                // ID sütununu gizle
                 bekleyenCagrilarDGV.Columns["cagriId"].Visible = false;
             }
 
-            // Ekip Üyeleri DataGridView sütunları
             if (ekipUyeleriDGV.Columns.Count == 0)
             {
                 ekipUyeleriDGV.Columns.Add("calisan", "Çalışan");
@@ -53,16 +88,6 @@ namespace TaskFlow360
                 ekipUyeleriDGV.Columns.Add("ortalamaSure", "Ortalama Çözüm Süresi");
                 ekipUyeleriDGV.Columns.Add("gorevAtaButon", "İşlem");
             }
-        }
-
-        private void btnCikis_Click(object sender, EventArgs e)
-        {
-            // Kullanıcı bilgilerini temizleyelim
-            KullaniciBilgi.BilgileriTemizle();
-
-            this.Close();
-            LoginForm loginForm = new LoginForm();
-            loginForm.Show();
         }
 
         private void ConfigureBekleyenCagrilarDGV()
@@ -131,49 +156,6 @@ namespace TaskFlow360
             ekipUyeleriDGV.CellFormatting += EkipUyeleriDGV_CellFormatting;
             ekipUyeleriDGV.DataBindingComplete += (s, e) => ekipUyeleriDGV.ClearSelection();
         }
-
-        private void ManagerHomepage_Load(object sender, EventArgs e)
-        {
-            bekleyenCagrilarDGV.DefaultCellStyle.Font = new Font("Century Gothic", 12, FontStyle.Regular);
-            bekleyenCagrilarDGV.ColumnHeadersDefaultCellStyle.Font = new Font("Century Gothic", 12, FontStyle.Bold);
-
-            // Eğer yoneticiId boşsa, KullaniciBilgi'den tekrar almayı deneyelim
-            if (string.IsNullOrEmpty(yoneticiId))
-            {
-                yoneticiId = KullaniciBilgi.KullaniciID;
-
-                // Hala boşsa, kullanıcıyı login formuna yönlendirelim
-                if (string.IsNullOrEmpty(yoneticiId))
-                {
-                    MessageBox.Show("Oturum bilgileriniz geçersiz. Lütfen tekrar giriş yapın.", "Oturum Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    this.Close();
-                    LoginForm loginForm = new LoginForm();
-                    loginForm.Show();
-                    return;
-                }
-            }
-
-            lblAdSoyad.Text = KullaniciBilgi.TamAd();
-            lblHosgeldiniz.Text = $"Hoş Geldiniz, {KullaniciBilgi.TamAd()}";
-
-            ConfigureBekleyenCagrilarDGV();
-            ConfigureEkipUyeleriDGV();
-
-            bekleyenCagrilarDGV.Visible = true;
-            ekipUyeleriDGV.Visible = true;
-
-            try
-            {
-                BekleyenCagrilariYukle();
-                EkipUyeleriniYukle();
-                IstatistikleriGoster();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Veriler yüklenirken bir hata oluştu: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void BekleyenCagrilarDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             e.CellStyle.Font = new Font("Century Gothic", 12, FontStyle.Regular);
@@ -238,9 +220,7 @@ namespace TaskFlow360
                 }
             }
 
-
         }
-
         private void EkipUyeleriDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             e.CellStyle.Font = new Font("Century Gothic", 12, FontStyle.Regular);
@@ -267,17 +247,19 @@ namespace TaskFlow360
                 }
             }
         }
-
         private void BekleyenCagrilariYukle()
         {
             try
             {
                 baglanti.BaglantiAc();
 
-                // Düzeltilmiş sorgu: AtananKullaniciID kontrolünü kaldırdık
-                SqlCommand kontrolKomut = new SqlCommand(
-                    "SELECT COUNT(*) FROM Cagri WHERE Durum = 'Beklemede'",
-                    baglanti.conn);
+                string kontrolSorgusu = @"
+            SELECT COUNT(*) FROM Cagri 
+            WHERE Durum = 'Beklemede' 
+            AND AtananKullaniciID = @managerID";  
+
+                SqlCommand kontrolKomut = new SqlCommand(kontrolSorgusu, baglanti.conn);
+                kontrolKomut.Parameters.AddWithValue("@managerID", yoneticiId);
 
                 int cagriSayisi = Convert.ToInt32(kontrolKomut.ExecuteScalar());
 
@@ -286,7 +268,6 @@ namespace TaskFlow360
                     // Veri olmadığında gösterilecek boş durum görünümü
                     bekleyenCagrilarDGV.Rows.Clear();
 
-                    // Boş durum etiketi oluşturalım
                     if (!PnlGorevler.Controls.ContainsKey("lblBosGorev"))
                     {
                         Label lblBosGorev = new Label();
@@ -300,30 +281,28 @@ namespace TaskFlow360
                         lblBosGorev.Location = new Point(10, PnlGorevler.Height / 2 - 30);
                         PnlGorevler.Controls.Add(lblBosGorev);
                     }
-
-                    // DataGridView'i gizleyelim
                     bekleyenCagrilarDGV.Visible = false;
                     return;
                 }
                 else
                 {
-                    // Eğer veri varsa boş durum etiketini kaldıralım
                     if (PnlGorevler.Controls.ContainsKey("lblBosGorev"))
                     {
                         PnlGorevler.Controls.RemoveByKey("lblBosGorev");
                     }
-
-                    // DataGridView'i gösterelim
                     bekleyenCagrilarDGV.Visible = true;
                 }
 
-                // Düzeltilmiş sorgu: AtananKullaniciID kontrolünü kaldırdık
-                SqlCommand komut = new SqlCommand(
-                    @"SELECT CagriID, Baslik, CagriKategori, Oncelik, Durum 
-                    FROM Cagri 
-                    WHERE Durum = 'Beklemede'", baglanti.conn);
+                string sorgu = @"
+            SELECT CagriID, Baslik, CagriKategori, Oncelik, Durum 
+            FROM Cagri 
+            WHERE Durum = 'Beklemede'
+            AND AtananKullaniciID = @managerID"; 
 
+                SqlCommand komut = new SqlCommand(sorgu, baglanti.conn);
+                komut.Parameters.AddWithValue("@managerID", yoneticiId);
                 SqlDataReader dr = komut.ExecuteReader();
+
                 bekleyenCagrilarDGV.Rows.Clear();
 
                 while (dr.Read())
@@ -349,10 +328,8 @@ namespace TaskFlow360
 
                     row.Cells["oncelik"].Style.ForeColor = System.Drawing.Color.White;
                 }
-
                 dr.Close();
 
-                // Yükleme sonrası kontrol edelim
                 if (bekleyenCagrilarDGV.Rows.Count == 0 && cagriSayisi > 0)
                 {
                     MessageBox.Show("Bekleyen çağrılar grid'e yüklenemedi.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -374,7 +351,6 @@ namespace TaskFlow360
             {
                 baglanti.BaglantiAc();
 
-                // Rol tipini düzeltiyoruz: sadece 'Ekip Üyesi' kontrolü yapacağız
                 string kontrolSorgusu =
                     @"SELECT COUNT(*) FROM Kullanici 
             WHERE Rol = 'Ekip Üyesi'
@@ -388,10 +364,8 @@ namespace TaskFlow360
 
                 if (kullaniciSayisi == 0)
                 {
-                    // Veri olmadığında gösterilecek boş durum görünümü
                     ekipUyeleriDGV.Rows.Clear();
 
-                    // Boş durum etiketi oluşturalım
                     if (!icerikPanel.Controls.ContainsKey("lblBosEkip"))
                     {
                         Label lblBosEkip = new Label();
@@ -416,7 +390,6 @@ namespace TaskFlow360
                         icerikPanel.Controls.RemoveByKey("lblBosEkip");
                     }
 
-                    // DataGridView'i gösterelim
                     ekipUyeleriDGV.Visible = true;
                 }
 
@@ -475,10 +448,8 @@ namespace TaskFlow360
                     row.Cells["gorevAtaButon"].Value = "Görev Ata";
                     row.Tag = kullaniciID;
                 }
-
                 dr.Close();
 
-                // Yükleme sonrası kontrol
                 if (ekipUyeleriDGV.Rows.Count == 0 && kullaniciSayisi > 0)
                 {
                     MessageBox.Show("Ekip üyeleri grid'e yüklenemedi.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -549,13 +520,11 @@ namespace TaskFlow360
                 var cellValue = bekleyenCagrilarDGV.Rows[e.RowIndex].Cells["baslik"].Value;
                 string baslik = cellValue != null ? cellValue.ToString() : string.Empty;
 
-                // Çağrı atama formunu açalım
                 try
                 {
                     TasksAssignmentForm cagriAtamaForm = new TasksAssignmentForm(cagriId, baslik, yoneticiId);
                     if (cagriAtamaForm.ShowDialog() == DialogResult.OK)
                     {
-                        // Atama başarılı olduğunda tabloları yenile
                         BekleyenCagrilariYukle();
                         EkipUyeleriniYukle();
                         IstatistikleriGoster();
@@ -576,7 +545,6 @@ namespace TaskFlow360
                 int kullaniciId = (int)ekipUyeleriDGV.Rows[e.RowIndex].Tag;
                 string calisan = ekipUyeleriDGV.Rows[e.RowIndex].Cells["calisan"].Value.ToString();
 
-                // Çalışana görev atama işlemi
                 MessageBox.Show($"{calisan} adlı çalışana görev atama işlemi henüz uygulanmadı.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Form sınıfı oluşturulunca bu kodu etkinleştirin
@@ -635,6 +603,15 @@ namespace TaskFlow360
             managerDashboard.Show();
             this.Close();
         }
+        private void btnCikis_Click(object sender, EventArgs e)
+        {
+            KullaniciBilgi.BilgileriTemizle();
+
+            this.Close();
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+        }
+
     }
 
 }

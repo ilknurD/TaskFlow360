@@ -37,16 +37,44 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            this.Close();
             ManagerHomepage managerHomepage = new ManagerHomepage();
             managerHomepage.Show();
+            this.Close();
         }
 
         private void btnGorevler_Click(object sender, EventArgs e)
         {
-            this.Close();
             ManagerTasks managerTasks = new ManagerTasks();
             managerTasks.Show();
+            this.Close();
+        }
+
+        private void btnProfil_Click(object sender, EventArgs e)
+        {
+            ManagerProfile manageProfile = new ManagerProfile();
+            manageProfile.Show();
+            this.Close();
+        }
+
+        private void btnCikis_Click(object sender, EventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Close();
+        }
+
+        private void btnRaporlar_Click(object sender, EventArgs e)
+        {
+            ManagerReportsPage reportPage = new ManagerReportsPage();
+            reportPage.Show();
+            this.Close();
+        }
+
+        private void btnEkipYonetimi_Click(object sender, EventArgs e)
+        {
+            ManagerDashboard managerDashboardPage = new ManagerDashboard();
+            managerDashboardPage.Show();
+            this.Close();
         }
 
         private void ManagerTasks_Load(object sender, EventArgs e)
@@ -102,7 +130,6 @@ ORDER BY
         ELSE 4
     END";
 
-                // Sütunlar temizlenip yeniden ekleniyor
                 CagrilarDGV.Columns.Clear();
                 CagrilarDGV.Columns.Add("CagriNumarasi", "Çağrı No");
                 CagrilarDGV.Columns.Add("Baslik", "Başlık");
@@ -141,6 +168,90 @@ ORDER BY
             catch (Exception ex)
             {
                 MessageBox.Show($"SQL Hatası: {ex.ToString()}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (baglanti.conn.State == ConnectionState.Open)
+                    baglanti.conn.Close();
+            }
+        }
+
+        private void LoadTeamMembers()
+        {
+            try
+            {
+                if (baglanti.conn.State != ConnectionState.Open)
+                    baglanti.conn.Open();
+
+                string managerID = KullaniciBilgi.KullaniciID;
+
+                string query = @"SELECT 
+    K.KullaniciID,
+    K.Ad + ' ' + K.Soyad AS AdSoyad,
+    -- Aktif görev sayısı
+    (SELECT COUNT(*) FROM Cagri C WHERE C.AtananKullaniciID = K.KullaniciID AND C.Durum IN ('Atandı', 'Beklemede')) AS AktifGorevler,
+    
+    -- Bugün tamamlanan görevler
+    (SELECT COUNT(*) FROM Cagri C WHERE C.AtananKullaniciID = K.KullaniciID AND C.Durum = 'Tamamlandı' AND CAST(C.TeslimTarihi AS DATE) = CAST(GETDATE() AS DATE)) AS BugunTamamlanan,
+
+    -- Son 30 gün içindeki performans
+    (SELECT COUNT(*) FROM Cagri C WHERE C.AtananKullaniciID = K.KullaniciID AND C.Durum = 'Tamamlandı' AND C.TeslimTarihi >= DATEADD(DAY, -30, GETDATE())) AS AylikPerformans,
+
+    -- Ortalama çözüm süresi (saat cinsinden)
+    (SELECT 
+        AVG(DATEDIFF(MINUTE, C.OlusturmaTarihi, C.TeslimTarihi)) / 60.0
+     FROM 
+        Cagri C 
+     WHERE 
+        C.AtananKullaniciID = K.KullaniciID 
+        AND C.Durum = 'Tamamlandı'
+        AND C.TeslimTarihi IS NOT NULL
+    ) AS OrtalamaSureSaat
+
+FROM 
+    Kullanici K
+WHERE 
+    K.YoneticiID = @ManagerID
+";
+                ekipUyeleriDGV.Columns.Clear();
+                ekipUyeleriDGV.Columns.Add("AdSoyad", "Ad Soyad");
+                ekipUyeleriDGV.Columns.Add("AktifGorevler", "Aktif Görevler");
+                ekipUyeleriDGV.Columns.Add("BugunTamamlanan", "Bugün Tamamlanan");
+                ekipUyeleriDGV.Columns.Add("AylikPerformans", "Aylık Performans");
+                ekipUyeleriDGV.Columns.Add("OrtalamaSureSaat", "Ortalama Süre (saat)");
+
+                DataGridViewButtonColumn gorevAtaButon = new DataGridViewButtonColumn();
+                gorevAtaButon.Name = "gorevAtaButon";
+                gorevAtaButon.HeaderText = "Görev Ata";
+                gorevAtaButon.Text = "Görev Ata";
+                gorevAtaButon.UseColumnTextForButtonValue = true;
+                ekipUyeleriDGV.Columns.Add(gorevAtaButon);
+                ekipUyeleriDGV.Rows.Clear();
+
+                using (SqlCommand cmd = new SqlCommand(query, baglanti.conn))
+                {
+                    cmd.Parameters.AddWithValue("@ManagerID", managerID);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int rowIndex = ekipUyeleriDGV.Rows.Add(
+                                reader["AdSoyad"].ToString(),
+                                reader["AktifGorevler"].ToString(),
+                                reader["BugunTamamlanan"].ToString(),
+                                reader["AylikPerformans"].ToString(),
+                                string.Format("{0:0.00} saat", reader["OrtalamaSureSaat"] is DBNull ? 0 : reader["OrtalamaSureSaat"])
+                            );
+                            ekipUyeleriDGV.Rows[rowIndex].Tag = reader["KullaniciID"].ToString();
+                        }
+                    }
+                }
+                ConfigureEkipUyeleriDGV();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ekip bilgileri yüklenirken hata oluştu: " + ex.Message);
             }
             finally
             {
@@ -252,6 +363,32 @@ ORDER BY
             }
         }
 
+        private void CagrilarDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //    try
+            //    {
+            //        if (e.RowIndex >= 0 && e.ColumnIndex == CagrilarDGV.Columns["islemButon"].Index)
+            //        {
+            //            // Satırı seç
+            //            CagrilarDGV.Rows[e.RowIndex].Selected = true;
+
+            //            string cagriID = CagrilarDGV.Rows[e.RowIndex].Cells["CagriNumarasi"].Value.ToString().Replace("#", "");
+
+            //            // İşlemlerinizi burada yapın
+            //            //EditCallForm editForm = new EditCallForm(cagriID);
+            //            //editForm.ShowDialog();
+
+            //            LoadDataFromDatabase();
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show($"İşlem sırasında bir hata oluştu: {ex.Message}", "Hata",
+            //                      MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //
+        }
+
         private void ConfigureBekleyenCagrilarDGV()
         {
             // Temel seçim ayarları
@@ -303,109 +440,6 @@ ORDER BY
             }
         }
 
-        private void LoadTeamMembers()
-        {
-            try
-            {
-                if (baglanti.conn.State != ConnectionState.Open)
-                    baglanti.conn.Open();
-
-                string managerID = KullaniciBilgi.KullaniciID;
-
-                string query = @"SELECT 
-    K.KullaniciID,
-    K.Ad + ' ' + K.Soyad AS AdSoyad,
-    -- Aktif görev sayısı
-    (SELECT COUNT(*) FROM Cagri C WHERE C.AtananKullaniciID = K.KullaniciID AND C.Durum IN ('Atandı', 'Beklemede')) AS AktifGorevler,
-    
-    -- Bugün tamamlanan görevler
-    (SELECT COUNT(*) FROM Cagri C WHERE C.AtananKullaniciID = K.KullaniciID AND C.Durum = 'Tamamlandı' AND CAST(C.TeslimTarihi AS DATE) = CAST(GETDATE() AS DATE)) AS BugunTamamlanan,
-
-    -- Son 30 gün içindeki performans
-    (SELECT COUNT(*) FROM Cagri C WHERE C.AtananKullaniciID = K.KullaniciID AND C.Durum = 'Tamamlandı' AND C.TeslimTarihi >= DATEADD(DAY, -30, GETDATE())) AS AylikPerformans,
-
-    -- Ortalama çözüm süresi (saat cinsinden)
-    (SELECT 
-        AVG(DATEDIFF(MINUTE, C.OlusturmaTarihi, C.TeslimTarihi)) / 60.0
-     FROM 
-        Cagri C 
-     WHERE 
-        C.AtananKullaniciID = K.KullaniciID 
-        AND C.Durum = 'Tamamlandı'
-        AND C.TeslimTarihi IS NOT NULL
-    ) AS OrtalamaSureSaat
-
-FROM 
-    Kullanici K
-WHERE 
-    K.YoneticiID = @ManagerID
-";
-                ekipUyeleriDGV.Columns.Clear();
-                ekipUyeleriDGV.Columns.Add("AdSoyad", "Ad Soyad");
-                ekipUyeleriDGV.Columns.Add("AktifGorevler", "Aktif Görevler");
-                ekipUyeleriDGV.Columns.Add("BugunTamamlanan", "Bugün Tamamlanan");
-                ekipUyeleriDGV.Columns.Add("AylikPerformans", "Aylık Performans");
-                ekipUyeleriDGV.Columns.Add("OrtalamaSureSaat", "Ortalama Süre (saat)");
-
-                DataGridViewButtonColumn gorevAtaButon = new DataGridViewButtonColumn();
-                gorevAtaButon.Name = "gorevAtaButon";
-                gorevAtaButon.HeaderText = "Görev Ata";
-                gorevAtaButon.Text = "Görev Ata";
-                gorevAtaButon.UseColumnTextForButtonValue = true;
-                ekipUyeleriDGV.Columns.Add(gorevAtaButon);
-                ekipUyeleriDGV.Rows.Clear();
-
-                using (SqlCommand cmd = new SqlCommand(query, baglanti.conn))
-                {
-                    cmd.Parameters.AddWithValue("@ManagerID", managerID);
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            int rowIndex = ekipUyeleriDGV.Rows.Add(
-                                reader["AdSoyad"].ToString(),
-                                reader["AktifGorevler"].ToString(),
-                                reader["BugunTamamlanan"].ToString(),
-                                reader["AylikPerformans"].ToString(),
-                                string.Format("{0:0.00} saat", reader["OrtalamaSureSaat"] is DBNull ? 0 : reader["OrtalamaSureSaat"])
-                            );
-                            ekipUyeleriDGV.Rows[rowIndex].Tag = reader["KullaniciID"].ToString();
-                        }
-                    }
-                }
-                ConfigureEkipUyeleriDGV();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ekip bilgileri yüklenirken hata oluştu: " + ex.Message);
-            }
-            finally
-            {
-                if (baglanti.conn.State == ConnectionState.Open)
-                    baglanti.conn.Close();
-            }
-        }
-
-        private void btnProfil_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            ManagerProfile manageProfile = new ManagerProfile();
-            manageProfile.Show();
-        }
-
-        private void btnCikis_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            LoginForm loginForm = new LoginForm();
-            loginForm.Show();
-        }
-
-        private void btnRaporlar_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void txtAraCagri_TextChanged(object sender, EventArgs e)
         {
             string searchText = txtAraCagri.Text.Trim().ToLower();
@@ -429,7 +463,29 @@ WHERE
                 row.Visible = match;
             }
         }
+        private void txtAraEkip_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = txtAraEkip.Text.Trim().ToLower();
+            ekipUyeleriDGV.ClearSelection();
 
+            foreach (DataGridViewRow row in ekipUyeleriDGV.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                bool match = false;
+
+                for (int i = 0; i < ekipUyeleriDGV.Columns.Count - 1; i++) //son sütun buton, onu komtrol etme
+                {
+                    if (row.Cells[i].Value != null && row.Cells[i].Value.ToString().ToLower().Contains(searchText))
+                    {
+                        match = true;
+                        break;
+                    }
+                }
+
+                row.Visible = match;
+            }
+        }
 
         private void CagrilarDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -485,67 +541,6 @@ WHERE
                 e.CellStyle.Font = new Font("Century Gothic", 12, FontStyle.Bold);
             }
         }
-
-        private void CagrilarDGV_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            CagrilarDGV.ClearSelection();
-        }
-
-        private void txtAraEkip_TextChanged(object sender, EventArgs e)
-        {
-            string searchText = txtAraEkip.Text.Trim().ToLower();
-            ekipUyeleriDGV.ClearSelection();
-
-            foreach (DataGridViewRow row in ekipUyeleriDGV.Rows)
-            {
-                if (row.IsNewRow) continue;
-
-                bool match = false;
-
-                for (int i = 0; i < ekipUyeleriDGV.Columns.Count - 1; i++) //son sütun buton, onu komtrol etme
-                {
-                    if (row.Cells[i].Value != null && row.Cells[i].Value.ToString().ToLower().Contains(searchText))
-                    {
-                        match = true;
-                        break;
-                    }
-                }
-
-                row.Visible = match;
-            }
-        }
-
-        private void ekipUyeleriDGV_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            ekipUyeleriDGV.ClearSelection();
-        }
-
-        private void CagrilarDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-        //    try
-        //    {
-        //        if (e.RowIndex >= 0 && e.ColumnIndex == CagrilarDGV.Columns["islemButon"].Index)
-        //        {
-        //            // Satırı seç
-        //            CagrilarDGV.Rows[e.RowIndex].Selected = true;
-
-        //            string cagriID = CagrilarDGV.Rows[e.RowIndex].Cells["CagriNumarasi"].Value.ToString().Replace("#", "");
-
-        //            // İşlemlerinizi burada yapın
-        //            //EditCallForm editForm = new EditCallForm(cagriID);
-        //            //editForm.ShowDialog();
-
-        //            LoadDataFromDatabase();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"İşlem sırasında bir hata oluştu: {ex.Message}", "Hata",
-        //                      MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //
-        }
-
         private void ekipUyeleriDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
@@ -569,5 +564,14 @@ WHERE
                 e.CellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
         }
+        private void CagrilarDGV_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            CagrilarDGV.ClearSelection();
+        }
+
+        private void ekipUyeleriDGV_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            ekipUyeleriDGV.ClearSelection();
+        }  
     }
 }

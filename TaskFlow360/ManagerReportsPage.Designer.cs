@@ -109,6 +109,7 @@
             this.chartTeamPerformance.Legends.Add(legend1);
             this.chartTeamPerformance.Location = new System.Drawing.Point(360, 211);
             this.chartTeamPerformance.Name = "chartTeamPerformance";
+            this.chartTeamPerformance.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series1.Legend = "Legend1";
@@ -126,6 +127,7 @@
             this.chartDepartmentPerformance.Legends.Add(legend2);
             this.chartDepartmentPerformance.Location = new System.Drawing.Point(949, 211);
             this.chartDepartmentPerformance.Name = "chartDepartmentPerformance";
+            this.chartDepartmentPerformance.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
             series2.ChartArea = "ChartArea1";
             series2.Legend = "Legend1";
             series2.Name = "Series1";
@@ -142,6 +144,7 @@
             this.chartCallStatus.Legends.Add(legend3);
             this.chartCallStatus.Location = new System.Drawing.Point(360, 684);
             this.chartCallStatus.Name = "chartCallStatus";
+            this.chartCallStatus.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
             this.chartCallStatus.Size = new System.Drawing.Size(536, 300);
             this.chartCallStatus.TabIndex = 15;
             this.chartCallStatus.Text = "chart3";
@@ -360,6 +363,7 @@
             this.chartMonthlyPrim.Legends.Add(legend4);
             this.chartMonthlyPrim.Location = new System.Drawing.Point(949, 684);
             this.chartMonthlyPrim.Name = "chartMonthlyPrim";
+            this.chartMonthlyPrim.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Fire;
             this.chartMonthlyPrim.Size = new System.Drawing.Size(903, 300);
             this.chartMonthlyPrim.TabIndex = 17;
             this.chartMonthlyPrim.Text = "chart3";
