@@ -31,7 +31,6 @@ namespace TaskFlow360
         public List<Cagri> TalepEttigiCagrilar { get; set; }
         public List<Cagri> AtananCagrilar { get; set; }
         public List<Cagri> OlusturduguCagrilar { get; set; }
-        public List<CagriDurumGuncelleme> DegistirdigiCagrilar { get; set; }
         public List<PerformansRaporu> PerformansRaporlari { get; set; }
     }
 

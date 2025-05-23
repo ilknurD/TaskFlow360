@@ -19,6 +19,21 @@ namespace TaskFlow360
             txtMail.Text = "Mail";
             txtPassword.Text = "Şifre";
 
+            if (Properties.Settings.Default.BeniHatirla)
+            {
+                txtMail.Text = Properties.Settings.Default.Email;
+                txtPassword.Text = Properties.Settings.Default.Sifre;
+                txtPassword.UseSystemPasswordChar = true;
+                chkBeniHatirla.Checked = true;
+            }
+            else
+            {
+                txtMail.Text = "";
+                txtPassword.Text = "";
+                txtPassword.UseSystemPasswordChar = false;
+                chkBeniHatirla.Checked = false;
+            }
+
             txtMail.Enter += TextBox_Enter;
             txtMail.Leave += TextBox_Leave;
             txtPassword.Enter += TextBox_Enter;
@@ -86,7 +101,6 @@ namespace TaskFlow360
             {
                 baglanti.BaglantiAc();
 
-                // Kullanıcı ID'si ve Rol bilgisini çekiyoruz
                 string query = "SELECT KullaniciID, Rol, Ad, Soyad FROM Kullanici WHERE Email = @Email AND Sifre = @Sifre";
                 SqlCommand cmd = new SqlCommand(query, baglanti.conn);
                 cmd.Parameters.AddWithValue("@Email", email);
@@ -96,23 +110,30 @@ namespace TaskFlow360
                 {
                     if (reader.Read())
                     {
-                        string kullaniciID = reader["KullaniciID"]?.ToString() ?? "";
-                        string rolString = reader["Rol"]?.ToString() ?? "";
-
-                        // Ad ve Soyad bilgilerini KullaniciBilgi'ye aktaralım
-                        KullaniciBilgi.KullaniciID = kullaniciID;
-                        KullaniciBilgi.Rol = rolString;
+                        // Giriş başarılıysa kullanıcı bilgilerini ayarla
+                        KullaniciBilgi.KullaniciID = reader["KullaniciID"]?.ToString() ?? "";
+                        KullaniciBilgi.Rol = reader["Rol"]?.ToString() ?? "";
                         KullaniciBilgi.Ad = reader["Ad"]?.ToString() ?? "";
                         KullaniciBilgi.Soyad = reader["Soyad"]?.ToString() ?? "";
 
-                        KullaniciBilgi.KullaniciID = kullaniciID;
+                        // ✅ Beni Hatırla ayarlarını kaydet
+                        if (chkBeniHatirla.Checked)
+                        {
+                            Properties.Settings.Default.BeniHatirla = true;
+                            Properties.Settings.Default.Email = email;
+                            Properties.Settings.Default.Sifre = sifre;
+                        }
+                        else
+                        {
+                            Properties.Settings.Default.BeniHatirla = false;
+                            Properties.Settings.Default.Email = "";
+                            Properties.Settings.Default.Sifre = "";
+                        }
+                        Properties.Settings.Default.Save();
 
-                        reader.Close();
-
+                        // Rol'e göre formu aç
                         Form homepage = null;
-
-                        // String rol değerine göre ilgili formu aç
-                        switch (rolString)
+                        switch (KullaniciBilgi.Rol)
                         {
                             case "1":
                             case "Ekip Üyesi":
@@ -126,24 +147,16 @@ namespace TaskFlow360
                             case "Çağrı Merkezi":
                                 homepage = new AssistantHomepage();
                                 break;
-                            //case "4":
-                            //case "Müdür":
-                            //    homepage = new MudurHomepage();
-                            //    break;
                             default:
-                                MessageBox.Show("Tanımlanamayan kullanıcı rolü: " + rolString);
+                                MessageBox.Show("Tanımlanamayan kullanıcı rolü: " + KullaniciBilgi.Rol);
                                 return;
                         }
 
-                        if (homepage != null)
-                        {
-                            homepage.Show();
-                            this.Hide();
-                        }
+                        homepage.Show();
+                        this.Hide();
                     }
                     else
                     {
-                        reader.Close();
                         MessageBox.Show("Geçersiz e-posta veya şifre.");
                     }
                 }
@@ -157,6 +170,7 @@ namespace TaskFlow360
                 baglanti.BaglantiKapat();
             }
         }
+
 
 
 

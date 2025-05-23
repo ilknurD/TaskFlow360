@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,11 +26,11 @@ namespace TaskFlow360
         public int? HedefSure { get; set; }
         public string Baslik { get; set; }
 
-        // Diğer tablolarla ilişkiler için property'ler
+        // Diğer tablolarla ilişkiler için
         public string TalepEden { get; set; }
         public Kullanici AtananKullanici { get; set; }
         public Kullanici OlusturanKullanici { get; set; }
-        public List<CagriDurumGuncelleme> DurumGuncellemeleri { get; set; }
+        public Kullanici KullaniciID { get; set; }
 
         public static Cagri CagriGetir(int cagriId, SqlConnection conn)
         {
@@ -54,38 +55,38 @@ namespace TaskFlow360
             return cagri;
         }
 
-        public static void CagriDurumGuncelle(int cagriId, string yeniDurum, string aciklama, int degistirenKullaniciId, SqlConnection conn)
+        public static void CagriAciklamaGuncelle(int cagriId, string aciklama, SqlConnection conn)
         {
-            string sorgu = @"
-        INSERT INTO CagriDurumGuncelleme (CagriID, GuncellemeTarihi, Durum, Aciklama, DegistirenKullaniciID)
-        VALUES (@cagriId, @tarih, @durum, @aciklama, @kullaniciId)";
+            string query = "UPDATE Cagri SET CagriAciklama = @aciklama WHERE CagriID = @cagriId";
 
-            using (SqlCommand komut = new SqlCommand(sorgu, conn))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
             {
-                komut.Parameters.AddWithValue("@cagriId", cagriId);
-                komut.Parameters.AddWithValue("@tarih", DateTime.Now);
-                komut.Parameters.AddWithValue("@durum", yeniDurum);
-                komut.Parameters.AddWithValue("@aciklama", aciklama);
-                komut.Parameters.AddWithValue("@kullaniciId", degistirenKullaniciId);
+                cmd.Parameters.AddWithValue("@aciklama", (object)aciklama ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@cagriId", cagriId);
 
-                komut.ExecuteNonQuery();
+                int affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows == 0)
+                    throw new Exception("Güncellenecek çağrı bulunamadı.");
+            }
+        }
+        //YAPILAN HER DEĞİŞİKLİK İÇİN CAGRİDURUMGUNCELLEME TABLOSUNA DA EKLEME YAPMAK GEREKİYOR
+        public static void CagriDurumGuncelle(int cagriId, string durum, string aciklama, int yoneticiId, SqlConnection conn, int KullaniciId)
+        {
+            string query = @"
+           INSERT INTO CagriDurumGuncelleme (CagriID, GuncellemeTarihi, Durum, Aciklama, DegistirenKullaniciID)
+           VALUES (@cagriId, @guncellemeTarihi, @durum, @aciklama, @KullaniciId)";
+
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@cagriId", cagriId);
+                cmd.Parameters.AddWithValue("@guncellemeTarihi", DateTime.Now);
+                cmd.Parameters.AddWithValue("@durum", string.IsNullOrWhiteSpace(durum) ? "Güncellendi" : durum); // Varsayılan durum
+                cmd.Parameters.AddWithValue("@aciklama", (object)aciklama ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@KullaniciId", KullaniciId);
+
+                cmd.ExecuteNonQuery();
             }
         }
 
     }
-
-    public class CagriDurumGuncelleme
-    {
-        public int GuncellemeID { get; set; }
-        public string Cagri { get; set; }
-        public DateTime GuncellemeTarihi { get; set; }
-        public string Durum { get; set; }
-        public string Aciklama { get; set; }
-        public int DegistirenKullaniciID { get; set; }
-
-        // İlişkili nesne
-        public Kullanici DegistirenKullanici { get; set; }
-
-    }
-
 }

@@ -230,7 +230,7 @@ namespace TaskFlow360
                 e.CellStyle.ForeColor = System.Drawing.Color.White;
             }
 
-            // Performans yüzdesini renklendirelim
+            // Performans yüzdesini renklendirme
             if (e.ColumnIndex == ekipUyeleriDGV.Columns["aylikPerformans"].Index && e.Value != null && e.RowIndex >= 0)
             {
                 string performansStr = e.Value.ToString();
@@ -521,6 +521,7 @@ namespace TaskFlow360
 
                 try
                 {
+                    // Çağrı atama formunu aç
                     TasksAssignmentForm cagriAtamaForm = new TasksAssignmentForm(cagriId, baslik, yoneticiId);
                     if (cagriAtamaForm.ShowDialog() == DialogResult.OK)
                     {
@@ -528,6 +529,7 @@ namespace TaskFlow360
                         EkipUyeleriniYukle();
                         IstatistikleriGoster();
                     }
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
