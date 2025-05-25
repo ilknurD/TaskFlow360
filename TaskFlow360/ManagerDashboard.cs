@@ -28,11 +28,11 @@ namespace TaskFlow360
             AylikCagriDurumlariniCharttaGoster();
             foreach (var dgv in new[] { EkipDGV, SonGorevlerDGV, SonIslemlerDGV })
             {
-                StilUygula(dgv);
                 foreach (DataGridViewColumn column in dgv.Columns)
                 {
                     column.SortMode = DataGridViewColumnSortMode.NotSortable;
                 }
+                StilUygula(dgv);
             }
         }
         private void StilUygula(DataGridView dgv)
@@ -390,6 +390,5 @@ namespace TaskFlow360
             managerDashboard.Show();
             this.Close();
         }
-
     }
 }

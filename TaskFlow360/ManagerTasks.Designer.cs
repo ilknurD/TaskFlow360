@@ -188,10 +188,11 @@
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Transparent;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
             this.CagrilarDGV.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.CagrilarDGV.RowTemplate.Height = 24;
+            this.CagrilarDGV.RowTemplate.Height = 30;
             this.CagrilarDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.CagrilarDGV.Size = new System.Drawing.Size(1710, 761);
             this.CagrilarDGV.TabIndex = 17;
+            this.CagrilarDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CagrilarDGV_CellClick);
             this.CagrilarDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CagrilarDGV_CellContentClick);
             this.CagrilarDGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.CagrilarDGV_CellFormatting);
             this.CagrilarDGV.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.CagrilarDGV_DataBindingComplete);

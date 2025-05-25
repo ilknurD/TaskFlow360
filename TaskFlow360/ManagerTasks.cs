@@ -94,8 +94,8 @@ namespace TaskFlow360
                 ekipUyeleriDGV.DataBindingComplete += ekipUyeleriDGV_DataBindingComplete;
                 ekipUyeleriDGV.CellFormatting += ekipUyeleriDGV_CellFormatting;
 
-                CagrilarDGV.RowTemplate.Height = 40;
-                ekipUyeleriDGV.RowTemplate.Height = 40;
+                CagrilarDGV.RowTemplate.Height = 30;
+                ekipUyeleriDGV.RowTemplate.Height = 30;
             }
             catch (Exception ex)
             {
@@ -112,7 +112,8 @@ namespace TaskFlow360
 
                 string managerID = KullaniciBilgi.KullaniciID;
 
-                string queryForSelf = @"SELECT 
+                string queryForSelfAndTeam = @"
+SELECT 
     '#' + CAST(C.CagriID AS NVARCHAR(10)) AS CagriNumarasi,
     C.Baslik AS Baslik,
     C.CagriKategori AS CagriKategori,
@@ -120,8 +121,10 @@ namespace TaskFlow360
     C.Durum AS Durum
 FROM 
     [dbo].[Cagri] C
+INNER JOIN [dbo].[Kullanici] K ON C.AtananKullaniciID = K.KullaniciID
 WHERE 
-    C.AtananKullaniciID = @ManagerID
+    C.AtananKullaniciID = @ManagerID OR
+    K.YoneticiID = @ManagerID
 ORDER BY 
     CASE C.Oncelik
         WHEN 'Yüksek' THEN 1
@@ -146,7 +149,7 @@ ORDER BY
 
                 CagrilarDGV.Rows.Clear();
 
-                using (SqlCommand cmd = new SqlCommand(queryForSelf, baglanti.conn))
+                using (SqlCommand cmd = new SqlCommand(queryForSelfAndTeam, baglanti.conn))
                 {
                     cmd.Parameters.AddWithValue("@ManagerID", managerID);
 
@@ -175,6 +178,7 @@ ORDER BY
                     baglanti.conn.Close();
             }
         }
+
 
         private void LoadTeamMembers()
         {
@@ -572,6 +576,104 @@ WHERE
         private void ekipUyeleriDGV_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             ekipUyeleriDGV.ClearSelection();
-        }  
+        }
+        private int GetTalepEdenIDByName(string talepEdenAd)
+        {
+            int talepEdenID = -1;
+
+            try
+            {
+                string sorgu = "SELECT TalepEdenID FROM TalepEdenler WHERE TalepEden = @TalepEden";
+                SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn);
+                cmd.Parameters.AddWithValue("@TalepEden", talepEdenAd);
+
+                baglanti.BaglantiAc();
+                object sonuc = cmd.ExecuteScalar();
+
+                if (sonuc != null && int.TryParse(sonuc.ToString(), out int id))
+                {
+                    talepEdenID = id;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Talep Eden ID alınırken hata oluştu: " + ex.Message);
+            }
+            finally
+            {
+                baglanti.BaglantiKapat();
+            }
+
+            return talepEdenID;
+        }
+        private int GetTalepEdenIDByCagriID(int cagriID)
+        {
+            int talepEdenID = 0;
+
+            try
+            {
+                if (baglanti.conn.State != ConnectionState.Open)
+                    baglanti.conn.Open();
+
+                string query = "SELECT TalepEdenID FROM [dbo].[Cagri] WHERE CagriID = @CagriID";
+
+                using (SqlCommand cmd = new SqlCommand(query, baglanti.conn))
+                {
+                    cmd.Parameters.AddWithValue("@CagriID", cagriID);
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        talepEdenID = Convert.ToInt32(result);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"TalepEden ID alınırken hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (baglanti.conn.State == ConnectionState.Open)
+                    baglanti.conn.Close();
+            }
+
+            return talepEdenID;
+        }
+        private void CagrilarDGV_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (e.RowIndex >= 0 && e.ColumnIndex == CagrilarDGV.Columns["islemButon"].Index)
+                {
+                    // Satırı seç
+                    CagrilarDGV.Rows[e.RowIndex].Selected = true;
+
+                    string cagriID = CagrilarDGV.Rows[e.RowIndex].Cells["CagriNumarasi"].Value.ToString().Replace("#", "");
+
+                    // Çağrı ID'sini int'e çevir ve TalepEden ID'sini al
+                    if (int.TryParse(cagriID, out int parsedCagriID))
+                    {
+                        int talepEdenID = GetTalepEdenIDByCagriID(parsedCagriID);
+
+                        // TaskDetail formunu cagriID ve talepEdenID ile aç
+                        OfficerTaskDetail taskDetailForm = new OfficerTaskDetail(parsedCagriID, talepEdenID);
+                        taskDetailForm.ShowDialog();
+
+                        // Form kapandıktan sonra verileri yenile
+                        LoadDataFromDatabase();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Geçersiz çağrı ID'si.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"İşlem sırasında bir hata oluştu: {ex.Message}", "Hata",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

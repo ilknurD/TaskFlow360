@@ -268,6 +268,7 @@
             this.dgvGorevler.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvGorevler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvGorevler.Location = new System.Drawing.Point(327, 159);
+            this.dgvGorevler.MultiSelect = false;
             this.dgvGorevler.Name = "dgvGorevler";
             this.dgvGorevler.RowHeadersWidth = 51;
             this.dgvGorevler.RowTemplate.Height = 24;

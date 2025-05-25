@@ -107,7 +107,7 @@ namespace TaskFlow360
                     lblBolum.Text = dr["BolumAdi"].ToString() + " " + "(Rol)";
 
                     string yoneticiAdSoyad = dr["YoneticiAd"] != DBNull.Value ? $"{dr["YoneticiAd"]} {dr["YoneticiSoyad"]}" : "Yönetici yok";
-                    lblYoneticib.Text = yoneticiAdSoyad;
+                    lblYonetici.Text = yoneticiAdSoyad;
 
                     string cinsiyet = dr["Cinsiyet"].ToString();
 
