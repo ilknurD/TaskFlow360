@@ -229,7 +229,7 @@ namespace TaskFlow360
                             }
 
                             // Detay formunu cagriID ve talepEdenID ile oluştur ve göster
-                            using (OfficerTaskDetail detayForm = new OfficerTaskDetail(cagriID, talepEdenID))
+                            using (TaskDetail detayForm = new TaskDetail(cagriID, talepEdenID))
                             {
                                 detayForm.ShowDialog();
                             }

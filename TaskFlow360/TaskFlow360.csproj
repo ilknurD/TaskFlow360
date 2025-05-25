@@ -71,6 +71,12 @@
     <Compile Include="ManagerDashboard.Designer.cs">
       <DependentUpon>ManagerDashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tasks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tasks.Designer.cs">
+      <DependentUpon>Tasks.cs</DependentUpon>
+    </Compile>
     <Compile Include="TasksAssignmentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,11 +145,11 @@
     <Compile Include="OfficerReportsPage.Designer.cs">
       <DependentUpon>OfficerReportsPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="OfficerTaskDetail.cs">
+    <Compile Include="TaskDetail.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OfficerTaskDetail.Designer.cs">
-      <DependentUpon>OfficerTaskDetail.cs</DependentUpon>
+    <Compile Include="TaskDetail.Designer.cs">
+      <DependentUpon>TaskDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="OfficerTaskspage.cs">
       <SubType>Form</SubType>
@@ -195,8 +201,8 @@
     <EmbeddedResource Include="OfficerReportsPage.resx">
       <DependentUpon>OfficerReportsPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OfficerTaskDetail.resx">
-      <DependentUpon>OfficerTaskDetail.cs</DependentUpon>
+    <EmbeddedResource Include="TaskDetail.resx">
+      <DependentUpon>TaskDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OfficerTaskspage.resx">
       <DependentUpon>OfficerTaskspage.cs</DependentUpon>
@@ -211,6 +217,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Tasks.resx">
+      <DependentUpon>Tasks.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TasksAssignmentForm.resx">
       <DependentUpon>TasksAssignmentForm.cs</DependentUpon>
     </EmbeddedResource>

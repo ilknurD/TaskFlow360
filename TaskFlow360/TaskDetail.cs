@@ -11,12 +11,12 @@ using System.Windows.Forms;
 
 namespace TaskFlow360
 {
-    public partial class OfficerTaskDetail : Form
+    public partial class TaskDetail : Form
     {
         Baglanti bgl = new Baglanti();
         private int _cagriID;
         private int _talepEdenID;
-        public OfficerTaskDetail(int cagriID, int talepEdenID)
+        public TaskDetail(int cagriID, int talepEdenID)
         {
             InitializeComponent();
             _cagriID = cagriID;

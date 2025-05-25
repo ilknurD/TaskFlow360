@@ -188,7 +188,7 @@
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Transparent;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
             this.CagrilarDGV.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.CagrilarDGV.RowTemplate.Height = 30;
+            this.CagrilarDGV.RowTemplate.Height = 27;
             this.CagrilarDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.CagrilarDGV.Size = new System.Drawing.Size(1710, 761);
             this.CagrilarDGV.TabIndex = 17;
@@ -277,7 +277,7 @@
             this.ekipUyeleriDGV.RowHeadersWidth = 51;
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black;
             this.ekipUyeleriDGV.RowsDefaultCellStyle = dataGridViewCellStyle9;
-            this.ekipUyeleriDGV.RowTemplate.Height = 24;
+            this.ekipUyeleriDGV.RowTemplate.Height = 27;
             this.ekipUyeleriDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ekipUyeleriDGV.Size = new System.Drawing.Size(1710, 761);
             this.ekipUyeleriDGV.TabIndex = 1;

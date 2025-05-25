@@ -94,8 +94,8 @@ namespace TaskFlow360
                 ekipUyeleriDGV.DataBindingComplete += ekipUyeleriDGV_DataBindingComplete;
                 ekipUyeleriDGV.CellFormatting += ekipUyeleriDGV_CellFormatting;
 
-                CagrilarDGV.RowTemplate.Height = 30;
-                ekipUyeleriDGV.RowTemplate.Height = 30;
+                CagrilarDGV.RowTemplate.Height = 27;
+                ekipUyeleriDGV.RowTemplate.Height = 27;
             }
             catch (Exception ex)
             {
@@ -347,7 +347,7 @@ WHERE
                 if (ekipUyeleriDGV.Columns[e.ColumnIndex].Name != "gorevAtaButon")
                     return;
 
-                // Kullanıcı ID'sini al Tag'den
+                // Kullanıcı ID'sini al Tag'den  
                 DataGridViewRow selectedRow = ekipUyeleriDGV.Rows[e.RowIndex];
                 string memberID = selectedRow.Tag?.ToString();
 
@@ -357,9 +357,9 @@ WHERE
                     return;
                 }
 
-                // Yeni formu aç ve memberID'yi gönder
-                //TaskAssignmentForm assignmentForm = new TaskAssignmentForm(memberID);
-                //assignmentForm.ShowDialog();
+                // Yeni formu aç ve memberID'yi gönder  
+                Tasks tasks = new Tasks(memberID, KullaniciBilgi.KullaniciID);
+                tasks.Show();
             }
             catch (Exception ex)
             {
@@ -369,28 +369,28 @@ WHERE
 
         private void CagrilarDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            //    try
-            //    {
-            //        if (e.RowIndex >= 0 && e.ColumnIndex == CagrilarDGV.Columns["islemButon"].Index)
-            //        {
-            //            // Satırı seç
-            //            CagrilarDGV.Rows[e.RowIndex].Selected = true;
+            try
+            {
+                if (e.RowIndex >= 0 && e.ColumnIndex == CagrilarDGV.Columns["islemButon"].Index)
+                {
+                    // Satırı seç
+                    CagrilarDGV.Rows[e.RowIndex].Selected = true;
 
-            //            string cagriID = CagrilarDGV.Rows[e.RowIndex].Cells["CagriNumarasi"].Value.ToString().Replace("#", "");
+                    string cagriID = CagrilarDGV.Rows[e.RowIndex].Cells["CagriNumarasi"].Value.ToString().Replace("#", "");
 
-            //            // İşlemlerinizi burada yapın
-            //            //EditCallForm editForm = new EditCallForm(cagriID);
-            //            //editForm.ShowDialog();
+                    // İşlemlerinizi burada yapın
+                    //EditCallForm editForm = new EditCallForm(cagriID);
+                    //editForm.ShowDialog();
 
-            //            LoadDataFromDatabase();
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show($"İşlem sırasında bir hata oluştu: {ex.Message}", "Hata",
-            //                      MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-            //
+                    LoadDataFromDatabase();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"İşlem sırasında bir hata oluştu: {ex.Message}", "Hata",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void ConfigureBekleyenCagrilarDGV()
@@ -657,7 +657,7 @@ WHERE
                         int talepEdenID = GetTalepEdenIDByCagriID(parsedCagriID);
 
                         // TaskDetail formunu cagriID ve talepEdenID ile aç
-                        OfficerTaskDetail taskDetailForm = new OfficerTaskDetail(parsedCagriID, talepEdenID);
+                        TaskDetail taskDetailForm = new TaskDetail(parsedCagriID, talepEdenID);
                         taskDetailForm.ShowDialog();
 
                         // Form kapandıktan sonra verileri yenile
