@@ -34,7 +34,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerProfile));
-            this.pnlPrimBilgi = new System.Windows.Forms.Panel();
+            this.icerikPanel = new System.Windows.Forms.Panel();
             this.ekibimDGV = new System.Windows.Forms.DataGridView();
             this.lblPerformansPrimBaslik = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -86,7 +86,12 @@
             this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pnlPrimBilgi.SuspendLayout();
+            this.calisan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aktifGorev = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tamamlananGorev = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aylikPerformans = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ortalamaSure = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.icerikPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ekibimDGV)).BeginInit();
             this.pnlIsBilgi.SuspendLayout();
             this.pnlIletisimBilgi.SuspendLayout();
@@ -104,16 +109,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
-            // pnlPrimBilgi
+            // icerikPanel
             // 
-            this.pnlPrimBilgi.BackColor = System.Drawing.Color.White;
-            this.pnlPrimBilgi.Controls.Add(this.ekibimDGV);
-            this.pnlPrimBilgi.Controls.Add(this.lblPerformansPrimBaslik);
-            this.pnlPrimBilgi.Controls.Add(this.label3);
-            this.pnlPrimBilgi.Location = new System.Drawing.Point(327, 681);
-            this.pnlPrimBilgi.Name = "pnlPrimBilgi";
-            this.pnlPrimBilgi.Size = new System.Drawing.Size(1670, 350);
-            this.pnlPrimBilgi.TabIndex = 18;
+            this.icerikPanel.BackColor = System.Drawing.Color.White;
+            this.icerikPanel.Controls.Add(this.ekibimDGV);
+            this.icerikPanel.Controls.Add(this.lblPerformansPrimBaslik);
+            this.icerikPanel.Controls.Add(this.label3);
+            this.icerikPanel.Location = new System.Drawing.Point(327, 681);
+            this.icerikPanel.Name = "icerikPanel";
+            this.icerikPanel.Size = new System.Drawing.Size(1670, 350);
+            this.icerikPanel.TabIndex = 18;
             // 
             // ekibimDGV
             // 
@@ -140,6 +145,12 @@
             this.ekibimDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.ekibimDGV.ColumnHeadersHeight = 35;
             this.ekibimDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.ekibimDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.calisan,
+            this.aktifGorev,
+            this.tamamlananGorev,
+            this.aylikPerformans,
+            this.ortalamaSure});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -173,6 +184,7 @@
             this.ekibimDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ekibimDGV.Size = new System.Drawing.Size(1625, 280);
             this.ekibimDGV.TabIndex = 3;
+            this.ekibimDGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.ekibimDGV_CellFormatting);
             // 
             // lblPerformansPrimBaslik
             // 
@@ -781,6 +793,41 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
+            // calisan
+            // 
+            this.calisan.HeaderText = "Çalışan";
+            this.calisan.MinimumWidth = 6;
+            this.calisan.Name = "calisan";
+            this.calisan.ReadOnly = true;
+            // 
+            // aktifGorev
+            // 
+            this.aktifGorev.HeaderText = "Aktif Görevler";
+            this.aktifGorev.MinimumWidth = 6;
+            this.aktifGorev.Name = "aktifGorev";
+            this.aktifGorev.ReadOnly = true;
+            // 
+            // tamamlananGorev
+            // 
+            this.tamamlananGorev.HeaderText = "Bugün Tamamlanan";
+            this.tamamlananGorev.MinimumWidth = 6;
+            this.tamamlananGorev.Name = "tamamlananGorev";
+            this.tamamlananGorev.ReadOnly = true;
+            // 
+            // aylikPerformans
+            // 
+            this.aylikPerformans.HeaderText = "Aylık Performans";
+            this.aylikPerformans.MinimumWidth = 6;
+            this.aylikPerformans.Name = "aylikPerformans";
+            this.aylikPerformans.ReadOnly = true;
+            // 
+            // ortalamaSure
+            // 
+            this.ortalamaSure.HeaderText = "Ortalama Çözüm Süresi";
+            this.ortalamaSure.MinimumWidth = 6;
+            this.ortalamaSure.Name = "ortalamaSure";
+            this.ortalamaSure.ReadOnly = true;
+            // 
             // ManagerProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -789,7 +836,7 @@
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.pnlPrimBilgi);
+            this.Controls.Add(this.icerikPanel);
             this.Controls.Add(this.lblHosgeldiniz);
             this.Controls.Add(this.pnlIsBilgi);
             this.Controls.Add(this.pnlIletisimBilgi);
@@ -800,8 +847,8 @@
             this.Text = "ManageProfile";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.ManagerProfile_Load);
-            this.pnlPrimBilgi.ResumeLayout(false);
-            this.pnlPrimBilgi.PerformLayout();
+            this.icerikPanel.ResumeLayout(false);
+            this.icerikPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ekibimDGV)).EndInit();
             this.pnlIsBilgi.ResumeLayout(false);
             this.pnlIsBilgi.PerformLayout();
@@ -827,7 +874,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel pnlPrimBilgi;
+        private System.Windows.Forms.Panel icerikPanel;
         private System.Windows.Forms.Label lblPerformansPrimBaslik;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblHosgeldiniz;
@@ -879,5 +926,10 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label lblDepartman;
         private System.Windows.Forms.Label lblEmail;
+        private System.Windows.Forms.DataGridViewTextBoxColumn calisan;
+        private System.Windows.Forms.DataGridViewTextBoxColumn aktifGorev;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tamamlananGorev;
+        private System.Windows.Forms.DataGridViewTextBoxColumn aylikPerformans;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ortalamaSure;
     }
 }

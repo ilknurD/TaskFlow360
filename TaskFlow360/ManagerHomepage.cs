@@ -143,16 +143,9 @@ namespace TaskFlow360
             ekipUyeleriDGV.BorderStyle = BorderStyle.None;
             ekipUyeleriDGV.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             ekipUyeleriDGV.GridColor = Color.FromArgb(240, 240, 240);
-
-            // Buton sütunu için düzenleme
-            ekipUyeleriDGV.Columns["gorevAtaButon"].DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(126, 87, 194);
-            ekipUyeleriDGV.Columns["gorevAtaButon"].DefaultCellStyle.ForeColor = System.Drawing.Color.White;
-            ekipUyeleriDGV.Columns["gorevAtaButon"].DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(126, 87, 194);
-            ekipUyeleriDGV.Columns["gorevAtaButon"].DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
-            ekipUyeleriDGV.Columns["gorevAtaButon"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            
 
             // Event bağlantıları
-            ekipUyeleriDGV.CellClick += ekipUyeleriDGV_CellClick;
             ekipUyeleriDGV.CellFormatting += EkipUyeleriDGV_CellFormatting;
             ekipUyeleriDGV.DataBindingComplete += (s, e) => ekipUyeleriDGV.ClearSelection();
         }
@@ -224,11 +217,6 @@ namespace TaskFlow360
         private void EkipUyeleriDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             e.CellStyle.Font = new Font("Century Gothic", 12, FontStyle.Regular);
-            if (e.ColumnIndex == ekipUyeleriDGV.Columns["gorevAtaButon"].Index && e.RowIndex >= 0)
-            {
-                e.CellStyle.BackColor = System.Drawing.Color.FromArgb(126, 87, 194);
-                e.CellStyle.ForeColor = System.Drawing.Color.White;
-            }
 
             // Performans yüzdesini renklendirme
             if (e.ColumnIndex == ekipUyeleriDGV.Columns["aylikPerformans"].Index && e.Value != null && e.RowIndex >= 0)
@@ -444,7 +432,6 @@ namespace TaskFlow360
                         row.Cells["ortalamaSure"].Value = "Veri yok";
                     }
 
-                    row.Cells["gorevAtaButon"].Value = "Görev Ata";
                     row.Tag = kullaniciID;
                 }
                 dr.Close();
@@ -470,33 +457,57 @@ namespace TaskFlow360
             {
                 baglanti.BaglantiAc();
 
-                // Toplam bekleyen çağrı sayısı
+                int yoneticiId = int.Parse(KullaniciBilgi.KullaniciID);
+
+                // Ekibe ait kullanıcıları al
+                SqlCommand ekipUyeKomut = new SqlCommand("SELECT KullaniciID FROM Kullanici WHERE YoneticiID = @yoneticiId", baglanti.conn);
+                ekipUyeKomut.Parameters.AddWithValue("@yoneticiId", yoneticiId);
+                List<int> ekipUyeIDListesi = new List<int>();
+                using (SqlDataReader reader = ekipUyeKomut.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ekipUyeIDListesi.Add(reader.GetInt32(0));
+                    }
+                }
+                // Kendini de ekle (kendi adına gelen çağrılar için)
+                ekipUyeIDListesi.Add(yoneticiId);
+
+                // Listeyi SQL IN ifadesine dönüştür
+                string idListeString = string.Join(",", ekipUyeIDListesi);
+
+                // Bekleyen çağrı
                 SqlCommand bekleyenCagri = new SqlCommand(
-                    "SELECT COUNT(*) FROM Cagri WHERE Durum = 'Beklemede'", baglanti.conn);
+                    $"SELECT COUNT(*) FROM Cagri WHERE Durum = 'Beklemede' AND AtananKullaniciID IN ({idListeString})", baglanti.conn);
                 int bekleyenCagriSayisi = Convert.ToInt32(bekleyenCagri.ExecuteScalar());
                 lblBeklemede.Text = bekleyenCagriSayisi.ToString();
 
+                // Atanan çağrı
                 SqlCommand atananCagri = new SqlCommand(
-                    "SELECT COUNT(*) FROM Cagri WHERE Durum = 'Atandı'", baglanti.conn);
+                    $"SELECT COUNT(*) FROM Cagri WHERE Durum = 'Atandı' AND AtananKullaniciID IN ({idListeString})", baglanti.conn);
                 int atananCagriSayisi = Convert.ToInt32(atananCagri.ExecuteScalar());
                 lblAtanan.Text = atananCagriSayisi.ToString();
 
-                // Toplam tamamlanan çağrı sayısı (Son 30 gün)
+                // Tamamlanan çağrı (Son 30 gün)
                 SqlCommand tamamlananCagri = new SqlCommand(
-                    "SELECT COUNT(*) FROM Cagri WHERE Durum = 'Tamamlandı' AND TeslimTarihi >= DATEADD(day, -30, GETDATE())", baglanti.conn);
+                    $@"SELECT COUNT(*) FROM Cagri 
+               WHERE Durum = 'Tamamlandı' 
+               AND TeslimTarihi >= DATEADD(day, -30, GETDATE())
+               AND AtananKullaniciID IN ({idListeString})", baglanti.conn);
                 int tamamlananCagriSayisi = Convert.ToInt32(tamamlananCagri.ExecuteScalar());
                 lblTamamlanan.Text = tamamlananCagriSayisi.ToString();
 
-                // Geciken çağrı sayısı 
-                SqlCommand gecikenCagri = new SqlCommand(@"
-                    SELECT COUNT(*) FROM Cagri 
-                    WHERE Durum != 'Tamamlandı' 
-                    AND TRY_CONVERT(float, REPLACE(REPLACE(REPLACE(HedefSure, ' Saat', ''), ' saat', ''), ',', '.')) < 
-                        DATEDIFF(hour, OlusturmaTarihi, GETDATE())", baglanti.conn);
+                // Geciken çağrı
+                SqlCommand gecikenCagri = new SqlCommand($@"
+            SELECT COUNT(*) FROM Cagri 
+            WHERE Durum != 'Tamamlandı' 
+            AND AtananKullaniciID IN ({idListeString})
+            AND TRY_CONVERT(float, REPLACE(REPLACE(REPLACE(HedefSure, ' Saat', ''), ' saat', ''), ',', '.')) < 
+                DATEDIFF(hour, OlusturmaTarihi, GETDATE())", baglanti.conn);
                 int gecikenCagriSayisi = Convert.ToInt32(gecikenCagri.ExecuteScalar());
                 lblGeciken.Text = gecikenCagriSayisi.ToString();
 
-                // İstatistik panosu güncellemesi
+                // Pano mesajı
                 label1.Text = $"Bugün {bekleyenCagriSayisi} bekleyen çağrı ve {atananCagriSayisi} devam eden görev bulunmaktadır.";
             }
             catch (Exception ex)
@@ -535,28 +546,6 @@ namespace TaskFlow360
                 {
                     MessageBox.Show("Çağrı atama formu açılırken hata oluştu: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-        }
-
-        private void ekipUyeleriDGV_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // "Görev Ata" butonuna tıklandığında çalışana görev atama işlemi
-            if (e.ColumnIndex == ekipUyeleriDGV.Columns["gorevAtaButon"].Index && e.RowIndex >= 0)
-            {
-                int kullaniciId = (int)ekipUyeleriDGV.Rows[e.RowIndex].Tag;
-                string calisan = ekipUyeleriDGV.Rows[e.RowIndex].Cells["calisan"].Value.ToString();
-
-                MessageBox.Show($"{calisan} adlı çalışana görev atama işlemi henüz uygulanmadı.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Form sınıfı oluşturulunca bu kodu etkinleştirin
-                //AssigningTasksOfficer gorevAtaForm = new AssigningTasksOfficer(kullaniciId, calisan);
-                //if (gorevAtaForm.ShowDialog() == DialogResult.OK)
-                //{
-                //    // Atama başarılı olduğunda tabloları yenile
-                //    BekleyenCagrilariYukle();
-                //    EkipUyeleriniYukle();
-                //    IstatistikleriGoster();
-                //}
             }
         }
 

@@ -115,7 +115,7 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chartTeamPerformance.Series.Add(series1);
-            this.chartTeamPerformance.Size = new System.Drawing.Size(536, 390);
+            this.chartTeamPerformance.Size = new System.Drawing.Size(669, 390);
             this.chartTeamPerformance.TabIndex = 13;
             this.chartTeamPerformance.Text = "chart1";
             // 
@@ -125,14 +125,14 @@
             this.chartDepartmentPerformance.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.chartDepartmentPerformance.Legends.Add(legend2);
-            this.chartDepartmentPerformance.Location = new System.Drawing.Point(949, 211);
+            this.chartDepartmentPerformance.Location = new System.Drawing.Point(1122, 211);
             this.chartDepartmentPerformance.Name = "chartDepartmentPerformance";
             this.chartDepartmentPerformance.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
             series2.ChartArea = "ChartArea1";
             series2.Legend = "Legend1";
             series2.Name = "Series1";
             this.chartDepartmentPerformance.Series.Add(series2);
-            this.chartDepartmentPerformance.Size = new System.Drawing.Size(903, 390);
+            this.chartDepartmentPerformance.Size = new System.Drawing.Size(730, 390);
             this.chartDepartmentPerformance.TabIndex = 14;
             this.chartDepartmentPerformance.Text = "chart2";
             // 
@@ -145,7 +145,7 @@
             this.chartCallStatus.Location = new System.Drawing.Point(360, 684);
             this.chartCallStatus.Name = "chartCallStatus";
             this.chartCallStatus.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            this.chartCallStatus.Size = new System.Drawing.Size(536, 300);
+            this.chartCallStatus.Size = new System.Drawing.Size(669, 300);
             this.chartCallStatus.TabIndex = 15;
             this.chartCallStatus.Text = "chart3";
             // 
@@ -361,10 +361,10 @@
             this.chartMonthlyPrim.ChartAreas.Add(chartArea4);
             legend4.Name = "Legend1";
             this.chartMonthlyPrim.Legends.Add(legend4);
-            this.chartMonthlyPrim.Location = new System.Drawing.Point(949, 684);
+            this.chartMonthlyPrim.Location = new System.Drawing.Point(1122, 684);
             this.chartMonthlyPrim.Name = "chartMonthlyPrim";
             this.chartMonthlyPrim.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Fire;
-            this.chartMonthlyPrim.Size = new System.Drawing.Size(903, 300);
+            this.chartMonthlyPrim.Size = new System.Drawing.Size(730, 300);
             this.chartMonthlyPrim.TabIndex = 17;
             this.chartMonthlyPrim.Text = "chart3";
             // 

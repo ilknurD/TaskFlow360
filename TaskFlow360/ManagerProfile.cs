@@ -15,10 +15,12 @@ namespace TaskFlow360
     public partial class ManagerProfile : Form
     {
         Baglanti baglanti = new Baglanti();
+        private string yoneticiId;
         public ManagerProfile()
         {
             InitializeComponent();
             ekibimDGV.DataError += ekibimDGV_DataError;
+            SetupDataGridViewColumns();
         }
 
         private void btnProfil_Click(object sender, EventArgs e)
@@ -68,28 +70,28 @@ namespace TaskFlow360
 
         private void ManagerProfile_Load(object sender, EventArgs e)
         {
+            yoneticiId = KullaniciBilgi.KullaniciID;
             ConfigureEkibimDGV();
             LoadManagedTeamMembers();
-            string kullaniciID = KullaniciBilgi.KullaniciID;
 
             try
             {
                 baglanti.BaglantiAc();
 
-                string query = @"SELECT 
-                    K.Ad, K.Soyad, K.Email, K.Telefon, K.Adres, 
-                    K.DogumTar, K.IseBaslamaTar, 
-                    D.DepartmanAdi, B.BolumAdi,
-                    YK.Ad AS YoneticiAd, YK.Soyad AS YoneticiSoyad,
-                    K.Cinsiyet
-                    FROM Kullanici K
-                    LEFT JOIN Departman D ON K.DepartmanID = D.DepartmanID
-                    LEFT JOIN Bolum B ON K.BolumID = B.BolumID
-                    LEFT JOIN Kullanici YK ON K.YoneticiID = YK.KullaniciID
-                    WHERE K.KullaniciID = @KullaniciID";
+                string query = @"SELECT   
+                   K.Ad, K.Soyad, K.Email, K.Telefon, K.Adres,   
+                   K.DogumTar, K.IseBaslamaTar,   
+                   D.DepartmanAdi, B.BolumAdi,  
+                   YK.Ad AS YoneticiAd, YK.Soyad AS YoneticiSoyad,  
+                   K.Cinsiyet  
+                   FROM Kullanici K  
+                   LEFT JOIN Departman D ON K.DepartmanID = D.DepartmanID  
+                   LEFT JOIN Bolum B ON K.BolumID = B.BolumID  
+                   LEFT JOIN Kullanici YK ON K.YoneticiID = YK.KullaniciID  
+                   WHERE K.KullaniciID = @KullaniciID";
 
                 SqlCommand cmd = new SqlCommand(query, baglanti.conn);
-                cmd.Parameters.AddWithValue("@KullaniciID", kullaniciID);
+                cmd.Parameters.AddWithValue("@KullaniciID", yoneticiId);
 
                 SqlDataReader dr = cmd.ExecuteReader();
 
@@ -120,7 +122,7 @@ namespace TaskFlow360
                 }
 
                 dr.Close();
-                lblKullaniciID.Text = kullaniciID;
+                lblKullaniciID.Text = yoneticiId.ToString(); // Fix: Convert int to string explicitly  
             }
             catch (Exception ex)
             {
@@ -132,58 +134,136 @@ namespace TaskFlow360
             }
         }
 
+        private void SetupDataGridViewColumns()
+        {
+            if (ekibimDGV.Columns.Count == 0)
+            {
+                ekibimDGV.Columns.Add("calisan", "Çalışan");
+                ekibimDGV.Columns.Add("aktifGorev", "Aktif Görevler");
+                ekibimDGV.Columns.Add("tamamlananGorev", "Tamamlanan Görevler");
+                ekibimDGV.Columns.Add("aylikPerformans", "Aylık Performans");
+                ekibimDGV.Columns.Add("ortalamaSure", "Ortalama Çözüm Süresi");
+                ekibimDGV.Columns.Add("gorevAtaButon", "İşlem");
+            }
+        }
         private void LoadManagedTeamMembers()
         {
-            string managerID = KullaniciBilgi.KullaniciID;
-
             try
             {
                 baglanti.BaglantiAc();
 
-                string query = @"SELECT 
-                K.Ad + ' ' + K.Soyad AS [Personel Adı],
-                COUNT(C.CagriID) AS [Aktif Görev Sayısı],
-                ISNULL(AVG(DATEDIFF(HOUR, C.OlusturmaTarihi, C.TeslimTarihi)), 0) AS [Ortalama Çözüm Süresi (Saat)]
-                FROM Kullanici K
-                LEFT JOIN Cagri C ON K.KullaniciID = C.OlusturanKullaniciID
-                WHERE K.YoneticiID = @YoneticiID
-                GROUP BY K.Ad, K.Soyad
-                ORDER BY K.Ad, K.Soyad";
+                string kontrolSorgusu =
+                    @"SELECT COUNT(*) FROM Kullanici 
+            WHERE Rol = 'Ekip Üyesi'
+            AND (DepartmanID = (SELECT DepartmanID FROM Kullanici WHERE KullaniciID = @yoneticiId)
+            OR YoneticiID = @yoneticiId)";
 
-                SqlCommand cmd = new SqlCommand(query, baglanti.conn);
-                cmd.Parameters.AddWithValue("@YoneticiID", managerID);
+                SqlCommand kontrolKomut = new SqlCommand(kontrolSorgusu, baglanti.conn);
+                kontrolKomut.Parameters.AddWithValue("@yoneticiId", yoneticiId);
 
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
+                int kullaniciSayisi = Convert.ToInt32(kontrolKomut.ExecuteScalar());
 
-                ekibimDGV.DataSource = dt;
+                if (kullaniciSayisi == 0)
+                {
+                    ekibimDGV.Rows.Clear();
 
-                FormatEkibimDGV(); 
+                    if (!icerikPanel.Controls.ContainsKey("lblBosEkip"))
+                    {
+                        Label lblBosEkip = new Label();
+                        lblBosEkip.Name = "lblBosEkip";
+                        lblBosEkip.Text = "Departmanınızda ekip üyesi bulunmuyor.";
+                        lblBosEkip.AutoSize = false;
+                        lblBosEkip.Size = new Size(icerikPanel.Width - 20, 60);
+                        lblBosEkip.TextAlign = ContentAlignment.MiddleCenter;
+                        lblBosEkip.Font = new Font(lblBosEkip.Font.FontFamily, 10, FontStyle.Regular);
+                        lblBosEkip.ForeColor = Color.Gray;
+                        lblBosEkip.Location = new Point(10, icerikPanel.Height / 2 - 30);
+                        icerikPanel.Controls.Add(lblBosEkip);
+                    }
+
+                    ekibimDGV.Visible = false;
+                    return;
+                }
+                else
+                {
+                    if (icerikPanel.Controls.ContainsKey("lblBosEkip"))
+                    {
+                        icerikPanel.Controls.RemoveByKey("lblBosEkip");
+                    }
+
+                    ekibimDGV.Visible = true;
+                }
+
+                string anaSorgu =
+                    @"SELECT 
+            k.KullaniciID, 
+            k.Ad + ' ' + k.Soyad AS AdSoyad, 
+            COUNT(CASE WHEN c.Durum = 'Beklemede' OR c.Durum = 'Atandı' THEN 1 END) AS AktifGorevSayisi, 
+            COUNT(CASE WHEN c.Durum = 'Tamamlandı' THEN 1 END) AS TamamlananGorevSayisi,
+            AVG(CASE 
+                WHEN c.HedefSure IS NOT NULL THEN
+                    TRY_CONVERT(float, REPLACE(REPLACE(REPLACE(c.HedefSure, ' Saat', ''), ' saat', ''), ',', '.'))
+                ELSE NULL
+            END) AS OrtalamaSure
+          FROM Kullanici k 
+          LEFT JOIN Cagri c ON k.KullaniciID = c.AtananKullaniciID 
+          WHERE k.Rol = 'Ekip Üyesi'
+            AND (k.DepartmanID = (SELECT DepartmanID FROM Kullanici WHERE KullaniciID = @yoneticiId)
+            OR k.YoneticiID = @yoneticiId)
+          GROUP BY k.KullaniciID, k.Ad, k.Soyad";
+
+                SqlCommand komut = new SqlCommand(anaSorgu, baglanti.conn);
+                komut.Parameters.AddWithValue("@yoneticiId", yoneticiId);
+                SqlDataReader dr = komut.ExecuteReader();
+
+                ekibimDGV.Rows.Clear();
+
+                while (dr.Read())
+                {
+                    int rowIndex = ekibimDGV.Rows.Add();
+                    DataGridViewRow row = ekibimDGV.Rows[rowIndex];
+
+                    int kullaniciID = Convert.ToInt32(dr["KullaniciID"]);
+                    row.Cells["calisan"].Value = dr["AdSoyad"].ToString();
+                    row.Cells["aktifGorev"].Value = dr["AktifGorevSayisi"].ToString();
+                    row.Cells["tamamlananGorev"].Value = dr["TamamlananGorevSayisi"].ToString();
+
+                    // Hesaplanan performans yüzdesi
+                    int tamamlananGorevSayisi = Convert.ToInt32(dr["TamamlananGorevSayisi"]);
+                    int aktifGorevSayisi = Convert.ToInt32(dr["AktifGorevSayisi"]);
+                    int toplamGorevSayisi = tamamlananGorevSayisi + aktifGorevSayisi;
+                    int performansYuzdesi = toplamGorevSayisi > 0 ? (tamamlananGorevSayisi * 100) / toplamGorevSayisi : 0;
+
+                    row.Cells["aylikPerformans"].Value = performansYuzdesi.ToString() + "%";
+
+                    if (!dr.IsDBNull(dr.GetOrdinal("OrtalamaSure")))
+                    {
+                        double sure = Convert.ToDouble(dr["OrtalamaSure"]);
+                        row.Cells["ortalamaSure"].Value = $"{Math.Round(sure, 1)} saat";
+                    }
+                    else
+                    {
+                        row.Cells["ortalamaSure"].Value = "Veri yok";
+                    }
+
+                    row.Tag = kullaniciID;
+                }
+                dr.Close();
+
+                if (ekibimDGV.Rows.Count == 0 && kullaniciSayisi > 0)
+                {
+                    MessageBox.Show("Ekip üyeleri grid'e yüklenemedi.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ekip üyeleri yüklenirken hata oluştu: " + ex.Message);
+                MessageBox.Show("Ekip üyeleri yüklenirken hata oluştu: " + ex.Message, "Veri Yükleme Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
                 baglanti.BaglantiKapat();
             }
         }
-
-        private void FormatEkibimDGV()
-        {
-            if (ekibimDGV.Columns.Count >= 4)
-            {
-                ekibimDGV.Columns["Ortalama Çözüm Süresi (Saat)"].DefaultCellStyle.Format = "N1";
-
-                // Hizalama ayarları
-                ekibimDGV.Columns["Personel Adı"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                ekibimDGV.Columns["Aktif Görev Sayısı"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                ekibimDGV.Columns["Ortalama Çözüm Süresi (Saat)"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
-        }
-
         private void ekibimDGV_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
              MessageBox.Show("Veri işleme sırasında bir sorun oluştu. Lütfen yöneticiyle iletişime geçin.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -208,9 +288,9 @@ namespace TaskFlow360
             ekibimDGV.GridColor = Color.FromArgb(240, 240, 240);
 
             // Yazı tipi ve hizalama
-            ekibimDGV.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            ekibimDGV.ColumnHeadersDefaultCellStyle.Font = new Font("Century Gothic", 12, FontStyle.Bold);
             ekibimDGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            ekibimDGV.DefaultCellStyle.Font = new Font("Segoe UI", 12);
+            ekibimDGV.DefaultCellStyle.Font = new Font("Century Gothic", 12);
             ekibimDGV.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             // Event bağlantıları
@@ -228,6 +308,28 @@ namespace TaskFlow360
             ManagerReportsPage managerReportsPage = new ManagerReportsPage();
             managerReportsPage.Show();
             this.Close();
+        }
+
+        private void ekibimDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            e.CellStyle.Font = new Font("Century Gothic", 12, FontStyle.Regular);
+
+            // Performans yüzdesini renklendirme
+            if (e.ColumnIndex == ekibimDGV.Columns["aylikPerformans"].Index && e.Value != null && e.RowIndex >= 0)
+            {
+                string performansStr = e.Value.ToString();
+                if (!string.IsNullOrEmpty(performansStr))
+                {
+                    int performans = int.Parse(performansStr.Replace("%", ""));
+
+                    if (performans >= 80)
+                        e.CellStyle.ForeColor = System.Drawing.Color.Green;
+                    else if (performans >= 50)
+                        e.CellStyle.ForeColor = System.Drawing.Color.Orange;
+                    else
+                        e.CellStyle.ForeColor = System.Drawing.Color.Red;
+                }
+            }
         }
     }
 }

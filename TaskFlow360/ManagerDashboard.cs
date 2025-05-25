@@ -26,7 +26,35 @@ namespace TaskFlow360
             SonCagrilariGetir();
             SonIslemleriGetir();
             AylikCagriDurumlariniCharttaGoster();
+            foreach (var dgv in new[] { EkipDGV, SonGorevlerDGV, SonIslemlerDGV })
+            {
+                StilUygula(dgv);
+                foreach (DataGridViewColumn column in dgv.Columns)
+                {
+                    column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                }
+            }
         }
+        private void StilUygula(DataGridView dgv)
+        {
+            dgv.Font = new Font("Century Gothic", 10);
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Century Gothic", 11, FontStyle.Bold);
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(126, 87, 194); // Mor
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgv.EnableHeadersVisualStyles = false;
+
+            dgv.DefaultCellStyle.BackColor = Color.White;
+            dgv.DefaultCellStyle.ForeColor = Color.Black;
+            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(179, 157, 219); // Açık mor
+            dgv.DefaultCellStyle.SelectionForeColor = Color.Black;
+
+            dgv.RowHeadersVisible = false;
+            dgv.BorderStyle = BorderStyle.None;
+            dgv.GridColor = Color.FromArgb(230, 230, 250); // Morumsu grid çizgisi
+
+            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 240, 255); // Hafif mor ton
+        }
+
         private void EkibindekiKullanicilariGetir()
         {
             // DataGrid ayarları - boyutun korunması ve kaydırma çubuklarının eklenmesi  
@@ -229,14 +257,14 @@ namespace TaskFlow360
                 baglanti.BaglantiAc();
 
                 string query = @"
-            SELECT 
-                Durum,
-                COUNT(*) AS CagriSayisi
-            FROM dbo.Cagri
-            WHERE YEAR(OlusturmaTarihi) = YEAR(GETDATE())
-                  AND MONTH(OlusturmaTarihi) = MONTH(GETDATE())
-            GROUP BY Durum
-            ORDER BY CagriSayisi DESC";
+        SELECT 
+            Durum,
+            COUNT(*) AS CagriSayisi
+        FROM dbo.Cagri
+        WHERE YEAR(OlusturmaTarihi) = YEAR(GETDATE())
+              AND MONTH(OlusturmaTarihi) = MONTH(GETDATE())
+        GROUP BY Durum
+        ORDER BY CagriSayisi DESC";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -244,39 +272,73 @@ namespace TaskFlow360
                     DataTable dataTable = new DataTable();
                     adapter.Fill(dataTable);
 
-                    // Chart'ı temizle ve ayarları yap
+                    // Grafik temizleme
                     chartCagriDurum.Series.Clear();
                     chartCagriDurum.Titles.Clear();
+                    chartCagriDurum.ChartAreas.Clear();
 
-                    // Yeni seri ekle
-                    Series series = new Series("Çağrı Durumları");
+                    // Chart Area ayarları
+                    ChartArea area = new ChartArea();
+                    area.BackColor = Color.WhiteSmoke;
+                    area.AxisX.Title = "Çağrı Durumu";
+                    area.AxisX.TitleFont = new Font("Century Gothic", 10, FontStyle.Bold);
+                    area.AxisX.MajorGrid.LineColor = Color.LightGray;
+                    area.AxisX.LabelStyle.Angle = -45;
+                    area.AxisY.Title = "Çağrı Sayısı";
+                    area.AxisY.TitleFont = new Font("Century Gothic", 10, FontStyle.Bold);
+                    area.AxisY.MajorGrid.LineColor = Color.LightGray;
+                    chartCagriDurum.ChartAreas.Add(area);
+
+                    // Seri oluştur
+                    Series series = new Series("Çağrı\nDurumları");
                     series.ChartType = SeriesChartType.Column;
                     series.IsValueShownAsLabel = true;
-                    series.LabelFormat = "{#}";
-                    series.Color = Color.SteelBlue;
+                    series.LabelForeColor = Color.Black;
+                    series.Font = new Font("Century Gothic", 10, FontStyle.Bold);
+                    series.BorderColor = Color.Black;
+                    series.BorderWidth = 1;
 
-                    // Verileri seriye ekle
+                    // Renk paleti
+                    Color[] renkler = new Color[]
+                    {
+                    Color.FromArgb(126, 87, 194), // Mor
+                    Color.FromArgb(255, 138, 101), // Turuncu
+                    Color.FromArgb(102, 187, 106), // Yeşil
+                    Color.FromArgb(65, 105, 225), // Mavi
+                    Color.FromArgb(255, 202, 40)  // Sarı
+                    };
+
+                    int renkIndex = 0;
+
+                    // Veriyi seriye ekle
                     foreach (DataRow row in dataTable.Rows)
                     {
                         string durum = row["Durum"].ToString();
                         int sayi = Convert.ToInt32(row["CagriSayisi"]);
-                        series.Points.AddXY(durum, sayi);
+                        int pointIndex = series.Points.AddXY(durum, sayi);
+                        series.Points[pointIndex].Label = sayi.ToString();
+                        series.Points[pointIndex].Color = renkler[renkIndex % renkler.Length];
+                        renkIndex++;
                     }
 
-                    // Seriyi chart'a ekle
+                    // Seriyi ekle
                     chartCagriDurum.Series.Add(series);
 
-                    // Chart başlığı ve görsel ayarlar
-                    chartCagriDurum.Titles.Add($"{DateTime.Now:MMMM} Ayı Çağrı Durumları");
-                    chartCagriDurum.ChartAreas[0].AxisX.LabelStyle.Angle = -45;
-                    chartCagriDurum.ChartAreas[0].AxisX.Interval = 1;
-                    chartCagriDurum.ChartAreas[0].BackColor = Color.WhiteSmoke;
+                    // Başlık
+                    chartCagriDurum.Titles.Add(new Title
+                    {
+                        Text = $"{DateTime.Now:MMMM} Ayı Çağrı Durumları",
+                        Font = new Font("Century Gothic", 12, FontStyle.Bold),
+                        ForeColor = Color.FromArgb(94, 53, 177), // Tema rengi
+                        Docking = Docking.Top,
+                        Alignment = ContentAlignment.MiddleCenter
+                    });
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Aylık çağrı durumları yüklenirken hata oluştu: " + ex.Message,
-                               "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {

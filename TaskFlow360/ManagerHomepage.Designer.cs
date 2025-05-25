@@ -29,15 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerHomepage));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle64 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle66 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle67 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle68 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle69 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle70 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle71 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle72 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle65 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ikonekipYonetim = new System.Windows.Forms.PictureBox();
             this.btnEkipYonetimi = new System.Windows.Forms.Button();
@@ -89,7 +88,6 @@
             this.tamamlananGorev = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.aylikPerformans = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ortalamaSure = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gorevAtaButon = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikonekipYonetim)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).BeginInit();
@@ -388,14 +386,14 @@
             this.ekipUyeleriDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ekipUyeleriDGV.BackgroundColor = System.Drawing.Color.White;
             this.ekipUyeleriDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle64.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle64.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle64.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle64.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle64.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle64.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle64.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ekipUyeleriDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle64;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ekipUyeleriDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.ekipUyeleriDGV.ColumnHeadersHeight = 35;
             this.ekipUyeleriDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ekipUyeleriDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -403,41 +401,39 @@
             this.aktifGorev,
             this.tamamlananGorev,
             this.aylikPerformans,
-            this.ortalamaSure,
-            this.gorevAtaButon});
-            dataGridViewCellStyle66.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle66.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle66.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle66.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle66.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle66.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle66.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.ekipUyeleriDGV.DefaultCellStyle = dataGridViewCellStyle66;
+            this.ortalamaSure});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ekipUyeleriDGV.DefaultCellStyle = dataGridViewCellStyle2;
             this.ekipUyeleriDGV.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ekipUyeleriDGV.Location = new System.Drawing.Point(0, 0);
             this.ekipUyeleriDGV.MultiSelect = false;
             this.ekipUyeleriDGV.Name = "ekipUyeleriDGV";
             this.ekipUyeleriDGV.ReadOnly = true;
-            dataGridViewCellStyle67.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle67.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle67.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle67.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle67.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle67.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle67.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ekipUyeleriDGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle67;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ekipUyeleriDGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.ekipUyeleriDGV.RowHeadersVisible = false;
             this.ekipUyeleriDGV.RowHeadersWidth = 51;
-            dataGridViewCellStyle68.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle68.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle68.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle68.SelectionForeColor = System.Drawing.Color.Black;
-            this.ekipUyeleriDGV.RowsDefaultCellStyle = dataGridViewCellStyle68;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            this.ekipUyeleriDGV.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.ekipUyeleriDGV.RowTemplate.Height = 24;
             this.ekipUyeleriDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ekipUyeleriDGV.Size = new System.Drawing.Size(1684, 330);
             this.ekipUyeleriDGV.TabIndex = 0;
-            this.ekipUyeleriDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ekipUyeleriDGV_CellClick);
             // 
             // panel3
             // 
@@ -699,44 +695,44 @@
             this.bekleyenCagrilarDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.bekleyenCagrilarDGV.BackgroundColor = System.Drawing.Color.White;
             this.bekleyenCagrilarDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle69.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle69.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle69.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle69.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle69.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle69.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle69.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.bekleyenCagrilarDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle69;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.bekleyenCagrilarDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.bekleyenCagrilarDGV.ColumnHeadersHeight = 35;
             this.bekleyenCagrilarDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle70.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle70.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle70.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle70.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle70.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle70.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle70.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.bekleyenCagrilarDGV.DefaultCellStyle = dataGridViewCellStyle70;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.bekleyenCagrilarDGV.DefaultCellStyle = dataGridViewCellStyle6;
             this.bekleyenCagrilarDGV.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.bekleyenCagrilarDGV.Location = new System.Drawing.Point(0, 0);
             this.bekleyenCagrilarDGV.MultiSelect = false;
             this.bekleyenCagrilarDGV.Name = "bekleyenCagrilarDGV";
             this.bekleyenCagrilarDGV.ReadOnly = true;
-            dataGridViewCellStyle71.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle71.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle71.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle71.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle71.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle71.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle71.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.bekleyenCagrilarDGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle71;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.bekleyenCagrilarDGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.bekleyenCagrilarDGV.RowHeadersVisible = false;
             this.bekleyenCagrilarDGV.RowHeadersWidth = 51;
-            dataGridViewCellStyle72.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle72.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle72.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle72.SelectionForeColor = System.Drawing.Color.Black;
-            this.bekleyenCagrilarDGV.RowsDefaultCellStyle = dataGridViewCellStyle72;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
+            this.bekleyenCagrilarDGV.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.bekleyenCagrilarDGV.RowTemplate.Height = 24;
             this.bekleyenCagrilarDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.bekleyenCagrilarDGV.Size = new System.Drawing.Size(1251, 324);
@@ -796,20 +792,6 @@
             this.ortalamaSure.MinimumWidth = 6;
             this.ortalamaSure.Name = "ortalamaSure";
             this.ortalamaSure.ReadOnly = true;
-            // 
-            // gorevAtaButon
-            // 
-            dataGridViewCellStyle65.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle65.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            dataGridViewCellStyle65.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle65.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle65.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            dataGridViewCellStyle65.SelectionForeColor = System.Drawing.Color.Black;
-            this.gorevAtaButon.DefaultCellStyle = dataGridViewCellStyle65;
-            this.gorevAtaButon.HeaderText = "İşlem";
-            this.gorevAtaButon.MinimumWidth = 6;
-            this.gorevAtaButon.Name = "gorevAtaButon";
-            this.gorevAtaButon.ReadOnly = true;
             // 
             // ManagerHomepage
             // 
@@ -918,6 +900,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn tamamlananGorev;
         private System.Windows.Forms.DataGridViewTextBoxColumn aylikPerformans;
         private System.Windows.Forms.DataGridViewTextBoxColumn ortalamaSure;
-        private System.Windows.Forms.DataGridViewButtonColumn gorevAtaButon;
     }
 }
