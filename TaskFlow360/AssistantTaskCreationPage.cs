@@ -36,8 +36,8 @@ namespace TaskFlow360
 
         private void btnCagriTakip_Click(object sender, EventArgs e)
         {
-            CallCenterTaskTracking callCenterTaskTracking = new CallCenterTaskTracking();
-            callCenterTaskTracking.Show();
+            AssistantTasks assistantTasks = new AssistantTasks();
+            assistantTasks.Show();
             this.Close();
         }
     }

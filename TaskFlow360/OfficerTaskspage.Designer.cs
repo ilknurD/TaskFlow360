@@ -282,6 +282,7 @@
             this.txtArama.Name = "txtArama";
             this.txtArama.Size = new System.Drawing.Size(184, 32);
             this.txtArama.TabIndex = 9;
+            this.txtArama.TextChanged += new System.EventHandler(this.txtArama_TextChanged);
             this.txtArama.Enter += new System.EventHandler(this.txtArama_Enter_1);
             this.txtArama.Leave += new System.EventHandler(this.txtArama_Leave_1);
             // 

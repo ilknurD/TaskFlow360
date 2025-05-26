@@ -260,16 +260,37 @@ namespace TaskFlow360
                 baglanti.BaglantiKapat();
             }
         }
-
-
-
-
-
         private void btnCagriOlustur_Click(object sender, EventArgs e)
         {
             AssistantTaskCreationPage assistantTaskCreationPage = new AssistantTaskCreationPage();
             assistantTaskCreationPage.Show();
             //this.Close();
+        }
+
+        private void btnAnasayfa_Click(object sender, EventArgs e)
+        {
+            AssistantHomepage assistantHomepage = new AssistantHomepage();
+            assistantHomepage.Show();
+            this.Close();
+        }
+
+        private void btnProfil_Click(object sender, EventArgs e)
+        {
+            AsistantProfile asistantProfile = new AsistantProfile();
+            asistantProfile.Show();
+            this.Close();
+        }
+
+        private void btnCagriTakip_Click(object sender, EventArgs e)
+        {
+            AssistantTasks assistantTasks = new AssistantTasks();
+            assistantTasks.Show();
+            this.Close();
+        }
+
+        private void btnRaporlar_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

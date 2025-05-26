@@ -1,6 +1,6 @@
 ﻿namespace TaskFlow360
 {
-    partial class AssistantHomepage
+    partial class AssistantTasks
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssistantHomepage));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssistantTasks));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ikonRaporlar = new System.Windows.Forms.PictureBox();
             this.btnRaporlar = new System.Windows.Forms.Button();
@@ -46,18 +47,20 @@
             this.btnProfil = new System.Windows.Forms.Button();
             this.btnAnasayfa = new System.Windows.Forms.Button();
             this.pctrLogo = new System.Windows.Forms.PictureBox();
-            this.soncagrilarlbl = new System.Windows.Forms.Panel();
-            this.lblBugunkuDurum = new System.Windows.Forms.Label();
-            this.lblHosgeldiniz = new System.Windows.Forms.Label();
-            this.lblTarihSaat = new System.Windows.Forms.Label();
-            this.lblMerhaba = new System.Windows.Forms.Label();
-            this.lblisim = new System.Windows.Forms.Label();
-            this.lblCagriIstatistikleri = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.SonAcilanCagrilarDGV = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.dgvGorevler = new System.Windows.Forms.DataGridView();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnTemizle = new System.Windows.Forms.Button();
+            this.lblSirala = new System.Windows.Forms.Label();
+            this.txtArama = new System.Windows.Forms.TextBox();
+            this.cmbKategori = new System.Windows.Forms.ComboBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.cmbDurum = new System.Windows.Forms.ComboBox();
+            this.cmbOncelik = new System.Windows.Forms.ComboBox();
+            this.lblOncelik = new System.Windows.Forms.Label();
+            this.lblDurum = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -66,10 +69,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).BeginInit();
-            this.soncagrilarlbl.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SonAcilanCagrilarDGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvGorevler)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -91,8 +95,8 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(295, 1055);
-            this.panel1.TabIndex = 8;
+            this.panel1.Size = new System.Drawing.Size(295, 1102);
+            this.panel1.TabIndex = 9;
             // 
             // ikonRaporlar
             // 
@@ -277,149 +281,15 @@
             this.pctrLogo.TabIndex = 0;
             this.pctrLogo.TabStop = false;
             // 
-            // soncagrilarlbl
-            // 
-            this.soncagrilarlbl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(103)))), ((int)(((byte)(195)))));
-            this.soncagrilarlbl.Controls.Add(this.lblBugunkuDurum);
-            this.soncagrilarlbl.Controls.Add(this.lblHosgeldiniz);
-            this.soncagrilarlbl.Location = new System.Drawing.Point(294, 108);
-            this.soncagrilarlbl.Name = "soncagrilarlbl";
-            this.soncagrilarlbl.Size = new System.Drawing.Size(1836, 114);
-            this.soncagrilarlbl.TabIndex = 9;
-            // 
-            // lblBugunkuDurum
-            // 
-            this.lblBugunkuDurum.AutoSize = true;
-            this.lblBugunkuDurum.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblBugunkuDurum.ForeColor = System.Drawing.Color.White;
-            this.lblBugunkuDurum.Location = new System.Drawing.Point(29, 59);
-            this.lblBugunkuDurum.Name = "lblBugunkuDurum";
-            this.lblBugunkuDurum.Size = new System.Drawing.Size(501, 21);
-            this.lblBugunkuDurum.TabIndex = 1;
-            this.lblBugunkuDurum.Text = "Bugün 5 yeni çağrı ve 12 devam eden çağrı bulunmaktadır.";
-            // 
-            // lblHosgeldiniz
-            // 
-            this.lblHosgeldiniz.AutoSize = true;
-            this.lblHosgeldiniz.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblHosgeldiniz.ForeColor = System.Drawing.Color.White;
-            this.lblHosgeldiniz.Location = new System.Drawing.Point(28, 24);
-            this.lblHosgeldiniz.Name = "lblHosgeldiniz";
-            this.lblHosgeldiniz.Size = new System.Drawing.Size(151, 27);
-            this.lblHosgeldiniz.TabIndex = 0;
-            this.lblHosgeldiniz.Text = "Hoş Geldiniz";
-            // 
-            // lblTarihSaat
-            // 
-            this.lblTarihSaat.AutoSize = true;
-            this.lblTarihSaat.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblTarihSaat.Location = new System.Drawing.Point(332, 82);
-            this.lblTarihSaat.Name = "lblTarihSaat";
-            this.lblTarihSaat.Size = new System.Drawing.Size(0, 21);
-            this.lblTarihSaat.TabIndex = 10;
-            // 
-            // lblMerhaba
-            // 
-            this.lblMerhaba.AutoSize = true;
-            this.lblMerhaba.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblMerhaba.Location = new System.Drawing.Point(1786, 84);
-            this.lblMerhaba.Name = "lblMerhaba";
-            this.lblMerhaba.Size = new System.Drawing.Size(94, 21);
-            this.lblMerhaba.TabIndex = 12;
-            this.lblMerhaba.Text = "Merhaba,";
-            // 
-            // lblisim
-            // 
-            this.lblisim.AutoSize = true;
-            this.lblisim.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblisim.Location = new System.Drawing.Point(1886, 84);
-            this.lblisim.Name = "lblisim";
-            this.lblisim.Size = new System.Drawing.Size(100, 21);
-            this.lblisim.TabIndex = 13;
-            this.lblisim.Text = "İsim Soyisim";
-            // 
-            // lblCagriIstatistikleri
-            // 
-            this.lblCagriIstatistikleri.AutoSize = true;
-            this.lblCagriIstatistikleri.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblCagriIstatistikleri.Location = new System.Drawing.Point(331, 248);
-            this.lblCagriIstatistikleri.Name = "lblCagriIstatistikleri";
-            this.lblCagriIstatistikleri.Size = new System.Drawing.Size(175, 23);
-            this.lblCagriIstatistikleri.TabIndex = 14;
-            this.lblCagriIstatistikleri.Text = "Çağrı İstatistikleri";
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(381, 297);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1614, 158);
-            this.flowLayoutPanel1.TabIndex = 15;
-            // 
-            // SonAcilanCagrilarDGV
-            // 
-            this.SonAcilanCagrilarDGV.AllowUserToAddRows = false;
-            this.SonAcilanCagrilarDGV.AllowUserToDeleteRows = false;
-            this.SonAcilanCagrilarDGV.AllowUserToResizeColumns = false;
-            this.SonAcilanCagrilarDGV.AllowUserToResizeRows = false;
-            this.SonAcilanCagrilarDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.SonAcilanCagrilarDGV.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.SonAcilanCagrilarDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(58)))), ((int)(((byte)(183)))));
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(58)))), ((int)(((byte)(183)))));
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.SonAcilanCagrilarDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
-            this.SonAcilanCagrilarDGV.ColumnHeadersHeight = 35;
-            this.SonAcilanCagrilarDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.SonAcilanCagrilarDGV.DefaultCellStyle = dataGridViewCellStyle11;
-            this.SonAcilanCagrilarDGV.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.SonAcilanCagrilarDGV.Location = new System.Drawing.Point(327, 530);
-            this.SonAcilanCagrilarDGV.Name = "SonAcilanCagrilarDGV";
-            this.SonAcilanCagrilarDGV.ReadOnly = true;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.SonAcilanCagrilarDGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
-            this.SonAcilanCagrilarDGV.RowHeadersVisible = false;
-            this.SonAcilanCagrilarDGV.RowHeadersWidth = 51;
-            this.SonAcilanCagrilarDGV.RowTemplate.Height = 24;
-            this.SonAcilanCagrilarDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.SonAcilanCagrilarDGV.Size = new System.Drawing.Size(1649, 471);
-            this.SonAcilanCagrilarDGV.TabIndex = 17;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label3.Location = new System.Drawing.Point(331, 486);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(203, 23);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "Son Açılan Çağrılar ";
-            // 
             // pictureBox3
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(1816, 12);
+            this.pictureBox3.Location = new System.Drawing.Point(1834, 12);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(35, 35);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 7;
+            this.pictureBox3.TabIndex = 17;
             this.pictureBox3.TabStop = false;
             this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
@@ -427,36 +297,205 @@
             // 
             this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(1855, 12);
+            this.pictureBox2.Location = new System.Drawing.Point(1873, 12);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(35, 35);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 6;
+            this.pictureBox2.TabIndex = 16;
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
-            // AssistantHomepage
+            // dgvGorevler
+            // 
+            this.dgvGorevler.AllowUserToAddRows = false;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.dgvGorevler.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvGorevler.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvGorevler.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvGorevler.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvGorevler.ColumnHeadersHeight = 35;
+            this.dgvGorevler.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvGorevler.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvGorevler.EnableHeadersVisualStyles = false;
+            this.dgvGorevler.Location = new System.Drawing.Point(327, 159);
+            this.dgvGorevler.MultiSelect = false;
+            this.dgvGorevler.Name = "dgvGorevler";
+            this.dgvGorevler.ReadOnly = true;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvGorevler.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvGorevler.RowHeadersWidth = 51;
+            this.dgvGorevler.RowTemplate.Height = 24;
+            this.dgvGorevler.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvGorevler.Size = new System.Drawing.Size(1665, 830);
+            this.dgvGorevler.TabIndex = 21;
+            this.dgvGorevler.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGorevler_CellClick);
+            this.dgvGorevler.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGorevler_CellContentClick);
+            this.dgvGorevler.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvGorevler_CellFormatting);
+            this.dgvGorevler.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvGorevler_DataBindingComplete);
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.btnTemizle);
+            this.panel2.Controls.Add(this.lblSirala);
+            this.panel2.Controls.Add(this.txtArama);
+            this.panel2.Controls.Add(this.cmbKategori);
+            this.panel2.Controls.Add(this.pictureBox4);
+            this.panel2.Controls.Add(this.cmbDurum);
+            this.panel2.Controls.Add(this.cmbOncelik);
+            this.panel2.Controls.Add(this.lblOncelik);
+            this.panel2.Controls.Add(this.lblDurum);
+            this.panel2.Location = new System.Drawing.Point(327, 86);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1665, 68);
+            this.panel2.TabIndex = 22;
+            // 
+            // btnTemizle
+            // 
+            this.btnTemizle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.btnTemizle.FlatAppearance.BorderSize = 0;
+            this.btnTemizle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTemizle.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnTemizle.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnTemizle.Location = new System.Drawing.Point(1250, 14);
+            this.btnTemizle.Name = "btnTemizle";
+            this.btnTemizle.Size = new System.Drawing.Size(157, 40);
+            this.btnTemizle.TabIndex = 21;
+            this.btnTemizle.Text = "Temizle";
+            this.btnTemizle.UseVisualStyleBackColor = false;
+            this.btnTemizle.Click += new System.EventHandler(this.btnTemizle_Click);
+            // 
+            // lblSirala
+            // 
+            this.lblSirala.AutoSize = true;
+            this.lblSirala.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblSirala.Location = new System.Drawing.Point(903, 23);
+            this.lblSirala.Name = "lblSirala";
+            this.lblSirala.Size = new System.Drawing.Size(89, 21);
+            this.lblSirala.TabIndex = 18;
+            this.lblSirala.Text = "Kategori:";
+            // 
+            // txtArama
+            // 
+            this.txtArama.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtArama.Location = new System.Drawing.Point(58, 21);
+            this.txtArama.Name = "txtArama";
+            this.txtArama.Size = new System.Drawing.Size(184, 32);
+            this.txtArama.TabIndex = 9;
+            this.txtArama.TextChanged += new System.EventHandler(this.txtArama_TextChanged);
+            this.txtArama.Enter += new System.EventHandler(this.txtArama_Enter_1);
+            this.txtArama.Leave += new System.EventHandler(this.txtArama_Leave_1);
+            // 
+            // cmbKategori
+            // 
+            this.cmbKategori.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbKategori.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cmbKategori.FormattingEnabled = true;
+            this.cmbKategori.Location = new System.Drawing.Point(1005, 18);
+            this.cmbKategori.Name = "cmbKategori";
+            this.cmbKategori.Size = new System.Drawing.Size(175, 31);
+            this.cmbKategori.TabIndex = 17;
+            this.cmbKategori.SelectedIndexChanged += new System.EventHandler(this.cmbKategori_SelectedIndexChanged);
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::TaskFlow360.Properties.Resources.search__1_;
+            this.pictureBox4.Location = new System.Drawing.Point(16, 21);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(42, 32);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 10;
+            this.pictureBox4.TabStop = false;
+            // 
+            // cmbDurum
+            // 
+            this.cmbDurum.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDurum.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cmbDurum.FormattingEnabled = true;
+            this.cmbDurum.Location = new System.Drawing.Point(381, 20);
+            this.cmbDurum.Name = "cmbDurum";
+            this.cmbDurum.Size = new System.Drawing.Size(175, 31);
+            this.cmbDurum.TabIndex = 11;
+            this.cmbDurum.SelectedIndexChanged += new System.EventHandler(this.cmbDurum_SelectedIndexChanged);
+            // 
+            // cmbOncelik
+            // 
+            this.cmbOncelik.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbOncelik.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cmbOncelik.FormattingEnabled = true;
+            this.cmbOncelik.Location = new System.Drawing.Point(682, 20);
+            this.cmbOncelik.Name = "cmbOncelik";
+            this.cmbOncelik.Size = new System.Drawing.Size(175, 31);
+            this.cmbOncelik.TabIndex = 11;
+            this.cmbOncelik.SelectedIndexChanged += new System.EventHandler(this.cmbOncelik_SelectedIndexChanged);
+            // 
+            // lblOncelik
+            // 
+            this.lblOncelik.AutoSize = true;
+            this.lblOncelik.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblOncelik.Location = new System.Drawing.Point(594, 23);
+            this.lblOncelik.Name = "lblOncelik";
+            this.lblOncelik.Size = new System.Drawing.Size(81, 21);
+            this.lblOncelik.TabIndex = 14;
+            this.lblOncelik.Text = "Öncelik:";
+            // 
+            // lblDurum
+            // 
+            this.lblDurum.AutoSize = true;
+            this.lblDurum.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblDurum.Location = new System.Drawing.Point(302, 23);
+            this.lblDurum.Name = "lblDurum";
+            this.lblDurum.Size = new System.Drawing.Size(72, 21);
+            this.lblDurum.TabIndex = 13;
+            this.lblDurum.Text = "Durum:";
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(34)))), ((int)(((byte)(158)))));
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Location = new System.Drawing.Point(327, 99);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1665, 68);
+            this.panel3.TabIndex = 23;
+            // 
+            // AssistantTasks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1902, 1055);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.SonAcilanCagrilarDGV);
-            this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.lblCagriIstatistikleri);
-            this.Controls.Add(this.lblisim);
-            this.Controls.Add(this.lblMerhaba);
-            this.Controls.Add(this.lblTarihSaat);
-            this.Controls.Add(this.soncagrilarlbl);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(1920, 1102);
+            this.Controls.Add(this.dgvGorevler);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "AssistantHomepage";
+            this.Name = "AssistantTasks";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AssistantHomepage";
+            this.Text = "AssistantTasks";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.AssistantHomepage_Load);
+            this.Load += new System.EventHandler(this.AssistantTasks_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -465,25 +504,24 @@
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).EndInit();
-            this.soncagrilarlbl.ResumeLayout(false);
-            this.soncagrilarlbl.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SonAcilanCagrilarDGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvGorevler)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox ikonRaporlar;
+        private System.Windows.Forms.Button btnRaporlar;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnCagriTakip;
         private System.Windows.Forms.PictureBox ikonCikis;
-        private System.Windows.Forms.PictureBox ikonRaporlar;
         private System.Windows.Forms.PictureBox ikonProfil;
         private System.Windows.Forms.PictureBox ikonGorevler;
         private System.Windows.Forms.PictureBox ikonAnasayfa;
@@ -492,16 +530,19 @@
         private System.Windows.Forms.Button btnProfil;
         private System.Windows.Forms.Button btnAnasayfa;
         private System.Windows.Forms.PictureBox pctrLogo;
-        private System.Windows.Forms.Button btnRaporlar;
-        private System.Windows.Forms.Panel soncagrilarlbl;
-        private System.Windows.Forms.Label lblBugunkuDurum;
-        private System.Windows.Forms.Label lblHosgeldiniz;
-        private System.Windows.Forms.Label lblTarihSaat;
-        private System.Windows.Forms.Label lblMerhaba;
-        private System.Windows.Forms.Label lblisim;
-        private System.Windows.Forms.Label lblCagriIstatistikleri;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.DataGridView SonAcilanCagrilarDGV;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.DataGridView dgvGorevler;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btnTemizle;
+        private System.Windows.Forms.Label lblSirala;
+        private System.Windows.Forms.TextBox txtArama;
+        private System.Windows.Forms.ComboBox cmbKategori;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.ComboBox cmbDurum;
+        private System.Windows.Forms.ComboBox cmbOncelik;
+        private System.Windows.Forms.Label lblOncelik;
+        private System.Windows.Forms.Label lblDurum;
+        private System.Windows.Forms.Panel panel3;
     }
 }
