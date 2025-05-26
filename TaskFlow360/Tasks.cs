@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace TaskFlow360
@@ -21,6 +22,10 @@ namespace TaskFlow360
         private void Tasks_Load(object sender, EventArgs e)
         {
             GorevleriGetir();
+            foreach (DataGridViewColumn column in dgvGorevler.Columns) //sutun başlığına göre sıralama yapma
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
         }
 
         private void Sutunlar()
@@ -50,6 +55,13 @@ namespace TaskFlow360
                 HeaderText = "Başlık",
                 DataPropertyName = "Baslik"
             });
+            
+            dgvGorevler.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "AtananKisi",
+                HeaderText = "Atanan Kişi",
+                DataPropertyName = "AtananKisi"
+            });
 
             dgvGorevler.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -73,25 +85,52 @@ namespace TaskFlow360
             });
 
             dgvGorevler.AutoGenerateColumns = false;
+            dgvGorevler.Font = new Font("Century Gothic", 10);
+            dgvGorevler.ColumnHeadersDefaultCellStyle.Font = new Font("Century Gothic", 11, FontStyle.Bold);
+            dgvGorevler.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(126, 87, 194); // Mor
+            dgvGorevler.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvGorevler.EnableHeadersVisualStyles = false;
+
+            dgvGorevler.DefaultCellStyle.BackColor = Color.White;
+            dgvGorevler.DefaultCellStyle.ForeColor = Color.Black;
+            dgvGorevler.DefaultCellStyle.SelectionBackColor = Color.FromArgb(179, 157, 219); // Açık mor
+            dgvGorevler.DefaultCellStyle.SelectionForeColor = Color.Black;
+
+            dgvGorevler.RowHeadersVisible = false;
+            dgvGorevler.BorderStyle = BorderStyle.None;
+            dgvGorevler.GridColor = Color.FromArgb(230, 230, 250); // Morumsu grid çizgisi
+
+            dgvGorevler.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 240, 255); // Hafif mor ton
+
+            foreach (DataGridViewColumn col in dgvGorevler.Columns)
+            {
+                col.ReadOnly = col.Name != "Secildi";  // "Durum" sütunu düzenlenebilir, diğerleri sadece okunur
+            }
         }
 
         private void GorevleriGetir()
         {
+            dgvGorevler.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvGorevler.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+            dgvGorevler.ScrollBars = ScrollBars.Both;
             try
             {
                 string query = @"
                 SELECT 
-                    CagriID, 
-                    Baslik, 
-                    Oncelik, 
-                    Durum, 
-                    TeslimTarihi
-                FROM Cagri
-                WHERE Durum <> 'Tamamlandı'
-                  AND AtananKullaniciID IN (
+                    C.CagriID,
+                    C.Baslik,
+                    C.Oncelik,
+                    C.Durum,
+                    C.TeslimTarihi,
+                    K.Ad + ' ' + K.Soyad AS AtananKisi
+                FROM Cagri C
+                INNER JOIN Kullanici K ON C.AtananKullaniciID = K.KullaniciID
+                WHERE C.Durum <> 'Tamamlandı'
+                  AND C.AtananKullaniciID IN (
                       SELECT KullaniciID FROM Kullanici
                       WHERE YoneticiID = @ManagerID OR KullaniciID = @ManagerID
                   )";
+    
 
                 using (SqlConnection conn = Baglanti.BaglantiGetir())
                 {
@@ -151,6 +190,17 @@ namespace TaskFlow360
             {
                 using (SqlConnection conn = Baglanti.BaglantiGetir())
                 {
+                    // Atanacak kişinin adı soyadı al
+                    string uyeAdiSoyadi = "";
+                    string uyeQuery = "SELECT Ad + ' ' + Soyad FROM Kullanici WHERE KullaniciID = @UyeID";
+                    using (SqlCommand cmdUye = new SqlCommand(uyeQuery, conn))
+                    {
+                        cmdUye.Parameters.AddWithValue("@UyeID", uyeID);
+                        object result = cmdUye.ExecuteScalar();
+                        uyeAdiSoyadi = result != null ? result.ToString() : "Bilinmeyen Kullanıcı";
+                    }
+
+                    // Görevleri döngüyle kontrol
                     foreach (DataGridViewRow row in dgvGorevler.Rows)
                     {
                         if (row.IsNewRow) continue;
@@ -161,12 +211,25 @@ namespace TaskFlow360
                         {
                             int cagriID = Convert.ToInt32(row.Cells["CagriID"].Value);
 
+                            // Cagri tablosunda AtananKullaniciID güncelle
                             string updateQuery = "UPDATE Cagri SET AtananKullaniciID = @UyeID WHERE CagriID = @CagriID";
-                            SqlCommand cmd = new SqlCommand(updateQuery, conn);
-                            cmd.Parameters.AddWithValue("@UyeID", uyeID);
-                            cmd.Parameters.AddWithValue("@CagriID", cagriID);
+                            using (SqlCommand cmd = new SqlCommand(updateQuery, conn))
+                            {
+                                cmd.Parameters.AddWithValue("@UyeID", uyeID);
+                                cmd.Parameters.AddWithValue("@CagriID", cagriID);
+                                cmd.ExecuteNonQuery();
+                            }
 
-                            cmd.ExecuteNonQuery();
+                            // 4. CagriDurumGuncelleme tablosuna kayıt eklenir
+                            Cagri.CagriDurumGuncelle(
+                                cagriID,
+                                "Görev Atandı",
+                                $"Görev {uyeAdiSoyadi} kullanıcısına atandı.",
+                                Convert.ToInt32(managerID), // yöneticinin ID’si
+                                conn,
+                                Convert.ToInt32(managerID)  // değişikliği yapan kişi yöneticidir
+                            );
+
                             sayac++;
                         }
                     }
@@ -192,7 +255,9 @@ namespace TaskFlow360
             }
 
             this.Close();
+
         }
+
 
         private void btnIptal_Click(object sender, EventArgs e)
         {
@@ -214,7 +279,7 @@ namespace TaskFlow360
 
         private void SetSelectedMemberInfo(string uyeAdi)
         {
-            this.Text = $"Görev Atama - {uyeAdi}";
+            lblSelectedMember.Text = $"Seçili Kişi: {uyeAdi}";
         }
 
         public void SetMemberName(string uyeAdi)

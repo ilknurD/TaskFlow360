@@ -86,6 +86,20 @@ namespace TaskFlow360
                 ConfigureBekleyenCagrilarDGV();
                 ConfigureEkipUyeleriDGV();
                 FormatDataGridViews();
+                // DataGridView stilleri
+                CagrilarDGV.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                CagrilarDGV.ColumnHeadersDefaultCellStyle.Font = new Font("Century Gothic", 12, FontStyle.Bold);
+                CagrilarDGV.EnableHeadersVisualStyles = false;
+
+                foreach (DataGridViewColumn column in CagrilarDGV.Columns)
+                {
+                    column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                }
+
+                foreach (DataGridViewColumn column in ekipUyeleriDGV.Columns)
+                {
+                    column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                }
 
                 CagrilarDGV.CellContentClick += CagrilarDGV_CellContentClick;
                 CagrilarDGV.DataBindingComplete += CagrilarDGV_DataBindingComplete;
@@ -96,6 +110,7 @@ namespace TaskFlow360
 
                 CagrilarDGV.RowTemplate.Height = 27;
                 ekipUyeleriDGV.RowTemplate.Height = 27;
+
             }
             catch (Exception ex)
             {
@@ -283,59 +298,6 @@ WHERE
                     row.Cells["Oncelik"].Style.Font = new Font("Century Gothic", 12, FontStyle.Bold);
                 }
             }
-            
-            // EkipUyeleriDGV formatlama
-            foreach (DataGridViewRow row in ekipUyeleriDGV.Rows)
-            {
-                // Örnek: Aktif görev sayısı 5'ten fazlaysa özel renk
-                if (row.Cells["AktifGorevler"].Value != null &&
-                    int.TryParse(row.Cells["AktifGorevler"].Value.ToString(), out int gorevSayisi) &&
-                    gorevSayisi > 5)
-                {
-                    row.Cells["AktifGorevler"].Style.BackColor = Color.LightSalmon;
-                }
-            }
-        }
-        private void CagriAtama(string memberID, string taskId)
-        {
-            try
-            {
-                if (baglanti.conn.State != ConnectionState.Open)
-                    baglanti.conn.Open();
-
-                string query = @"UPDATE dbo.Cagri
-                        SET AtananKullaniciID = @MemberID
-                        WHERE CagriID = @TaskID";
-
-                using (SqlCommand cmd = new SqlCommand(query, baglanti.conn))
-                {
-                    cmd.Parameters.AddWithValue("@MemberID", memberID);
-                    cmd.Parameters.AddWithValue("@TaskID", taskId);
-                    int rowsAffected = cmd.ExecuteNonQuery();
-
-                    if (rowsAffected > 0)
-                    {
-                        MessageBox.Show("Çağrı başarıyla üyeye atandı.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        if (baglanti.conn.State == ConnectionState.Open) //yenileme
-                            baglanti.conn.Close();
-
-                        LoadDataFromDatabase(); 
-                    }
-                    else
-                    {
-                        MessageBox.Show("Çağrı atama sırasında bir hata oluştu.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Çağrı atama sırasında bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (baglanti.conn.State == ConnectionState.Open)
-                    baglanti.conn.Close();
-            }
         }
         private void ekipUyeleriDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -359,6 +321,7 @@ WHERE
 
                 // Yeni formu aç ve memberID'yi gönder  
                 Tasks tasks = new Tasks(memberID, KullaniciBilgi.KullaniciID);
+                tasks.SetMemberName(selectedRow.Cells["AdSoyad"].Value.ToString());
                 tasks.Show();
             }
             catch (Exception ex)
@@ -576,35 +539,6 @@ WHERE
         private void ekipUyeleriDGV_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             ekipUyeleriDGV.ClearSelection();
-        }
-        private int GetTalepEdenIDByName(string talepEdenAd)
-        {
-            int talepEdenID = -1;
-
-            try
-            {
-                string sorgu = "SELECT TalepEdenID FROM TalepEdenler WHERE TalepEden = @TalepEden";
-                SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn);
-                cmd.Parameters.AddWithValue("@TalepEden", talepEdenAd);
-
-                baglanti.BaglantiAc();
-                object sonuc = cmd.ExecuteScalar();
-
-                if (sonuc != null && int.TryParse(sonuc.ToString(), out int id))
-                {
-                    talepEdenID = id;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Talep Eden ID alınırken hata oluştu: " + ex.Message);
-            }
-            finally
-            {
-                baglanti.BaglantiKapat();
-            }
-
-            return talepEdenID;
         }
         private int GetTalepEdenIDByCagriID(int cagriID)
         {
