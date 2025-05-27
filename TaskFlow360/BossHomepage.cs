@@ -47,7 +47,9 @@ namespace TaskFlow360
 
         private void btnKullaniciIslem_Click(object sender, EventArgs e)
         {
-
+            BossUsersControl bossUsersControl = new BossUsersControl();
+            bossUsersControl.Show();
+            this.Close();
         }
 
         private void btnRaporlar_Click(object sender, EventArgs e)

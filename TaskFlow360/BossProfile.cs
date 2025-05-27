@@ -140,5 +140,19 @@ namespace TaskFlow360
                 baglanti.BaglantiKapat();
             }
         }
+
+        private void btnProfil_Click(object sender, EventArgs e)
+        {
+            BossProfile bossProfile = new BossProfile();
+            bossProfile.Show();
+            this.Close();
+        }
+
+        private void btnKullaniciIslem_Click(object sender, EventArgs e)
+        {
+            BossUsersControl bossUsersControl = new BossUsersControl();
+            bossUsersControl.Show();
+            this.Close();
+        }
     }
 }

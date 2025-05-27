@@ -29,22 +29,22 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BossProfile));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ikonCikis = new System.Windows.Forms.PictureBox();
+            this.ikonRaporlar = new System.Windows.Forms.PictureBox();
             this.btnRaporlar = new System.Windows.Forms.Button();
+            this.ikonProfil = new System.Windows.Forms.PictureBox();
+            this.ikonGorevler = new System.Windows.Forms.PictureBox();
+            this.ikonAnasayfa = new System.Windows.Forms.PictureBox();
             this.btnCikis = new System.Windows.Forms.Button();
             this.btnKullaniciIslem = new System.Windows.Forms.Button();
             this.btnProfil = new System.Windows.Forms.Button();
             this.btnAnasayfa = new System.Windows.Forms.Button();
-            this.ikonCikis = new System.Windows.Forms.PictureBox();
-            this.ikonRaporlar = new System.Windows.Forms.PictureBox();
-            this.ikonProfil = new System.Windows.Forms.PictureBox();
-            this.ikonGorevler = new System.Windows.Forms.PictureBox();
-            this.ikonAnasayfa = new System.Windows.Forms.PictureBox();
             this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -82,13 +82,13 @@
             this.label14 = new System.Windows.Forms.Label();
             this.icerikPanel = new System.Windows.Forms.Panel();
             this.yoneticilerDGV = new System.Windows.Forms.DataGridView();
-            this.lblPerformansPrimBaslik = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.adSoyad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.departman = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.aktifGorev = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tamamlananGorev = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ekipUyeSayi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblPerformansPrimBaslik = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).BeginInit();
@@ -126,90 +126,6 @@
             this.panel1.Size = new System.Drawing.Size(295, 1102);
             this.panel1.TabIndex = 25;
             // 
-            // btnRaporlar
-            // 
-            this.btnRaporlar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnRaporlar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnRaporlar.FlatAppearance.BorderSize = 0;
-            this.btnRaporlar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRaporlar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnRaporlar.ForeColor = System.Drawing.Color.White;
-            this.btnRaporlar.Location = new System.Drawing.Point(0, 368);
-            this.btnRaporlar.Name = "btnRaporlar";
-            this.btnRaporlar.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
-            this.btnRaporlar.Size = new System.Drawing.Size(295, 60);
-            this.btnRaporlar.TabIndex = 9;
-            this.btnRaporlar.Text = "Raporlar";
-            this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRaporlar.UseVisualStyleBackColor = false;
-            // 
-            // btnCikis
-            // 
-            this.btnCikis.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnCikis.FlatAppearance.BorderSize = 0;
-            this.btnCikis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCikis.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnCikis.ForeColor = System.Drawing.Color.White;
-            this.btnCikis.Location = new System.Drawing.Point(0, 966);
-            this.btnCikis.Name = "btnCikis";
-            this.btnCikis.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
-            this.btnCikis.Size = new System.Drawing.Size(295, 60);
-            this.btnCikis.TabIndex = 5;
-            this.btnCikis.Text = "Çıkış";
-            this.btnCikis.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCikis.UseVisualStyleBackColor = false;
-            // 
-            // btnKullaniciIslem
-            // 
-            this.btnKullaniciIslem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnKullaniciIslem.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnKullaniciIslem.FlatAppearance.BorderSize = 0;
-            this.btnKullaniciIslem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnKullaniciIslem.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnKullaniciIslem.ForeColor = System.Drawing.Color.White;
-            this.btnKullaniciIslem.Location = new System.Drawing.Point(0, 308);
-            this.btnKullaniciIslem.Name = "btnKullaniciIslem";
-            this.btnKullaniciIslem.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
-            this.btnKullaniciIslem.Size = new System.Drawing.Size(295, 60);
-            this.btnKullaniciIslem.TabIndex = 3;
-            this.btnKullaniciIslem.Text = "Kullanıcı İşlemleri";
-            this.btnKullaniciIslem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnKullaniciIslem.UseVisualStyleBackColor = false;
-            // 
-            // btnProfil
-            // 
-            this.btnProfil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnProfil.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnProfil.FlatAppearance.BorderSize = 0;
-            this.btnProfil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnProfil.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnProfil.ForeColor = System.Drawing.Color.White;
-            this.btnProfil.Location = new System.Drawing.Point(0, 248);
-            this.btnProfil.Name = "btnProfil";
-            this.btnProfil.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
-            this.btnProfil.Size = new System.Drawing.Size(295, 60);
-            this.btnProfil.TabIndex = 2;
-            this.btnProfil.Text = "Profil";
-            this.btnProfil.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProfil.UseVisualStyleBackColor = false;
-            // 
-            // btnAnasayfa
-            // 
-            this.btnAnasayfa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnAnasayfa.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnAnasayfa.FlatAppearance.BorderSize = 0;
-            this.btnAnasayfa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAnasayfa.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnAnasayfa.ForeColor = System.Drawing.Color.White;
-            this.btnAnasayfa.Location = new System.Drawing.Point(0, 188);
-            this.btnAnasayfa.Name = "btnAnasayfa";
-            this.btnAnasayfa.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
-            this.btnAnasayfa.Size = new System.Drawing.Size(295, 60);
-            this.btnAnasayfa.TabIndex = 1;
-            this.btnAnasayfa.Text = "Anasayfa";
-            this.btnAnasayfa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAnasayfa.UseVisualStyleBackColor = false;
-            // 
             // ikonCikis
             // 
             this.ikonCikis.BackColor = System.Drawing.Color.Transparent;
@@ -231,6 +147,23 @@
             this.ikonRaporlar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ikonRaporlar.TabIndex = 10;
             this.ikonRaporlar.TabStop = false;
+            // 
+            // btnRaporlar
+            // 
+            this.btnRaporlar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.btnRaporlar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnRaporlar.FlatAppearance.BorderSize = 0;
+            this.btnRaporlar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRaporlar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnRaporlar.ForeColor = System.Drawing.Color.White;
+            this.btnRaporlar.Location = new System.Drawing.Point(0, 368);
+            this.btnRaporlar.Name = "btnRaporlar";
+            this.btnRaporlar.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
+            this.btnRaporlar.Size = new System.Drawing.Size(295, 60);
+            this.btnRaporlar.TabIndex = 9;
+            this.btnRaporlar.Text = "Raporlar";
+            this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRaporlar.UseVisualStyleBackColor = false;
             // 
             // ikonProfil
             // 
@@ -264,6 +197,75 @@
             this.ikonAnasayfa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ikonAnasayfa.TabIndex = 6;
             this.ikonAnasayfa.TabStop = false;
+            // 
+            // btnCikis
+            // 
+            this.btnCikis.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.btnCikis.FlatAppearance.BorderSize = 0;
+            this.btnCikis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCikis.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnCikis.ForeColor = System.Drawing.Color.White;
+            this.btnCikis.Location = new System.Drawing.Point(0, 966);
+            this.btnCikis.Name = "btnCikis";
+            this.btnCikis.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
+            this.btnCikis.Size = new System.Drawing.Size(295, 60);
+            this.btnCikis.TabIndex = 5;
+            this.btnCikis.Text = "Çıkış";
+            this.btnCikis.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCikis.UseVisualStyleBackColor = false;
+            // 
+            // btnKullaniciIslem
+            // 
+            this.btnKullaniciIslem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.btnKullaniciIslem.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnKullaniciIslem.FlatAppearance.BorderSize = 0;
+            this.btnKullaniciIslem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnKullaniciIslem.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnKullaniciIslem.ForeColor = System.Drawing.Color.White;
+            this.btnKullaniciIslem.Location = new System.Drawing.Point(0, 308);
+            this.btnKullaniciIslem.Name = "btnKullaniciIslem";
+            this.btnKullaniciIslem.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
+            this.btnKullaniciIslem.Size = new System.Drawing.Size(295, 60);
+            this.btnKullaniciIslem.TabIndex = 3;
+            this.btnKullaniciIslem.Text = "Kullanıcı İşlemleri";
+            this.btnKullaniciIslem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnKullaniciIslem.UseVisualStyleBackColor = false;
+            this.btnKullaniciIslem.Click += new System.EventHandler(this.btnKullaniciIslem_Click);
+            // 
+            // btnProfil
+            // 
+            this.btnProfil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.btnProfil.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnProfil.FlatAppearance.BorderSize = 0;
+            this.btnProfil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProfil.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnProfil.ForeColor = System.Drawing.Color.White;
+            this.btnProfil.Location = new System.Drawing.Point(0, 248);
+            this.btnProfil.Name = "btnProfil";
+            this.btnProfil.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
+            this.btnProfil.Size = new System.Drawing.Size(295, 60);
+            this.btnProfil.TabIndex = 2;
+            this.btnProfil.Text = "Profil";
+            this.btnProfil.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnProfil.UseVisualStyleBackColor = false;
+            this.btnProfil.Click += new System.EventHandler(this.btnProfil_Click);
+            // 
+            // btnAnasayfa
+            // 
+            this.btnAnasayfa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.btnAnasayfa.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnAnasayfa.FlatAppearance.BorderSize = 0;
+            this.btnAnasayfa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnasayfa.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnAnasayfa.ForeColor = System.Drawing.Color.White;
+            this.btnAnasayfa.Location = new System.Drawing.Point(0, 188);
+            this.btnAnasayfa.Name = "btnAnasayfa";
+            this.btnAnasayfa.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
+            this.btnAnasayfa.Size = new System.Drawing.Size(295, 60);
+            this.btnAnasayfa.TabIndex = 1;
+            this.btnAnasayfa.Text = "Anasayfa";
+            this.btnAnasayfa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAnasayfa.UseVisualStyleBackColor = false;
             // 
             // pctrLogo
             // 
@@ -671,23 +673,23 @@
             this.yoneticilerDGV.AllowUserToDeleteRows = false;
             this.yoneticilerDGV.AllowUserToResizeColumns = false;
             this.yoneticilerDGV.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            this.yoneticilerDGV.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.yoneticilerDGV.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.yoneticilerDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.yoneticilerDGV.BackgroundColor = System.Drawing.Color.White;
             this.yoneticilerDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.yoneticilerDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.yoneticilerDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.yoneticilerDGV.ColumnHeadersHeight = 40;
             this.yoneticilerDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.yoneticilerDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -696,62 +698,40 @@
             this.aktifGorev,
             this.tamamlananGorev,
             this.ekipUyeSayi});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.yoneticilerDGV.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.yoneticilerDGV.DefaultCellStyle = dataGridViewCellStyle8;
             this.yoneticilerDGV.EnableHeadersVisualStyles = false;
             this.yoneticilerDGV.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.yoneticilerDGV.Location = new System.Drawing.Point(23, 61);
             this.yoneticilerDGV.Name = "yoneticilerDGV";
             this.yoneticilerDGV.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.yoneticilerDGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.yoneticilerDGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.yoneticilerDGV.RowHeadersVisible = false;
             this.yoneticilerDGV.RowHeadersWidth = 51;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
-            this.yoneticilerDGV.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
+            this.yoneticilerDGV.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.yoneticilerDGV.RowTemplate.Height = 24;
             this.yoneticilerDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.yoneticilerDGV.Size = new System.Drawing.Size(1625, 271);
             this.yoneticilerDGV.TabIndex = 3;
-            // 
-            // lblPerformansPrimBaslik
-            // 
-            this.lblPerformansPrimBaslik.AutoSize = true;
-            this.lblPerformansPrimBaslik.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblPerformansPrimBaslik.Location = new System.Drawing.Point(19, 20);
-            this.lblPerformansPrimBaslik.Name = "lblPerformansPrimBaslik";
-            this.lblPerformansPrimBaslik.Size = new System.Drawing.Size(164, 23);
-            this.lblPerformansPrimBaslik.TabIndex = 1;
-            this.lblPerformansPrimBaslik.Text = "Ekip Yöneticileri";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label3.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label3.Location = new System.Drawing.Point(18, 28);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(1476, 25);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "_________________________________________________________________________________" +
-    "_________________________________________";
             // 
             // adSoyad
             // 
@@ -792,6 +772,28 @@
             this.ekipUyeSayi.Name = "ekipUyeSayi";
             this.ekipUyeSayi.ReadOnly = true;
             this.ekipUyeSayi.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // lblPerformansPrimBaslik
+            // 
+            this.lblPerformansPrimBaslik.AutoSize = true;
+            this.lblPerformansPrimBaslik.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblPerformansPrimBaslik.Location = new System.Drawing.Point(19, 20);
+            this.lblPerformansPrimBaslik.Name = "lblPerformansPrimBaslik";
+            this.lblPerformansPrimBaslik.Size = new System.Drawing.Size(164, 23);
+            this.lblPerformansPrimBaslik.TabIndex = 1;
+            this.lblPerformansPrimBaslik.Text = "Ekip Yöneticileri";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.label3.Location = new System.Drawing.Point(18, 28);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(1476, 25);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "_________________________________________________________________________________" +
+    "_________________________________________";
             // 
             // BossProfile
             // 
