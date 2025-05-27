@@ -290,7 +290,9 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
-            
+            AssistantReports assistantReports = new AssistantReports();
+            assistantReports.Show();
+            this.Close();
         }
     }
 }

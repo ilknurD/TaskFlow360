@@ -59,6 +59,12 @@
     <Compile Include="AssistantHomepage.Designer.cs">
       <DependentUpon>AssistantHomepage.cs</DependentUpon>
     </Compile>
+    <Compile Include="AssistantReports.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AssistantReports.Designer.cs">
+      <DependentUpon>AssistantReports.cs</DependentUpon>
+    </Compile>
     <Compile Include="AssistantTaskCreationPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AssistantHomepage.resx">
       <DependentUpon>AssistantHomepage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AssistantReports.resx">
+      <DependentUpon>AssistantReports.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AssistantTaskCreationPage.resx">
       <DependentUpon>AssistantTaskCreationPage.cs</DependentUpon>
