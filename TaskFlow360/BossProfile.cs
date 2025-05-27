@@ -154,5 +154,12 @@ namespace TaskFlow360
             bossUsersControl.Show();
             this.Close();
         }
+
+        private void btnAnasayfa_Click(object sender, EventArgs e)
+        {
+            BossHomepage bossHomepage = new BossHomepage();
+            bossHomepage.Show();
+            this.Close();
+        }
     }
 }

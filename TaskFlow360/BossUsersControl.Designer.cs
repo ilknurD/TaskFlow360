@@ -29,13 +29,11 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BossUsersControl));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ikonCikis = new System.Windows.Forms.PictureBox();
-            this.ikonRaporlar = new System.Windows.Forms.PictureBox();
-            this.btnRaporlar = new System.Windows.Forms.Button();
             this.ikonProfil = new System.Windows.Forms.PictureBox();
             this.ikonGorevler = new System.Windows.Forms.PictureBox();
             this.ikonAnasayfa = new System.Windows.Forms.PictureBox();
@@ -60,7 +58,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonProfil)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).BeginInit();
@@ -98,8 +95,6 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
             this.panel1.Controls.Add(this.ikonCikis);
-            this.panel1.Controls.Add(this.ikonRaporlar);
-            this.panel1.Controls.Add(this.btnRaporlar);
             this.panel1.Controls.Add(this.ikonProfil);
             this.panel1.Controls.Add(this.ikonGorevler);
             this.panel1.Controls.Add(this.ikonAnasayfa);
@@ -124,35 +119,6 @@
             this.ikonCikis.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ikonCikis.TabIndex = 11;
             this.ikonCikis.TabStop = false;
-            // 
-            // ikonRaporlar
-            // 
-            this.ikonRaporlar.BackColor = System.Drawing.Color.Transparent;
-            this.ikonRaporlar.Image = ((System.Drawing.Image)(resources.GetObject("ikonRaporlar.Image")));
-            this.ikonRaporlar.Location = new System.Drawing.Point(33, 378);
-            this.ikonRaporlar.Name = "ikonRaporlar";
-            this.ikonRaporlar.Size = new System.Drawing.Size(40, 40);
-            this.ikonRaporlar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonRaporlar.TabIndex = 10;
-            this.ikonRaporlar.TabStop = false;
-            // 
-            // btnRaporlar
-            // 
-            this.btnRaporlar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnRaporlar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnRaporlar.FlatAppearance.BorderSize = 0;
-            this.btnRaporlar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRaporlar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnRaporlar.ForeColor = System.Drawing.Color.White;
-            this.btnRaporlar.Location = new System.Drawing.Point(0, 368);
-            this.btnRaporlar.Name = "btnRaporlar";
-            this.btnRaporlar.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
-            this.btnRaporlar.Size = new System.Drawing.Size(295, 60);
-            this.btnRaporlar.TabIndex = 9;
-            this.btnRaporlar.Text = "Raporlar";
-            this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRaporlar.UseVisualStyleBackColor = false;
-            this.btnRaporlar.Click += new System.EventHandler(this.btnRaporlar_Click);
             // 
             // ikonProfil
             // 
@@ -273,14 +239,14 @@
             this.dataGridViewKullanicilar.AllowUserToResizeColumns = false;
             this.dataGridViewKullanicilar.AllowUserToResizeRows = false;
             this.dataGridViewKullanicilar.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewKullanicilar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewKullanicilar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewKullanicilar.ColumnHeadersHeight = 29;
             this.dataGridViewKullanicilar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewKullanicilar.EnableHeadersVisualStyles = false;
@@ -430,6 +396,7 @@
             this.btnEkle.TabIndex = 34;
             this.btnEkle.Text = "Ekle";
             this.btnEkle.UseVisualStyleBackColor = false;
+            this.btnEkle.Click += new System.EventHandler(this.btnEkle_Click);
             // 
             // BossUsersControl
             // 
@@ -454,7 +421,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonProfil)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).EndInit();
@@ -474,8 +440,6 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox ikonCikis;
-        private System.Windows.Forms.PictureBox ikonRaporlar;
-        private System.Windows.Forms.Button btnRaporlar;
         private System.Windows.Forms.PictureBox ikonProfil;
         private System.Windows.Forms.PictureBox ikonGorevler;
         private System.Windows.Forms.PictureBox ikonAnasayfa;

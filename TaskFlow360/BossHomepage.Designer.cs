@@ -29,19 +29,17 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BossHomepage));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ikonCikis = new System.Windows.Forms.PictureBox();
-            this.ikonRaporlar = new System.Windows.Forms.PictureBox();
-            this.btnRaporlar = new System.Windows.Forms.Button();
             this.ikonProfil = new System.Windows.Forms.PictureBox();
             this.ikonGorevler = new System.Windows.Forms.PictureBox();
             this.ikonAnasayfa = new System.Windows.Forms.PictureBox();
@@ -64,7 +62,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonProfil)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).BeginInit();
@@ -102,8 +99,6 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
             this.panel1.Controls.Add(this.ikonCikis);
-            this.panel1.Controls.Add(this.ikonRaporlar);
-            this.panel1.Controls.Add(this.btnRaporlar);
             this.panel1.Controls.Add(this.ikonProfil);
             this.panel1.Controls.Add(this.ikonGorevler);
             this.panel1.Controls.Add(this.ikonAnasayfa);
@@ -128,35 +123,6 @@
             this.ikonCikis.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ikonCikis.TabIndex = 11;
             this.ikonCikis.TabStop = false;
-            // 
-            // ikonRaporlar
-            // 
-            this.ikonRaporlar.BackColor = System.Drawing.Color.Transparent;
-            this.ikonRaporlar.Image = ((System.Drawing.Image)(resources.GetObject("ikonRaporlar.Image")));
-            this.ikonRaporlar.Location = new System.Drawing.Point(33, 378);
-            this.ikonRaporlar.Name = "ikonRaporlar";
-            this.ikonRaporlar.Size = new System.Drawing.Size(40, 40);
-            this.ikonRaporlar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonRaporlar.TabIndex = 10;
-            this.ikonRaporlar.TabStop = false;
-            // 
-            // btnRaporlar
-            // 
-            this.btnRaporlar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnRaporlar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnRaporlar.FlatAppearance.BorderSize = 0;
-            this.btnRaporlar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRaporlar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnRaporlar.ForeColor = System.Drawing.Color.White;
-            this.btnRaporlar.Location = new System.Drawing.Point(0, 368);
-            this.btnRaporlar.Name = "btnRaporlar";
-            this.btnRaporlar.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
-            this.btnRaporlar.Size = new System.Drawing.Size(295, 60);
-            this.btnRaporlar.TabIndex = 9;
-            this.btnRaporlar.Text = "Raporlar";
-            this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRaporlar.UseVisualStyleBackColor = false;
-            this.btnRaporlar.Click += new System.EventHandler(this.btnRaporlar_Click);
             // 
             // ikonProfil
             // 
@@ -326,18 +292,18 @@
             // 
             // chartDepartman
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chartDepartman.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.chartDepartman.Legends.Add(legend4);
+            chartArea1.Name = "ChartArea1";
+            this.chartDepartman.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartDepartman.Legends.Add(legend1);
             this.chartDepartman.Location = new System.Drawing.Point(1439, 292);
             this.chartDepartman.Name = "chartDepartman";
             this.chartDepartman.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.chartDepartman.Series.Add(series4);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartDepartman.Series.Add(series1);
             this.chartDepartman.Size = new System.Drawing.Size(554, 346);
             this.chartDepartman.TabIndex = 29;
             this.chartDepartman.Text = "chart1";
@@ -351,45 +317,45 @@
             this.dataGridViewKullanicilar.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewKullanicilar.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewKullanicilar.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewKullanicilar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewKullanicilar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewKullanicilar.ColumnHeadersHeight = 50;
             this.dataGridViewKullanicilar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewKullanicilar.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewKullanicilar.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewKullanicilar.EnableHeadersVisualStyles = false;
             this.dataGridViewKullanicilar.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.dataGridViewKullanicilar.Location = new System.Drawing.Point(327, 292);
             this.dataGridViewKullanicilar.MultiSelect = false;
             this.dataGridViewKullanicilar.Name = "dataGridViewKullanicilar";
             this.dataGridViewKullanicilar.ReadOnly = true;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewKullanicilar.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewKullanicilar.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewKullanicilar.RowHeadersVisible = false;
             this.dataGridViewKullanicilar.RowHeadersWidth = 55;
-            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.Black;
-            this.dataGridViewKullanicilar.RowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            this.dataGridViewKullanicilar.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewKullanicilar.RowTemplate.Height = 24;
             this.dataGridViewKullanicilar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewKullanicilar.Size = new System.Drawing.Size(1088, 346);
@@ -448,7 +414,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonProfil)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).EndInit();
@@ -468,8 +433,6 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox ikonCikis;
-        private System.Windows.Forms.PictureBox ikonRaporlar;
-        private System.Windows.Forms.Button btnRaporlar;
         private System.Windows.Forms.PictureBox ikonProfil;
         private System.Windows.Forms.PictureBox ikonGorevler;
         private System.Windows.Forms.PictureBox ikonAnasayfa;

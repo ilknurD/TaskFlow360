@@ -479,5 +479,12 @@ namespace TaskFlow360
         {
 
         }
+
+        private void btnEkle_Click(object sender, EventArgs e)
+        {
+            EditUsers editUsers = new EditUsers();
+            editUsers.Show();
+            this.Close();
+        }
     }
 }
