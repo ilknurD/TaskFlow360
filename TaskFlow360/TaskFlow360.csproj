@@ -53,10 +53,6 @@
     <Compile Include="AsistantProfile.Designer.cs">
       <DependentUpon>AsistantProfile.cs</DependentUpon>
     </Compile>
-    <Compile Include="AssigningTasksOfficer.cs" />
-    <Compile Include="AssigningTasksOfficer.Designer.cs">
-      <DependentUpon>AssigningTasksOfficer.cs</DependentUpon>
-    </Compile>
     <Compile Include="AssistantHomepage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,9 +169,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AsistantProfile.resx">
       <DependentUpon>AsistantProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AssigningTasksOfficer.resx">
-      <DependentUpon>AssigningTasksOfficer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AssistantHomepage.resx">
       <DependentUpon>AssistantHomepage.cs</DependentUpon>
