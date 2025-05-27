@@ -100,6 +100,14 @@ namespace TaskFlow360
 
             dataGridViewKullanicilar.Columns.Add(new DataGridViewTextBoxColumn
             {
+                Name = "Sifre",
+                HeaderText = "Şifre",
+                DataPropertyName = "Sifre",
+                Width = 80
+            });
+
+            dataGridViewKullanicilar.Columns.Add(new DataGridViewTextBoxColumn
+            {
                 Name = "Rol",
                 HeaderText = "Rol",
                 DataPropertyName = "Rol",
@@ -179,6 +187,7 @@ namespace TaskFlow360
                     k.Ad,
                     k.Soyad,
                     k.Email,
+                    k.Sifre,
                     k.Rol,
                     k.Maas,
                     k.Prim,
@@ -234,6 +243,7 @@ namespace TaskFlow360
                     k.Ad,
                     k.Soyad,
                     k.Email,
+                    k.Sifre,
                     k.Rol,
                     k.Maas,
                     k.Prim,
@@ -341,6 +351,7 @@ namespace TaskFlow360
                     k.Ad,
                     k.Soyad,
                     k.Email,
+                    k.Sifre
                     k.Rol,
                     k.Maas,
                     k.Prim,
@@ -433,6 +444,7 @@ namespace TaskFlow360
                 string ad = selectedRow.Cells["Ad"].Value?.ToString() ?? "";
                 string soyad = selectedRow.Cells["Soyad"].Value?.ToString() ?? "";
                 string email = selectedRow.Cells["Email"].Value?.ToString() ?? "";
+                string sifre = selectedRow.Cells["Sifre"].Value?.ToString() ?? ""; // ← ŞİFREYİ EKLEDİK
                 string rol = selectedRow.Cells["Rol"].Value?.ToString() ?? "";
                 decimal maas = selectedRow.Cells["Maas"].Value != null ?
                               Convert.ToDecimal(selectedRow.Cells["Maas"].Value) : 0;
@@ -448,7 +460,7 @@ namespace TaskFlow360
 
                 // EditUsers formunu oluştur ve bilgileri aktar
                 EditUsers editUsers = new EditUsers(
-                    kullaniciID, ad, soyad, email, rol, maas, prim,
+                    kullaniciID, ad, soyad, email, sifre, rol, maas, prim,
                     departman, telefon, cinsiyet, dogumTar, iseBaslamaTar
                 );
 
@@ -461,6 +473,7 @@ namespace TaskFlow360
                                "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void btnSil_Click(object sender, EventArgs e)
         {

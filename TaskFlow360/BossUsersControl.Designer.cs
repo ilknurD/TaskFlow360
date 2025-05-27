@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BossUsersControl));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -46,15 +46,16 @@
             this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.dataGridViewKullanicilar = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnDuzenle = new System.Windows.Forms.Button();
+            this.btnSil = new System.Windows.Forms.Button();
+            this.lblSeciliKullanici = new System.Windows.Forms.Label();
             this.btnTemizle = new System.Windows.Forms.Button();
             this.txtArama = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.cmbDepartman = new System.Windows.Forms.ComboBox();
-            this.lblKullaniciSayisi = new System.Windows.Forms.Label();
             this.lblDurum = new System.Windows.Forms.Label();
-            this.lblSeciliKullanici = new System.Windows.Forms.Label();
-            this.btnSil = new System.Windows.Forms.Button();
-            this.btnDuzenle = new System.Windows.Forms.Button();
+            this.lblKullaniciSayisi = new System.Windows.Forms.Label();
+            this.btnEkle = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -272,18 +273,18 @@
             this.dataGridViewKullanicilar.AllowUserToResizeColumns = false;
             this.dataGridViewKullanicilar.AllowUserToResizeRows = false;
             this.dataGridViewKullanicilar.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewKullanicilar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewKullanicilar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewKullanicilar.ColumnHeadersHeight = 29;
             this.dataGridViewKullanicilar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewKullanicilar.EnableHeadersVisualStyles = false;
-            this.dataGridViewKullanicilar.Location = new System.Drawing.Point(327, 159);
+            this.dataGridViewKullanicilar.Location = new System.Drawing.Point(327, 200);
             this.dataGridViewKullanicilar.MultiSelect = false;
             this.dataGridViewKullanicilar.Name = "dataGridViewKullanicilar";
             this.dataGridViewKullanicilar.ReadOnly = true;
@@ -291,7 +292,7 @@
             this.dataGridViewKullanicilar.RowHeadersWidth = 51;
             this.dataGridViewKullanicilar.RowTemplate.Height = 24;
             this.dataGridViewKullanicilar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewKullanicilar.Size = new System.Drawing.Size(1665, 830);
+            this.dataGridViewKullanicilar.Size = new System.Drawing.Size(1665, 789);
             this.dataGridViewKullanicilar.TabIndex = 27;
             this.dataGridViewKullanicilar.SelectionChanged += new System.EventHandler(this.dataGridViewKullanicilar_SelectionChanged);
             // 
@@ -299,18 +300,57 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.btnEkle);
             this.panel2.Controls.Add(this.btnDuzenle);
             this.panel2.Controls.Add(this.btnSil);
             this.panel2.Controls.Add(this.lblSeciliKullanici);
             this.panel2.Controls.Add(this.btnTemizle);
-            this.panel2.Controls.Add(this.txtArama);
-            this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.cmbDepartman);
             this.panel2.Controls.Add(this.lblDurum);
             this.panel2.Location = new System.Drawing.Point(327, 86);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1665, 68);
             this.panel2.TabIndex = 28;
+            // 
+            // btnDuzenle
+            // 
+            this.btnDuzenle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.btnDuzenle.FlatAppearance.BorderSize = 0;
+            this.btnDuzenle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDuzenle.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnDuzenle.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnDuzenle.Location = new System.Drawing.Point(1249, 16);
+            this.btnDuzenle.Name = "btnDuzenle";
+            this.btnDuzenle.Size = new System.Drawing.Size(157, 40);
+            this.btnDuzenle.TabIndex = 33;
+            this.btnDuzenle.Text = "Düzenle";
+            this.btnDuzenle.UseVisualStyleBackColor = false;
+            this.btnDuzenle.Click += new System.EventHandler(this.btnDuzenle_Click);
+            // 
+            // btnSil
+            // 
+            this.btnSil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.btnSil.FlatAppearance.BorderSize = 0;
+            this.btnSil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSil.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnSil.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnSil.Location = new System.Drawing.Point(1423, 16);
+            this.btnSil.Name = "btnSil";
+            this.btnSil.Size = new System.Drawing.Size(157, 40);
+            this.btnSil.TabIndex = 32;
+            this.btnSil.Text = "Sil";
+            this.btnSil.UseVisualStyleBackColor = false;
+            this.btnSil.Click += new System.EventHandler(this.btnSil_Click);
+            // 
+            // lblSeciliKullanici
+            // 
+            this.lblSeciliKullanici.AutoSize = true;
+            this.lblSeciliKullanici.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblSeciliKullanici.Location = new System.Drawing.Point(17, 24);
+            this.lblSeciliKullanici.Name = "lblSeciliKullanici";
+            this.lblSeciliKullanici.Size = new System.Drawing.Size(72, 23);
+            this.lblSeciliKullanici.TabIndex = 31;
+            this.lblSeciliKullanici.Text = "label1";
             // 
             // btnTemizle
             // 
@@ -330,7 +370,7 @@
             // txtArama
             // 
             this.txtArama.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.txtArama.Location = new System.Drawing.Point(323, 20);
+            this.txtArama.Location = new System.Drawing.Point(369, 162);
             this.txtArama.Name = "txtArama";
             this.txtArama.Size = new System.Drawing.Size(283, 32);
             this.txtArama.TabIndex = 9;
@@ -339,7 +379,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::TaskFlow360.Properties.Resources.search__1_;
-            this.pictureBox1.Location = new System.Drawing.Point(281, 20);
+            this.pictureBox1.Location = new System.Drawing.Point(327, 162);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(42, 32);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -351,11 +391,21 @@
             this.cmbDepartman.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDepartman.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.cmbDepartman.FormattingEnabled = true;
-            this.cmbDepartman.Location = new System.Drawing.Point(776, 20);
+            this.cmbDepartman.Location = new System.Drawing.Point(510, 21);
             this.cmbDepartman.Name = "cmbDepartman";
             this.cmbDepartman.Size = new System.Drawing.Size(264, 31);
             this.cmbDepartman.TabIndex = 11;
             this.cmbDepartman.SelectedIndexChanged += new System.EventHandler(this.cmbDepartman_SelectedIndexChanged);
+            // 
+            // lblDurum
+            // 
+            this.lblDurum.AutoSize = true;
+            this.lblDurum.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblDurum.Location = new System.Drawing.Point(383, 26);
+            this.lblDurum.Name = "lblDurum";
+            this.lblDurum.Size = new System.Drawing.Size(116, 21);
+            this.lblDurum.TabIndex = 13;
+            this.lblDurum.Text = "Departman:";
             // 
             // lblKullaniciSayisi
             // 
@@ -367,55 +417,19 @@
             this.lblKullaniciSayisi.TabIndex = 30;
             this.lblKullaniciSayisi.Text = "label1";
             // 
-            // lblDurum
+            // btnEkle
             // 
-            this.lblDurum.AutoSize = true;
-            this.lblDurum.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblDurum.Location = new System.Drawing.Point(649, 25);
-            this.lblDurum.Name = "lblDurum";
-            this.lblDurum.Size = new System.Drawing.Size(116, 21);
-            this.lblDurum.TabIndex = 13;
-            this.lblDurum.Text = "Departman:";
-            // 
-            // lblSeciliKullanici
-            // 
-            this.lblSeciliKullanici.AutoSize = true;
-            this.lblSeciliKullanici.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblSeciliKullanici.Location = new System.Drawing.Point(17, 24);
-            this.lblSeciliKullanici.Name = "lblSeciliKullanici";
-            this.lblSeciliKullanici.Size = new System.Drawing.Size(72, 23);
-            this.lblSeciliKullanici.TabIndex = 31;
-            this.lblSeciliKullanici.Text = "label1";
-            // 
-            // btnSil
-            // 
-            this.btnSil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnSil.FlatAppearance.BorderSize = 0;
-            this.btnSil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSil.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnSil.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSil.Location = new System.Drawing.Point(1423, 16);
-            this.btnSil.Name = "btnSil";
-            this.btnSil.Size = new System.Drawing.Size(157, 40);
-            this.btnSil.TabIndex = 32;
-            this.btnSil.Text = "Sil";
-            this.btnSil.UseVisualStyleBackColor = false;
-            this.btnSil.Click += new System.EventHandler(this.btnSil_Click);
-            // 
-            // btnDuzenle
-            // 
-            this.btnDuzenle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnDuzenle.FlatAppearance.BorderSize = 0;
-            this.btnDuzenle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDuzenle.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnDuzenle.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnDuzenle.Location = new System.Drawing.Point(1249, 16);
-            this.btnDuzenle.Name = "btnDuzenle";
-            this.btnDuzenle.Size = new System.Drawing.Size(157, 40);
-            this.btnDuzenle.TabIndex = 33;
-            this.btnDuzenle.Text = "Düzenle";
-            this.btnDuzenle.UseVisualStyleBackColor = false;
-            this.btnDuzenle.Click += new System.EventHandler(this.btnDuzenle_Click);
+            this.btnEkle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.btnEkle.FlatAppearance.BorderSize = 0;
+            this.btnEkle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEkle.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnEkle.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnEkle.Location = new System.Drawing.Point(902, 16);
+            this.btnEkle.Name = "btnEkle";
+            this.btnEkle.Size = new System.Drawing.Size(157, 40);
+            this.btnEkle.TabIndex = 34;
+            this.btnEkle.Text = "Ekle";
+            this.btnEkle.UseVisualStyleBackColor = false;
             // 
             // BossUsersControl
             // 
@@ -426,6 +440,8 @@
             this.Controls.Add(this.dataGridViewKullanicilar);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.txtArama);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -479,5 +495,6 @@
         private System.Windows.Forms.Label lblSeciliKullanici;
         private System.Windows.Forms.Button btnDuzenle;
         private System.Windows.Forms.Button btnSil;
+        private System.Windows.Forms.Button btnEkle;
     }
 }
