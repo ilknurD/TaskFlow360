@@ -413,5 +413,58 @@ namespace TaskFlow360
             txtArama.ForeColor = Color.Gray;
             KullanicilariYukle();
         }
+
+        private void btnDuzenle_Click(object sender, EventArgs e)
+        {
+            // Seçili satır kontrolü
+            if (dataGridViewKullanicilar.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Lütfen düzenlemek istediğiniz kullanıcıyı seçin!",
+                               "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                DataGridViewRow selectedRow = dataGridViewKullanicilar.SelectedRows[0];
+
+                // Seçili kullanıcının bilgilerini al
+                int kullaniciID = Convert.ToInt32(selectedRow.Cells["KullaniciID"].Value);
+                string ad = selectedRow.Cells["Ad"].Value?.ToString() ?? "";
+                string soyad = selectedRow.Cells["Soyad"].Value?.ToString() ?? "";
+                string email = selectedRow.Cells["Email"].Value?.ToString() ?? "";
+                string rol = selectedRow.Cells["Rol"].Value?.ToString() ?? "";
+                decimal maas = selectedRow.Cells["Maas"].Value != null ?
+                              Convert.ToDecimal(selectedRow.Cells["Maas"].Value) : 0;
+                decimal prim = selectedRow.Cells["Prim"].Value != null ?
+                              Convert.ToDecimal(selectedRow.Cells["Prim"].Value) : 0;
+                string departman = selectedRow.Cells["Departman"].Value?.ToString() ?? "";
+                string telefon = selectedRow.Cells["Telefon"].Value?.ToString() ?? "";
+                string cinsiyet = selectedRow.Cells["Cinsiyet"].Value?.ToString() ?? "";
+                DateTime? dogumTar = selectedRow.Cells["DogumTar"].Value != null ?
+                                    Convert.ToDateTime(selectedRow.Cells["DogumTar"].Value) : (DateTime?)null;
+                DateTime? iseBaslamaTar = selectedRow.Cells["IseBaslamaTar"].Value != null ?
+                                         Convert.ToDateTime(selectedRow.Cells["IseBaslamaTar"].Value) : (DateTime?)null;
+
+                // EditUsers formunu oluştur ve bilgileri aktar
+                EditUsers editUsers = new EditUsers(
+                    kullaniciID, ad, soyad, email, rol, maas, prim,
+                    departman, telefon, cinsiyet, dogumTar, iseBaslamaTar
+                );
+
+                editUsers.Show();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Kullanıcı bilgileri alınırken hata oluştu: {ex.Message}",
+                               "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnSil_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
