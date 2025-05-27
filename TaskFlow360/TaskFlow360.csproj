@@ -78,6 +78,12 @@
       <DependentUpon>AssistantTasks.cs</DependentUpon>
     </Compile>
     <Compile Include="Baglanti.cs" />
+    <Compile Include="BossHomepage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BossHomepage.Designer.cs">
+      <DependentUpon>BossHomepage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cagri.cs" />
     <Compile Include="ManagerDashboard.cs">
       <SubType>Form</SubType>
@@ -187,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AssistantTasks.resx">
       <DependentUpon>AssistantTasks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BossHomepage.resx">
+      <DependentUpon>BossHomepage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CallCenterTaskTracking.resx">
       <DependentUpon>CallCenterTaskTracking.cs</DependentUpon>

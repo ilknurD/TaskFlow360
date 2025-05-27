@@ -147,6 +147,10 @@ namespace TaskFlow360
                             case "Çağrı Merkezi":
                                 homepage = new AssistantHomepage();
                                 break;
+                            case "4":
+                            case "Müdür":
+                                homepage = new BossHomepage();
+                                break;
                             default:
                                 MessageBox.Show("Tanımlanamayan kullanıcı rolü: " + KullaniciBilgi.Rol);
                                 return;
