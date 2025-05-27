@@ -84,6 +84,12 @@
     <Compile Include="BossHomepage.Designer.cs">
       <DependentUpon>BossHomepage.cs</DependentUpon>
     </Compile>
+    <Compile Include="BossProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BossProfile.Designer.cs">
+      <DependentUpon>BossProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cagri.cs" />
     <Compile Include="ManagerDashboard.cs">
       <SubType>Form</SubType>
@@ -196,6 +202,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BossHomepage.resx">
       <DependentUpon>BossHomepage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BossProfile.resx">
+      <DependentUpon>BossProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CallCenterTaskTracking.resx">
       <DependentUpon>CallCenterTaskTracking.cs</DependentUpon>

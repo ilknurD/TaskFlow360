@@ -40,7 +40,9 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
-
+            BossProfile bossProfile = new BossProfile();
+            bossProfile.Show();
+            this.Close();
         }
 
         private void btnKullaniciIslem_Click(object sender, EventArgs e)
