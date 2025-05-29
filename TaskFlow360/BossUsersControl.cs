@@ -103,6 +103,7 @@ namespace TaskFlow360
                 Name = "Sifre",
                 HeaderText = "Şifre",
                 DataPropertyName = "Sifre",
+                Visible = false,
                 Width = 80
             });
 
@@ -116,20 +117,18 @@ namespace TaskFlow360
 
             dataGridViewKullanicilar.Columns.Add(new DataGridViewTextBoxColumn
             {
-                Name = "Maas",
-                HeaderText = "Maaş",
-                DataPropertyName = "Maas",
+                Name = "YoneticiID",
+                HeaderText = "Yönetici",
+                DataPropertyName = "YoneticiID",
                 Width = 100,
-                DefaultCellStyle = { Format = "N2" } // Para formatı
             });
 
             dataGridViewKullanicilar.Columns.Add(new DataGridViewTextBoxColumn
             {
-                Name = "Prim",
-                HeaderText = "Prim",
-                DataPropertyName = "Prim",
+                Name = "Adres",
+                HeaderText = "Adres",
+                DataPropertyName = "Adres",
                 Width = 100,
-                DefaultCellStyle = { Format = "N2" } // Para formatı
             });
 
             dataGridViewKullanicilar.Columns.Add(new DataGridViewTextBoxColumn
@@ -189,8 +188,8 @@ namespace TaskFlow360
                     k.Email,
                     k.Sifre,
                     k.Rol,
-                    k.Maas,
-                    k.Prim,
+                    k.YoneticiID,
+                    k.Adres,
                     ISNULL(d.DepartmanAdi, 'Departman Yok') as Departman,
                     k.Telefon,
                     k.Cinsiyet,
@@ -202,7 +201,7 @@ namespace TaskFlow360
 
                 DataTable dt = new DataTable();
 
-                using (SqlConnection conn = Baglanti.BaglantiGetir()) // Bağlantı sınıfınızın metodunu kullanın
+                using (SqlConnection conn = Baglanti.BaglantiGetir())
                 {
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -245,8 +244,8 @@ namespace TaskFlow360
                     k.Email,
                     k.Sifre,
                     k.Rol,
-                    k.Maas,
-                    k.Prim,
+                    k.YoneticiID,
+                    k.Adres,
                     ISNULL(d.DepartmanAdi, 'Departman Yok') as Departman,
                     k.Telefon,
                     k.Cinsiyet,
@@ -258,6 +257,14 @@ namespace TaskFlow360
                    OR k.Soyad LIKE @arama 
                    OR k.Email LIKE @arama 
                    OR k.Rol LIKE @arama
+                     OR k.Telefon LIKE @arama
+                        OR k.Cinsiyet LIKE @arama
+                        OR k.Adres LIKE @arama
+                        OR k.DogumTar LIKE @arama
+                        OR k.IseBaslamaTar LIKE @arama
+                        OR k.Sifre LIKE @arama
+                        OR k.YoneticiID LIKE @arama
+                        OR k.KullaniciID LIKE @arama
                    OR d.DepartmanAdi LIKE @arama
                 ORDER BY k.KullaniciID";
 
@@ -301,37 +308,26 @@ namespace TaskFlow360
             }
 
         }
-        private void DepartmanlariYukle()
+        private void DepartmanlariYukle(int? secilecekDepartmanID = null)
         {
-            try
+            using (SqlConnection conn = Baglanti.BaglantiGetir())
             {
-                string query = "SELECT DepartmanAdi FROM Departman ORDER BY DepartmanAdi";
+                SqlCommand cmd = new SqlCommand("SELECT DepartmanID, DepartmanAdi FROM Departman", conn);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
 
-                cmbDepartman.Items.Clear();
-                cmbDepartman.Items.Add("Tümü");
+                cmbDepartman.DataSource = dt;
+                cmbDepartman.DisplayMember = "DepartmanAdi";
+                cmbDepartman.ValueMember = "DepartmanID";
 
-                using (SqlConnection conn = Baglanti.BaglantiGetir())
+                if (secilecekDepartmanID.HasValue)
                 {
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                cmbDepartman.Items.Add(reader["DepartmanAdi"].ToString());
-                            }
-                        }
-                    }
+                    cmbDepartman.SelectedValue = secilecekDepartmanID.Value;
                 }
-
-                cmbDepartman.SelectedIndex = 0; // "Tümü" seçili olsun
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Departmanlar yüklenirken hata oluştu: {ex.Message}",
-                              "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void cmbDepartman_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -351,10 +347,10 @@ namespace TaskFlow360
                     k.Ad,
                     k.Soyad,
                     k.Email,
-                    k.Sifre
+                    k.Sifre,
                     k.Rol,
-                    k.Maas,
-                    k.Prim,
+                    k.YoneticiID,
+                    k.Adres,
                     ISNULL(d.DepartmanAdi, 'Departman Yok') as Departman,
                     k.Telefon,
                     k.Cinsiyet,
@@ -427,52 +423,69 @@ namespace TaskFlow360
 
         private void btnDuzenle_Click(object sender, EventArgs e)
         {
-            // Seçili satır kontrolü
             if (dataGridViewKullanicilar.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Lütfen düzenlemek istediğiniz kullanıcıyı seçin!",
-                               "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             try
             {
                 DataGridViewRow selectedRow = dataGridViewKullanicilar.SelectedRows[0];
-
-                // Seçili kullanıcının bilgilerini al
                 int kullaniciID = Convert.ToInt32(selectedRow.Cells["KullaniciID"].Value);
                 string ad = selectedRow.Cells["Ad"].Value?.ToString() ?? "";
                 string soyad = selectedRow.Cells["Soyad"].Value?.ToString() ?? "";
                 string email = selectedRow.Cells["Email"].Value?.ToString() ?? "";
-                string sifre = selectedRow.Cells["Sifre"].Value?.ToString() ?? ""; // ← ŞİFREYİ EKLEDİK
+                string sifre = selectedRow.Cells["Sifre"].Value?.ToString() ?? "";
                 string rol = selectedRow.Cells["Rol"].Value?.ToString() ?? "";
-                decimal maas = selectedRow.Cells["Maas"].Value != null ?
-                              Convert.ToDecimal(selectedRow.Cells["Maas"].Value) : 0;
-                decimal prim = selectedRow.Cells["Prim"].Value != null ?
-                              Convert.ToDecimal(selectedRow.Cells["Prim"].Value) : 0;
-                string departman = selectedRow.Cells["Departman"].Value?.ToString() ?? "";
+                string adres = selectedRow.Cells["Adres"].Value?.ToString() ?? "";
+
+                int? yoneticiID = selectedRow.Cells["YoneticiID"].Value != null ?
+                                  Convert.ToInt32(selectedRow.Cells["YoneticiID"].Value) : (int?)null;
+
+                int? departmanID = null;
+                try
+                {
+                    using (SqlConnection conn = Baglanti.BaglantiGetir())
+                    {
+                        string query = "SELECT DepartmanID FROM Kullanici WHERE KullaniciID = @kullaniciID";
+                        SqlCommand cmd = new SqlCommand(query, conn);
+                        cmd.Parameters.AddWithValue("@kullaniciID", kullaniciID);
+                        object result = cmd.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                        {
+                            departmanID = Convert.ToInt32(result);
+                        }
+                    }
+                }
+                catch (Exception dbEx)
+                {
+                    MessageBox.Show($"Departman ID alınırken hata: {dbEx.Message}");
+                }
+
                 string telefon = selectedRow.Cells["Telefon"].Value?.ToString() ?? "";
                 string cinsiyet = selectedRow.Cells["Cinsiyet"].Value?.ToString() ?? "";
                 DateTime? dogumTar = selectedRow.Cells["DogumTar"].Value != null ?
-                                    Convert.ToDateTime(selectedRow.Cells["DogumTar"].Value) : (DateTime?)null;
+                                     Convert.ToDateTime(selectedRow.Cells["DogumTar"].Value) : (DateTime?)null;
                 DateTime? iseBaslamaTar = selectedRow.Cells["IseBaslamaTar"].Value != null ?
-                                         Convert.ToDateTime(selectedRow.Cells["IseBaslamaTar"].Value) : (DateTime?)null;
+                                          Convert.ToDateTime(selectedRow.Cells["IseBaslamaTar"].Value) : (DateTime?)null;
 
-                // EditUsers formunu oluştur ve bilgileri aktar
+                // Formu aç ve bilgileri aktar
                 EditUsers editUsers = new EditUsers(
-                    kullaniciID, ad, soyad, email, sifre, rol, maas, prim,
-                    departman, telefon, cinsiyet, dogumTar, iseBaslamaTar
+                    kullaniciID, ad, soyad, email, sifre, rol,
+                    adres, yoneticiID, departmanID, telefon, cinsiyet, dogumTar, iseBaslamaTar
                 );
-
                 editUsers.Show();
                 this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Kullanıcı bilgileri alınırken hata oluştu: {ex.Message}",
-                               "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
 
         private void btnSil_Click(object sender, EventArgs e)

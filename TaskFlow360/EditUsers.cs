@@ -14,56 +14,134 @@ namespace TaskFlow360
         {
             InitializeComponent();
             secilenKullaniciID = 0;
-            yeniKayitMi = true; // Bu constructor'dan açılırsa ekleme modundadır.
+            yeniKayitMi = true;
         }
 
         public EditUsers(int kullaniciID, string ad, string soyad, string email, string sifre, string rol,
-            decimal maas, decimal prim, string departman, string telefon,
+            string adres, int? yoneticiID, int? departmanID, string telefon,
             string cinsiyet, DateTime? dogumTar, DateTime? iseBaslamaTar)
         {
             InitializeComponent();
             secilenKullaniciID = kullaniciID;
             yeniKayitMi = false;
 
-            BilgileriDoldur(kullaniciID, ad, soyad, email, sifre, rol, maas, prim,
-                departman, telefon, cinsiyet, dogumTar, iseBaslamaTar);
+            BilgileriDoldur(kullaniciID, ad, soyad, email, sifre, rol, adres, yoneticiID,
+                departmanID, telefon, cinsiyet, dogumTar, iseBaslamaTar);
         }
 
         private void BilgileriDoldur(int kullaniciID, string ad, string soyad, string email, string sifre, string rol,
-            decimal maas, decimal prim, string departman, string telefon,
+            string adres, int? yoneticiID, int? departman, string telefon,
             string cinsiyet, DateTime? dogumTar, DateTime? iseBaslamaTar)
         {
             try
             {
+                // Önce tüm combobox verileri yüklenir
+                DepartmanlariYukle(); // cmbDepartman
+
+                // ROL ComboBox'ını doldur
+                cmbRol.Items.Clear();
+                cmbRol.Items.AddRange(new string[] { "Çağrı Merkezi", "Ekip Yöneticisi", "Müdür", "Ekip Üyesi" });
+                if (!string.IsNullOrEmpty(rol))
+                {
+                    foreach (var item in cmbRol.Items)
+                    {
+                        if (item.ToString().Equals(rol.Trim(), StringComparison.OrdinalIgnoreCase))
+                        {
+                            cmbRol.SelectedItem = item;
+                            break;
+                        }
+                    }
+                }
+
+
+                // CİNSİYET ComboBox'ını doldur
+                cmbCinsiyet.Items.Clear();
+                cmbCinsiyet.Items.AddRange(new string[] { "Kadın", "Erkek" });
+
+                // Rol seçimi (büyük/küçük harf ve boşluklara duyarsız)
+
+
+                // Cinsiyet seçimi
+                if (!string.IsNullOrEmpty(cinsiyet))
+                {
+                    foreach (var item in cmbCinsiyet.Items)
+                    {
+                        if (item.ToString().Equals(cinsiyet.Trim(), StringComparison.OrdinalIgnoreCase))
+                        {
+                            cmbCinsiyet.SelectedItem = item;
+                            break;
+                        }
+                    }
+                }
+
+                // Temel bilgileri doldur
                 lblKullaniciID.Text = kullaniciID.ToString();
                 txtAd.Text = ad;
                 txtSoyad.Text = soyad;
                 txtEmail.Text = email;
                 txtSifre.Text = sifre;
-                txtMaas.Text = maas.ToString("N2");
-                txtPrim.Text = prim.ToString("N2");
+                txtAdres.Text = adres;
                 txtTelefon.Text = telefon;
 
-                if (!string.IsNullOrWhiteSpace(rol) && cmbRol.Items.Contains(rol.Trim()))
-                    cmbRol.SelectedItem = rol.Trim();
+                if (!string.IsNullOrEmpty(rol))
+                {
+                    cmbRol.SelectedItem = rol; // Doğrudan seçim yap
+                }
 
-                if (!string.IsNullOrWhiteSpace(departman) && cmbDepartman.Items.Contains(departman.Trim()))
-                    cmbDepartman.SelectedItem = departman.Trim();
+                // Cinsiyet seçimi
+                if (!string.IsNullOrEmpty(cinsiyet))
+                {
+                    cmbCinsiyet.SelectedItem = cinsiyet; // Doğrudan seçim yap
+                }
 
-                if (!string.IsNullOrWhiteSpace(cinsiyet) && cmbCinsiyet.Items.Contains(cinsiyet.Trim()))
-                    cmbCinsiyet.SelectedItem = cinsiyet.Trim();
+                // Rol seçildikten SONRA yöneticileri yükle
+                Application.DoEvents(); // UI güncellemelerini bekle
+                YoneticileriYukle();
 
+                // YÖNETİCİ seçimi
+                if (yoneticiID.HasValue && cmbYonetici.DataSource != null)
+                {
+                    cmbYonetici.SelectedValue = yoneticiID.Value;
+
+                    // Seçim başarısız olduysa kontrol et
+                    if (cmbYonetici.SelectedIndex == -1)
+                    {
+                        MessageBox.Show($"Yönetici atanamadı: ID = {yoneticiID.Value}", "Uyarı");
+                    }
+                }
+                else if (!yoneticiID.HasValue)
+                {
+                    // Yönetici yoksa -1 seç
+                    cmbYonetici.SelectedIndex = -1;
+                }
+
+                // DEPARTMAN seçimi - DataSource kullanıldığı için SelectedValue ile yapılmalı
+                if (departman.HasValue && cmbDepartman.DataSource != null)
+                {
+                    cmbDepartman.SelectedValue = departman.Value;
+                }
+                Application.DoEvents(); // UI güncellemeleri için
+                YoneticileriYukle(); // Yöneticileri yükle
+
+                // TARİHLER
                 if (dogumTar.HasValue)
                     dtpDogumTarihi.Value = dogumTar.Value;
+                else
+                    dtpDogumTarihi.Value = DateTime.Now; // Varsayılan değer
 
                 if (iseBaslamaTar.HasValue)
                     dtpIseBaslamaTarihi.Value = iseBaslamaTar.Value;
+                else
+                    dtpIseBaslamaTarihi.Value = DateTime.Now; // Varsayılan değer
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Bilgiler doldurulurken hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Bilgi doldurma hatası: " + ex.Message);
             }
         }
+
+
+
 
         private void btnKaydet_Click(object sender, EventArgs e)
         {
@@ -74,6 +152,16 @@ namespace TaskFlow360
             }
 
             int departmanID = Convert.ToInt32(cmbDepartman.SelectedValue);
+            int? yoneticiID = null;
+
+            if (cmbRol.Text == "Ekip Yöneticisi" || cmbRol.Text == "Çağrı Merkezi")
+            {
+                yoneticiID = MüdürIDBul();
+            }
+            else if (cmbRol.Text == "Ekip Üyesi")
+            {
+                yoneticiID = cmbYonetici.SelectedValue != null ? (int?)Convert.ToInt32(cmbYonetici.SelectedValue) : null;
+            }
 
             try
             {
@@ -85,9 +173,9 @@ namespace TaskFlow360
                     {
                         string insertQuery = @"
                             INSERT INTO Kullanici 
-                                (Ad, Soyad, Email, Sifre, Rol, Maas, Prim, DepartmanID, Telefon, Cinsiyet, DogumTar, IseBaslamaTar)
+                                (Ad, Soyad, Email, Sifre, Rol, Adres, YoneticiID, DepartmanID, Telefon, Cinsiyet, DogumTar, IseBaslamaTar)
                             VALUES 
-                                (@ad, @soyad, @email, @sifre, @rol, @maas, @prim, @departmanID, @telefon, @cinsiyet, @dogumTar, @iseBaslamaTar)";
+                                (@ad, @soyad, @email, @sifre, @rol, @adres, @yoneticiID, @departmanID, @telefon, @cinsiyet, @dogumTar, @iseBaslamaTar)";
                         cmd = new SqlCommand(insertQuery, conn);
                     }
                     else
@@ -99,8 +187,8 @@ namespace TaskFlow360
                                 Email = @email,
                                 Sifre = @sifre,
                                 Rol = @rol,
-                                Maas = @maas,
-                                Prim = @prim,
+                                Adres = @adres,
+                                YoneticiID = @yoneticiID,
                                 DepartmanID = @departmanID,
                                 Telefon = @telefon,
                                 Cinsiyet = @cinsiyet,
@@ -116,8 +204,8 @@ namespace TaskFlow360
                     cmd.Parameters.AddWithValue("@email", txtEmail.Text.Trim());
                     cmd.Parameters.AddWithValue("@sifre", txtSifre.Text.Trim());
                     cmd.Parameters.AddWithValue("@rol", cmbRol.Text);
-                    cmd.Parameters.AddWithValue("@maas", decimal.TryParse(txtMaas.Text, out var maasVal) ? maasVal : 0);
-                    cmd.Parameters.AddWithValue("@prim", decimal.TryParse(txtPrim.Text, out var primVal) ? primVal : 0);
+                    cmd.Parameters.AddWithValue("@adres", txtAdres.Text.Trim());
+                    cmd.Parameters.AddWithValue("@yoneticiID", yoneticiID ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@departmanID", departmanID);
                     cmd.Parameters.AddWithValue("@telefon", txtTelefon.Text.Trim());
                     cmd.Parameters.AddWithValue("@cinsiyet", cmbCinsiyet.Text);
@@ -146,7 +234,7 @@ namespace TaskFlow360
             }
         }
 
-        private void DepartmanlariYukle()
+        private void DepartmanlariYukle(int? secilecekDepartmanID = null)
         {
             using (SqlConnection conn = Baglanti.BaglantiGetir())
             {
@@ -158,25 +246,97 @@ namespace TaskFlow360
                 cmbDepartman.DataSource = dt;
                 cmbDepartman.DisplayMember = "DepartmanAdi";
                 cmbDepartman.ValueMember = "DepartmanID";
-                cmbDepartman.SelectedIndex = -1;
+                if (secilecekDepartmanID.HasValue)
+                {
+                    cmbDepartman.SelectedValue = secilecekDepartmanID.Value;
+                }
+            }
+        }
+
+        private void YoneticileriYukle()
+        {
+            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            {
+                DataTable dt = new DataTable();
+                dt.Columns.Add("KullaniciID", typeof(int));
+                dt.Columns.Add("YoneticiAdi", typeof(string));
+
+                if (cmbRol.Text == "Ekip Üyesi")
+                {
+                    // Sadece Ekip Yöneticilerini getir
+                    string query = "SELECT KullaniciID, Ad + ' ' + Soyad AS YoneticiAdi FROM Kullanici WHERE Rol = 'Ekip Yöneticisi'";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+
+                    cmbYonetici.Enabled = true;
+                }
+                else if (cmbRol.Text == "Ekip Yöneticisi" || cmbRol.Text == "Çağrı Merkezi")
+                {
+                    // Müdür ID'sini ekle
+                    int mudurID = MüdürIDBul();
+                    if (mudurID > 0)
+                    {
+                        DataRow mudurRow = dt.NewRow();
+                        mudurRow["KullaniciID"] = mudurID;
+                        mudurRow["YoneticiAdi"] = "Müdür (Otomatik)";
+                        dt.Rows.Add(mudurRow);
+                    }
+
+                    cmbYonetici.Enabled = false; // Pasif yap
+                }
+                else // Müdür
+                {
+                    // Müdürün yöneticisi yok
+                    cmbYonetici.Enabled = false;
+                }
+
+                cmbYonetici.DataSource = dt;
+                cmbYonetici.DisplayMember = "YoneticiAdi";
+                cmbYonetici.ValueMember = "KullaniciID";
+
+                // Otomatik atama
+                if (cmbRol.Text == "Ekip Yöneticisi" || cmbRol.Text == "Çağrı Merkezi")
+                {
+                    int mudurID = MüdürIDBul();
+                    if (mudurID > 0)
+                    {
+                        cmbYonetici.SelectedValue = mudurID;
+                    }
+                }
+                else if (cmbRol.Text == "Müdür")
+                {
+                    cmbYonetici.SelectedIndex = -1;
+                }
+            }
+        }
+
+        private int MüdürIDBul()
+        {
+            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            {
+                string query = "SELECT KullaniciID FROM Kullanici WHERE Rol = 'Müdür'";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                object result = cmd.ExecuteScalar();
+                return result != null ? Convert.ToInt32(result) : 0;
             }
         }
 
         private void EditUsers_Load(object sender, EventArgs e)
         {
-            DepartmanlariYukle();
-
-            cmbRol.Items.Clear();
-            cmbRol.Items.AddRange(new string[] { "Çağrı Merkezi", "Ekip Yöneticisi", "Müdür", "Ekip Üyesi" });
-
-            cmbCinsiyet.Items.Clear();
-            cmbCinsiyet.Items.AddRange(new string[] { "Kadın", "Erkek" });
-
+            if (cmbRol.Items.Count == 0) // Sadece boşsa ekle (gereksiz tekrarları önle)
+            {
+                cmbRol.Items.AddRange(new string[] { "Çağrı Merkezi", "Ekip Yöneticisi", "Müdür", "Ekip Üyesi" });
+                cmbCinsiyet.Items.AddRange(new string[] { "Kadın", "Erkek" });
+            }
             if (yeniKayitMi)
             {
+                DepartmanlariYukle();
+                YoneticileriYukle();
                 lblKullaniciID.Text = "Yeni Kayıt";
             }
         }
+
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
@@ -188,6 +348,11 @@ namespace TaskFlow360
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
+        }
+
+        private void cmbRol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            YoneticileriYukle();
         }
     }
 }
