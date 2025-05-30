@@ -271,7 +271,7 @@ namespace TaskFlow360
 
                     cmbYonetici.Enabled = true;
                 }
-                else if (cmbRol.Text == "Ekip Yöneticisi" || cmbRol.Text == "Çağrı Merkezi")
+                else if (cmbRol.Text == "Ekip Yöneticisi" || cmbRol.Text == "Çağrı Merkezi" || cmbRol.Text=="Müdür")
                 {
                     // Müdür ID'sini ekle
                     int mudurID = MüdürIDBul();

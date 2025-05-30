@@ -310,56 +310,119 @@ namespace TaskFlow360
         }
         private void DepartmanlariYukle(int? secilecekDepartmanID = null)
         {
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            try
             {
-                SqlCommand cmd = new SqlCommand("SELECT DepartmanID, DepartmanAdi FROM Departman", conn);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
+                // Event'i geçici olarak kapat
+                cmbDepartman.SelectedIndexChanged -= cmbDepartman_SelectedIndexChanged;
 
-                cmbDepartman.DataSource = dt;
-                cmbDepartman.DisplayMember = "DepartmanAdi";
-                cmbDepartman.ValueMember = "DepartmanID";
-
-                if (secilecekDepartmanID.HasValue)
+                using (SqlConnection conn = Baglanti.BaglantiGetir())
                 {
-                    cmbDepartman.SelectedValue = secilecekDepartmanID.Value;
+                    SqlCommand cmd = new SqlCommand("SELECT DepartmanID, DepartmanAdi FROM Departman ORDER BY DepartmanAdi", conn);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    // Yeni DataTable oluştur
+                    DataTable newDt = new DataTable();
+                    newDt.Columns.Add("DepartmanID", typeof(int));
+                    newDt.Columns.Add("DepartmanAdi", typeof(string));
+
+                    // "Tümü" seçeneği ekle
+                    DataRow tumRow = newDt.NewRow();
+                    tumRow["DepartmanID"] = 0;
+                    tumRow["DepartmanAdi"] = "Tümü";
+                    newDt.Rows.Add(tumRow);
+
+                    // Diğer departmanları ekle
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        DataRow newRow = newDt.NewRow();
+                        newRow["DepartmanID"] = row["DepartmanID"];
+                        newRow["DepartmanAdi"] = row["DepartmanAdi"];
+                        newDt.Rows.Add(newRow);
+                    }
+
+                    cmbDepartman.DataSource = newDt;
+                    cmbDepartman.DisplayMember = "DepartmanAdi";
+                    cmbDepartman.ValueMember = "DepartmanID";
+
+                    // Seçim yap
+                    if (secilecekDepartmanID.HasValue)
+                    {
+                        // Güvenli seçim
+                        foreach (DataRowView item in cmbDepartman.Items)
+                        {
+                            if (Convert.ToInt32(item["DepartmanID"]) == secilecekDepartmanID.Value)
+                            {
+                                cmbDepartman.SelectedItem = item;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // İlk seçenek "Tümü" olacak
+                        cmbDepartman.SelectedIndex = 0;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Departmanlar yüklenirken hata oluştu: {ex.Message}",
+                              "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Event'i geri aç
+                cmbDepartman.SelectedIndexChanged += cmbDepartman_SelectedIndexChanged;
             }
         }
 
 
+
         private void cmbDepartman_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string secilenDepartman = cmbDepartman.SelectedItem?.ToString();
-
-            if (string.IsNullOrEmpty(secilenDepartman) || secilenDepartman == "Tümü")
+            // ComboBox seçimi yoksa çık
+            if (cmbDepartman.SelectedIndex == -1 || cmbDepartman.SelectedItem == null)
             {
-                KullanicilariYukle();
                 return;
             }
 
             try
             {
+                // DataRowView'dan doğru şekilde veri al
+                DataRowView selectedRow = (DataRowView)cmbDepartman.SelectedItem;
+                int selectedDepartmanID = Convert.ToInt32(selectedRow["DepartmanID"]);
+                string departmanAdi = selectedRow["DepartmanAdi"].ToString();
+
+                // Eğer "Tümü" seçildiyse (ID = 0) tüm kullanıcıları yükle
+                if (selectedDepartmanID == 0)
+                {
+                    KullanicilariYukle();
+                    lblKullaniciSayisi.Text = $"Toplam Kullanıcı: {dataGridViewKullanicilar.Rows.Count}";
+                    return;
+                }
+
+                // Belirli departman seçildiyse filtrele
                 string query = @"
-                SELECT 
-                    k.KullaniciID,
-                    k.Ad,
-                    k.Soyad,
-                    k.Email,
-                    k.Sifre,
-                    k.Rol,
-                    k.YoneticiID,
-                    k.Adres,
-                    ISNULL(d.DepartmanAdi, 'Departman Yok') as Departman,
-                    k.Telefon,
-                    k.Cinsiyet,
-                    k.DogumTar,
-                    k.IseBaslamaTar
-                FROM Kullanici k
-                LEFT JOIN Departman d ON k.DepartmanID = d.DepartmanID
-                WHERE d.DepartmanAdi = @departman
-                ORDER BY k.KullaniciID";
+            SELECT 
+                k.KullaniciID,
+                k.Ad,
+                k.Soyad,
+                k.Email,
+                k.Sifre,
+                k.Rol,
+                k.YoneticiID,
+                k.Adres,
+                ISNULL(d.DepartmanAdi, 'Departman Yok') as Departman,
+                k.Telefon,
+                k.Cinsiyet,
+                k.DogumTar,
+                k.IseBaslamaTar
+            FROM Kullanici k
+            LEFT JOIN Departman d ON k.DepartmanID = d.DepartmanID
+            WHERE k.DepartmanID = @departmanID
+            ORDER BY k.KullaniciID";
 
                 DataTable dt = new DataTable();
 
@@ -367,7 +430,7 @@ namespace TaskFlow360
                 {
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddWithValue("@departman", secilenDepartman);
+                        cmd.Parameters.AddWithValue("@departmanID", selectedDepartmanID);
                         using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                         {
                             adapter.Fill(dt);
@@ -376,12 +439,13 @@ namespace TaskFlow360
                 }
 
                 dataGridViewKullanicilar.DataSource = dt;
-                lblKullaniciSayisi.Text = $"{secilenDepartman} Departmanı: {dt.Rows.Count} kullanıcı";
+                lblKullaniciSayisi.Text = $"{departmanAdi} Departmanı: {dt.Rows.Count} kullanıcı";
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Departman filtresi uygulanırken hata oluştu: {ex.Message}",
                               "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                KullanicilariYukle(); // Hata durumunda tüm kullanıcıları yükle
             }
         }
         private void StilUygula()
@@ -415,7 +479,7 @@ namespace TaskFlow360
 
         private void btnTemizle_Click(object sender, EventArgs e)
         {
-            cmbDepartman.SelectedIndex = -1;
+            cmbDepartman.SelectedIndex = 0;
             txtArama.Text = "Ara...";
             txtArama.ForeColor = Color.Gray;
             KullanicilariYukle();
@@ -433,15 +497,60 @@ namespace TaskFlow360
             try
             {
                 DataGridViewRow selectedRow = dataGridViewKullanicilar.SelectedRows[0];
+                string rol = selectedRow.Cells["Rol"].Value?.ToString() ?? "";
                 int kullaniciID = Convert.ToInt32(selectedRow.Cells["KullaniciID"].Value);
+
+                // En üst düzey yönetici kontrolü (YoneticiID null olan)
+                bool enUstDuzeyYonetici = selectedRow.Cells["YoneticiID"].Value == null ||
+                                          selectedRow.Cells["YoneticiID"].Value == DBNull.Value;
+
+                // Güvenlik kontrolleri
+                if (rol.ToLower().Contains("ekip yöneticisi") || rol.ToLower().Contains("ekip yoneticisi"))
+                {
+                    if (!YoneticiSifreKontrolu())
+                    {
+                        MessageBox.Show("Ekip Yöneticisi hesabını düzenlemek için yönetici şifresi gereklidir.",
+                                      "Güvenlik Kontrolü", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+                else if (rol.ToLower().Contains("müdür") || rol.ToLower().Contains("mudur"))
+                {
+                    // Müdür rolü için özel kontrol
+                    if (enUstDuzeyYonetici)
+                    {
+                        // En üst düzey müdür - özel yetki kontrolü
+                        DialogResult result = MessageBox.Show(
+                            "Bu kullanıcı en üst düzey yöneticidir (YoneticiID boş).\n" +
+                            "Bu hesabı düzenlemek sistem güvenliği açısından riskli olabilir.\n\n" +
+                            "Devam etmek istediğinizden emin misiniz?",
+                            "Kritik Yetki Uyarısı",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Warning);
+
+                        if (result == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+
+                    if (!YoneticiSifreKontrolu())
+                    {
+                        MessageBox.Show("Müdür hesabını düzenlemek için yönetici şifresi gereklidir.",
+                                      "Güvenlik Kontrolü", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+
+                // Kullanıcı bilgilerini al ve EditUsers formunu aç
                 string ad = selectedRow.Cells["Ad"].Value?.ToString() ?? "";
                 string soyad = selectedRow.Cells["Soyad"].Value?.ToString() ?? "";
                 string email = selectedRow.Cells["Email"].Value?.ToString() ?? "";
                 string sifre = selectedRow.Cells["Sifre"].Value?.ToString() ?? "";
-                string rol = selectedRow.Cells["Rol"].Value?.ToString() ?? "";
                 string adres = selectedRow.Cells["Adres"].Value?.ToString() ?? "";
 
-                int? yoneticiID = selectedRow.Cells["YoneticiID"].Value != null ?
+                int? yoneticiID = selectedRow.Cells["YoneticiID"].Value != null &&
+                                  selectedRow.Cells["YoneticiID"].Value != DBNull.Value ?
                                   Convert.ToInt32(selectedRow.Cells["YoneticiID"].Value) : (int?)null;
 
                 int? departmanID = null;
@@ -471,7 +580,7 @@ namespace TaskFlow360
                 DateTime? iseBaslamaTar = selectedRow.Cells["IseBaslamaTar"].Value != null ?
                                           Convert.ToDateTime(selectedRow.Cells["IseBaslamaTar"].Value) : (DateTime?)null;
 
-                // Formu aç ve bilgileri aktar
+                // EditUsers formunu aç
                 EditUsers editUsers = new EditUsers(
                     kullaniciID, ad, soyad, email, sifre, rol,
                     adres, yoneticiID, departmanID, telefon, cinsiyet, dogumTar, iseBaslamaTar
@@ -486,11 +595,258 @@ namespace TaskFlow360
             }
         }
 
+        private bool YoneticiSifreKontrolu()
+        {
+            using (var sifreForm = new Form())
+            {
+                sifreForm.Text = "Yönetici Şifre Kontrolü";
+                sifreForm.Size = new Size(350, 180);
+                sifreForm.StartPosition = FormStartPosition.CenterParent;
+                sifreForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+                sifreForm.MaximizeBox = false;
+                sifreForm.MinimizeBox = false;
+
+                var lblBilgi = new Label
+                {
+                    Text = "Müdür/Yönetici işlemleri için şifrenizi girin:",
+                    Location = new Point(20, 20),
+                    Size = new Size(300, 20),
+                    Font = new Font("Century Gothic", 9)
+                };
+
+                var txtSifre = new TextBox
+                {
+                    Location = new Point(20, 50),
+                    Size = new Size(280, 25),
+                    UseSystemPasswordChar = true,
+                    Font = new Font("Century Gothic", 10)
+                };
+
+                var btnTamam = new Button
+                {
+                    Text = "Tamam",
+                    Location = new Point(140, 90),
+                    Size = new Size(75, 30),
+                    DialogResult = DialogResult.OK,
+                    Font = new Font("Century Gothic", 9)
+                };
+
+                var btnIptal = new Button
+                {
+                    Text = "İptal",
+                    Location = new Point(225, 90),
+                    Size = new Size(75, 30),
+                    DialogResult = DialogResult.Cancel,
+                    Font = new Font("Century Gothic", 9)
+                };
+
+                sifreForm.Controls.AddRange(new Control[] { lblBilgi, txtSifre, btnTamam, btnIptal });
+                sifreForm.AcceptButton = btnTamam;
+                sifreForm.CancelButton = btnIptal;
+
+                txtSifre.Focus();
+
+                if (sifreForm.ShowDialog() == DialogResult.OK)
+                {
+                    string girilenSifre = txtSifre.Text.Trim();
+
+                    if (string.IsNullOrEmpty(girilenSifre))
+                    {
+                        MessageBox.Show("Şifre girilmedi.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return false;
+                    }
+
+                    bool sonuc = SifreKontrolEt(girilenSifre);
+
+                    if (!sonuc)
+                    {
+                        MessageBox.Show("Hatalı şifre girdiniz.", "Şifre Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    return sonuc;
+                }
+
+                // Kullanıcı 'İptal' derse
+                return false;
+            }
+        }
+
+        private bool SifreKontrolEt(string girilenSifre)
+        {
+            try
+            {
+                using (SqlConnection conn = Baglanti.BaglantiGetir())
+                {
+                    if (conn.State != ConnectionState.Open)
+                        conn.Open();
+
+                    string mevcutKullaniciID = KullaniciBilgi.KullaniciID; // Giriş yapan kullanıcının ID'si
+
+                    string query = "SELECT Sifre FROM Kullanici WHERE KullaniciID = @kullaniciID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@kullaniciID", mevcutKullaniciID);
+
+                        object result = cmd.ExecuteScalar();
+
+                        if (result == DBNull.Value || result == null)
+                        {
+                            MessageBox.Show("Kullanıcı bulunamadı veya şifre NULL.");
+                            return false;
+                        }
+
+                        string veritabaniSifre = result.ToString();
+                        return girilenSifre == veritabaniSifre;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Şifre kontrolü yapılırken hata: {ex.Message}");
+                return false;
+            }
+        }
+
+
+
+        private int GetCurrentUserID()
+        {
+                return Properties.Settings.Default["CurrentUserID"] != null
+                ? Convert.ToInt32(Properties.Settings.Default["CurrentUserID"])
+                : -1; // Varsayılan değer  
+        }
+
 
 
         private void btnSil_Click(object sender, EventArgs e)
         {
+            if (dataGridViewKullanicilar.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Lütfen silmek istediğiniz kullanıcıyı seçin!",
+                                "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            try
+            {
+                DataGridViewRow selectedRow = dataGridViewKullanicilar.SelectedRows[0];
+                int kullaniciID = Convert.ToInt32(selectedRow.Cells["KullaniciID"].Value);
+                string ad = selectedRow.Cells["Ad"].Value?.ToString() ?? "";
+                string soyad = selectedRow.Cells["Soyad"].Value?.ToString() ?? "";
+                string rol = selectedRow.Cells["Rol"].Value?.ToString() ?? "";
+
+                // En üst düzey yönetici kontrolü
+                bool enUstDuzeyYonetici = selectedRow.Cells["YoneticiID"].Value == null ||
+                                          selectedRow.Cells["YoneticiID"].Value == DBNull.Value;
+
+                int mevcutKullaniciID = GetCurrentUserID();
+                if (kullaniciID == mevcutKullaniciID)
+                {
+                    MessageBox.Show("Kendi hesabınızı silemezsiniz!", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (enUstDuzeyYonetici && (rol.ToLower().Contains("müdür") || rol.ToLower().Contains("mudur")))
+                {
+                    MessageBox.Show(
+                        "Bu kullanıcı en üst düzey yöneticidir (YoneticiID boş).\n" +
+                        "Sistem güvenliği açısından bu hesap silinemez.\n\n" +
+                        "Bu hesabı silmek için sistem yöneticinizle iletişime geçin.",
+                        "Kritik Hesap Koruması",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Stop);
+                    return;
+                }
+
+                // Onay penceresi
+                DialogResult result = MessageBox.Show(
+                    $"'{ad} {soyad}' kullanıcısını silmek istediğinizden emin misiniz?\n\n" +
+                    $"Rol: {rol}\n" +
+                    $"Bu işlem geri alınamaz!",
+                    "Kullanıcı Silme Onayı",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    // Yönetici rolleri için ek güvenlik
+                    if (rol.ToLower().Contains("müdür") || rol.ToLower().Contains("mudur") ||
+                        rol.ToLower().Contains("ekip yöneticisi") || rol.ToLower().Contains("ekip yoneticisi"))
+                    {
+                        if (!YoneticiSifreKontrolu())
+                        {
+                            MessageBox.Show("Yönetici hesabını silmek için yönetici şifresi gereklidir.",
+                                          "Güvenlik", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+
+                    using (SqlConnection conn = Baglanti.BaglantiGetir())
+                    {
+                        // Önce bağımlı kayıtları kontrol et
+                        string kontrolQuery = @"
+                    SELECT COUNT(*) FROM Cagri WHERE AtananKullaniciID = @kullaniciID
+                    UNION ALL
+                    SELECT COUNT(*) FROM Kullanici WHERE YoneticiID = @kullaniciID";
+
+                        SqlCommand kontrolCmd = new SqlCommand(kontrolQuery, conn);
+                        kontrolCmd.Parameters.AddWithValue("@kullaniciID", kullaniciID);
+
+                        using (SqlDataReader reader = kontrolCmd.ExecuteReader())
+                        {
+                            int gorevSayisi = 0;
+                            int astSayisi = 0;
+
+                            if (reader.Read())
+                                gorevSayisi = reader.GetInt32(0);
+                            if (reader.Read())
+                                astSayisi = reader.GetInt32(0);
+
+                            reader.Close();
+
+                            if (gorevSayisi > 0 || astSayisi > 0)
+                            {
+                                string mesaj = "Bu kullanıcı silinemez çünkü:\n";
+                                if (gorevSayisi > 0)
+                                    mesaj += $"• {gorevSayisi} adet görev atanmış\n";
+                                if (astSayisi > 0)
+                                    mesaj += $"• {astSayisi} adet alt çalışanı var\n";
+                                mesaj += "\nÖnce bu bağımlılıkları çözün.";
+
+                                MessageBox.Show(mesaj, "Silme İşlemi Engellenmiştir",
+                                              MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                return;
+                            }
+                        }
+
+                        // Kullanıcıyı sil
+                        string deleteQuery = "DELETE FROM Kullanici WHERE KullaniciID = @kullaniciID";
+                        SqlCommand deleteCmd = new SqlCommand(deleteQuery, conn);
+                        deleteCmd.Parameters.AddWithValue("@kullaniciID", kullaniciID);
+
+                        int etkilenenSatir = deleteCmd.ExecuteNonQuery();
+
+                        if (etkilenenSatir > 0)
+                        {
+                            MessageBox.Show($"'{ad} {soyad}' kullanıcısı başarıyla silindi.",
+                                          "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            // Listeyi yenile
+                            KullanicilariYukle();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Kullanıcı silinemedi. Lütfen tekrar deneyin.",
+                                          "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Kullanıcı silinirken hata oluştu: {ex.Message}",
+                              "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnEkle_Click(object sender, EventArgs e)
