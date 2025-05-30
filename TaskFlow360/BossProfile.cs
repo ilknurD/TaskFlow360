@@ -161,5 +161,12 @@ namespace TaskFlow360
             bossHomepage.Show();
             this.Close();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            BossReports bossReports = new BossReports();
+            bossReports.Show();
+            this.Close();
+        }
     }
 }

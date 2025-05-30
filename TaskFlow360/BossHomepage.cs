@@ -341,5 +341,11 @@ namespace TaskFlow360
             PanelEkle(Color.FromArgb(255, 224, 178), buAyAcilanCagriSayisi.ToString(), "Bu Ay Açılan Çağrı");
         }
 
+        private void btnRaporlar_Click_1(object sender, EventArgs e)
+        {
+            BossReports bossReports = new BossReports();
+            bossReports.Show();
+            this.Close();
+        }
     }
 }

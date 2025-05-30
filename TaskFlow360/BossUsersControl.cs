@@ -855,5 +855,12 @@ namespace TaskFlow360
             editUsers.Show();
             this.Close();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            BossReports raporlar = new BossReports();
+            raporlar.Show();
+            this.Close();
+        }
     }
 }

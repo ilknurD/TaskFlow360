@@ -90,6 +90,12 @@
     <Compile Include="BossProfile.Designer.cs">
       <DependentUpon>BossProfile.cs</DependentUpon>
     </Compile>
+    <Compile Include="BossReports.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BossReports.Designer.cs">
+      <DependentUpon>BossReports.cs</DependentUpon>
+    </Compile>
     <Compile Include="BossUsersControl.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -217,6 +223,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BossProfile.resx">
       <DependentUpon>BossProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BossReports.resx">
+      <DependentUpon>BossReports.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BossUsersControl.resx">
       <DependentUpon>BossUsersControl.cs</DependentUpon>
