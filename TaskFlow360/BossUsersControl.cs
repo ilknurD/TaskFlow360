@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -133,9 +134,17 @@ namespace TaskFlow360
 
             dataGridViewKullanicilar.Columns.Add(new DataGridViewTextBoxColumn
             {
-                Name = "Departman",
+                Name = "DepartmanID",
                 HeaderText = "Departman",
                 DataPropertyName = "Departman",
+                Width = 100
+            });
+
+            dataGridViewKullanicilar.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Bolum",
+                HeaderText = "Bölüm",
+                DataPropertyName = "Bolum",
                 Width = 100
             });
 
@@ -153,6 +162,16 @@ namespace TaskFlow360
                 HeaderText = "Cinsiyet",
                 DataPropertyName = "Cinsiyet",
                 Width = 80
+            });
+
+
+            dataGridViewKullanicilar.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Maas",
+                HeaderText = "Maaş",
+                DataPropertyName = "Maas",
+                Width = 100,
+                DefaultCellStyle = { Format = "C2" } // Para formatı (₺12.345,67)
             });
 
             dataGridViewKullanicilar.Columns.Add(new DataGridViewTextBoxColumn
@@ -181,23 +200,26 @@ namespace TaskFlow360
             try
             {
                 string query = @"
-                SELECT 
-                    k.KullaniciID,
-                    k.Ad,
-                    k.Soyad,
-                    k.Email,
-                    k.Sifre,
-                    k.Rol,
-                    k.YoneticiID,
-                    k.Adres,
-                    ISNULL(d.DepartmanAdi, 'Departman Yok') as Departman,
-                    k.Telefon,
-                    k.Cinsiyet,
-                    k.DogumTar,
-                    k.IseBaslamaTar
-                FROM Kullanici k
-                LEFT JOIN Departman d ON k.DepartmanID = d.DepartmanID
-                ORDER BY k.KullaniciID";
+        SELECT 
+            k.KullaniciID,
+            k.Ad,
+            k.Soyad,
+            k.Email,
+            k.Sifre,
+            k.Rol,
+            k.YoneticiID,
+            k.Adres,
+            ISNULL(d.DepartmanAdi, 'Departman Yok') as Departman,
+            ISNULL(b.BolumAdi, 'Bölüm Yok') as Bolum,
+            k.Telefon,
+            k.Cinsiyet,
+            k.Maas,
+            k.DogumTar,
+            k.IseBaslamaTar
+        FROM Kullanici k
+        LEFT JOIN Departman d ON k.DepartmanID = d.DepartmanID
+        LEFT JOIN Bolum b ON k.BolumID = b.BolumID
+        ORDER BY k.KullaniciID";
 
                 DataTable dt = new DataTable();
 
@@ -237,36 +259,41 @@ namespace TaskFlow360
             try
             {
                 string query = @"
-                SELECT 
-                    k.KullaniciID,
-                    k.Ad,
-                    k.Soyad,
-                    k.Email,
-                    k.Sifre,
-                    k.Rol,
-                    k.YoneticiID,
-                    k.Adres,
-                    ISNULL(d.DepartmanAdi, 'Departman Yok') as Departman,
-                    k.Telefon,
-                    k.Cinsiyet,
-                    k.DogumTar,
-                    k.IseBaslamaTar
-                FROM Kullanici k
-                LEFT JOIN Departman d ON k.DepartmanID = d.DepartmanID
-                WHERE k.Ad LIKE @arama 
-                   OR k.Soyad LIKE @arama 
-                   OR k.Email LIKE @arama 
-                   OR k.Rol LIKE @arama
-                     OR k.Telefon LIKE @arama
-                        OR k.Cinsiyet LIKE @arama
-                        OR k.Adres LIKE @arama
-                        OR k.DogumTar LIKE @arama
-                        OR k.IseBaslamaTar LIKE @arama
-                        OR k.Sifre LIKE @arama
-                        OR k.YoneticiID LIKE @arama
-                        OR k.KullaniciID LIKE @arama
-                   OR d.DepartmanAdi LIKE @arama
-                ORDER BY k.KullaniciID";
+        SELECT 
+            k.KullaniciID,
+            k.Ad,
+            k.Soyad,
+            k.Email,
+            k.Sifre,
+            k.Rol,
+            k.YoneticiID,
+            k.Adres,
+            ISNULL(d.DepartmanAdi, 'Departman Yok') as Departman,
+            ISNULL(b.BolumAdi, 'Bölüm Yok') as Bolum,
+            k.Telefon,
+            k.Cinsiyet,
+            k.Maas,
+            k.DogumTar,
+            k.IseBaslamaTar
+        FROM Kullanici k
+        LEFT JOIN Departman d ON k.DepartmanID = d.DepartmanID
+        LEFT JOIN Bolum b ON k.BolumID = b.BolumID
+        WHERE k.Ad LIKE @arama 
+           OR k.Soyad LIKE @arama 
+           OR k.Email LIKE @arama 
+           OR k.Rol LIKE @arama
+           OR k.Telefon LIKE @arama
+           OR k.Cinsiyet LIKE @arama
+           OR k.Adres LIKE @arama
+           OR k.DogumTar LIKE @arama
+           OR k.IseBaslamaTar LIKE @arama
+           OR k.Sifre LIKE @arama
+           OR k.YoneticiID LIKE @arama
+           OR k.KullaniciID LIKE @arama
+           OR k.Maas LIKE @arama
+           OR d.DepartmanAdi LIKE @arama
+           OR b.BolumAdi LIKE @arama
+        ORDER BY k.KullaniciID";
 
                 DataTable dt = new DataTable();
 
@@ -291,6 +318,7 @@ namespace TaskFlow360
                               "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void dataGridViewKullanicilar_SelectionChanged(object sender, EventArgs e)
         {
@@ -346,22 +374,12 @@ namespace TaskFlow360
                     cmbDepartman.DisplayMember = "DepartmanAdi";
                     cmbDepartman.ValueMember = "DepartmanID";
 
-                    // Seçim yap
                     if (secilecekDepartmanID.HasValue)
                     {
-                        // Güvenli seçim
-                        foreach (DataRowView item in cmbDepartman.Items)
-                        {
-                            if (Convert.ToInt32(item["DepartmanID"]) == secilecekDepartmanID.Value)
-                            {
-                                cmbDepartman.SelectedItem = item;
-                                break;
-                            }
-                        }
+                        cmbDepartman.SelectedValue = secilecekDepartmanID.Value;
                     }
                     else
                     {
-                        // İlk seçenek "Tümü" olacak
                         cmbDepartman.SelectedIndex = 0;
                     }
                 }
@@ -405,24 +423,27 @@ namespace TaskFlow360
 
                 // Belirli departman seçildiyse filtrele
                 string query = @"
-            SELECT 
-                k.KullaniciID,
-                k.Ad,
-                k.Soyad,
-                k.Email,
-                k.Sifre,
-                k.Rol,
-                k.YoneticiID,
-                k.Adres,
-                ISNULL(d.DepartmanAdi, 'Departman Yok') as Departman,
-                k.Telefon,
-                k.Cinsiyet,
-                k.DogumTar,
-                k.IseBaslamaTar
-            FROM Kullanici k
-            LEFT JOIN Departman d ON k.DepartmanID = d.DepartmanID
-            WHERE k.DepartmanID = @departmanID
-            ORDER BY k.KullaniciID";
+        SELECT 
+            k.KullaniciID,
+            k.Ad,
+            k.Soyad,
+            k.Email,
+            k.Sifre,
+            k.Rol,
+            k.YoneticiID,
+            k.Adres,
+            ISNULL(d.DepartmanAdi, 'Departman Yok') as Departman,
+            ISNULL(b.BolumAdi, 'Bölüm Yok') as Bolum,
+            k.Telefon,
+            k.Cinsiyet,
+            k.Maas,
+            k.DogumTar,
+            k.IseBaslamaTar
+        FROM Kullanici k
+        LEFT JOIN Departman d ON k.DepartmanID = d.DepartmanID
+        LEFT JOIN Bolum b ON k.BolumID = b.BolumID
+        WHERE k.DepartmanID = @departmanID
+        ORDER BY k.KullaniciID";
 
                 DataTable dt = new DataTable();
 
@@ -485,6 +506,7 @@ namespace TaskFlow360
             KullanicilariYukle();
         }
 
+
         private void btnDuzenle_Click(object sender, EventArgs e)
         {
             if (dataGridViewKullanicilar.SelectedRows.Count == 0)
@@ -498,13 +520,29 @@ namespace TaskFlow360
             {
                 DataGridViewRow selectedRow = dataGridViewKullanicilar.SelectedRows[0];
                 string rol = selectedRow.Cells["Rol"].Value?.ToString() ?? "";
-                int kullaniciID = Convert.ToInt32(selectedRow.Cells["KullaniciID"].Value);
+
+                // KullaniciID'yi güvenli şekilde al
+                int kullaniciID = 0;
+                if (selectedRow.Cells["KullaniciID"].Value != null &&
+                    selectedRow.Cells["KullaniciID"].Value != DBNull.Value)
+                {
+                    if (!int.TryParse(selectedRow.Cells["KullaniciID"].Value.ToString(), out kullaniciID))
+                    {
+                        MessageBox.Show("Kullanıcı ID'si geçersiz!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Kullanıcı ID'si bulunamadı!", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 // En üst düzey yönetici kontrolü (YoneticiID null olan)
                 bool enUstDuzeyYonetici = selectedRow.Cells["YoneticiID"].Value == null ||
                                           selectedRow.Cells["YoneticiID"].Value == DBNull.Value;
 
-                // Güvenlik kontrolleri
+                // Güvenlik kontrolleri - önceki kodla aynı
                 if (rol.ToLower().Contains("ekip yöneticisi") || rol.ToLower().Contains("ekip yoneticisi"))
                 {
                     if (!YoneticiSifreKontrolu())
@@ -542,48 +580,134 @@ namespace TaskFlow360
                     }
                 }
 
-                // Kullanıcı bilgilerini al ve EditUsers formunu aç
+                // Kullanıcı bilgilerini al
                 string ad = selectedRow.Cells["Ad"].Value?.ToString() ?? "";
                 string soyad = selectedRow.Cells["Soyad"].Value?.ToString() ?? "";
                 string email = selectedRow.Cells["Email"].Value?.ToString() ?? "";
                 string sifre = selectedRow.Cells["Sifre"].Value?.ToString() ?? "";
                 string adres = selectedRow.Cells["Adres"].Value?.ToString() ?? "";
 
-                int? yoneticiID = selectedRow.Cells["YoneticiID"].Value != null &&
-                                  selectedRow.Cells["YoneticiID"].Value != DBNull.Value ?
-                                  Convert.ToInt32(selectedRow.Cells["YoneticiID"].Value) : (int?)null;
-
-                int? departmanID = null;
-                try
+                // YoneticiID'yi güvenli şekilde al
+                int? yoneticiID = null;
+                if (selectedRow.Cells["YoneticiID"].Value != null &&
+                    selectedRow.Cells["YoneticiID"].Value != DBNull.Value &&
+                    !string.IsNullOrWhiteSpace(selectedRow.Cells["YoneticiID"].Value.ToString()))
                 {
-                    using (SqlConnection conn = Baglanti.BaglantiGetir())
+                    if (int.TryParse(selectedRow.Cells["YoneticiID"].Value.ToString(), out int tempYoneticiID))
                     {
-                        string query = "SELECT DepartmanID FROM Kullanici WHERE KullaniciID = @kullaniciID";
-                        SqlCommand cmd = new SqlCommand(query, conn);
-                        cmd.Parameters.AddWithValue("@kullaniciID", kullaniciID);
-                        object result = cmd.ExecuteScalar();
-                        if (result != null && result != DBNull.Value)
+                        yoneticiID = tempYoneticiID;
+                    }
+                }
+
+                // MAAŞ BİLGİSİNİ GÜVENLİ ŞEKİLDE AL
+                decimal? maas = null;
+                if (selectedRow.Cells["Maas"].Value != null &&
+                    selectedRow.Cells["Maas"].Value != DBNull.Value &&
+                    !string.IsNullOrWhiteSpace(selectedRow.Cells["Maas"].Value.ToString()))
+                {
+                    if (decimal.TryParse(selectedRow.Cells["Maas"].Value.ToString(), out decimal tempMaas))
+                    {
+                        maas = tempMaas;
+                    }
+                }
+
+                // DEPARTMAN VE BÖLÜM BİLGİLERİNİ ÖNCELİKLE DATAGRIDVIEW'DAN AL
+                int? departmanID = null;
+                int? bolumID = null;
+
+                // Önce DataGridView'da DepartmanID ve BolumID kolonları var mı kontrol et
+                if (selectedRow.Cells.Cast<DataGridViewCell>().Any(c => c.OwningColumn.Name == "DepartmanID"))
+                {
+                    if (selectedRow.Cells["DepartmanID"].Value != null &&
+                        selectedRow.Cells["DepartmanID"].Value != DBNull.Value &&
+                        !string.IsNullOrWhiteSpace(selectedRow.Cells["DepartmanID"].Value.ToString()))
+                    {
+                        if (int.TryParse(selectedRow.Cells["DepartmanID"].Value.ToString(), out int tempDepartmanID))
                         {
-                            departmanID = Convert.ToInt32(result);
+                            departmanID = tempDepartmanID;
                         }
                     }
                 }
-                catch (Exception dbEx)
+
+                if (selectedRow.Cells.Cast<DataGridViewCell>().Any(c => c.OwningColumn.Name == "BolumID"))
                 {
-                    MessageBox.Show($"Departman ID alınırken hata: {dbEx.Message}");
+                    if (selectedRow.Cells["BolumID"].Value != null &&
+                        selectedRow.Cells["BolumID"].Value != DBNull.Value &&
+                        !string.IsNullOrWhiteSpace(selectedRow.Cells["BolumID"].Value.ToString()))
+                    {
+                        if (int.TryParse(selectedRow.Cells["BolumID"].Value.ToString(), out int tempBolumID))
+                        {
+                            bolumID = tempBolumID;
+                        }
+                    }
+                }
+
+                // Eğer DataGridView'da bu bilgiler yoksa veritabanından al
+                if (departmanID == null || bolumID == null)
+                {
+                    try
+                    {
+                        using (SqlConnection conn = Baglanti.BaglantiGetir())
+                        {
+                            string query = "SELECT DepartmanID, BolumID FROM Kullanici WHERE KullaniciID = @kullaniciID";
+                            SqlCommand cmd = new SqlCommand(query, conn);
+                            cmd.Parameters.AddWithValue("@kullaniciID", kullaniciID);
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    if (departmanID == null && reader["DepartmanID"] != null && reader["DepartmanID"] != DBNull.Value)
+                                    {
+                                        if (int.TryParse(reader["DepartmanID"].ToString(), out int tempDeptID))
+                                        {
+                                            departmanID = tempDeptID;
+                                        }
+                                    }
+                                    if (bolumID == null && reader["BolumID"] != null && reader["BolumID"] != DBNull.Value)
+                                    {
+                                        if (int.TryParse(reader["BolumID"].ToString(), out int tempBolumID))
+                                        {
+                                            bolumID = tempBolumID;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception dbEx)
+                    {
+                        MessageBox.Show($"Departman/Bölüm ID alınırken hata: {dbEx.Message}");
+                    }
                 }
 
                 string telefon = selectedRow.Cells["Telefon"].Value?.ToString() ?? "";
                 string cinsiyet = selectedRow.Cells["Cinsiyet"].Value?.ToString() ?? "";
-                DateTime? dogumTar = selectedRow.Cells["DogumTar"].Value != null ?
-                                     Convert.ToDateTime(selectedRow.Cells["DogumTar"].Value) : (DateTime?)null;
-                DateTime? iseBaslamaTar = selectedRow.Cells["IseBaslamaTar"].Value != null ?
-                                          Convert.ToDateTime(selectedRow.Cells["IseBaslamaTar"].Value) : (DateTime?)null;
 
-                // EditUsers formunu aç
+                // Tarih alanlarını güvenli şekilde al
+                DateTime? dogumTar = null;
+                if (selectedRow.Cells["DogumTar"].Value != null &&
+                    selectedRow.Cells["DogumTar"].Value != DBNull.Value)
+                {
+                    if (DateTime.TryParse(selectedRow.Cells["DogumTar"].Value.ToString(), out DateTime tempDogumTar))
+                    {
+                        dogumTar = tempDogumTar;
+                    }
+                }
+
+                DateTime? iseBaslamaTar = null;
+                if (selectedRow.Cells["IseBaslamaTar"].Value != null &&
+                    selectedRow.Cells["IseBaslamaTar"].Value != DBNull.Value)
+                {
+                    if (DateTime.TryParse(selectedRow.Cells["IseBaslamaTar"].Value.ToString(), out DateTime tempIseBaslamaTar))
+                    {
+                        iseBaslamaTar = tempIseBaslamaTar;
+                    }
+                }
+
+                // EditUsers formunu aç - MAAŞ PARAMETRESİ EKLENDİ
                 EditUsers editUsers = new EditUsers(
                     kullaniciID, ad, soyad, email, sifre, rol,
-                    adres, yoneticiID, departmanID, telefon, cinsiyet, dogumTar, iseBaslamaTar
+                    adres, yoneticiID, departmanID, bolumID, telefon, cinsiyet, dogumTar, iseBaslamaTar, maas
                 );
                 editUsers.Show();
                 this.Close();
@@ -657,16 +781,21 @@ namespace TaskFlow360
                     }
 
                     bool sonuc = SifreKontrolEt(girilenSifre);
-
-                    if (!sonuc)
+                    if (sonuc)
+                    {
+                        // Şifre doğruysa, seçili satırın bilgilerini tekrar yükle
+                        if (dataGridViewKullanicilar.SelectedRows.Count > 0)
+                        {
+                            dataGridViewKullanicilar_SelectionChanged(null, EventArgs.Empty);
+                        }
+                        return true;
+                    }
+                    else
                     {
                         MessageBox.Show("Hatalı şifre girdiniz.", "Şifre Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
                     }
-
-                    return sonuc;
                 }
-
-                // Kullanıcı 'İptal' derse
                 return false;
             }
         }

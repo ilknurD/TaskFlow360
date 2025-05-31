@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace TaskFlow360
@@ -18,27 +19,25 @@ namespace TaskFlow360
         }
 
         public EditUsers(int kullaniciID, string ad, string soyad, string email, string sifre, string rol,
-            string adres, int? yoneticiID, int? departmanID, string telefon,
-            string cinsiyet, DateTime? dogumTar, DateTime? iseBaslamaTar)
+        string adres, int? yoneticiID, int? departmanID, int? bolumID, string telefon,
+        string cinsiyet, DateTime? dogumTar, DateTime? iseBaslamaTar, decimal? maas)
         {
             InitializeComponent();
             secilenKullaniciID = kullaniciID;
             yeniKayitMi = false;
 
             BilgileriDoldur(kullaniciID, ad, soyad, email, sifre, rol, adres, yoneticiID,
-                departmanID, telefon, cinsiyet, dogumTar, iseBaslamaTar);
+                departmanID, bolumID, telefon, cinsiyet, dogumTar, iseBaslamaTar, maas);
         }
 
         private void BilgileriDoldur(int kullaniciID, string ad, string soyad, string email, string sifre, string rol,
-            string adres, int? yoneticiID, int? departman, string telefon,
-            string cinsiyet, DateTime? dogumTar, DateTime? iseBaslamaTar)
+        string adres, int? yoneticiID, int? departmanID, int?bolum, string telefon,
+        string cinsiyet, DateTime? dogumTar, DateTime? iseBaslamaTar, decimal? maas)
         {
             try
             {
-                // Önce tüm combobox verileri yüklenir
-                DepartmanlariYukle(); // cmbDepartman
+                DepartmanlariYukle(departmanID); 
 
-                // ROL ComboBox'ını doldur
                 cmbRol.Items.Clear();
                 cmbRol.Items.AddRange(new string[] { "Çağrı Merkezi", "Ekip Yöneticisi", "Müdür", "Ekip Üyesi" });
                 if (!string.IsNullOrEmpty(rol))
@@ -53,13 +52,8 @@ namespace TaskFlow360
                     }
                 }
 
-
-                // CİNSİYET ComboBox'ını doldur
                 cmbCinsiyet.Items.Clear();
                 cmbCinsiyet.Items.AddRange(new string[] { "Kadın", "Erkek" });
-
-                // Rol seçimi (büyük/küçük harf ve boşluklara duyarsız)
-
 
                 // Cinsiyet seçimi
                 if (!string.IsNullOrEmpty(cinsiyet))
@@ -74,7 +68,6 @@ namespace TaskFlow360
                     }
                 }
 
-                // Temel bilgileri doldur
                 lblKullaniciID.Text = kullaniciID.ToString();
                 txtAd.Text = ad;
                 txtSoyad.Text = soyad;
@@ -83,19 +76,28 @@ namespace TaskFlow360
                 txtAdres.Text = adres;
                 txtTelefon.Text = telefon;
 
+                if (maas.HasValue)
+                {
+                    txtMaas.Text = maas.Value.ToString("N2");
+                }
+                else
+                {
+                    txtMaas.Text = "0,00";
+                }
+
                 if (!string.IsNullOrEmpty(rol))
                 {
-                    cmbRol.SelectedItem = rol; // Doğrudan seçim yap
+                    cmbRol.SelectedItem = rol; 
                 }
 
                 // Cinsiyet seçimi
                 if (!string.IsNullOrEmpty(cinsiyet))
                 {
-                    cmbCinsiyet.SelectedItem = cinsiyet; // Doğrudan seçim yap
+                    cmbCinsiyet.SelectedItem = cinsiyet;
                 }
 
                 // Rol seçildikten SONRA yöneticileri yükle
-                Application.DoEvents(); // UI güncellemelerini bekle
+                Application.DoEvents(); // UI güncellemeleri
                 YoneticileriYukle();
 
                 // YÖNETİCİ seçimi
@@ -116,9 +118,11 @@ namespace TaskFlow360
                 }
 
                 // DEPARTMAN seçimi - DataSource kullanıldığı için SelectedValue ile yapılmalı
-                if (departman.HasValue && cmbDepartman.DataSource != null)
+                if (departmanID.HasValue && cmbDepartman.DataSource != null)
                 {
-                    cmbDepartman.SelectedValue = departman.Value;
+                    cmbDepartman.SelectedValue = departmanID.Value;
+                    Application.DoEvents(); // UI güncellemeleri için
+                    BolumleriYukle(departmanID.Value, bolum ?? 0);
                 }
                 Application.DoEvents(); // UI güncellemeleri için
                 YoneticileriYukle(); // Yöneticileri yükle
@@ -140,8 +144,52 @@ namespace TaskFlow360
             }
         }
 
+        private void BolumleriYukle(int departmanID, int selectedBolumID = 0)
+        {
+            try
+            {
+                using (SqlConnection conn = Baglanti.BaglantiGetir())
+                {
+                    if (conn.State != ConnectionState.Open)
+                        conn.Open();
 
+                    string query = "SELECT BolumID, BolumAdi FROM Bolum WHERE BagliDepartmanID = @departmanID ORDER BY BolumAdi";
 
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@departmanID", departmanID);
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    DataTable newDt = new DataTable();
+                    newDt.Columns.Add("BolumID", typeof(int));
+                    newDt.Columns.Add("BolumAdi", typeof(string));
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        DataRow newRow = newDt.NewRow();
+                        newRow["BolumID"] = row["BolumID"];
+                        newRow["BolumAdi"] = row["BolumAdi"];
+                        newDt.Rows.Add(newRow);
+                    }
+
+                    cmbBolum.DataSource = newDt;
+                    cmbBolum.DisplayMember = "BolumAdi";
+                    cmbBolum.ValueMember = "BolumID";
+
+                    // 🔽 Eksik olan yer burasıydı
+                    if (selectedBolumID > 0)
+                    {
+                        cmbBolum.SelectedValue = selectedBolumID;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Bölümler yüklenirken hata oluştu: {ex.Message}");
+            }
+        }
 
         private void btnKaydet_Click(object sender, EventArgs e)
         {
@@ -151,8 +199,23 @@ namespace TaskFlow360
                 return;
             }
 
+            decimal maas = 0;
+            if (!decimal.TryParse(txtMaas.Text.Replace(".", ","), out maas) || maas < 0)
+            {
+                MessageBox.Show("Lütfen geçerli bir maaş miktarı girin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtMaas.Focus();
+                return;
+            }
+
             int departmanID = Convert.ToInt32(cmbDepartman.SelectedValue);
             int? yoneticiID = null;
+            int? bolumID = null;
+
+            if (cmbBolum.SelectedValue != null && cmbBolum.SelectedValue != DBNull.Value &&
+                Convert.ToInt32(cmbBolum.SelectedValue) > 0)
+            {
+                bolumID = Convert.ToInt32(cmbBolum.SelectedValue);
+            }
 
             if (cmbRol.Text == "Ekip Yöneticisi" || cmbRol.Text == "Çağrı Merkezi")
             {
@@ -173,9 +236,9 @@ namespace TaskFlow360
                     {
                         string insertQuery = @"
                             INSERT INTO Kullanici 
-                                (Ad, Soyad, Email, Sifre, Rol, Adres, YoneticiID, DepartmanID, Telefon, Cinsiyet, DogumTar, IseBaslamaTar)
+                                (Ad, Soyad, Email, Sifre, Rol, Adres, YoneticiID, DepartmanID, BolumID, Telefon, Cinsiyet, Maas, DogumTar, IseBaslamaTar)
                             VALUES 
-                                (@ad, @soyad, @email, @sifre, @rol, @adres, @yoneticiID, @departmanID, @telefon, @cinsiyet, @dogumTar, @iseBaslamaTar)";
+                                (@ad, @soyad, @email, @sifre, @rol, @adres, @yoneticiID, @departmanID, @bolumID, @telefon, @cinsiyet, @maas, @dogumTar, @iseBaslamaTar)";
                         cmd = new SqlCommand(insertQuery, conn);
                     }
                     else
@@ -190,8 +253,10 @@ namespace TaskFlow360
                                 Adres = @adres,
                                 YoneticiID = @yoneticiID,
                                 DepartmanID = @departmanID,
+                                BolumID = @bolumID,
                                 Telefon = @telefon,
                                 Cinsiyet = @cinsiyet,
+                                Maas = @maas,
                                 DogumTar = @dogumTar,
                                 IseBaslamaTar = @iseBaslamaTar
                             WHERE KullaniciID = @kullaniciID";
@@ -207,8 +272,10 @@ namespace TaskFlow360
                     cmd.Parameters.AddWithValue("@adres", txtAdres.Text.Trim());
                     cmd.Parameters.AddWithValue("@yoneticiID", yoneticiID ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@departmanID", departmanID);
+                    cmd.Parameters.AddWithValue("@bolumID", bolumID ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@telefon", txtTelefon.Text.Trim());
                     cmd.Parameters.AddWithValue("@cinsiyet", cmbCinsiyet.Text);
+                    cmd.Parameters.AddWithValue("@maas", maas);
                     cmd.Parameters.AddWithValue("@dogumTar", dtpDogumTarihi.Value.Date);
                     cmd.Parameters.AddWithValue("@iseBaslamaTar", dtpIseBaslamaTarihi.Value.Date);
 
@@ -236,22 +303,52 @@ namespace TaskFlow360
 
         private void DepartmanlariYukle(int? secilecekDepartmanID = null)
         {
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            try
             {
-                SqlCommand cmd = new SqlCommand("SELECT DepartmanID, DepartmanAdi FROM Departman", conn);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                cmbDepartman.DataSource = dt;
-                cmbDepartman.DisplayMember = "DepartmanAdi";
-                cmbDepartman.ValueMember = "DepartmanID";
-                if (secilecekDepartmanID.HasValue)
+                using (SqlConnection conn = Baglanti.BaglantiGetir())
                 {
-                    cmbDepartman.SelectedValue = secilecekDepartmanID.Value;
+                    string query = "SELECT DepartmanID, DepartmanAdi FROM Departman ORDER BY DepartmanAdi";
+                    SqlDataAdapter da = new SqlDataAdapter(query, conn);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    // "Seçiniz" opsiyonu
+                    DataTable newDt = new DataTable();
+                    newDt.Columns.Add("DepartmanID", typeof(int));
+                    newDt.Columns.Add("DepartmanAdi", typeof(string));
+
+                    DataRow row = newDt.NewRow();
+                    row["DepartmanID"] = -1;
+                    row["DepartmanAdi"] = "-- Departman Seçiniz --";
+                    newDt.Rows.Add(row);
+
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        newDt.ImportRow(dr);
+                    }
+
+                    cmbDepartman.DataSource = newDt;
+                    cmbDepartman.DisplayMember = "DepartmanAdi";
+                    cmbDepartman.ValueMember = "DepartmanID";
+
+                    // Seçili departman varsa ayarla
+                    if (secilecekDepartmanID.HasValue && secilecekDepartmanID.Value > 0)
+                    {
+                        cmbDepartman.SelectedValue = secilecekDepartmanID.Value;
+                    }
+                    else
+                    {
+                        cmbDepartman.SelectedIndex = 0;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Departmanlar yüklenirken hata oluştu: " + ex.Message,
+                                "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         private void YoneticileriYukle()
         {
@@ -354,5 +451,18 @@ namespace TaskFlow360
         {
             YoneticileriYukle();
         }
+
+        private void cmbDepartman_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbDepartman.SelectedIndex == -1 || cmbDepartman.SelectedItem == null)
+                return;
+
+            DataRowView selectedRow = (DataRowView)cmbDepartman.SelectedItem;
+            int selectedDepartmanID = Convert.ToInt32(selectedRow["DepartmanID"]);
+
+            // Bölümleri yükle
+            BolumleriYukle(selectedDepartmanID);
+        }
+
     }
 }
