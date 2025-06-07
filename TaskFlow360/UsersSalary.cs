@@ -30,6 +30,7 @@ namespace TaskFlow360
             PrimAyarlariYukle();
             stil();
             KullaniciPrimleriniYukle();
+            PrimveMaasListele();
         }
 
         private void DataGridViewKolonlariAyarla()
@@ -151,7 +152,59 @@ namespace TaskFlow360
             dataGridViewKullanicilar.GridColor = Color.FromArgb(230, 230, 250);
             dataGridViewKullanicilar.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 240, 255);
         }
+        private void BeautifyChart(Chart chart)
+        {
+            chart.ChartAreas[0].BackColor = Color.Transparent;
+            chart.BackColor = Color.Transparent;
+            chart.Legends[0].BackColor = Color.Transparent;
+            chart.Legends[0].ForeColor = Color.Black;
+            chart.ChartAreas[0].AxisX.LabelStyle.ForeColor = Color.Black;
+            chart.ChartAreas[0].AxisY.LabelStyle.ForeColor = Color.Black;
+        }
+        private void PrimveMaasListele()
+        {
+            chartMaasPrim.Series.Clear();
+            chartMaasPrim.Titles.Clear();
+            BeautifyChart(chartMaasPrim);
 
+            Series maasSeries = new Series("Maaş");
+            maasSeries.ChartType = SeriesChartType.Bar;
+            Series primSeries = new Series("Prim");
+            primSeries.ChartType = SeriesChartType.Bar;
+            primSeries.YAxisType = AxisType.Secondary;
+
+            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            {
+                SqlCommand cmd = new SqlCommand(@"
+                SELECT 
+                    CAST(Yil AS VARCHAR(4)) + '-' + 
+                    RIGHT('0' + CAST(Ay AS VARCHAR(2)), 2) AS Ay, 
+                    ISNULL(SUM(Maas), 0) AS ToplamMaas, 
+                    ISNULL(SUM(PrimToplam), 0) AS ToplamPrim
+                FROM PrimKayit
+                WHERE Yil IS NOT NULL AND Ay IS NOT NULL
+                GROUP BY Yil, Ay
+                ORDER BY Yil, Ay", conn);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    string ay = reader["Ay"].ToString();
+
+                    // Decimal olarak oku, sonra double'a çevir
+                    decimal toplamMaas = Convert.ToDecimal(reader["ToplamMaas"]);
+                    decimal toplamPrim = Convert.ToDecimal(reader["ToplamPrim"]);
+
+                    maasSeries.Points.AddXY(ay, (double)toplamMaas);
+                    primSeries.Points.AddXY(ay, (double)toplamPrim);
+                }
+                reader.Close();
+            }
+
+            chartMaasPrim.Series.Add(maasSeries);
+            chartMaasPrim.Series.Add(primSeries);
+        }
         private void PrimAyarlariYukle()
         {
             try
@@ -345,7 +398,6 @@ namespace TaskFlow360
             return true;
         }
 
-        //Bakılacak
         private void PrimAyarlariKaydet()
         {
             try

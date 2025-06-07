@@ -102,41 +102,44 @@ namespace TaskFlow360
             BeautifyChart(chartMaasPrim);
 
             Series maasSeries = new Series("Maaş");
-            maasSeries.ChartType = SeriesChartType.Line;
-
+            maasSeries.ChartType = SeriesChartType.Bar;
             Series primSeries = new Series("Prim");
-            primSeries.ChartType = SeriesChartType.Line;
+            primSeries.ChartType = SeriesChartType.Bar;
+            primSeries.YAxisType = AxisType.Secondary;
 
             using (SqlConnection conn = Baglanti.BaglantiGetir())
             {
                 SqlCommand cmd = new SqlCommand(@"
-                    SELECT FORMAT(RaporTarihi, 'yyyy-MM') AS Ay, 
-                           SUM(Maas) AS ToplamMaas, 
-                           SUM(Prim) AS ToplamPrim
-                    FROM PerformansRaporu
-                    GROUP BY FORMAT(RaporTarihi, 'yyyy-MM')
-                    ORDER BY Ay", conn);
+                SELECT 
+                    CAST(Yil AS VARCHAR(4)) + '-' + 
+                    RIGHT('0' + CAST(Ay AS VARCHAR(2)), 2) AS Ay, 
+                    ISNULL(SUM(Maas), 0) AS ToplamMaas, 
+                    ISNULL(SUM(PrimToplam), 0) AS ToplamPrim
+                FROM PrimKayit
+                WHERE Yil IS NOT NULL AND Ay IS NOT NULL
+                GROUP BY Yil, Ay
+                ORDER BY Yil, Ay", conn);
+
                 SqlDataReader reader = cmd.ExecuteReader();
+
                 while (reader.Read())
                 {
                     string ay = reader["Ay"].ToString();
-                    maasSeries.Points.AddXY(ay, Convert.ToDouble(reader["ToplamMaas"]));
-                    primSeries.Points.AddXY(ay, Convert.ToDouble(reader["ToplamPrim"]));
+
+                    // Decimal olarak oku, sonra double'a çevir
+                    decimal toplamMaas = Convert.ToDecimal(reader["ToplamMaas"]);
+                    decimal toplamPrim = Convert.ToDecimal(reader["ToplamPrim"]);
+
+                    maasSeries.Points.AddXY(ay, (double)toplamMaas);
+                    primSeries.Points.AddXY(ay, (double)toplamPrim);
                 }
                 reader.Close();
             }
 
             chartMaasPrim.Series.Add(maasSeries);
             chartMaasPrim.Series.Add(primSeries);
-            maasSeries.BorderWidth = 4;
-            primSeries.BorderWidth = 4;
-            chartMaasPrim.Titles.Add("Aylık Maaş ve Prim Karşılaştırması");
-            if (chartMaasPrim.Titles.Count > 0)
-            {
-                chartMaasPrim.Titles[0].Font = new Font("Century Gothic", 12, FontStyle.Bold | FontStyle.Italic);
-                chartMaasPrim.Titles[0].ForeColor = Color.FromArgb(50, 50, 50);
-            }
         }
+
 
         private void AylikCagriListele()
         {

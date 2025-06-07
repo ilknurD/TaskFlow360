@@ -333,7 +333,7 @@
             this.chartCagriTrend.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chartCagriTrend.Legends.Add(legend1);
-            this.chartCagriTrend.Location = new System.Drawing.Point(1122, 684);
+            this.chartCagriTrend.Location = new System.Drawing.Point(1178, 684);
             this.chartCagriTrend.Name = "chartCagriTrend";
             this.chartCagriTrend.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel;
             this.chartCagriTrend.Size = new System.Drawing.Size(730, 300);

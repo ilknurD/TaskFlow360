@@ -37,6 +37,9 @@
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -56,6 +59,7 @@
             this.chartGunlukDurum = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartHaftalik = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartAylik = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartOncelik = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.panel1.SuspendLayout();
@@ -68,6 +72,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartGunlukDurum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartHaftalik)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartAylik)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartOncelik)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox2
@@ -303,7 +308,7 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chartGunlukDurum.Series.Add(series1);
-            this.chartGunlukDurum.Size = new System.Drawing.Size(536, 390);
+            this.chartGunlukDurum.Size = new System.Drawing.Size(653, 390);
             this.chartGunlukDurum.TabIndex = 12;
             this.chartGunlukDurum.Text = "chart1";
             // 
@@ -313,13 +318,13 @@
             this.chartHaftalik.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.chartHaftalik.Legends.Add(legend2);
-            this.chartHaftalik.Location = new System.Drawing.Point(949, 211);
+            this.chartHaftalik.Location = new System.Drawing.Point(1120, 211);
             this.chartHaftalik.Name = "chartHaftalik";
             series2.ChartArea = "ChartArea1";
             series2.Legend = "Legend1";
             series2.Name = "Series1";
             this.chartHaftalik.Series.Add(series2);
-            this.chartHaftalik.Size = new System.Drawing.Size(903, 390);
+            this.chartHaftalik.Size = new System.Drawing.Size(732, 390);
             this.chartHaftalik.TabIndex = 13;
             this.chartHaftalik.Text = "chart2";
             // 
@@ -331,15 +336,32 @@
             this.chartAylik.Legends.Add(legend3);
             this.chartAylik.Location = new System.Drawing.Point(360, 684);
             this.chartAylik.Name = "chartAylik";
-            this.chartAylik.Size = new System.Drawing.Size(1492, 300);
+            this.chartAylik.Size = new System.Drawing.Size(653, 300);
             this.chartAylik.TabIndex = 14;
             this.chartAylik.Text = "chart3";
+            // 
+            // chartOncelik
+            // 
+            chartArea4.Name = "ChartArea1";
+            this.chartOncelik.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chartOncelik.Legends.Add(legend4);
+            this.chartOncelik.Location = new System.Drawing.Point(1120, 684);
+            this.chartOncelik.Name = "chartOncelik";
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chartOncelik.Series.Add(series3);
+            this.chartOncelik.Size = new System.Drawing.Size(732, 300);
+            this.chartOncelik.TabIndex = 16;
+            this.chartOncelik.Text = "chart2";
             // 
             // OfficerReportsPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1920, 1033);
+            this.Controls.Add(this.chartOncelik);
             this.Controls.Add(this.chartAylik);
             this.Controls.Add(this.chartHaftalik);
             this.Controls.Add(this.chartGunlukDurum);
@@ -366,6 +388,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartGunlukDurum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartHaftalik)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartAylik)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartOncelik)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -392,5 +415,6 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chartGunlukDurum;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartHaftalik;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartAylik;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartOncelik;
     }
 }
