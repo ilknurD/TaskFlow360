@@ -65,6 +65,22 @@ namespace TaskFlow360
                 conn.Open();
             return conn;
         }
+        public bool BaglantiTest()
+        {
+            try
+            {
+                BaglantiAc();
+                return conn != null && conn.State == ConnectionState.Open;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                BaglantiKapat();
+            }
+        }
 
     }
 }

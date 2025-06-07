@@ -16,7 +16,6 @@ namespace TaskFlow360
     {
         private string GirisYapanMudurID;
         Baglanti baglanti = new Baglanti();
-        Kullanici kullanici = new Kullanici();
 
         public UsersSalary()
         {
@@ -28,9 +27,9 @@ namespace TaskFlow360
         {
             AyComboBoxDoldur();
             DataGridViewKolonlariAyarla();
-            KullaniciPrimleriniYukle();
-            PrimAyarlariniYukle();
+            PrimAyarlariYukle();
             stil();
+            KullaniciPrimleriniYukle();
         }
 
         private void DataGridViewKolonlariAyarla()
@@ -38,7 +37,6 @@ namespace TaskFlow360
             dataGridViewKullanicilar.Columns.Clear();
             dataGridViewKullanicilar.AutoGenerateColumns = false;
 
-            // Kolonları manuel olarak ekle
             dataGridViewKullanicilar.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "AdSoyad",
@@ -49,52 +47,34 @@ namespace TaskFlow360
 
             dataGridViewKullanicilar.Columns.Add(new DataGridViewTextBoxColumn
             {
-                Name = "DonemBilgisi",
-                HeaderText = "Dönem",
-                DataPropertyName = "DonemBilgisi",
-                Visible = false, // Dönem bilgisi başlangıçta görünmesin
-                Width = 100
-            });
-
-            dataGridViewKullanicilar.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "ToplamGorev",
+                Name = "ToplamCagri",
                 HeaderText = "Toplam Çağrı",
-                DataPropertyName = "ToplamGorev",
+                DataPropertyName = "ToplamCagri",
                 Width = 100
             });
 
             dataGridViewKullanicilar.Columns.Add(new DataGridViewTextBoxColumn
             {
-                Name = "YuksekOncelikGorev",
+                Name = "YuksekOncelik",
                 HeaderText = "Yüksek Öncelik",
-                DataPropertyName = "YuksekOncelikGorev",
+                DataPropertyName = "YuksekOncelik",
                 Width = 120
             });
 
             dataGridViewKullanicilar.Columns.Add(new DataGridViewTextBoxColumn
             {
-                Name = "OrtaOncelikGorev",
+                Name = "OrtaOncelik",
                 HeaderText = "Orta Öncelik",
-                DataPropertyName = "OrtaOncelikGorev",
+                DataPropertyName = "OrtaOncelik",
                 Width = 120
             });
 
             dataGridViewKullanicilar.Columns.Add(new DataGridViewTextBoxColumn
             {
-                Name = "DusukOncelikGorev",
+                Name = "DusukOncelik",
                 HeaderText = "Düşük Öncelik",
-                DataPropertyName = "DusukOncelikGorev",
+                DataPropertyName = "DusukOncelik",
                 Width = 120
-            });
-
-            dataGridViewKullanicilar.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                Name = "ToplamPrim",
-                HeaderText = "Toplam Prim",
-                DataPropertyName = "ToplamPrim",
-                Width = 120,
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
             });
 
             dataGridViewKullanicilar.Columns.Add(new DataGridViewTextBoxColumn
@@ -102,6 +82,15 @@ namespace TaskFlow360
                 Name = "TemelMaas",
                 HeaderText = "Temel Maaş",
                 DataPropertyName = "TemelMaas",
+                Width = 120,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
+            });
+
+            dataGridViewKullanicilar.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "ToplamPrim",
+                HeaderText = "Toplam Prim",
+                DataPropertyName = "ToplamPrim",
                 Width = 120,
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" }
             });
@@ -119,7 +108,6 @@ namespace TaskFlow360
         private void AyComboBoxDoldur()
         {
             cmbAyFiltre.Items.Clear();
-            cmbAyFiltre.Items.Add("Tüm Aylar");
 
             string[] aylar = { "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
                               "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık" };
@@ -130,18 +118,19 @@ namespace TaskFlow360
             }
 
             int suankiAy = DateTime.Now.Month;
-            cmbAyFiltre.SelectedIndex = suankiAy;
+            cmbAyFiltre.SelectedIndex = suankiAy - 1;
         }
 
         private void stil()
         {
+            dataGridViewKullanicilar.AutoGenerateColumns = false;
             dataGridViewKullanicilar.AllowUserToAddRows = false;
             dataGridViewKullanicilar.AllowUserToDeleteRows = false;
             dataGridViewKullanicilar.ReadOnly = true;
             dataGridViewKullanicilar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewKullanicilar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewKullanicilar.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-            dataGridViewKullanicilar.ScrollBars = ScrollBars.Both;
+            dataGridViewKullanicilar.RowHeadersVisible = false;
+            dataGridViewKullanicilar.BorderStyle = BorderStyle.None;
 
             foreach (DataGridViewColumn column in dataGridViewKullanicilar.Columns)
             {
@@ -159,140 +148,148 @@ namespace TaskFlow360
             dataGridViewKullanicilar.DefaultCellStyle.SelectionBackColor = Color.FromArgb(179, 157, 219);
             dataGridViewKullanicilar.DefaultCellStyle.SelectionForeColor = Color.Black;
 
-            dataGridViewKullanicilar.RowHeadersVisible = false;
-            dataGridViewKullanicilar.BorderStyle = BorderStyle.None;
             dataGridViewKullanicilar.GridColor = Color.FromArgb(230, 230, 250);
             dataGridViewKullanicilar.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 240, 255);
         }
 
-        private void PrimAyarlariniYukle()
+        private void PrimAyarlariYukle()
         {
             try
             {
                 baglanti.BaglantiAc();
 
-                // Mevcut ay için prim ayarı var mı kontrol et
-                int currentYear = DateTime.Now.Year;
-                int currentMonth = DateTime.Now.Month;
-
-                string query = @"
-                    SELECT pa.* FROM PrimAyar pa
-                    WHERE YEAR(pa.EklemeTarihi) = @CurrentYear 
-                      AND MONTH(pa.EklemeTarihi) = @CurrentMonth
-                    ORDER BY pa.EklemeTarihi DESC";
+                string query = "SELECT TOP 1 * FROM PrimAyar ORDER BY EklemeTarihi DESC";
 
                 using (SqlCommand cmd = new SqlCommand(query, baglanti.conn))
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    cmd.Parameters.AddWithValue("@CurrentYear", currentYear);
-                    cmd.Parameters.AddWithValue("@CurrentMonth", currentMonth);
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    if (reader.Read())
                     {
-                        if (reader.Read())
-                        {
-                            // Mevcut ay için ayarlar var
-                            txtMinGorevSayisi.Text = reader["MinGorevSayisi"].ToString();
-                            txtYuksek.Text = reader["Yüksek"].ToString();
-                            txtOrta.Text = reader["Orta"].ToString();
-                            txtDusuk.Text = reader["Düşük"].ToString();
-                        }
-                        else
-                        {
-                            // Mevcut ay için ayar yok, en son ayarları getir
-                            reader.Close();
-
-                            string lastQuery = "SELECT TOP 1 * FROM PrimAyar ORDER BY EklemeTarihi DESC";
-                            using (SqlCommand lastCmd = new SqlCommand(lastQuery, baglanti.conn))
-                            using (SqlDataReader lastReader = lastCmd.ExecuteReader())
-                            {
-                                if (lastReader.Read())
-                                {
-                                    txtMinGorevSayisi.Text = lastReader["MinGorevSayisi"].ToString();
-                                    txtYuksek.Text = lastReader["Yüksek"].ToString();
-                                    txtOrta.Text = lastReader["Orta"].ToString();
-                                    txtDusuk.Text = lastReader["Düşük"].ToString();
-                                }
-                                else
-                                {
-                                    // Hiç ayar yoksa varsayılan değerler
-                                    txtMinGorevSayisi.Text = "5";
-                                    txtYuksek.Text = "100";
-                                    txtOrta.Text = "75";
-                                    txtDusuk.Text = "50";
-                                }
-                            }
-                        }
+                        // Null kontrolü ile değerleri al
+                        txtMinGorevSayisi.Text = (reader["MinGorevSayisi"] ?? 0).ToString();
+                        txtYuksek.Text = (reader["Yüksek"] ?? 0).ToString();
+                        txtOrta.Text = (reader["Orta"] ?? 0).ToString();
+                        txtDusuk.Text = (reader["Düşük"] ?? 0).ToString();
+                    }
+                    else
+                    {
+                        // Varsayılan değerler
+                        txtMinGorevSayisi.Text = "0";
+                        txtYuksek.Text = "0";
+                        txtOrta.Text = "0";
+                        txtDusuk.Text = "0";
+                        MessageBox.Show("Prim ayarı bulunamadı. Varsayılan değerler yüklendi.", "Bilgi");
                     }
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Prim ayarları yüklenirken hata: " + ex.Message);
+
+                // Hata durumunda varsayılan değerler
+                txtMinGorevSayisi.Text = "0";
+                txtYuksek.Text = "0";
+                txtOrta.Text = "0";
+                txtDusuk.Text = "0";
             }
             finally
             {
                 baglanti.BaglantiKapat();
             }
         }
+
         private void KullaniciPrimleriniYukle()
         {
             try
             {
-                int secilenAy = cmbAyFiltre.SelectedIndex > 0 ? cmbAyFiltre.SelectedIndex : 0;
+                int secilenAy = cmbAyFiltre.SelectedIndex + 1;
                 int guncelYil = DateTime.Now.Year;
 
-                string query = @"
-                WITH CagriOzet AS (
-                    SELECT 
-                        AtananKullaniciID,
-                        COUNT(*) AS ToplamCagriAdedi,
-                        SUM(CASE WHEN Oncelik = 'Yüksek' THEN 1 ELSE 0 END) AS YuksekOncelikCagriAdedi,
-                        SUM(CASE WHEN Oncelik = 'Orta' THEN 1 ELSE 0 END) AS OrtaOncelikCagriAdedi,
-                        SUM(CASE WHEN Oncelik = 'Düşük' THEN 1 ELSE 0 END) AS DusukOncelikCagriAdedi
-                    FROM [TaskFlow360].[dbo].[Cagri]
-                    WHERE Durum = 'Tamamlandı' 
-                      AND YEAR(TeslimTarihi) = @Yil
-                      AND (@SecilenAy = 0 OR MONTH(TeslimTarihi) = @SecilenAy)
-                      AND TeslimTarihi IS NOT NULL
-                    GROUP BY AtananKullaniciID
-                )
-                SELECT 
-                    K.KullaniciID,
-                    K.Ad + ' ' + K.Soyad AS AdSoyad,
-                    K.Maas AS TemelMaas,
-                    COALESCE(co.ToplamCagriAdedi, 0) AS ToplamGorev,
-                    COALESCE(co.YuksekOncelikCagriAdedi, 0) AS YuksekOncelikGorev,
-                    COALESCE(co.OrtaOncelikCagriAdedi, 0) AS OrtaOncelikGorev,
-                    COALESCE(co.DusukOncelikCagriAdedi, 0) AS DusukOncelikGorev,
-                    COALESCE(pk.PrimToplam, 0) AS ToplamPrim,
-                    COALESCE(K.Maas + pk.PrimToplam, K.Maas) AS ToplamOdeme,
-                    CASE 
-                        WHEN pk.Ay IS NOT NULL AND pk.Yil IS NOT NULL 
-                        THEN CAST(pk.Yil AS VARCHAR(4)) + '/' + FORMAT(pk.Ay, '00')
-                        ELSE 'Hesaplanmamış'
-                    END AS DonemBilgisi
-                FROM [TaskFlow360].[dbo].[Kullanici] K
-                LEFT JOIN [TaskFlow360].[dbo].[PrimKayit] pk ON K.KullaniciID = pk.KullaniciID 
-                    AND pk.Yil = @Yil
-                    AND (@SecilenAy = 0 OR pk.Ay = @SecilenAy)
-                LEFT JOIN CagriOzet co ON K.KullaniciID = co.AtananKullaniciID
-                ORDER BY K.Ad, K.Soyad";
-
                 baglanti.BaglantiAc();
+
+                // Prim ayarlarını önceden al
+                decimal yuksekPrim = 0, ortaPrim = 0, dusukPrim = 0;
+                int minGorevSayisi = 0;
+
+                string primAyarQuery = "SELECT TOP 1 MinGorevSayisi, Yüksek, Orta, Düşük FROM PrimAyar ORDER BY EklemeTarihi DESC";
+                using (SqlCommand primCmd = new SqlCommand(primAyarQuery, baglanti.conn))
+                using (SqlDataReader primReader = primCmd.ExecuteReader())
+                {
+                    if (primReader.Read())
+                    {
+                        minGorevSayisi = Convert.ToInt32(primReader["MinGorevSayisi"] ?? 0);
+                        yuksekPrim = Convert.ToDecimal(primReader["Yüksek"] ?? 0);
+                        ortaPrim = Convert.ToDecimal(primReader["Orta"] ?? 0);
+                        dusukPrim = Convert.ToDecimal(primReader["Düşük"] ?? 0);
+                    }
+                }
+
+                // Ana sorgu - Null kontrolü ile
+                string query = @"
+            SELECT 
+                k.KullaniciID,
+                ISNULL(k.Ad, '') + ' ' + ISNULL(k.Soyad, '') AS AdSoyad,
+                ISNULL(k.Maas, 0) AS TemelMaas,
+                ISNULL(COUNT(c.CagriID), 0) AS ToplamCagri,
+                ISNULL(SUM(CASE WHEN c.Oncelik = 'Yüksek' THEN 1 ELSE 0 END), 0) AS YuksekOncelik,
+                ISNULL(SUM(CASE WHEN c.Oncelik = 'Orta' THEN 1 ELSE 0 END), 0) AS OrtaOncelik,
+                ISNULL(SUM(CASE WHEN c.Oncelik = 'Düşük' THEN 1 ELSE 0 END), 0) AS DusukOncelik
+            FROM Kullanici k
+            LEFT JOIN Cagri c ON k.KullaniciID = c.AtananKullaniciID 
+                AND MONTH(c.TeslimTarihi) = @Ay 
+                AND YEAR(c.TeslimTarihi) = @Yil
+                AND c.Durum = 'Tamamlandı'
+            WHERE k.KullaniciID IS NOT NULL
+            GROUP BY k.KullaniciID, k.Ad, k.Soyad, k.Maas
+            ORDER BY k.Ad, k.Soyad";
+
                 using (SqlCommand cmd = new SqlCommand(query, baglanti.conn))
                 {
                     cmd.Parameters.AddWithValue("@Yil", guncelYil);
-                    cmd.Parameters.AddWithValue("@SecilenAy", secilenAy);
+                    cmd.Parameters.AddWithValue("@Ay", secilenAy);
 
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
+
+                    // Prim hesaplaması yaparak yeni kolonlar ekle
+                    dt.Columns.Add("ToplamPrim", typeof(decimal));
+                    dt.Columns.Add("ToplamOdeme", typeof(decimal));
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        int toplamCagri = Convert.ToInt32(row["ToplamCagri"] ?? 0);
+                        int yuksekOncelik = Convert.ToInt32(row["YuksekOncelik"] ?? 0);
+                        int ortaOncelik = Convert.ToInt32(row["OrtaOncelik"] ?? 0);
+                        int dusukOncelik = Convert.ToInt32(row["DusukOncelik"] ?? 0);
+                        decimal temelMaas = Convert.ToDecimal(row["TemelMaas"] ?? 0);
+
+                        decimal toplamPrim = 0;
+                        if (toplamCagri >= minGorevSayisi)
+                        {
+                            toplamPrim = (yuksekOncelik * yuksekPrim) +
+                                        (ortaOncelik * ortaPrim) +
+                                        (dusukOncelik * dusukPrim);
+                        }
+
+                        row["ToplamPrim"] = toplamPrim;
+                        row["ToplamOdeme"] = temelMaas + toplamPrim;
+                    }
+
+                    Console.WriteLine($"Sorgu sonucu: {dt.Rows.Count} kullanıcı bulundu");
+
+                    if (dt.Rows.Count == 0)
+                    {
+                        MessageBox.Show($"Hiç kullanıcı bulunamadı!\nSeçilen: {secilenAy}. ay, {guncelYil} yılı", "Uyarı");
+                        TestVeriVarMi();
+                    }
+
                     dataGridViewKullanicilar.DataSource = dt;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Kullanıcı verileri yüklenirken hata: " + ex.Message);
+                MessageBox.Show($"Hata: {ex.Message}\n\nStack Trace: {ex.StackTrace}", "Kritik Hata");
             }
             finally
             {
@@ -302,134 +299,71 @@ namespace TaskFlow360
 
         private void btnKaydet_Click(object sender, EventArgs e)
         {
+            if (!ValidateInputs())
+                return;
+
+            try
+            {
+                PrimAyarlariKaydet();
+                PrimleriHesapla();
+                KullaniciPrimleriniYukle();
+                MessageBox.Show("Prim ayarları kaydedildi ve primler hesaplandı.", "Başarılı",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("İşlem sırasında hata: " + ex.Message, "Hata",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private bool ValidateInputs()
+        {
             if (string.IsNullOrEmpty(txtMinGorevSayisi.Text) ||
                 string.IsNullOrEmpty(txtYuksek.Text) ||
                 string.IsNullOrEmpty(txtOrta.Text) ||
                 string.IsNullOrEmpty(txtDusuk.Text))
             {
-                MessageBox.Show("Lütfen tüm prim ayarlarını doldurun.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                MessageBox.Show("Lütfen tüm alanları doldurun.", "Uyarı");
+                return false;
             }
 
-            // Sayısal değer kontrolleri
             if (!int.TryParse(txtMinGorevSayisi.Text, out int minGorev) || minGorev < 0)
             {
-                MessageBox.Show("Minimum görev sayısı geçerli bir pozitif sayı olmalıdır.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                MessageBox.Show("Minimum görev sayısı geçerli bir sayı olmalıdır.", "Uyarı");
+                return false;
             }
 
-            if (!decimal.TryParse(txtYuksek.Text, out decimal yuksekPrim) || yuksekPrim < 0)
+            if (!decimal.TryParse(txtYuksek.Text, out decimal yuksek) || yuksek < 0 ||
+                !decimal.TryParse(txtOrta.Text, out decimal orta) || orta < 0 ||
+                !decimal.TryParse(txtDusuk.Text, out decimal dusuk) || dusuk < 0)
             {
-                MessageBox.Show("Yüksek öncelik prim miktarı geçerli bir pozitif sayı olmalıdır.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                MessageBox.Show("Prim miktarları geçerli sayılar olmalıdır.", "Uyarı");
+                return false;
             }
 
-            if (!decimal.TryParse(txtOrta.Text, out decimal ortaPrim) || ortaPrim < 0)
-            {
-                MessageBox.Show("Orta öncelik prim miktarı geçerli bir pozitif sayı olmalıdır.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (!decimal.TryParse(txtDusuk.Text, out decimal dusukPrim) || dusukPrim < 0)
-            {
-                MessageBox.Show("Düşük öncelik prim miktarı geçerli bir pozitif sayı olmalıdır.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            try
-            {
-                AylikPrimleriHesapla();
-                KullaniciPrimleriniYukle();
-                MessageBox.Show("Prim ayarları başarıyla kaydedildi ve primler hesaplandı.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("İşlem sırasında hata oluştu: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            return true;
         }
 
+        //Bakılacak
         private void PrimAyarlariKaydet()
         {
             try
             {
-                int currentYear = DateTime.Now.Year;
-                int currentMonth = DateTime.Now.Month;
-
                 baglanti.BaglantiAc();
 
-                // Mevcut ay için prim ayarı var mı kontrol et (sadece yıl-ay bazında)
-                string checkQuery = @"
-            SELECT AyarID FROM PrimAyar 
-            WHERE YEAR(EklemeTarihi) = @CurrentYear 
-              AND MONTH(EklemeTarihi) = @CurrentMonth";
+                string query = @"
+                INSERT INTO PrimAyar (MinGorevSayisi, Yüksek, Orta, Düşük, EklemeTarihi)
+                VALUES (@MinGorev, @Yuksek, @Orta, @Dusuk, GETDATE())";
 
-                int existingAyarID = 0;
-                using (SqlCommand checkCmd = new SqlCommand(checkQuery, baglanti.conn))
+                using (SqlCommand cmd = new SqlCommand(query, baglanti.conn))
                 {
-                    checkCmd.Parameters.AddWithValue("@CurrentYear", currentYear);
-                    checkCmd.Parameters.AddWithValue("@CurrentMonth", currentMonth);
-
-                    object result = checkCmd.ExecuteScalar();
-                    if (result != null)
-                    {
-                        existingAyarID = Convert.ToInt32(result);
-                    }
+                    cmd.Parameters.AddWithValue("@MinGorev", Convert.ToInt32(txtMinGorevSayisi.Text));
+                    cmd.Parameters.AddWithValue("@Yuksek", Convert.ToDecimal(txtYuksek.Text));
+                    cmd.Parameters.AddWithValue("@Orta", Convert.ToDecimal(txtOrta.Text));
+                    cmd.Parameters.AddWithValue("@Dusuk", Convert.ToDecimal(txtDusuk.Text));
+                    cmd.ExecuteNonQuery();
                 }
-
-                if (existingAyarID > 0)
-                {
-                    // Mevcut ay için güncelleme yap
-                    string updateQuery = @"
-                UPDATE PrimAyar 
-                SET 
-                    MinGorevSayisi = @MinGorev, 
-                    [Yüksek] = @Yuksek, 
-                    Orta = @Orta, 
-                    [Düşük] = @Dusuk,
-                    EklemeTarihi = GETDATE()
-                WHERE AyarID = @AyarID";
-
-                    using (SqlCommand cmd = new SqlCommand(updateQuery, baglanti.conn))
-                    {
-                        cmd.Parameters.AddWithValue("@MinGorev", Convert.ToInt32(txtMinGorevSayisi.Text));
-                        cmd.Parameters.AddWithValue("@Yuksek", Convert.ToDecimal(txtYuksek.Text));
-                        cmd.Parameters.AddWithValue("@Orta", Convert.ToDecimal(txtOrta.Text));
-                        cmd.Parameters.AddWithValue("@Dusuk", Convert.ToDecimal(txtDusuk.Text));
-                        cmd.Parameters.AddWithValue("@AyarID", existingAyarID);
-
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    MessageBox.Show("Prim ayarları başarıyla güncellendi.", "Bilgi",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    // Yeni kayıt ekle
-                    string insertQuery = @"
-                INSERT INTO PrimAyar 
-                    (MinGorevSayisi, [Yüksek], Orta, [Düşük], EklemeTarihi)
-                VALUES 
-                    (@MinGorev, @Yuksek, @Orta, @Dusuk, GETDATE())";
-
-                    using (SqlCommand cmd = new SqlCommand(insertQuery, baglanti.conn))
-                    {
-                        cmd.Parameters.AddWithValue("@MinGorev", Convert.ToInt32(txtMinGorevSayisi.Text));
-                        cmd.Parameters.AddWithValue("@Yuksek", Convert.ToDecimal(txtYuksek.Text));
-                        cmd.Parameters.AddWithValue("@Orta", Convert.ToDecimal(txtOrta.Text));
-                        cmd.Parameters.AddWithValue("@Dusuk", Convert.ToDecimal(txtDusuk.Text));
-
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    MessageBox.Show("Prim ayarları başarıyla kaydedildi.", "Bilgi",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Prim ayarları kaydedilirken hata: {ex.Message}", "Hata",
-                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -437,212 +371,241 @@ namespace TaskFlow360
             }
         }
 
-        private void AylikPrimleriHesapla()
+        // Önce bu metodu sınıfınıza ekleyin (eğer henüz eklemediyseniz)
+        private object GetSafeValue(SqlDataReader reader, string columnName, object defaultValue)
+        {
+            return reader[columnName] == DBNull.Value ? defaultValue : reader[columnName];
+        }
+
+        private void PrimleriHesapla()
         {
             try
             {
                 baglanti.BaglantiAc();
+
                 int currentYear = DateTime.Now.Year;
                 int currentMonth = DateTime.Now.Month;
 
-                // Mevcut ay için prim ayarlarını al
-                string primAyarQuery = @"
-            SELECT TOP 1 * FROM PrimAyar 
-            WHERE YEAR(EklemeTarihi) = @CurrentYear 
-              AND MONTH(EklemeTarihi) = @CurrentMonth
-            ORDER BY EklemeTarihi DESC";
-
+                // Prim ayarlarını güvenli şekilde al - PrimAyarID'yi de al
+                string primAyarQuery = "SELECT TOP 1 AyarID, MinGorevSayisi, Yüksek, Orta, Düşük FROM PrimAyar ORDER BY EklemeTarihi DESC";
                 int minGorevSayisi = 0;
-                decimal yuksek = 0, orta = 0, dusuk = 0;
-                int primAyarID = 0;
+                int primAyarID = 0; 
+                decimal yuksekPrim = 0, ortaPrim = 0, dusukPrim = 0;
 
                 using (SqlCommand cmd = new SqlCommand(primAyarQuery, baglanti.conn))
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    cmd.Parameters.AddWithValue("@CurrentYear", currentYear);
-                    cmd.Parameters.AddWithValue("@CurrentMonth", currentMonth);
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    if (reader.Read())
                     {
-                        if (reader.Read())
-                        {
-                            primAyarID = Convert.ToInt32(reader["AyarID"]);
-                            minGorevSayisi = Convert.ToInt32(reader["MinGorevSayisi"]);
-                            yuksek = Convert.ToDecimal(reader["Yüksek"]);
-                            orta = Convert.ToDecimal(reader["Orta"]);
-                            dusuk = Convert.ToDecimal(reader["Düşük"]);
-                        }
-                        else
-                        {
-                            throw new Exception("Prim ayarları bulunamadı. Lütfen önce prim ayarlarını kaydedin.");
-                        }
+                        // GetSafeValue ile güvenli okuma - PrimAyarID dahil
+                        primAyarID = Convert.ToInt32(GetSafeValue(reader, "AyarID", 0));
+                        minGorevSayisi = Convert.ToInt32(GetSafeValue(reader, "MinGorevSayisi", 0));
+                        yuksekPrim = Convert.ToDecimal(GetSafeValue(reader, "Yüksek", 0));
+                        ortaPrim = Convert.ToDecimal(GetSafeValue(reader, "Orta", 0));
+                        dusukPrim = Convert.ToDecimal(GetSafeValue(reader, "Düşük", 0));
+                    }
+                    else
+                    {
+                        MessageBox.Show("Prim ayarı bulunamadı. Lütfen önce bir prim ayarı girin.");
+                        return;
                     }
                 }
 
-                // TÜM AKTİF KULLANICILARI AL (Adminler hariç)
-                string tumKullanicilarQuery = @"
-            SELECT KullaniciID, Maas 
-            FROM Kullanici 
-            WHERE Rol != 'Admin' AND Aktif = 1";
-
-                List<Kullanici> tumKullanicilar = new List<Kullanici>();
-
-                using (SqlCommand cmd = new SqlCommand(tumKullanicilarQuery, baglanti.conn))
+                // PrimAyarID kontrolü
+                if (primAyarID == 0)
                 {
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            tumKullanicilar.Add(new Kullanici
-                            {
-                                KullaniciID = Convert.ToInt32(reader["KullaniciID"]),
-                                Maas = reader["Maas"].ToString() // Maas string olarak tanımlandığı için
-                            });
-                        }
-                    }
+                    MessageBox.Show("Geçerli bir prim ayarı bulunamadı.");
+                    return;
                 }
 
-                // Her kullanıcı için prim hesaplama
-                int islemYapilanKullanici = 0;
-
-                foreach (var kullanici in tumKullanicilar)
+                // Kullanıcıları güvenli şekilde al
+                string kullaniciQuery = "SELECT KullaniciID, Maas FROM Kullanici";
+                using (SqlCommand kullaniciCmd = new SqlCommand(kullaniciQuery, baglanti.conn))
+                using (SqlDataReader reader = kullaniciCmd.ExecuteReader())
                 {
-                    decimal maasDecimal = decimal.Parse(kullanici.Maas); // String maas'ı decimal'e çevir
+                    List<dynamic> kullanicilar = new List<dynamic>();
 
-                    // Kullanıcının tamamladığı çağrıları al
-                    string cagriQuery = @"
+                    while (reader.Read())
+                    {
+                        kullanicilar.Add(new
+                        {
+                            // GetSafeValue ile güvenli okuma
+                            KullaniciID = Convert.ToInt32(GetSafeValue(reader, "KullaniciID", 0)),
+                            Maas = Convert.ToDecimal(GetSafeValue(reader, "Maas", 0))
+                        });
+                    }
+
+                    reader.Close();
+
+                    foreach (var kullanici in kullanicilar)
+                    {
+                        // Çağrı verilerini güvenli şekilde al
+                        string cagriQuery = @"
                 SELECT 
-                    SUM(CASE WHEN c.Oncelik = 'Yüksek' THEN 1 ELSE 0 END) AS YuksekAdet,
-                    SUM(CASE WHEN c.Oncelik = 'Orta' THEN 1 ELSE 0 END) AS OrtaAdet,
-                    SUM(CASE WHEN c.Oncelik = 'Düşük' THEN 1 ELSE 0 END) AS DusukAdet,
-                    COUNT(*) AS ToplamAdet
-                FROM Cagri c
-                WHERE c.AtananKullaniciID = @KullaniciID
-                  AND c.Durum = 'Tamamlandı' 
-                  AND c.TeslimTarihi IS NOT NULL
-                  AND YEAR(c.TeslimTarihi) = @CurrentYear
-                  AND MONTH(c.TeslimTarihi) = @CurrentMonth";
+                    ISNULL(COUNT(*), 0) AS ToplamCagri,
+                    ISNULL(SUM(CASE WHEN Oncelik = 'Yüksek' THEN 1 ELSE 0 END), 0) AS YuksekOncelik,
+                    ISNULL(SUM(CASE WHEN Oncelik = 'Orta' THEN 1 ELSE 0 END), 0) AS OrtaOncelik,
+                    ISNULL(SUM(CASE WHEN Oncelik = 'Düşük' THEN 1 ELSE 0 END), 0) AS DusukOncelik
+                FROM Cagri 
+                WHERE AtananKullaniciID = @KullaniciID 
+                AND Durum = 'Tamamlandı'
+                AND TeslimTarihi IS NOT NULL
+                AND YEAR(TeslimTarihi) = @Yil 
+                AND MONTH(TeslimTarihi) = @Ay";
 
-                    int yuksekAdet = 0, ortaAdet = 0, dusukAdet = 0, toplamAdet = 0;
-
-                    using (SqlCommand cmd = new SqlCommand(cagriQuery, baglanti.conn))
-                    {
-                        cmd.Parameters.AddWithValue("@KullaniciID", kullanici.KullaniciID);
-                        cmd.Parameters.AddWithValue("@CurrentYear", currentYear);
-                        cmd.Parameters.AddWithValue("@CurrentMonth", currentMonth);
-
-                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        using (SqlCommand cagriCmd = new SqlCommand(cagriQuery, baglanti.conn))
                         {
-                            if (reader.Read())
+                            cagriCmd.Parameters.AddWithValue("@KullaniciID", kullanici.KullaniciID);
+                            cagriCmd.Parameters.AddWithValue("@Yil", currentYear);
+                            cagriCmd.Parameters.AddWithValue("@Ay", currentMonth);
+
+                            using (SqlDataReader cagriReader = cagriCmd.ExecuteReader())
                             {
-                                yuksekAdet = Convert.ToInt32(reader["YuksekAdet"]);
-                                ortaAdet = Convert.ToInt32(reader["OrtaAdet"]);
-                                dusukAdet = Convert.ToInt32(reader["DusukAdet"]);
-                                toplamAdet = Convert.ToInt32(reader["ToplamAdet"]);
+                                if (cagriReader.Read())
+                                {
+                                    // GetSafeValue ile güvenli okuma
+                                    int toplamCagri = Convert.ToInt32(GetSafeValue(cagriReader, "ToplamCagri", 0));
+                                    int yuksekOncelik = Convert.ToInt32(GetSafeValue(cagriReader, "YuksekOncelik", 0));
+                                    int ortaOncelik = Convert.ToInt32(GetSafeValue(cagriReader, "OrtaOncelik", 0));
+                                    int dusukOncelik = Convert.ToInt32(GetSafeValue(cagriReader, "DusukOncelik", 0));
+
+                                    decimal toplamPrim = 0;
+                                    if (toplamCagri >= minGorevSayisi)
+                                    {
+                                        toplamPrim = (yuksekOncelik * yuksekPrim) +
+                                                     (ortaOncelik * ortaPrim) +
+                                                     (dusukOncelik * dusukPrim);
+                                    }
+
+                                    cagriReader.Close();
+
+                                    // PrimKayit var mı kontrol et - Güvenli ExecuteScalar
+                                    string kontrolQuery = @"
+                            SELECT ISNULL(COUNT(*), 0) FROM PrimKayit 
+                            WHERE KullaniciID = @KullaniciID AND Yil = @Yil AND Ay = @Ay";
+
+                                    using (SqlCommand kontrolCmd = new SqlCommand(kontrolQuery, baglanti.conn))
+                                    {
+                                        kontrolCmd.Parameters.AddWithValue("@KullaniciID", kullanici.KullaniciID);
+                                        kontrolCmd.Parameters.AddWithValue("@Yil", currentYear);
+                                        kontrolCmd.Parameters.AddWithValue("@Ay", currentMonth);
+
+                                        // ExecuteScalar için güvenli dönüşüm
+                                        object result = kontrolCmd.ExecuteScalar();
+                                        int kayitSayisi = result == null || result == DBNull.Value ? 0 : Convert.ToInt32(result);
+
+                                        if (kayitSayisi == 0)
+                                        {
+                                            // Ekle - PrimAyarID dahil edildi
+                                            string insertQuery = @"
+                                    INSERT INTO PrimKayit 
+                                    (PrimAyarID, KullaniciID, Yil, Ay, ToplamCagriAdedi, YuksekOncelikCagriAdedi, OrtaOncelikCagriAdedi, 
+                                     DusukOncelikCagriAdedi, PrimToplam, Maas, HesaplamaTarihi)
+                                    VALUES 
+                                    (@PrimAyarID, @KullaniciID, @Yil, @Ay, @ToplamCagriAdedi, @YuksekOncelikCagriAdedi, @OrtaOncelikCagriAdedi, 
+                                     @DusukOncelikCagriAdedi, @PrimToplam, @Maas, GETDATE())";
+
+                                            using (SqlCommand insertCmd = new SqlCommand(insertQuery, baglanti.conn))
+                                            {
+                                                insertCmd.Parameters.AddWithValue("@PrimAyarID", primAyarID); // PrimAyarID eklendi
+                                                insertCmd.Parameters.AddWithValue("@KullaniciID", kullanici.KullaniciID);
+                                                insertCmd.Parameters.AddWithValue("@Yil", currentYear);
+                                                insertCmd.Parameters.AddWithValue("@Ay", currentMonth);
+                                                insertCmd.Parameters.AddWithValue("@ToplamCagriAdedi", toplamCagri);
+                                                insertCmd.Parameters.AddWithValue("@YuksekOncelikCagriAdedi", yuksekOncelik);
+                                                insertCmd.Parameters.AddWithValue("@OrtaOncelikCagriAdedi", ortaOncelik);
+                                                insertCmd.Parameters.AddWithValue("@DusukOncelikCagriAdedi", dusukOncelik);
+                                                insertCmd.Parameters.AddWithValue("@PrimToplam", toplamPrim);
+                                                insertCmd.Parameters.AddWithValue("@Maas", kullanici.Maas);
+                                                insertCmd.ExecuteNonQuery();
+                                            }
+                                        }
+                                        else
+                                        {
+                                            // Güncelle - PrimAyarID dahil edildi
+                                            string updateQuery = @"
+                                    UPDATE PrimKayit SET 
+                                        PrimAyarID = @PrimAyarID,
+                                        ToplamCagriAdedi = @ToplamCagriAdedi,
+                                        YuksekOncelikCagriAdedi = @YuksekOncelikCagriAdedi,
+                                        OrtaOncelikCagriAdedi = @OrtaOncelikCagriAdedi,
+                                        DusukOncelikCagriAdedi = @DusukOncelikCagriAdedi,
+                                        PrimToplam = @PrimToplam,
+                                        Maas = @Maas,
+                                        HesaplamaTarihi = GETDATE()
+                                    WHERE KullaniciID = @KullaniciID AND Yil = @Yil AND Ay = @Ay";
+
+                                            using (SqlCommand updateCmd = new SqlCommand(updateQuery, baglanti.conn))
+                                            {
+                                                updateCmd.Parameters.AddWithValue("@PrimAyarID", primAyarID); // PrimAyarID eklendi
+                                                updateCmd.Parameters.AddWithValue("@KullaniciID", kullanici.KullaniciID);
+                                                updateCmd.Parameters.AddWithValue("@Yil", currentYear);
+                                                updateCmd.Parameters.AddWithValue("@Ay", currentMonth);
+                                                updateCmd.Parameters.AddWithValue("@ToplamCagriAdedi", toplamCagri);
+                                                updateCmd.Parameters.AddWithValue("@YuksekOncelikCagriAdedi", yuksekOncelik);
+                                                updateCmd.Parameters.AddWithValue("@OrtaOncelikCagriAdedi", ortaOncelik);
+                                                updateCmd.Parameters.AddWithValue("@DusukOncelikCagriAdedi", dusukOncelik);
+                                                updateCmd.Parameters.AddWithValue("@PrimToplam", toplamPrim);
+                                                updateCmd.Parameters.AddWithValue("@Maas", kullanici.Maas);
+                                                updateCmd.ExecuteNonQuery();
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
-                    }
-
-                    // Prim hesaplama (minimum görev sayısını karşılayanlar için)
-                    decimal primToplam = 0;
-                    if (toplamAdet >= minGorevSayisi)
-                    {
-                        primToplam = (yuksekAdet * yuksek) + (ortaAdet * orta) + (dusukAdet * dusuk);
-                    }
-
-                    decimal toplamOdeme = maasDecimal + primToplam;
-
-                    // Mevcut kayıt var mı kontrol et
-                    string kontrolQuery = @"
-                SELECT COUNT(*) FROM PrimKayit 
-                WHERE KullaniciID = @KullaniciID AND Ay = @Ay AND Yil = @Yil";
-
-                    using (SqlCommand kontrolCmd = new SqlCommand(kontrolQuery, baglanti.conn))
-                    {
-                        kontrolCmd.Parameters.AddWithValue("@KullaniciID", kullanici.KullaniciID);
-                        kontrolCmd.Parameters.AddWithValue("@Ay", currentMonth);
-                        kontrolCmd.Parameters.AddWithValue("@Yil", currentYear);
-
-                        int kayitSayisi = (int)kontrolCmd.ExecuteScalar();
-
-                        if (kayitSayisi == 0)
-                        {
-                            // Yeni kayıt ekle (tüm kullanıcılar için, prim 0 olsa bile)
-                            string insertQuery = @"
-                        INSERT INTO PrimKayit 
-                            (KullaniciID, Yil, Ay, YuksekOncelikCagriAdedi, OrtaOncelikCagriAdedi, 
-                             DusukOncelikCagriAdedi, PrimAyarID, ToplamCagriAdedi, PrimToplam, Maas, ToplamOdeme)
-                        VALUES 
-                            (@KullaniciID, @Yil, @Ay, @Yuksek, @Orta, @Dusuk, @PrimAyarID, @Toplam, @PrimToplam, @Maas, @ToplamOdeme)";
-
-                            using (SqlCommand insertCmd = new SqlCommand(insertQuery, baglanti.conn))
-                            {
-                                insertCmd.Parameters.AddWithValue("@KullaniciID", kullanici.KullaniciID);
-                                insertCmd.Parameters.AddWithValue("@Yil", currentYear);
-                                insertCmd.Parameters.AddWithValue("@Ay", currentMonth);
-                                insertCmd.Parameters.AddWithValue("@Yuksek", yuksekAdet);
-                                insertCmd.Parameters.AddWithValue("@Orta", ortaAdet);
-                                insertCmd.Parameters.AddWithValue("@Dusuk", dusukAdet);
-                                insertCmd.Parameters.AddWithValue("@PrimAyarID", primAyarID);
-                                insertCmd.Parameters.AddWithValue("@Toplam", toplamAdet);
-                                insertCmd.Parameters.AddWithValue("@PrimToplam", primToplam);
-                                insertCmd.Parameters.AddWithValue("@Maas", maasDecimal);
-                                insertCmd.Parameters.AddWithValue("@ToplamOdeme", toplamOdeme);
-                                insertCmd.ExecuteNonQuery();
-                            }
-                        }
-                        else
-                        {
-                            // Mevcut kaydı güncelle (sadece güncel ay için)
-                            string updateQuery = @"
-                        UPDATE PrimKayit SET 
-                            YuksekOncelikCagriAdedi = @Yuksek,
-                            OrtaOncelikCagriAdedi = @Orta,
-                            DusukOncelikCagriAdedi = @Dusuk,
-                            ToplamCagriAdedi = @Toplam,
-                            PrimToplam = @PrimToplam,
-                            Maas = @Maas,
-                            ToplamOdeme = @ToplamOdeme,
-                            PrimAyarID = @PrimAyarID
-                        WHERE KullaniciID = @KullaniciID AND Yil = @Yil AND Ay = @Ay";
-
-                            using (SqlCommand updateCmd = new SqlCommand(updateQuery, baglanti.conn))
-                            {
-                                updateCmd.Parameters.AddWithValue("@KullaniciID", kullanici.KullaniciID);
-                                updateCmd.Parameters.AddWithValue("@Yil", currentYear);
-                                updateCmd.Parameters.AddWithValue("@Ay", currentMonth);
-                                updateCmd.Parameters.AddWithValue("@Yuksek", yuksekAdet);
-                                updateCmd.Parameters.AddWithValue("@Orta", ortaAdet);
-                                updateCmd.Parameters.AddWithValue("@Dusuk", dusukAdet);
-                                updateCmd.Parameters.AddWithValue("@Toplam", toplamAdet);
-                                updateCmd.Parameters.AddWithValue("@PrimToplam", primToplam);
-                                updateCmd.Parameters.AddWithValue("@Maas", maasDecimal);
-                                updateCmd.Parameters.AddWithValue("@ToplamOdeme", toplamOdeme);
-                                updateCmd.Parameters.AddWithValue("@PrimAyarID", primAyarID);
-                                updateCmd.ExecuteNonQuery();
-                            }
-                        }
-                        islemYapilanKullanici++;
                     }
                 }
-
-                MessageBox.Show($"Prim hesaplama işlemi tamamlandı.\n" +
-                               $"İşlem yapılan kullanıcı sayısı: {islemYapilanKullanici}\n" +
-                               $"Hesaplama dönemi: {currentMonth:00}/{currentYear}",
-                               "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Prim hesaplama sırasında hata oluştu: {ex.Message}",
-                                "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Prim hesaplama hatası: {ex.Message}", "Hata");
             }
             finally
             {
-                if (baglanti.conn.State == ConnectionState.Open)
+                baglanti.BaglantiKapat();
+            }
+        }
+
+        private void TestVeriVarMi()
+        {
+            try
+            {
+                baglanti.BaglantiAc();
+
+                // Kullanıcı sayısını kontrol et
+                string kullaniciQuery = "SELECT COUNT(*) FROM Kullanici";
+                using (SqlCommand cmd = new SqlCommand(kullaniciQuery, baglanti.conn))
                 {
-                    baglanti.BaglantiKapat();
+                    int kullaniciSayisi = (int)cmd.ExecuteScalar();
+                    MessageBox.Show($"Toplam kullanıcı sayısı: {kullaniciSayisi}");
+                }
+
+                // Çağrı sayısını kontrol et
+                string cagriQuery = "SELECT COUNT(*) FROM Cagri WHERE Durum = 'Tamamlandı' AND TeslimTarihi IS NOT NULL";
+                using (SqlCommand cmd = new SqlCommand(cagriQuery, baglanti.conn))
+                {
+                    int cagriSayisi = (int)cmd.ExecuteScalar();
+                    MessageBox.Show($"Tamamlanmış çağrı sayısı: {cagriSayisi}");
+                }
+
+                // Prim ayarı sayısını kontrol et
+                string primQuery = "SELECT COUNT(*) FROM PrimAyar";
+                using (SqlCommand cmd = new SqlCommand(primQuery, baglanti.conn))
+                {
+                    int primSayisi = (int)cmd.ExecuteScalar();
+                    MessageBox.Show($"Prim ayarı sayısı: {primSayisi}");
                 }
             }
-        }      
+            catch (Exception ex)
+            {
+                MessageBox.Show("Test hatası: " + ex.Message);
+            }
+            finally
+            {
+                baglanti.BaglantiKapat();
+            }
+        }
 
         private void cmbAyFiltre_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -694,6 +657,10 @@ namespace TaskFlow360
             raporlar.Show();
             this.Close();
         }
-    }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            TestVeriVarMi();
+        }
+    }
 }
