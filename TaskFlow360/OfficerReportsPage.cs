@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Net;
 
 namespace TaskFlow360
 {
@@ -26,20 +27,67 @@ namespace TaskFlow360
         public OfficerReportsPage()
         {
             InitializeComponent();
+            LogEkle("OfficerReportsPage formu başlatıldı", "Form", "OfficerReportsPage");
+        }
+
+        private void LogEkle(string islemDetaylari, string islemTipi, string tabloAdi)
+        {
+            try
+            {
+                baglanti.BaglantiAc();
+                string sorgu = @"INSERT INTO Log (IslemTarihi, KullaniciID, IslemTipi, TabloAdi, IslemDetaylari, IPAdresi) 
+                                VALUES (@IslemTarihi, @KullaniciID, @IslemTipi, @TabloAdi, @IslemDetaylari, @IPAdresi)";
+
+                using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
+                {
+                    cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                    cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
+                    cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
+                    cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
+                    cmd.Parameters.AddWithValue("@IPAdresi", GetLocalIPAddress());
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Log kayıt hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                baglanti.BaglantiKapat();
+            }
+        }
+
+        private string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            return "IP Adresi Bulunamadı";
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            LogEkle("Kapat butonuna tıklandı", "Buton", "OfficerReportsPage");
             Application.Exit();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
+            LogEkle("Küçült butonuna tıklandı", "Buton", "OfficerReportsPage");
             WindowState = FormWindowState.Minimized;
         }
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
+            LogEkle("Anasayfa butonuna tıklandı", "Buton", "OfficerReportsPage");
             OfficerHomepage officerHomepage = new OfficerHomepage();
             officerHomepage.Show();
             this.Close();
@@ -47,6 +95,7 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
+            LogEkle("Profil butonuna tıklandı", "Buton", "OfficerReportsPage");
             OfficerProfile officerProfile = new OfficerProfile();
             officerProfile.Show();
             this.Close();
@@ -54,6 +103,7 @@ namespace TaskFlow360
 
         private void btnGorevler_Click(object sender, EventArgs e)
         {
+            LogEkle("Görevler butonuna tıklandı", "Buton", "OfficerReportsPage");
             OfficerTaskspage officerTaskspage = new OfficerTaskspage();
             officerTaskspage.Show();
             this.Close();
@@ -61,17 +111,28 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
+            LogEkle("Raporlar butonuna tıklandı", "Buton", "OfficerReportsPage");
             OfficerReportsPage officerReportsPage = new OfficerReportsPage();
             officerReportsPage.Show();
             this.Close();
         }
 
+        private void btnCikis_Click(object sender, EventArgs e)
+        {
+            LogEkle("Çıkış butonuna tıklandı", "Buton", "OfficerReportsPage");
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Close();
+        }
+
         private void OfficerReportsPage_Load(object sender, EventArgs e)
         {
+            LogEkle("Raporlar yüklenmeye başlandı", "Okuma", "OfficerReportsPage");
             PieChartGunlukDurum();
             ColumnChartHaftalikPerformans();
             AylikPerformansGrafik();
             OncelikDagilimiGrafik();
+            LogEkle("Raporlar başarıyla yüklendi", "Okuma", "OfficerReportsPage");
         }
 
         private void BeautifyChart(Chart chart)
@@ -88,7 +149,7 @@ namespace TaskFlow360
             {
                 chart.Legends[0].BackColor = Color.Transparent;
                 chart.Legends[0].ForeColor = TextColor;
-                chart.Legends[0].Font = new Font("Segoe UI", 9F);
+                chart.Legends[0].Font = new Font("Century Gothic", 9F);
                 chart.Legends[0].BorderColor = Color.Transparent;
             }
 
@@ -99,14 +160,14 @@ namespace TaskFlow360
             chart.ChartAreas[0].AxisY.LineColor = Color.FromArgb(200, 200, 200);
             chart.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.FromArgb(240, 240, 240);
             chart.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.FromArgb(240, 240, 240);
-            chart.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Segoe UI", 8F);
-            chart.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Segoe UI", 8F);
+            chart.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Century Gothic", 8F);
+            chart.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Century Gothic", 8F);
 
             // Title ayarları
             foreach (Title title in chart.Titles)
             {
                 title.ForeColor = TextColor;
-                title.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+                title.Font = new Font("Century Gothic", 11F, FontStyle.Bold);
             }
         }
 
@@ -122,7 +183,7 @@ namespace TaskFlow360
                 ChartType = SeriesChartType.Pie,
                 IsValueShownAsLabel = true,
                 LabelForeColor = Color.White,
-                Font = new Font("Segoe UI", 9F, FontStyle.Bold)
+                Font = new Font("Century Gothic", 9F, FontStyle.Bold)
             };
 
             // Pie chart için özel renk paleti
@@ -175,7 +236,7 @@ namespace TaskFlow360
                 BorderWidth = 0,
                 IsValueShownAsLabel = true,
                 LabelForeColor = TextColor,
-                Font = new Font("Segoe UI", 8F)
+                Font = new Font("Century Gothic", 8F)
             };
 
             Series sureSeries = new Series("Ortalama Süre (dk)")
@@ -188,7 +249,7 @@ namespace TaskFlow360
                 MarkerColor = AccentColor,
                 IsValueShownAsLabel = true,
                 LabelForeColor = TextColor,
-                Font = new Font("Segoe UI", 8F)
+                Font = new Font("Century Gothic", 8F)
             };
 
             using (SqlConnection conn = Baglanti.BaglantiGetir())
@@ -236,7 +297,7 @@ namespace TaskFlow360
                 BorderWidth = 0,
                 IsValueShownAsLabel = true,
                 LabelForeColor = TextColor,
-                Font = new Font("Segoe UI", 8F)
+                Font = new Font("Century Gothic", 8F)
             };
 
             Series primSeries = new Series("Toplam Prim")
@@ -250,7 +311,7 @@ namespace TaskFlow360
                 MarkerColor = Color.FromArgb(220, 53, 69),
                 IsValueShownAsLabel = true,
                 LabelForeColor = TextColor,
-                Font = new Font("Segoe UI", 8F)
+                Font = new Font("Century Gothic", 8F)
             };
 
             using (SqlConnection conn = Baglanti.BaglantiGetir())
@@ -295,9 +356,9 @@ namespace TaskFlow360
             chartAylik.ChartAreas[0].AxisX.TitleForeColor = TextColor;
             chartAylik.ChartAreas[0].AxisY.TitleForeColor = TextColor;
             chartAylik.ChartAreas[0].AxisY2.TitleForeColor = TextColor;
-            chartAylik.ChartAreas[0].AxisX.TitleFont = new Font("Segoe UI", 9F);
-            chartAylik.ChartAreas[0].AxisY.TitleFont = new Font("Segoe UI", 9F);
-            chartAylik.ChartAreas[0].AxisY2.TitleFont = new Font("Segoe UI", 9F);
+            chartAylik.ChartAreas[0].AxisX.TitleFont = new Font("Century Gothic", 9F);
+            chartAylik.ChartAreas[0].AxisY.TitleFont = new Font("Century Gothic", 9F);
+            chartAylik.ChartAreas[0].AxisY2.TitleFont = new Font("Century Gothic", 9F);
         }
 
         private void OncelikDagilimiGrafik()
@@ -312,7 +373,7 @@ namespace TaskFlow360
                 ChartType = SeriesChartType.Pie,
                 IsValueShownAsLabel = true,
                 LabelForeColor = Color.White,
-                Font = new Font("Segoe UI", 9F, FontStyle.Bold)
+                Font = new Font("Century Gothic", 9F, FontStyle.Bold)
             };
 
             // Öncelik seviyeleri için gradient renk paleti
@@ -351,13 +412,6 @@ namespace TaskFlow360
             }
 
             chartOncelik.Series.Add(oncelikSeries);
-        }
-
-        private void btnCikis_Click(object sender, EventArgs e)
-        {
-            LoginForm loginForm = new LoginForm();
-            loginForm.Show();
-            this.Close();
         }
     }
 }
