@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CallerProfile));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -57,7 +57,6 @@
             this.lblDepartmanb = new System.Windows.Forms.Label();
             this.lblBolum = new System.Windows.Forms.Label();
             this.lblAdSoyad = new System.Windows.Forms.Label();
-            this.btnDegistir = new System.Windows.Forms.Button();
             this.pctrProfil = new System.Windows.Forms.PictureBox();
             this.pnlIletisimBilgi = new System.Windows.Forms.Panel();
             this.lblDogumTarihi = new System.Windows.Forms.Label();
@@ -83,13 +82,13 @@
             this.label8 = new System.Windows.Forms.Label();
             this.icerikPanel = new System.Windows.Forms.Panel();
             this.yoneticilerDGV = new System.Windows.Forms.DataGridView();
+            this.adSoyad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.departman = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aktifGorev = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tamamlananGorev = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ekipUyeSayi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblPerformansPrimBaslik = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.ekipUyeSayi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tamamlananGorev = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.aktifGorev = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.departman = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.adSoyad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -271,6 +270,7 @@
             this.btnCikis.Text = "Çıkış";
             this.btnCikis.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCikis.UseVisualStyleBackColor = false;
+            this.btnCikis.Click += new System.EventHandler(this.btnCikis_Click);
             // 
             // btnCagriOlustur
             // 
@@ -346,7 +346,6 @@
             this.pnlPrfilBilgi.Controls.Add(this.lblDepartmanb);
             this.pnlPrfilBilgi.Controls.Add(this.lblBolum);
             this.pnlPrfilBilgi.Controls.Add(this.lblAdSoyad);
-            this.pnlPrfilBilgi.Controls.Add(this.btnDegistir);
             this.pnlPrfilBilgi.Controls.Add(this.pctrProfil);
             this.pnlPrfilBilgi.Location = new System.Drawing.Point(327, 98);
             this.pnlPrfilBilgi.Name = "pnlPrfilBilgi";
@@ -415,25 +414,11 @@
             this.lblAdSoyad.TabIndex = 22;
             this.lblAdSoyad.Text = "İsim Soyisim";
             // 
-            // btnDegistir
-            // 
-            this.btnDegistir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnDegistir.FlatAppearance.BorderSize = 0;
-            this.btnDegistir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDegistir.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnDegistir.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnDegistir.Location = new System.Drawing.Point(136, 192);
-            this.btnDegistir.Name = "btnDegistir";
-            this.btnDegistir.Size = new System.Drawing.Size(157, 40);
-            this.btnDegistir.TabIndex = 21;
-            this.btnDegistir.Text = "Değiştir";
-            this.btnDegistir.UseVisualStyleBackColor = false;
-            // 
             // pctrProfil
             // 
-            this.pctrProfil.Location = new System.Drawing.Point(117, 16);
+            this.pctrProfil.Location = new System.Drawing.Point(117, 23);
             this.pctrProfil.Name = "pctrProfil";
-            this.pctrProfil.Size = new System.Drawing.Size(195, 170);
+            this.pctrProfil.Size = new System.Drawing.Size(195, 194);
             this.pctrProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pctrProfil.TabIndex = 0;
             this.pctrProfil.TabStop = false;
@@ -697,23 +682,23 @@
             this.yoneticilerDGV.AllowUserToDeleteRows = false;
             this.yoneticilerDGV.AllowUserToResizeColumns = false;
             this.yoneticilerDGV.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            this.yoneticilerDGV.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.yoneticilerDGV.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.yoneticilerDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.yoneticilerDGV.BackgroundColor = System.Drawing.Color.White;
             this.yoneticilerDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.yoneticilerDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.yoneticilerDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.yoneticilerDGV.ColumnHeadersHeight = 40;
             this.yoneticilerDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.yoneticilerDGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -722,40 +707,75 @@
             this.aktifGorev,
             this.tamamlananGorev,
             this.ekipUyeSayi});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.yoneticilerDGV.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.yoneticilerDGV.DefaultCellStyle = dataGridViewCellStyle8;
             this.yoneticilerDGV.EnableHeadersVisualStyles = false;
             this.yoneticilerDGV.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.yoneticilerDGV.Location = new System.Drawing.Point(23, 61);
             this.yoneticilerDGV.Name = "yoneticilerDGV";
             this.yoneticilerDGV.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.yoneticilerDGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.yoneticilerDGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.yoneticilerDGV.RowHeadersVisible = false;
             this.yoneticilerDGV.RowHeadersWidth = 51;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
-            this.yoneticilerDGV.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
+            this.yoneticilerDGV.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.yoneticilerDGV.RowTemplate.Height = 24;
             this.yoneticilerDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.yoneticilerDGV.Size = new System.Drawing.Size(1625, 271);
             this.yoneticilerDGV.TabIndex = 3;
+            // 
+            // adSoyad
+            // 
+            this.adSoyad.HeaderText = "Ad Soyad";
+            this.adSoyad.MinimumWidth = 6;
+            this.adSoyad.Name = "adSoyad";
+            this.adSoyad.ReadOnly = true;
+            // 
+            // departman
+            // 
+            this.departman.HeaderText = "Departman";
+            this.departman.MinimumWidth = 6;
+            this.departman.Name = "departman";
+            this.departman.ReadOnly = true;
+            // 
+            // aktifGorev
+            // 
+            this.aktifGorev.HeaderText = "Aktif Görevler";
+            this.aktifGorev.MinimumWidth = 6;
+            this.aktifGorev.Name = "aktifGorev";
+            this.aktifGorev.ReadOnly = true;
+            // 
+            // tamamlananGorev
+            // 
+            this.tamamlananGorev.HeaderText = "Tamamlanan Görevler";
+            this.tamamlananGorev.MinimumWidth = 6;
+            this.tamamlananGorev.Name = "tamamlananGorev";
+            this.tamamlananGorev.ReadOnly = true;
+            // 
+            // ekipUyeSayi
+            // 
+            this.ekipUyeSayi.HeaderText = "Ekip Üye Sayısı";
+            this.ekipUyeSayi.MinimumWidth = 6;
+            this.ekipUyeSayi.Name = "ekipUyeSayi";
+            this.ekipUyeSayi.ReadOnly = true;
             // 
             // lblPerformansPrimBaslik
             // 
@@ -779,42 +799,7 @@
             this.label3.Text = "_________________________________________________________________________________" +
     "_________________________________________";
             // 
-            // ekipUyeSayi
-            // 
-            this.ekipUyeSayi.HeaderText = "Ekip Üye Sayısı";
-            this.ekipUyeSayi.MinimumWidth = 6;
-            this.ekipUyeSayi.Name = "ekipUyeSayi";
-            this.ekipUyeSayi.ReadOnly = true;
-            // 
-            // tamamlananGorev
-            // 
-            this.tamamlananGorev.HeaderText = "Tamamlanan Görevler";
-            this.tamamlananGorev.MinimumWidth = 6;
-            this.tamamlananGorev.Name = "tamamlananGorev";
-            this.tamamlananGorev.ReadOnly = true;
-            // 
-            // aktifGorev
-            // 
-            this.aktifGorev.HeaderText = "Aktif Görevler";
-            this.aktifGorev.MinimumWidth = 6;
-            this.aktifGorev.Name = "aktifGorev";
-            this.aktifGorev.ReadOnly = true;
-            // 
-            // departman
-            // 
-            this.departman.HeaderText = "Departman";
-            this.departman.MinimumWidth = 6;
-            this.departman.Name = "departman";
-            this.departman.ReadOnly = true;
-            // 
-            // adSoyad
-            // 
-            this.adSoyad.HeaderText = "Ad Soyad";
-            this.adSoyad.MinimumWidth = 6;
-            this.adSoyad.Name = "adSoyad";
-            this.adSoyad.ReadOnly = true;
-            // 
-            // AsistantProfile
+            // CallerProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -827,7 +812,7 @@
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "AsistantProfile";
+            this.Name = "CallerProfile";
             this.Text = "AsistantProfile";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.AsistantProfile_Load);
@@ -880,7 +865,6 @@
         private System.Windows.Forms.Label lblDepartmanb;
         private System.Windows.Forms.Label lblBolum;
         private System.Windows.Forms.Label lblAdSoyad;
-        private System.Windows.Forms.Button btnDegistir;
         private System.Windows.Forms.PictureBox pctrProfil;
         private System.Windows.Forms.Panel pnlIletisimBilgi;
         private System.Windows.Forms.Label lblDogumTarihi;

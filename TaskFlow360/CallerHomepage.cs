@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net;
 
 namespace TaskFlow360
 {
@@ -19,26 +20,69 @@ namespace TaskFlow360
         {
             InitializeComponent();
             kullaniciID = UserInformation.KullaniciID;
+            LogEkle("CallerHomepage formu başlatıldı", "Form", "CallerHomepage");
+        }
+
+        private void LogEkle(string islemDetaylari, string islemTipi, string tabloAdi)
+        {
+            try
+            {
+                baglanti.BaglantiAc();
+                string sorgu = @"INSERT INTO Log (IslemTarihi, KullaniciID, IslemTipi, TabloAdi, IslemDetaylari, IPAdresi) 
+                                VALUES (@IslemTarihi, @KullaniciID, @IslemTipi, @TabloAdi, @IslemDetaylari, @IPAdresi)";
+
+                using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
+                {
+                    cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
+                    cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
+                    cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
+                    cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
+                    cmd.Parameters.AddWithValue("@IPAdresi", GetLocalIPAddress());
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Log kayıt hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                baglanti.BaglantiKapat();
+            }
+        }
+
+        private string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            return "IP Adresi Bulunamadı";
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            LogEkle("Kapat butonuna tıklandı", "Buton", "CallerHomepage");
             Application.Exit();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
+            LogEkle("Küçült butonuna tıklandı", "Buton", "CallerHomepage");
             WindowState = FormWindowState.Minimized;
         }
 
-        private void AssistantHomepage_Load(object sender, EventArgs e)
+        private void CallerHomepage_Load(object sender, EventArgs e)
         {
-            // Eğer kullaniciID boşsa, KullaniciBilgi'den tekrar almayı deneyelim
+            LogEkle("CallerHomepage yüklenmeye başlandı", "Form", "CallerHomepage");
             if (string.IsNullOrEmpty(kullaniciID))
             {
                 kullaniciID = UserInformation.KullaniciID;
-
-                // Hala boşsa, kullanıcıyı login formuna yönlendirelim
                 if (string.IsNullOrEmpty(kullaniciID))
                 {
                     MessageBox.Show("Oturum bilgileriniz geçersiz. Lütfen tekrar giriş yapın.", "Oturum Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -58,9 +102,11 @@ namespace TaskFlow360
                 IstatislikleriGoster();
                 SonCagrilariGetir();
                 BugunkuCagrilariGoster();
+                LogEkle("Veriler başarıyla yüklendi", "Okuma", "CallerHomepage");
             }
             catch (Exception ex)
             {
+                LogEkle($"Veriler yüklenirken hata oluştu: {ex.Message}", "Hata", "CallerHomepage");
                 MessageBox.Show("Veriler yüklenirken bir hata oluştu: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -192,8 +238,6 @@ namespace TaskFlow360
             }
         }
 
-
-
         private void SonCagrilariGetir()
         {
             try
@@ -201,19 +245,24 @@ namespace TaskFlow360
                 baglanti.BaglantiAc();
 
                 string query = @"
-        SELECT TOP 14
-            '#' + CAST(c.CagriID AS VARCHAR) AS [Çağrı No],
-            c.Baslik AS [Başlık],
-            c.Durum AS [Durum],
-            FORMAT(c.OlusturmaTarihi, 'dd.MM.yyyy HH:mm') AS [Oluşturulma Tarihi],
-            CASE 
-                WHEN c.AtananKullaniciID IS NULL THEN 'Atanmadı'
-                ELSE k.Ad + ' ' + k.Soyad 
-            END AS [Atanan Personel],
-            ISNULL(k.Rol, 'Belirtilmedi') AS [Rol]
-        FROM Cagri c
-        LEFT JOIN Kullanici k ON c.AtananKullaniciID = k.KullaniciID
-        ORDER BY c.OlusturmaTarihi DESC";
+                SELECT TOP 14
+                    '#' + CAST(c.CagriID AS VARCHAR) AS [Çağrı No],
+                    c.Baslik AS [Başlık],
+                    c.CagriAciklama AS [Açıklama],
+                    u.Ad + ' ' + u.Soyad AS [Oluşturan Kullanıcı],
+                    c.CagriKategori AS [Kategori],
+                    c.Oncelik AS [Öncelik],
+                    c.Durum AS [Durum],
+                    FORMAT(c.OlusturmaTarihi, 'dd.MM.yyyy HH:mm') AS [Oluşturulma Tarihi],
+                    CASE 
+                        WHEN c.AtananKullaniciID IS NULL THEN 'Atanmadı'
+                        ELSE k.Ad + ' ' + k.Soyad 
+                    END AS [Atanan Personel],
+                    ISNULL(k.Rol, 'Belirtilmedi') AS [Rol]
+                FROM Cagri c
+                LEFT JOIN Kullanici k ON c.AtananKullaniciID = k.KullaniciID
+                LEFT JOIN Kullanici u ON c.OlusturanKullaniciID = u.KullaniciID
+                ORDER BY c.OlusturmaTarihi DESC";
 
                 using (SqlCommand command = new SqlCommand(query, baglanti.conn))
                 {
@@ -231,21 +280,15 @@ namespace TaskFlow360
                     // Tema ayarları
                     SonAcilanCagrilarDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     SonAcilanCagrilarDGV.EnableHeadersVisualStyles = false;
-
-                    // Başlık tasarımı
                     SonAcilanCagrilarDGV.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(103, 58, 183); // Koyu mor
                     SonAcilanCagrilarDGV.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
                     SonAcilanCagrilarDGV.ColumnHeadersDefaultCellStyle.Font = new Font("Century Gothic", 10, FontStyle.Bold);
                     SonAcilanCagrilarDGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-                    // Satır ayarları
                     SonAcilanCagrilarDGV.DefaultCellStyle.BackColor = Color.White;
                     SonAcilanCagrilarDGV.DefaultCellStyle.ForeColor = Color.Black;
                     SonAcilanCagrilarDGV.DefaultCellStyle.Font = new Font("Century Gothic", 10);
                     SonAcilanCagrilarDGV.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(232, 222, 248); // Açık mor
                     SonAcilanCagrilarDGV.GridColor = Color.Gainsboro;
-
-                    // Seçili satır tasarımı
                     SonAcilanCagrilarDGV.DefaultCellStyle.SelectionBackColor = Color.FromArgb(126, 87, 194); // Ana mor renk
                     SonAcilanCagrilarDGV.DefaultCellStyle.SelectionForeColor = Color.White;
                 }
@@ -262,6 +305,7 @@ namespace TaskFlow360
         }
         private void btnCagriOlustur_Click(object sender, EventArgs e)
         {
+            LogEkle("Çağrı Oluştur butonuna tıklandı", "Buton", "CallerHomepage");
             CallerTaskCreationPage assistantTaskCreationPage = new CallerTaskCreationPage();
             assistantTaskCreationPage.Show();
             //this.Close();
@@ -269,6 +313,7 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
+            LogEkle("Anasayfa butonuna tıklandı", "Buton", "CallerHomepage");
             CallerHomepage assistantHomepage = new CallerHomepage();
             assistantHomepage.Show();
             this.Close();
@@ -276,6 +321,7 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
+            LogEkle("Profil butonuna tıklandı", "Buton", "CallerHomepage");
             CallerProfile asistantProfile = new CallerProfile();
             asistantProfile.Show();
             this.Close();
@@ -283,6 +329,7 @@ namespace TaskFlow360
 
         private void btnCagriTakip_Click(object sender, EventArgs e)
         {
+            LogEkle("Çağrı Takip butonuna tıklandı", "Buton", "CallerHomepage");
             CallerTasks assistantTasks = new CallerTasks();
             assistantTasks.Show();
             this.Close();
@@ -290,8 +337,18 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
+            LogEkle("Raporlar butonuna tıklandı", "Buton", "CallerHomepage");
             CallerReports assistantReports = new CallerReports();
             assistantReports.Show();
+            this.Close();
+        }
+
+        private void btnCikis_Click(object sender, EventArgs e)
+        {
+            LogEkle("Çıkış butonuna tıklandı", "Buton", "CallerHomepage");
+            UserInformation.BilgileriTemizle();
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
             this.Close();
         }
     }

@@ -63,19 +63,19 @@
             this.btniptal = new System.Windows.Forms.Button();
             this.btnOlustur = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtTalepMail = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtTalepTelefon = new System.Windows.Forms.TextBox();
+            this.txtTalepAdres = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.cmbHedefSure = new System.Windows.Forms.ComboBox();
+            this.cmbDurum = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.cmbDurum = new System.Windows.Forms.ComboBox();
-            this.cmbHedefSure = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.txtTalepAdres = new System.Windows.Forms.TextBox();
-            this.txtTalepTelefon = new System.Windows.Forms.TextBox();
-            this.txtTalepMail = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -522,15 +522,109 @@
             this.panel2.Controls.Add(this.lblCagriOlustur);
             this.panel2.Controls.Add(this.cmbDepartman);
             this.panel2.Controls.Add(this.label4);
-            this.panel2.Location = new System.Drawing.Point(543, 47);
+            this.panel2.Location = new System.Drawing.Point(543, 29);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1168, 1015);
             this.panel2.TabIndex = 45;
             // 
+            // txtTalepMail
+            // 
+            this.txtTalepMail.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtTalepMail.Location = new System.Drawing.Point(81, 766);
+            this.txtTalepMail.Name = "txtTalepMail";
+            this.txtTalepMail.Size = new System.Drawing.Size(410, 32);
+            this.txtTalepMail.TabIndex = 54;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.Color.White;
+            this.label13.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label13.Location = new System.Drawing.Point(81, 740);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(165, 23);
+            this.label13.TabIndex = 53;
+            this.label13.Text = "Talep Eden Mail";
+            // 
+            // txtTalepTelefon
+            // 
+            this.txtTalepTelefon.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtTalepTelefon.Location = new System.Drawing.Point(81, 668);
+            this.txtTalepTelefon.Name = "txtTalepTelefon";
+            this.txtTalepTelefon.Size = new System.Drawing.Size(410, 32);
+            this.txtTalepTelefon.TabIndex = 52;
+            // 
+            // txtTalepAdres
+            // 
+            this.txtTalepAdres.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.txtTalepAdres.Location = new System.Drawing.Point(81, 564);
+            this.txtTalepAdres.Name = "txtTalepAdres";
+            this.txtTalepAdres.Size = new System.Drawing.Size(410, 32);
+            this.txtTalepAdres.TabIndex = 51;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label10.Location = new System.Drawing.Point(82, 538);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(182, 23);
+            this.label10.TabIndex = 50;
+            this.label10.Text = "Talep Eden Adres";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.White;
+            this.label11.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label11.Location = new System.Drawing.Point(81, 642);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(196, 23);
+            this.label11.TabIndex = 48;
+            this.label11.Text = "Talep Eden Telefon";
+            // 
+            // cmbHedefSure
+            // 
+            this.cmbHedefSure.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cmbHedefSure.FormattingEnabled = true;
+            this.cmbHedefSure.Location = new System.Drawing.Point(669, 767);
+            this.cmbHedefSure.Name = "cmbHedefSure";
+            this.cmbHedefSure.Size = new System.Drawing.Size(407, 31);
+            this.cmbHedefSure.TabIndex = 47;
+            // 
+            // cmbDurum
+            // 
+            this.cmbDurum.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cmbDurum.FormattingEnabled = true;
+            this.cmbDurum.Location = new System.Drawing.Point(669, 564);
+            this.cmbDurum.Name = "cmbDurum";
+            this.cmbDurum.Size = new System.Drawing.Size(407, 31);
+            this.cmbDurum.TabIndex = 46;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label9.Location = new System.Drawing.Point(667, 741);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(182, 23);
+            this.label9.TabIndex = 45;
+            this.label9.Text = "Hedef Süre (Saat)";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label12.Location = new System.Drawing.Point(665, 538);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(74, 23);
+            this.label12.TabIndex = 43;
+            this.label12.Text = "Durum";
+            // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.panel3.Location = new System.Drawing.Point(529, 33);
+            this.panel3.Location = new System.Drawing.Point(529, 15);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1195, 1041);
             this.panel3.TabIndex = 46;
@@ -559,101 +653,7 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label12.Location = new System.Drawing.Point(665, 538);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(74, 23);
-            this.label12.TabIndex = 43;
-            this.label12.Text = "Durum";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label9.Location = new System.Drawing.Point(667, 741);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(182, 23);
-            this.label9.TabIndex = 45;
-            this.label9.Text = "Hedef Süre (Saat)";
-            // 
-            // cmbDurum
-            // 
-            this.cmbDurum.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.cmbDurum.FormattingEnabled = true;
-            this.cmbDurum.Location = new System.Drawing.Point(669, 564);
-            this.cmbDurum.Name = "cmbDurum";
-            this.cmbDurum.Size = new System.Drawing.Size(407, 31);
-            this.cmbDurum.TabIndex = 46;
-            // 
-            // cmbHedefSure
-            // 
-            this.cmbHedefSure.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.cmbHedefSure.FormattingEnabled = true;
-            this.cmbHedefSure.Location = new System.Drawing.Point(669, 767);
-            this.cmbHedefSure.Name = "cmbHedefSure";
-            this.cmbHedefSure.Size = new System.Drawing.Size(407, 31);
-            this.cmbHedefSure.TabIndex = 47;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label10.Location = new System.Drawing.Point(82, 538);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(182, 23);
-            this.label10.TabIndex = 50;
-            this.label10.Text = "Talep Eden Adres";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.Color.White;
-            this.label11.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label11.Location = new System.Drawing.Point(81, 642);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(196, 23);
-            this.label11.TabIndex = 48;
-            this.label11.Text = "Talep Eden Telefon";
-            // 
-            // txtTalepAdres
-            // 
-            this.txtTalepAdres.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.txtTalepAdres.Location = new System.Drawing.Point(81, 564);
-            this.txtTalepAdres.Name = "txtTalepAdres";
-            this.txtTalepAdres.Size = new System.Drawing.Size(410, 32);
-            this.txtTalepAdres.TabIndex = 51;
-            // 
-            // txtTalepTelefon
-            // 
-            this.txtTalepTelefon.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.txtTalepTelefon.Location = new System.Drawing.Point(81, 668);
-            this.txtTalepTelefon.Name = "txtTalepTelefon";
-            this.txtTalepTelefon.Size = new System.Drawing.Size(410, 32);
-            this.txtTalepTelefon.TabIndex = 52;
-            // 
-            // txtTalepMail
-            // 
-            this.txtTalepMail.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.txtTalepMail.Location = new System.Drawing.Point(81, 766);
-            this.txtTalepMail.Name = "txtTalepMail";
-            this.txtTalepMail.Size = new System.Drawing.Size(410, 32);
-            this.txtTalepMail.TabIndex = 54;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.BackColor = System.Drawing.Color.White;
-            this.label13.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label13.Location = new System.Drawing.Point(81, 740);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(165, 23);
-            this.label13.TabIndex = 53;
-            this.label13.Text = "Talep Eden Mail";
-            // 
-            // AssistantTaskCreationPage
+            // CallerTaskCreationPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -664,7 +664,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "AssistantTaskCreationPage";
+            this.Name = "CallerTaskCreationPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AssistantTaskCreationPage";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

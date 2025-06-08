@@ -242,6 +242,7 @@
             this.btnCikis.Text = "Çıkış";
             this.btnCikis.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCikis.UseVisualStyleBackColor = false;
+            this.btnCikis.Click += new System.EventHandler(this.btnCikis_Click);
             // 
             // btnCagriOlustur
             // 
@@ -407,7 +408,7 @@
             this.chartDurum.TabIndex = 22;
             this.chartDurum.Text = "chart1";
             // 
-            // AssistantReports
+            // CallerReports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -422,7 +423,7 @@
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "AssistantReports";
+            this.Name = "CallerReports";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AssistantReports";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

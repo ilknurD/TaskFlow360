@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Net;
 
 namespace TaskFlow360
 {
@@ -17,21 +18,65 @@ namespace TaskFlow360
         public CallerReports()
         {
             InitializeComponent();
+            LogEkle("CallerReports formu başlatıldı", "Form", "CallerReports");
             GrafikYukle();
+        }
+
+        private void LogEkle(string islemDetaylari, string islemTipi, string tabloAdi)
+        {
+            try
+            {
+                using (SqlConnection conn = Connection.BaglantiGetir())
+                {
+                    string sorgu = @"INSERT INTO Log (IslemTarihi, KullaniciID, IslemTipi, TabloAdi, IslemDetaylari, IPAdresi) 
+                                    VALUES (@IslemTarihi, @KullaniciID, @IslemTipi, @TabloAdi, @IslemDetaylari, @IPAdresi)";
+
+                    using (SqlCommand cmd = new SqlCommand(sorgu, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
+                        cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
+                        cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
+                        cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
+                        cmd.Parameters.AddWithValue("@IPAdresi", GetLocalIPAddress());
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Log kayıt hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            return "IP Adresi Bulunamadı";
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            LogEkle("Kapat butonuna tıklandı", "Buton", "CallerReports");
             Application.Exit();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
+            LogEkle("Küçült butonuna tıklandı", "Buton", "CallerReports");
             WindowState = FormWindowState.Minimized;
         }
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
+            LogEkle("Anasayfa butonuna tıklandı", "Buton", "CallerReports");
             CallerHomepage anasayfa = new CallerHomepage();
             anasayfa.Show();
             this.Close();
@@ -39,6 +84,7 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
+            LogEkle("Profil butonuna tıklandı", "Buton", "CallerReports");
             CallerProfile asistantProfile = new CallerProfile();
             asistantProfile.Show();
             this.Close();
@@ -46,6 +92,7 @@ namespace TaskFlow360
 
         private void btnCagriOlustur_Click(object sender, EventArgs e)
         {
+            LogEkle("Çağrı Oluştur butonuna tıklandı", "Buton", "CallerReports");
             CallerTaskCreationPage assistantTaskCreationPage = new CallerTaskCreationPage();
             assistantTaskCreationPage.Show();
             this.Close();
@@ -53,6 +100,7 @@ namespace TaskFlow360
 
         private void btnCagriTakip_Click(object sender, EventArgs e)
         {
+            LogEkle("Çağrı Takip butonuna tıklandı", "Buton", "CallerReports");
             CallerTasks assistantTasks = new CallerTasks();
             assistantTasks.Show();
             this.Close();
@@ -60,13 +108,24 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
+            LogEkle("Raporlar butonuna tıklandı", "Buton", "CallerReports");
             CallerReports assistantReports = new CallerReports();
             assistantReports.Show();
             this.Close();
         }
 
+        private void btnCikis_Click(object sender, EventArgs e)
+        {
+            LogEkle("Çıkış butonuna tıklandı", "Buton", "CallerReports");
+            UserInformation.BilgileriTemizle();
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Close();
+        }
+
         private void GrafikYukle()
         {
+            LogEkle("Grafik yükleme işlemi başladı", "Okuma", "CallerReports");
             // Grafik serilerini kontrol et ve yoksa oluştur
             if (chartDepartman.Series.IndexOf("Series1") == -1)
             {
@@ -88,7 +147,7 @@ namespace TaskFlow360
 
             try
             {
-                using (SqlConnection conn = Connection.BaglantiGetir()) // Bağlantı zaten açılıyor
+                using (SqlConnection conn = Connection.BaglantiGetir())
                 {
                     // 1. Departmanlara Göre Çağrı Sayısı
                     using (SqlCommand komut1 = new SqlCommand(
@@ -122,7 +181,7 @@ namespace TaskFlow360
                         {
                             chartDurum.Series["Series1"].Points.Clear();
                             chartDurum.Series["Series1"].ChartType = SeriesChartType.Doughnut;
-                            chartDurum.Titles.Add("Çağrı Durum Dağılımı");
+                            chartDurum.Titles.Add("Kişisel Çağrı Durum Dağılımı");
                             while (dr2.Read())
                             {
                                 chartDurum.Series["Series1"].Points.AddXY(
@@ -196,6 +255,7 @@ namespace TaskFlow360
             {
                 MessageBox.Show("Genel hata: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            LogEkle("Grafik yükleme işlemi tamamlandı", "Okuma", "CallerReports");
         }
     }
 }
