@@ -18,7 +18,7 @@ namespace TaskFlow360
         public BossHomepage()
         {
             InitializeComponent();
-            yoneticiId = KullaniciBilgi.KullaniciID;
+            yoneticiId = UserInformation.KullaniciID;
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -62,7 +62,7 @@ namespace TaskFlow360
             // Eğer yoneticiId boşsa, KullaniciBilgi'den tekrar almayı deneyelim
             if (string.IsNullOrEmpty(yoneticiId))
             {
-                yoneticiId = KullaniciBilgi.KullaniciID;
+                yoneticiId = UserInformation.KullaniciID;
 
                 // Hala boşsa, kullanıcıyı login formuna yönlendirelim
                 if (string.IsNullOrEmpty(yoneticiId))
@@ -75,8 +75,8 @@ namespace TaskFlow360
                 }
             }
 
-            lblAdSoyad.Text = KullaniciBilgi.TamAd();
-            lblHosgeldiniz.Text = $"Hoş Geldiniz, {KullaniciBilgi.TamAd()}";
+            lblAdSoyad.Text = UserInformation.TamAd();
+            lblHosgeldiniz.Text = $"Hoş Geldiniz, {UserInformation.TamAd()}";
             CalisanIstatistikleriniGoster();
             DepartmanCagriSayisiGoster(chartDepartman);
             SonEklenenKullanicilariYukle();
@@ -86,7 +86,7 @@ namespace TaskFlow360
         {
             try
             {
-                using (SqlConnection connection = Baglanti.BaglantiGetir())
+                using (SqlConnection connection = Connection.BaglantiGetir())
                 {
                     string sorgu = @"SELECT 
                             SUM(CASE WHEN Rol = 'Ekip Yöneticisi' AND KullaniciID <> @MudurID THEN 1 ELSE 0 END) AS EkipSayisi,
@@ -119,7 +119,7 @@ namespace TaskFlow360
         {
             try
             {
-                using (SqlConnection conn = Baglanti.BaglantiGetir())
+                using (SqlConnection conn = Connection.BaglantiGetir())
                 {
                     string sorgu = @"SELECT d.DepartmanAdi, COUNT(*) AS CagriSayisi
                              FROM Cagri c
@@ -171,7 +171,7 @@ namespace TaskFlow360
         {
             try
             {
-                using (SqlConnection conn = Baglanti.BaglantiGetir())
+                using (SqlConnection conn = Connection.BaglantiGetir())
                 {
                     string sorgu = @"SELECT 
                     k.KullaniciID,
@@ -262,7 +262,7 @@ namespace TaskFlow360
             int buAyAcilanCagriSayisi = 0;
             int cagriMerkeziSayisi = 0;
 
-            Baglanti baglanti = new Baglanti();
+            Connection baglanti = new Connection();
 
             try
             {

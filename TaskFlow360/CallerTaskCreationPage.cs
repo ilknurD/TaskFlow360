@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace TaskFlow360
 {
-    public partial class AssistantTaskCreationPage : Form
+    public partial class CallerTaskCreationPage : Form
     {
-        public AssistantTaskCreationPage()
+        public CallerTaskCreationPage()
         {
             InitializeComponent();
         }
@@ -30,14 +30,14 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            AssistantHomepage assistantHomepage = new AssistantHomepage();
+            CallerHomepage assistantHomepage = new CallerHomepage();
             assistantHomepage.Show();
             this.Close();
         }
 
         private void btnCagriTakip_Click(object sender, EventArgs e)
         {
-            AssistantTasks assistantTasks = new AssistantTasks();
+            CallerTasks assistantTasks = new CallerTasks();
             assistantTasks.Show();
             this.Close();
         }
@@ -72,7 +72,7 @@ namespace TaskFlow360
 
         private void EkipYoneticileriniGetir()
         {
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 SqlDataAdapter da = new SqlDataAdapter("SELECT KullaniciID, Ad + ' ' + Soyad AS AdSoyad FROM Kullanici WHERE Rol = 'Ekip Yöneticisi'", conn);
                 DataTable dt = new DataTable();
@@ -85,7 +85,7 @@ namespace TaskFlow360
         }
         private void DepartmanlariGetir()
         {
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 SqlDataAdapter da = new SqlDataAdapter("SELECT DepartmanID, DepartmanAdi FROM Departman", conn);
                 DataTable dt = new DataTable();
@@ -127,7 +127,7 @@ namespace TaskFlow360
             if (!GirdilerGecerliMi())
                 return;
 
-            string kullaniciID = KullaniciBilgi.KullaniciID;
+            string kullaniciID = UserInformation.KullaniciID;
 
             // Talep Eden bilgileri
             string talepAdSoyad = txtTalepAdSoyad.Text.Trim();
@@ -146,7 +146,7 @@ namespace TaskFlow360
             string atananID = cmbEkipYoneticisi.SelectedValue?.ToString();
             int departmanID = Convert.ToInt32(cmbDepartman.SelectedValue);
 
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 SqlTransaction trans = conn.BeginTransaction();
 

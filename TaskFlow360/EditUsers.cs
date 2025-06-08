@@ -148,7 +148,7 @@ namespace TaskFlow360
         {
             try
             {
-                using (SqlConnection conn = Baglanti.BaglantiGetir())
+                using (SqlConnection conn = Connection.BaglantiGetir())
                 {
                     if (conn.State != ConnectionState.Open)
                         conn.Open();
@@ -228,7 +228,7 @@ namespace TaskFlow360
 
             try
             {
-                using (SqlConnection conn = Baglanti.BaglantiGetir())
+                using (SqlConnection conn = Connection.BaglantiGetir())
                 {
                     SqlCommand cmd;
 
@@ -305,7 +305,7 @@ namespace TaskFlow360
         {
             try
             {
-                using (SqlConnection conn = Baglanti.BaglantiGetir())
+                using (SqlConnection conn = Connection.BaglantiGetir())
                 {
                     string query = "SELECT DepartmanID, DepartmanAdi FROM Departman ORDER BY DepartmanAdi";
                     SqlDataAdapter da = new SqlDataAdapter(query, conn);
@@ -352,7 +352,7 @@ namespace TaskFlow360
 
         private void YoneticileriYukle()
         {
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 DataTable dt = new DataTable();
                 dt.Columns.Add("KullaniciID", typeof(int));
@@ -410,7 +410,7 @@ namespace TaskFlow360
 
         private int MüdürIDBul()
         {
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 string query = "SELECT KullaniciID FROM Kullanici WHERE Rol = 'Müdür'";
                 SqlCommand cmd = new SqlCommand(query, conn);

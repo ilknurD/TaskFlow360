@@ -47,37 +47,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsistantProfile.cs">
+    <Compile Include="CallerProfile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AsistantProfile.Designer.cs">
-      <DependentUpon>AsistantProfile.cs</DependentUpon>
+    <Compile Include="CallerProfile.Designer.cs">
+      <DependentUpon>CallerProfile.cs</DependentUpon>
     </Compile>
-    <Compile Include="AssistantHomepage.cs">
+    <Compile Include="CallerHomepage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AssistantHomepage.Designer.cs">
-      <DependentUpon>AssistantHomepage.cs</DependentUpon>
+    <Compile Include="CallerHomepage.Designer.cs">
+      <DependentUpon>CallerHomepage.cs</DependentUpon>
     </Compile>
-    <Compile Include="AssistantReports.cs">
+    <Compile Include="CallerReports.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AssistantReports.Designer.cs">
-      <DependentUpon>AssistantReports.cs</DependentUpon>
+    <Compile Include="CallerReports.Designer.cs">
+      <DependentUpon>CallerReports.cs</DependentUpon>
     </Compile>
-    <Compile Include="AssistantTaskCreationPage.cs">
+    <Compile Include="CallerTaskCreationPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AssistantTaskCreationPage.Designer.cs">
-      <DependentUpon>AssistantTaskCreationPage.cs</DependentUpon>
+    <Compile Include="CallerTaskCreationPage.Designer.cs">
+      <DependentUpon>CallerTaskCreationPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="AssistantTasks.cs">
+    <Compile Include="CallerTasks.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AssistantTasks.Designer.cs">
-      <DependentUpon>AssistantTasks.cs</DependentUpon>
+    <Compile Include="CallerTasks.Designer.cs">
+      <DependentUpon>CallerTasks.cs</DependentUpon>
     </Compile>
-    <Compile Include="Baglanti.cs" />
+    <Compile Include="Connection.cs" />
     <Compile Include="BossHomepage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,14 +102,13 @@
     <Compile Include="BossUsersControl.Designer.cs">
       <DependentUpon>BossUsersControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cagri.cs" />
+    <Compile Include="Call.cs" />
     <Compile Include="EditUsers.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EditUsers.Designer.cs">
       <DependentUpon>EditUsers.cs</DependentUpon>
     </Compile>
-    <Compile Include="KullaniciPrimBilgi.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="ManagerDashboard.cs">
       <SubType>Form</SubType>
@@ -117,7 +116,6 @@
     <Compile Include="ManagerDashboard.Designer.cs">
       <DependentUpon>ManagerDashboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="PrimHesaplama.cs" />
     <Compile Include="Tasks.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,8 +134,8 @@
     <Compile Include="CallCenterTaskTracking.Designer.cs">
       <DependentUpon>CallCenterTaskTracking.cs</DependentUpon>
     </Compile>
-    <Compile Include="Kullanici.cs" />
-    <Compile Include="KullaniciBilgi.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="UserInformation.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,20 +204,20 @@
     <Compile Include="UsersSalary.Designer.cs">
       <DependentUpon>UsersSalary.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AsistantProfile.resx">
-      <DependentUpon>AsistantProfile.cs</DependentUpon>
+    <EmbeddedResource Include="CallerProfile.resx">
+      <DependentUpon>CallerProfile.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AssistantHomepage.resx">
-      <DependentUpon>AssistantHomepage.cs</DependentUpon>
+    <EmbeddedResource Include="CallerHomepage.resx">
+      <DependentUpon>CallerHomepage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AssistantReports.resx">
-      <DependentUpon>AssistantReports.cs</DependentUpon>
+    <EmbeddedResource Include="CallerReports.resx">
+      <DependentUpon>CallerReports.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AssistantTaskCreationPage.resx">
-      <DependentUpon>AssistantTaskCreationPage.cs</DependentUpon>
+    <EmbeddedResource Include="CallerTaskCreationPage.resx">
+      <DependentUpon>CallerTaskCreationPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AssistantTasks.resx">
-      <DependentUpon>AssistantTasks.cs</DependentUpon>
+    <EmbeddedResource Include="CallerTasks.resx">
+      <DependentUpon>CallerTasks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BossHomepage.resx">
       <DependentUpon>BossHomepage.cs</DependentUpon>

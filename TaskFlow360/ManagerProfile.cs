@@ -15,7 +15,7 @@ namespace TaskFlow360
 {
     public partial class ManagerProfile : Form
     {
-        Baglanti baglanti = new Baglanti();
+        Connection baglanti = new Connection();
         private string yoneticiId;
         public ManagerProfile()
         {
@@ -36,7 +36,7 @@ namespace TaskFlow360
                 using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
                 {
                     cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                    cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
                     cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
                     cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
                     cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
@@ -123,7 +123,7 @@ namespace TaskFlow360
         private void ManagerProfile_Load(object sender, EventArgs e)
         {
             LogEkle("ManagerProfile yüklenmeye başlandı", "Form", "ManagerProfile");
-            yoneticiId = KullaniciBilgi.KullaniciID;
+            yoneticiId = UserInformation.KullaniciID;
             ConfigureEkibimDGV();
             LoadManagedTeamMembers();
 

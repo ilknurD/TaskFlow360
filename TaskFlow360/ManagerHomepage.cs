@@ -15,14 +15,14 @@ namespace TaskFlow360
 {
     public partial class ManagerHomepage : Form
     {
-        Baglanti baglanti = new Baglanti();
+        Connection baglanti = new Connection();
         private string yoneticiId;
 
         public ManagerHomepage()
         {
             InitializeComponent();
             SetupDataGridViewColumns();
-            yoneticiId = KullaniciBilgi.KullaniciID;
+            yoneticiId = UserInformation.KullaniciID;
             LogEkle("ManagerHomepage formu başlatıldı", "Form", "ManagerHomepage");
         }
 
@@ -37,7 +37,7 @@ namespace TaskFlow360
                 using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
                 {
                     cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                    cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
                     cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
                     cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
                     cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
@@ -77,7 +77,7 @@ namespace TaskFlow360
 
             if (string.IsNullOrEmpty(yoneticiId))
             {
-                yoneticiId = KullaniciBilgi.KullaniciID;
+                yoneticiId = UserInformation.KullaniciID;
                 if (string.IsNullOrEmpty(yoneticiId))
                 {
                     LogEkle("Oturum bilgileri geçersiz", "Hata", "ManagerHomepage");
@@ -89,8 +89,8 @@ namespace TaskFlow360
                 }
             }
 
-            lblAdSoyad.Text = KullaniciBilgi.TamAd();
-            lblHosgeldiniz.Text = $"Hoş Geldiniz, {KullaniciBilgi.TamAd()}";
+            lblAdSoyad.Text = UserInformation.TamAd();
+            lblHosgeldiniz.Text = $"Hoş Geldiniz, {UserInformation.TamAd()}";
 
             ConfigureBekleyenCagrilarDGV();
             ConfigureEkipUyeleriDGV();
@@ -502,7 +502,7 @@ namespace TaskFlow360
             {
                 baglanti.BaglantiAc();
 
-                int yoneticiId = int.Parse(KullaniciBilgi.KullaniciID);
+                int yoneticiId = int.Parse(UserInformation.KullaniciID);
 
                 // Ekibe ait kullanıcıları al
                 SqlCommand ekipUyeKomut = new SqlCommand("SELECT KullaniciID FROM Kullanici WHERE YoneticiID = @yoneticiId", baglanti.conn);
@@ -652,7 +652,7 @@ namespace TaskFlow360
         private void btnCikis_Click(object sender, EventArgs e)
         {
             LogEkle("Çıkış butonuna tıklandı", "Buton", "ManagerHomepage");
-            KullaniciBilgi.BilgileriTemizle();
+            UserInformation.BilgileriTemizle();
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             this.Close();

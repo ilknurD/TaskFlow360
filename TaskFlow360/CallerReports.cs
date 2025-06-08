@@ -12,9 +12,9 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace TaskFlow360
 {
-    public partial class AssistantReports : Form
+    public partial class CallerReports : Form
     {
-        public AssistantReports()
+        public CallerReports()
         {
             InitializeComponent();
             GrafikYukle();
@@ -32,35 +32,35 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            AssistantHomepage anasayfa = new AssistantHomepage();
+            CallerHomepage anasayfa = new CallerHomepage();
             anasayfa.Show();
             this.Close();
         }
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
-            AsistantProfile asistantProfile = new AsistantProfile();
+            CallerProfile asistantProfile = new CallerProfile();
             asistantProfile.Show();
             this.Close();
         }
 
         private void btnCagriOlustur_Click(object sender, EventArgs e)
         {
-            AssistantTaskCreationPage assistantTaskCreationPage = new AssistantTaskCreationPage();
+            CallerTaskCreationPage assistantTaskCreationPage = new CallerTaskCreationPage();
             assistantTaskCreationPage.Show();
             this.Close();
         }
 
         private void btnCagriTakip_Click(object sender, EventArgs e)
         {
-            AssistantTasks assistantTasks = new AssistantTasks();
+            CallerTasks assistantTasks = new CallerTasks();
             assistantTasks.Show();
             this.Close();
         }
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
-            AssistantReports assistantReports = new AssistantReports();
+            CallerReports assistantReports = new CallerReports();
             assistantReports.Show();
             this.Close();
         }
@@ -84,11 +84,11 @@ namespace TaskFlow360
             {
                 chartBolum.Series.Add("Series1");
             }
-            string kullaniciID = KullaniciBilgi.KullaniciID;
+            string kullaniciID = UserInformation.KullaniciID;
 
             try
             {
-                using (SqlConnection conn = Baglanti.BaglantiGetir()) // Bağlantı zaten açılıyor
+                using (SqlConnection conn = Connection.BaglantiGetir()) // Bağlantı zaten açılıyor
                 {
                     // 1. Departmanlara Göre Çağrı Sayısı
                     using (SqlCommand komut1 = new SqlCommand(

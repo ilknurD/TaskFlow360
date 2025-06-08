@@ -11,17 +11,17 @@ using System.Windows.Forms;
 
 namespace TaskFlow360
 {
-    public partial class AsistantProfile : Form
+    public partial class CallerProfile : Form
     {
         private string kullaniciId;
-        Baglanti baglanti = new Baglanti();
-        public AsistantProfile()
+        Connection baglanti = new Connection();
+        public CallerProfile()
         {
             InitializeComponent();
         }
         private void AsistantProfile_Load(object sender, EventArgs e)
         {
-            kullaniciId = KullaniciBilgi.KullaniciID;
+            kullaniciId = UserInformation.KullaniciID;
             EkipYoneticileriniListele();
 
             try
@@ -143,28 +143,28 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            AssistantHomepage anasayfa = new AssistantHomepage();
+            CallerHomepage anasayfa = new CallerHomepage();
             anasayfa.Show();
             this.Close();
         }
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
-            AsistantProfile asistantProfile = new AsistantProfile();
+            CallerProfile asistantProfile = new CallerProfile();
             asistantProfile.Show();
             this.Close();
         }
 
         private void btnCagriOlustur_Click(object sender, EventArgs e)
         {
-            AssistantTaskCreationPage assistantTaskCreationPage = new AssistantTaskCreationPage();
+            CallerTaskCreationPage assistantTaskCreationPage = new CallerTaskCreationPage();
             assistantTaskCreationPage.Show();
             this.Close();
         }
 
         private void btnCagriTakip_Click(object sender, EventArgs e)
         {
-            AssistantTasks assistantTasks = new AssistantTasks();
+            CallerTasks assistantTasks = new CallerTasks();
             assistantTasks.Show();
             this.Close();
         }

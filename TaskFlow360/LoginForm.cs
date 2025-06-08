@@ -7,7 +7,7 @@ namespace TaskFlow360
 {
     public partial class LoginForm : Form
     {
-        Baglanti baglanti = new Baglanti();
+        Connection baglanti = new Connection();
         public LoginForm()
         {
             InitializeComponent();
@@ -111,10 +111,10 @@ namespace TaskFlow360
                     if (reader.Read())
                     {
                         // Giriş başarılıysa kullanıcı bilgilerini ayarla
-                        KullaniciBilgi.KullaniciID = reader["KullaniciID"]?.ToString() ?? "";
-                        KullaniciBilgi.Rol = reader["Rol"]?.ToString() ?? "";
-                        KullaniciBilgi.Ad = reader["Ad"]?.ToString() ?? "";
-                        KullaniciBilgi.Soyad = reader["Soyad"]?.ToString() ?? "";
+                        UserInformation.KullaniciID = reader["KullaniciID"]?.ToString() ?? "";
+                        UserInformation.Rol = reader["Rol"]?.ToString() ?? "";
+                        UserInformation.Ad = reader["Ad"]?.ToString() ?? "";
+                        UserInformation.Soyad = reader["Soyad"]?.ToString() ?? "";
 
                         // ✅ Beni Hatırla ayarlarını kaydet
                         if (chkBeniHatirla.Checked)
@@ -133,7 +133,7 @@ namespace TaskFlow360
 
                         // Rol'e göre formu aç
                         Form homepage = null;
-                        switch (KullaniciBilgi.Rol)
+                        switch (UserInformation.Rol)
                         {
                             case "1":
                             case "Ekip Üyesi":
@@ -145,14 +145,14 @@ namespace TaskFlow360
                                 break;
                             case "3":
                             case "Çağrı Merkezi":
-                                homepage = new AssistantHomepage();
+                                homepage = new CallerHomepage();
                                 break;
                             case "4":
                             case "Müdür":
                                 homepage = new BossHomepage();
                                 break;
                             default:
-                                MessageBox.Show("Tanımlanamayan kullanıcı rolü: " + KullaniciBilgi.Rol);
+                                MessageBox.Show("Tanımlanamayan kullanıcı rolü: " + UserInformation.Rol);
                                 return;
                         }
 

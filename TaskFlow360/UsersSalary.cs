@@ -15,12 +15,12 @@ namespace TaskFlow360
     public partial class UsersSalary : Form
     {
         private string GirisYapanMudurID;
-        Baglanti baglanti = new Baglanti();
+        Connection baglanti = new Connection();
 
         public UsersSalary()
         {
             InitializeComponent();
-            GirisYapanMudurID = KullaniciBilgi.KullaniciID;
+            GirisYapanMudurID = UserInformation.KullaniciID;
         }
 
         private void UsersSalary_Load(object sender, EventArgs e)
@@ -173,7 +173,7 @@ namespace TaskFlow360
             primSeries.ChartType = SeriesChartType.Bar;
             primSeries.YAxisType = AxisType.Secondary;
 
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 SqlCommand cmd = new SqlCommand(@"
                 SELECT 

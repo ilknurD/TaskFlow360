@@ -16,7 +16,7 @@ namespace TaskFlow360
         private int cagriId;
         private string baslik;
         private string yoneticiId;
-        Baglanti baglanti = new Baglanti();
+        Connection baglanti = new Connection();
 
         public TasksAssignmentForm(int cagriId, string baslik, string yoneticiId)
         {
@@ -394,7 +394,7 @@ namespace TaskFlow360
                 }
 
                 // Durum güncelleme
-                Cagri.CagriDurumGuncelle(cagriId, "Açıklama Güncellendi", aciklama, Convert.ToInt32(yoneticiId), baglanti.conn, Convert.ToInt32(yoneticiId));
+                Call.CagriDurumGuncelle(cagriId, "Açıklama Güncellendi", aciklama, Convert.ToInt32(yoneticiId), baglanti.conn, Convert.ToInt32(yoneticiId));
 
                 MessageBox.Show("Açıklama güncellendi.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -500,7 +500,7 @@ namespace TaskFlow360
                         string aciklama = $"Çağrı {atananKullaniciId} ID'li kullanıcıya atandı.";
                         int kullaniciId = Convert.ToInt32(yoneticiId);
 
-                        Cagri.CagriDurumGuncelle(cagriId, "Görev Atandı", aciklama, kullaniciId, baglanti.conn, kullaniciId);
+                        Call.CagriDurumGuncelle(cagriId, "Görev Atandı", aciklama, kullaniciId, baglanti.conn, kullaniciId);
 
                         MessageBox.Show("Çağrı başarıyla atandı ve durumu güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Close();

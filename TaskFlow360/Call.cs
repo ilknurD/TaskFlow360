@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace TaskFlow360
 {
-    public class Cagri
+    public class Call
     {
-        Baglanti baglanti = new Baglanti();
+        Connection baglanti = new Connection();
         public int CagriID { get; set; }
         public int yoneticiId { get; set; }
         public string CagriAciklama { get; set; }
@@ -28,13 +28,13 @@ namespace TaskFlow360
 
         // Diğer tablolarla ilişkiler için
         public string TalepEden { get; set; }
-        public Kullanici AtananKullanici { get; set; }
-        public Kullanici OlusturanKullanici { get; set; }
-        public Kullanici KullaniciID { get; set; }
+        public User AtananKullanici { get; set; }
+        public User OlusturanKullanici { get; set; }
+        public User KullaniciID { get; set; }
 
-        public static Cagri CagriGetir(int cagriId, SqlConnection conn)
+        public static Call CagriGetir(int cagriId, SqlConnection conn)
         {
-            Cagri cagri = null;
+            Call cagri = null;
 
             string sorgu = "SELECT CagriID, Baslik, CagriAciklama FROM Cagri WHERE CagriID = @id";
             SqlCommand komut = new SqlCommand(sorgu, conn);
@@ -43,7 +43,7 @@ namespace TaskFlow360
             SqlDataReader dr = komut.ExecuteReader();
             if (dr.Read())
             {
-                cagri = new Cagri()
+                cagri = new Call()
                 {
                     CagriID = Convert.ToInt32(dr["CagriID"]),
                     Baslik = dr["Baslik"].ToString(),

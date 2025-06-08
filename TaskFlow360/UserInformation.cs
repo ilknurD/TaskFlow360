@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaskFlow360
 {
-    // Kullanıcı bilgilerini saklamak için static sınıf
-    public static class KullaniciBilgi
+    public static class UserInformation
     {
         public static string KullaniciID { get; set; }
         public static string Rol { get; set; }

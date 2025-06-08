@@ -14,7 +14,7 @@ namespace TaskFlow360
 {
     public partial class BossUsersControl : Form
     {
-        Baglanti baglanti = new Baglanti();
+        Connection baglanti = new Connection();
         public BossUsersControl()
         {
             InitializeComponent();
@@ -223,7 +223,7 @@ namespace TaskFlow360
 
                 DataTable dt = new DataTable();
 
-                using (SqlConnection conn = Baglanti.BaglantiGetir())
+                using (SqlConnection conn = Connection.BaglantiGetir())
                 {
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -297,7 +297,7 @@ namespace TaskFlow360
 
                 DataTable dt = new DataTable();
 
-                using (SqlConnection conn = Baglanti.BaglantiGetir())
+                using (SqlConnection conn = Connection.BaglantiGetir())
                 {
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -343,7 +343,7 @@ namespace TaskFlow360
                 // Event'i geçici olarak kapat
                 cmbDepartman.SelectedIndexChanged -= cmbDepartman_SelectedIndexChanged;
 
-                using (SqlConnection conn = Baglanti.BaglantiGetir())
+                using (SqlConnection conn = Connection.BaglantiGetir())
                 {
                     SqlCommand cmd = new SqlCommand("SELECT DepartmanID, DepartmanAdi FROM Departman ORDER BY DepartmanAdi", conn);
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -447,7 +447,7 @@ namespace TaskFlow360
 
                 DataTable dt = new DataTable();
 
-                using (SqlConnection conn = Baglanti.BaglantiGetir())
+                using (SqlConnection conn = Connection.BaglantiGetir())
                 {
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -647,7 +647,7 @@ namespace TaskFlow360
                 {
                     try
                     {
-                        using (SqlConnection conn = Baglanti.BaglantiGetir())
+                        using (SqlConnection conn = Connection.BaglantiGetir())
                         {
                             string query = "SELECT DepartmanID, BolumID FROM Kullanici WHERE KullaniciID = @kullaniciID";
                             SqlCommand cmd = new SqlCommand(query, conn);
@@ -804,12 +804,12 @@ namespace TaskFlow360
         {
             try
             {
-                using (SqlConnection conn = Baglanti.BaglantiGetir())
+                using (SqlConnection conn = Connection.BaglantiGetir())
                 {
                     if (conn.State != ConnectionState.Open)
                         conn.Open();
 
-                    string mevcutKullaniciID = KullaniciBilgi.KullaniciID; // Giriş yapan kullanıcının ID'si
+                    string mevcutKullaniciID = UserInformation.KullaniciID; // Giriş yapan kullanıcının ID'si
 
                     string query = "SELECT Sifre FROM Kullanici WHERE KullaniciID = @kullaniciID";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -910,7 +910,7 @@ namespace TaskFlow360
                         }
                     }
 
-                    using (SqlConnection conn = Baglanti.BaglantiGetir())
+                    using (SqlConnection conn = Connection.BaglantiGetir())
                     {
                         // Önce bağımlı kayıtları kontrol et
                         string kontrolQuery = @"

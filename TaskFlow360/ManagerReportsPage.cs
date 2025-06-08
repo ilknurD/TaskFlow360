@@ -10,7 +10,7 @@ namespace TaskFlow360
 {
     public partial class ManagerReportsPage : Form
     {
-        Baglanti baglanti = new Baglanti();
+        Connection baglanti = new Connection();
 
         public ManagerReportsPage()
         {
@@ -30,7 +30,7 @@ namespace TaskFlow360
                 using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
                 {
                     cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                    cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
                     cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
                     cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
                     cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
@@ -181,7 +181,7 @@ namespace TaskFlow360
                 Font = new Font("Century Gothic", 8, FontStyle.Bold)
             };
 
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 string query = @"
             SELECT d.DepartmanAdi, 
@@ -227,7 +227,7 @@ namespace TaskFlow360
                 Font = new Font("Century Gothic", 8, FontStyle.Bold)
             };
 
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            using (SqlConnection conn = Connection.BaglantiGetir())
             {
                             string query = @"
                         SELECT 
@@ -245,7 +245,7 @@ namespace TaskFlow360
 ";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@YoneticiID", KullaniciBilgi.KullaniciID);
+                cmd.Parameters.AddWithValue("@YoneticiID", UserInformation.KullaniciID);
 
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
@@ -291,7 +291,7 @@ namespace TaskFlow360
             legend.LegendStyle = LegendStyle.Table;
             chartCallStatus.Legends.Add(legend);
 
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 string query = @"
             SELECT Durum, COUNT(*) AS Adet
@@ -302,7 +302,7 @@ namespace TaskFlow360
             GROUP BY Durum";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@YoneticiID", KullaniciBilgi.KullaniciID);
+                cmd.Parameters.AddWithValue("@YoneticiID", UserInformation.KullaniciID);
 
                 SqlDataReader dr = cmd.ExecuteReader();
                 int colorIndex = 0;
@@ -341,7 +341,7 @@ namespace TaskFlow360
                 Font = new Font("Century Gothic", 8, FontStyle.Bold)
             };
 
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 string query = @"
         SELECT CONCAT(pk.Yil, '-', FORMAT(pk.Ay, '00')) AS Ay,
@@ -354,7 +354,7 @@ namespace TaskFlow360
         ORDER BY pk.Yil, pk.Ay";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@YoneticiID", KullaniciBilgi.KullaniciID);
+                cmd.Parameters.AddWithValue("@YoneticiID", UserInformation.KullaniciID);
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 while (dr.Read())

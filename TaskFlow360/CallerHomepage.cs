@@ -11,14 +11,14 @@ using System.Windows.Forms;
 
 namespace TaskFlow360
 {
-    public partial class AssistantHomepage : Form
+    public partial class CallerHomepage : Form
     {
-        Baglanti baglanti = new Baglanti();
+        Connection baglanti = new Connection();
         private string kullaniciID;
-        public AssistantHomepage()
+        public CallerHomepage()
         {
             InitializeComponent();
-            kullaniciID = KullaniciBilgi.KullaniciID;
+            kullaniciID = UserInformation.KullaniciID;
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -36,7 +36,7 @@ namespace TaskFlow360
             // Eğer kullaniciID boşsa, KullaniciBilgi'den tekrar almayı deneyelim
             if (string.IsNullOrEmpty(kullaniciID))
             {
-                kullaniciID = KullaniciBilgi.KullaniciID;
+                kullaniciID = UserInformation.KullaniciID;
 
                 // Hala boşsa, kullanıcıyı login formuna yönlendirelim
                 if (string.IsNullOrEmpty(kullaniciID))
@@ -49,8 +49,8 @@ namespace TaskFlow360
                 }
             }
 
-            lblisim.Text = KullaniciBilgi.TamAd();
-            lblHosgeldiniz.Text = $"Hoş Geldiniz, {KullaniciBilgi.TamAd()}";
+            lblisim.Text = UserInformation.TamAd();
+            lblHosgeldiniz.Text = $"Hoş Geldiniz, {UserInformation.TamAd()}";
 
             try
             {
@@ -262,35 +262,35 @@ namespace TaskFlow360
         }
         private void btnCagriOlustur_Click(object sender, EventArgs e)
         {
-            AssistantTaskCreationPage assistantTaskCreationPage = new AssistantTaskCreationPage();
+            CallerTaskCreationPage assistantTaskCreationPage = new CallerTaskCreationPage();
             assistantTaskCreationPage.Show();
             //this.Close();
         }
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            AssistantHomepage assistantHomepage = new AssistantHomepage();
+            CallerHomepage assistantHomepage = new CallerHomepage();
             assistantHomepage.Show();
             this.Close();
         }
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
-            AsistantProfile asistantProfile = new AsistantProfile();
+            CallerProfile asistantProfile = new CallerProfile();
             asistantProfile.Show();
             this.Close();
         }
 
         private void btnCagriTakip_Click(object sender, EventArgs e)
         {
-            AssistantTasks assistantTasks = new AssistantTasks();
+            CallerTasks assistantTasks = new CallerTasks();
             assistantTasks.Show();
             this.Close();
         }
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
-            AssistantReports assistantReports = new AssistantReports();
+            CallerReports assistantReports = new CallerReports();
             assistantReports.Show();
             this.Close();
         }

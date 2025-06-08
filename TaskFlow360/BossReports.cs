@@ -42,7 +42,7 @@ namespace TaskFlow360
             Series series = new Series("Çağrı Sayısı");
             series.ChartType = SeriesChartType.Column;
 
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 SqlCommand cmd = new SqlCommand(@"SELECT d.DepartmanAdi, COUNT(*) AS CagriSayisi
                                                   FROM Cagri c
@@ -75,7 +75,7 @@ namespace TaskFlow360
             Series series = new Series("Kullanıcı Dağılımı");
             series.ChartType = SeriesChartType.Doughnut;
 
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 SqlCommand cmd = new SqlCommand("SELECT Rol, COUNT(*) AS Say FROM Kullanici GROUP BY Rol", conn);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -107,7 +107,7 @@ namespace TaskFlow360
             primSeries.ChartType = SeriesChartType.Bar;
             primSeries.YAxisType = AxisType.Secondary;
 
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 SqlCommand cmd = new SqlCommand(@"
                 SELECT 
@@ -150,7 +150,7 @@ namespace TaskFlow360
             Series series = new Series("Çağrı Sayısı");
             series.ChartType = SeriesChartType.Line;
 
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 SqlCommand cmd = new SqlCommand(@"
                    SELECT FORMAT(OlusturmaTarihi, 'yyyy-MM') AS Ay, 

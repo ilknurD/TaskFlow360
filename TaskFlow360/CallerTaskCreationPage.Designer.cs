@@ -1,6 +1,6 @@
 ﻿namespace TaskFlow360
 {
-    partial class AssistantTaskCreationPage
+    partial class CallerTaskCreationPage
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssistantTaskCreationPage));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CallerTaskCreationPage));
             this.panel1 = new System.Windows.Forms.Panel();
             this.ikonRaporlar = new System.Windows.Forms.PictureBox();
             this.btnRaporlar = new System.Windows.Forms.Button();

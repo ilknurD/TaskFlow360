@@ -11,10 +11,10 @@ using System.Windows.Forms;
 
 namespace TaskFlow360
 {
-    public partial class AssistantTasks : Form
+    public partial class CallerTasks : Form
     {
-        Baglanti baglanti = new Baglanti();
-        public AssistantTasks()
+        Connection baglanti = new Connection();
+        public CallerTasks()
         {
             InitializeComponent();
             dgvGorevler.CellClick += new DataGridViewCellEventHandler(dgvGorevler_CellClick);
@@ -22,28 +22,28 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            AssistantHomepage homepage = new AssistantHomepage();
+            CallerHomepage homepage = new CallerHomepage();
             homepage.Show();
             this.Close();
         }
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
-            AsistantProfile asistantProfile = new AsistantProfile();
+            CallerProfile asistantProfile = new CallerProfile();
             asistantProfile.Show();
             this.Close();
         }
 
         private void btnCagriOlustur_Click(object sender, EventArgs e)
         {
-            AssistantTaskCreationPage taskCreationPage = new AssistantTaskCreationPage();
+            CallerTaskCreationPage taskCreationPage = new CallerTaskCreationPage();
             taskCreationPage.Show();
             this.Close();
         }
 
         private void btnCagriTakip_Click(object sender, EventArgs e)
         {
-            AssistantTasks assistantTasks = new AssistantTasks();
+            CallerTasks assistantTasks = new CallerTasks();
             assistantTasks.Show();
             this.Close();
         }
@@ -163,7 +163,7 @@ namespace TaskFlow360
                 if (baglanti.conn.State != ConnectionState.Open)
                     baglanti.conn.Open();
 
-                string kullaniciID = KullaniciBilgi.KullaniciID;
+                string kullaniciID = UserInformation.KullaniciID;
 
                 string query = @"
     SELECT 
@@ -491,7 +491,7 @@ namespace TaskFlow360
                 using (SqlCommand cmd = new SqlCommand(query, baglanti.conn))
                 {
                     // Her zaman KullaniciID parametresini ekle
-                    cmd.Parameters.AddWithValue("@KullaniciID", int.Parse(KullaniciBilgi.KullaniciID));
+                    cmd.Parameters.AddWithValue("@KullaniciID", int.Parse(UserInformation.KullaniciID));
 
                     // Sadece gerekli parametreleri ekle
                     if (durum != "Tümü")

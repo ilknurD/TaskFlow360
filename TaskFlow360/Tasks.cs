@@ -132,7 +132,7 @@ namespace TaskFlow360
                   )";
     
 
-                using (SqlConnection conn = Baglanti.BaglantiGetir())
+                using (SqlConnection conn = Connection.BaglantiGetir())
                 {
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@ManagerID", managerID);
@@ -188,7 +188,7 @@ namespace TaskFlow360
 
             try
             {
-                using (SqlConnection conn = Baglanti.BaglantiGetir())
+                using (SqlConnection conn = Connection.BaglantiGetir())
                 {
                     // Atanacak kişinin adı soyadı al
                     string uyeAdiSoyadi = "";
@@ -221,7 +221,7 @@ namespace TaskFlow360
                             }
 
                             // 4. CagriDurumGuncelleme tablosuna kayıt eklenir
-                            Cagri.CagriDurumGuncelle(
+                            Call.CagriDurumGuncelle(
                                 cagriID,
                                 "Görev Atandı",
                                 $"Görev {uyeAdiSoyadi} kullanıcısına atandı.",

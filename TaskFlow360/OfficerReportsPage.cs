@@ -15,7 +15,7 @@ namespace TaskFlow360
 {
     public partial class OfficerReportsPage : Form
     {
-        Baglanti baglanti = new Baglanti();
+        Connection baglanti = new Connection();
 
         // Ana tema renkleri
         private readonly Color PrimaryColor = Color.FromArgb(126, 87, 194);
@@ -41,7 +41,7 @@ namespace TaskFlow360
                 using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
                 {
                     cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                    cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
                     cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
                     cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
                     cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
@@ -196,7 +196,7 @@ namespace TaskFlow360
                 Color.FromArgb(146, 107, 204)  // Yumuşak mor
             };
 
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 string query = @"
             SELECT Durum, COUNT(*) AS Adet
@@ -206,7 +206,7 @@ namespace TaskFlow360
             GROUP BY Durum";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
 
                 SqlDataReader dr = cmd.ExecuteReader();
                 int colorIndex = 0;
@@ -252,7 +252,7 @@ namespace TaskFlow360
                 Font = new Font("Century Gothic", 8F)
             };
 
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 string query = @"
             SELECT FORMAT(OlusturmaTarihi, 'dd.MM') AS Tarih,
@@ -266,7 +266,7 @@ namespace TaskFlow360
             ORDER BY Tarih";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
 
                 SqlDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
@@ -314,7 +314,7 @@ namespace TaskFlow360
                 Font = new Font("Century Gothic", 8F)
             };
 
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 string query = @"
            SELECT CONCAT(pk.Yil, '-', FORMAT(pk.Ay, '00')) AS Ay,
@@ -331,7 +331,7 @@ namespace TaskFlow360
            ORDER BY pk.Yil, pk.Ay";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 while (dr.Read())
@@ -386,7 +386,7 @@ namespace TaskFlow360
                 SecondaryColor                 // Diğer - Orta mor
             };
 
-            using (SqlConnection conn = Baglanti.BaglantiGetir())
+            using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 string query = @"
         SELECT c.Oncelik, COUNT(*) AS Adet
@@ -398,7 +398,7 @@ namespace TaskFlow360
         ORDER BY Adet DESC";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 int colorIndex = 0;

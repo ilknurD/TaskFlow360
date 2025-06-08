@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace TaskFlow360
 {
-    public class Baglanti
+    public class Connection
     {
         private static string baglantiDizisi = @"Server=DESKTOP-57F0A7E\SQLEXPRESS;Database=TaskFlow360;Integrated Security=True";
         public SqlConnection conn = new SqlConnection(baglantiDizisi);

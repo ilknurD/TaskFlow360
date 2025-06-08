@@ -13,7 +13,7 @@ namespace TaskFlow360
 {
     public partial class BossProfile : Form
     {
-        Baglanti baglanti = new Baglanti();
+        Connection baglanti = new Connection();
         private string yoneticiId;
         public BossProfile()
         {
@@ -32,7 +32,7 @@ namespace TaskFlow360
 
         private void BossProfile_Load(object sender, EventArgs e)
         {
-            yoneticiId = KullaniciBilgi.KullaniciID;
+            yoneticiId = UserInformation.KullaniciID;
             EkipYoneticileriniListele();
 
             try

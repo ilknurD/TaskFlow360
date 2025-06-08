@@ -7,11 +7,11 @@ namespace TaskFlow360
 {
     public class Logger
     {
-        private readonly Baglanti _baglanti;
+        private readonly Connection _baglanti;
 
         public Logger()
         {
-            _baglanti = new Baglanti();
+            _baglanti = new Connection();
         }
 
         private string GetLocalIPAddress()
@@ -43,7 +43,7 @@ namespace TaskFlow360
                 using (SqlCommand cmd = new SqlCommand(query, _baglanti.conn))
                 {
                     cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                    cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
                     cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
                     cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
                     cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);

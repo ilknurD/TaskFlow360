@@ -14,7 +14,7 @@ namespace TaskFlow360
 {
     public partial class ManagerTasks : Form
     {
-        private Baglanti baglanti = new Baglanti();
+        private Connection baglanti = new Connection();
 
         public ManagerTasks()
         {
@@ -34,7 +34,7 @@ namespace TaskFlow360
                 using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
                 {
                     cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                    cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
                     cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
                     cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
                     cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
@@ -72,7 +72,7 @@ namespace TaskFlow360
                 if (baglanti.conn.State != ConnectionState.Open)
                     baglanti.conn.Open();
 
-                string managerID = KullaniciBilgi.KullaniciID;
+                string managerID = UserInformation.KullaniciID;
 
                 // Bugün açılan bekleyen çağrı sayısı (yönetici ve ekibi için)
                 string bekleyenSorgu = @"
@@ -233,7 +233,7 @@ namespace TaskFlow360
                 if (baglanti.conn.State != ConnectionState.Open)
                     baglanti.conn.Open();
 
-                string managerID = KullaniciBilgi.KullaniciID;
+                string managerID = UserInformation.KullaniciID;
 
                 string queryForSelfAndTeam = @"
                 SELECT 
@@ -310,7 +310,7 @@ namespace TaskFlow360
                 if (baglanti.conn.State != ConnectionState.Open)
                     baglanti.conn.Open();
 
-                string managerID = KullaniciBilgi.KullaniciID;
+                string managerID = UserInformation.KullaniciID;
 
                 string query = @"SELECT 
                 K.KullaniciID,
@@ -427,7 +427,7 @@ namespace TaskFlow360
                     return;
                 }
 
-                Tasks tasks = new Tasks(memberID, KullaniciBilgi.KullaniciID);
+                Tasks tasks = new Tasks(memberID, UserInformation.KullaniciID);
                 tasks.SetMemberName(selectedRow.Cells["AdSoyad"].Value.ToString());
                 tasks.Show();
             }

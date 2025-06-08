@@ -1,6 +1,6 @@
 ﻿namespace TaskFlow360
 {
-    partial class AssistantReports
+    partial class CallerHomepage
     {
         /// <summary>
         /// Required designer variable.
@@ -28,21 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssistantReports));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CallerHomepage));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ikonRaporlar = new System.Windows.Forms.PictureBox();
             this.btnRaporlar = new System.Windows.Forms.Button();
@@ -57,14 +46,18 @@
             this.btnProfil = new System.Windows.Forms.Button();
             this.btnAnasayfa = new System.Windows.Forms.Button();
             this.pctrLogo = new System.Windows.Forms.PictureBox();
-            this.lblraporlarbaslik2 = new System.Windows.Forms.Label();
-            this.lblraporlarbaslik = new System.Windows.Forms.Label();
-            this.chartBolum = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chartDepartman = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chartAylik = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chartDurum = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.soncagrilarlbl = new System.Windows.Forms.Panel();
+            this.lblBugunkuDurum = new System.Windows.Forms.Label();
+            this.lblHosgeldiniz = new System.Windows.Forms.Label();
+            this.lblTarihSaat = new System.Windows.Forms.Label();
+            this.lblMerhaba = new System.Windows.Forms.Label();
+            this.lblisim = new System.Windows.Forms.Label();
+            this.lblCagriIstatistikleri = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.SonAcilanCagrilarDGV = new System.Windows.Forms.DataGridView();
+            this.label3 = new System.Windows.Forms.Label();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -73,35 +66,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartBolum)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartDepartman)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartAylik)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartDurum)).BeginInit();
+            this.soncagrilarlbl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SonAcilanCagrilarDGV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(1816, 12);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(35, 35);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 12;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(1855, 12);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(35, 35);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 11;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // panel1
             // 
@@ -122,8 +91,8 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(295, 986);
-            this.panel1.TabIndex = 13;
+            this.panel1.Size = new System.Drawing.Size(295, 1055);
+            this.panel1.TabIndex = 8;
             // 
             // ikonRaporlar
             // 
@@ -308,126 +277,186 @@
             this.pctrLogo.TabIndex = 0;
             this.pctrLogo.TabStop = false;
             // 
-            // lblraporlarbaslik2
+            // soncagrilarlbl
             // 
-            this.lblraporlarbaslik2.AutoSize = true;
-            this.lblraporlarbaslik2.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblraporlarbaslik2.Location = new System.Drawing.Point(356, 153);
-            this.lblraporlarbaslik2.Name = "lblraporlarbaslik2";
-            this.lblraporlarbaslik2.Size = new System.Drawing.Size(440, 21);
-            this.lblraporlarbaslik2.TabIndex = 21;
-            this.lblraporlarbaslik2.Text = "Ekiplerin performansını ve istatistiklerinizi görüntüleyin.";
+            this.soncagrilarlbl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(103)))), ((int)(((byte)(195)))));
+            this.soncagrilarlbl.Controls.Add(this.lblBugunkuDurum);
+            this.soncagrilarlbl.Controls.Add(this.lblHosgeldiniz);
+            this.soncagrilarlbl.Location = new System.Drawing.Point(294, 108);
+            this.soncagrilarlbl.Name = "soncagrilarlbl";
+            this.soncagrilarlbl.Size = new System.Drawing.Size(1836, 114);
+            this.soncagrilarlbl.TabIndex = 9;
             // 
-            // lblraporlarbaslik
+            // lblBugunkuDurum
             // 
-            this.lblraporlarbaslik.AutoSize = true;
-            this.lblraporlarbaslik.Font = new System.Drawing.Font("Century Gothic", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblraporlarbaslik.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.lblraporlarbaslik.Location = new System.Drawing.Point(354, 113);
-            this.lblraporlarbaslik.Name = "lblraporlarbaslik";
-            this.lblraporlarbaslik.Size = new System.Drawing.Size(161, 34);
-            this.lblraporlarbaslik.TabIndex = 20;
-            this.lblraporlarbaslik.Text = "Raporlarım";
+            this.lblBugunkuDurum.AutoSize = true;
+            this.lblBugunkuDurum.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblBugunkuDurum.ForeColor = System.Drawing.Color.White;
+            this.lblBugunkuDurum.Location = new System.Drawing.Point(29, 59);
+            this.lblBugunkuDurum.Name = "lblBugunkuDurum";
+            this.lblBugunkuDurum.Size = new System.Drawing.Size(501, 21);
+            this.lblBugunkuDurum.TabIndex = 1;
+            this.lblBugunkuDurum.Text = "Bugün 5 yeni çağrı ve 12 devam eden çağrı bulunmaktadır.";
             // 
-            // chartBolum
+            // lblHosgeldiniz
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartBolum.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartBolum.Legends.Add(legend1);
-            this.chartBolum.Location = new System.Drawing.Point(1122, 683);
-            this.chartBolum.Name = "chartBolum";
-            this.chartBolum.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Fire;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
-            series1.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartBolum.Series.Add(series1);
-            this.chartBolum.Size = new System.Drawing.Size(730, 300);
-            this.chartBolum.TabIndex = 25;
-            this.chartBolum.Text = "chart3";
+            this.lblHosgeldiniz.AutoSize = true;
+            this.lblHosgeldiniz.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblHosgeldiniz.ForeColor = System.Drawing.Color.White;
+            this.lblHosgeldiniz.Location = new System.Drawing.Point(28, 24);
+            this.lblHosgeldiniz.Name = "lblHosgeldiniz";
+            this.lblHosgeldiniz.Size = new System.Drawing.Size(151, 27);
+            this.lblHosgeldiniz.TabIndex = 0;
+            this.lblHosgeldiniz.Text = "Hoş Geldiniz";
             // 
-            // chartDepartman
+            // lblTarihSaat
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartDepartman.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartDepartman.Legends.Add(legend2);
-            this.chartDepartman.Location = new System.Drawing.Point(360, 683);
-            this.chartDepartman.Name = "chartDepartman";
-            this.chartDepartman.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Fire;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series2.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartDepartman.Series.Add(series2);
-            this.chartDepartman.Size = new System.Drawing.Size(669, 300);
-            this.chartDepartman.TabIndex = 24;
-            this.chartDepartman.Text = "chart3";
+            this.lblTarihSaat.AutoSize = true;
+            this.lblTarihSaat.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblTarihSaat.Location = new System.Drawing.Point(332, 82);
+            this.lblTarihSaat.Name = "lblTarihSaat";
+            this.lblTarihSaat.Size = new System.Drawing.Size(0, 21);
+            this.lblTarihSaat.TabIndex = 10;
             // 
-            // chartAylik
+            // lblMerhaba
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chartAylik.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chartAylik.Legends.Add(legend3);
-            this.chartAylik.Location = new System.Drawing.Point(1122, 210);
-            this.chartAylik.Name = "chartAylik";
-            this.chartAylik.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series3.ChartArea = "ChartArea1";
-            series3.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            series3.IsValueShownAsLabel = true;
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chartAylik.Series.Add(series3);
-            this.chartAylik.Size = new System.Drawing.Size(730, 390);
-            this.chartAylik.TabIndex = 23;
-            this.chartAylik.Text = "chart2";
+            this.lblMerhaba.AutoSize = true;
+            this.lblMerhaba.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblMerhaba.Location = new System.Drawing.Point(1786, 84);
+            this.lblMerhaba.Name = "lblMerhaba";
+            this.lblMerhaba.Size = new System.Drawing.Size(94, 21);
+            this.lblMerhaba.TabIndex = 12;
+            this.lblMerhaba.Text = "Merhaba,";
             // 
-            // chartDurum
+            // lblisim
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chartDurum.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            legend4.TitleFont = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.chartDurum.Legends.Add(legend4);
-            this.chartDurum.Location = new System.Drawing.Point(360, 210);
-            this.chartDurum.Name = "chartDurum";
-            this.chartDurum.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            series4.LabelForeColor = System.Drawing.Color.White;
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.chartDurum.Series.Add(series4);
-            this.chartDurum.Size = new System.Drawing.Size(669, 390);
-            this.chartDurum.TabIndex = 22;
-            this.chartDurum.Text = "chart1";
+            this.lblisim.AutoSize = true;
+            this.lblisim.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblisim.Location = new System.Drawing.Point(1886, 84);
+            this.lblisim.Name = "lblisim";
+            this.lblisim.Size = new System.Drawing.Size(100, 21);
+            this.lblisim.TabIndex = 13;
+            this.lblisim.Text = "İsim Soyisim";
             // 
-            // AssistantReports
+            // lblCagriIstatistikleri
+            // 
+            this.lblCagriIstatistikleri.AutoSize = true;
+            this.lblCagriIstatistikleri.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblCagriIstatistikleri.Location = new System.Drawing.Point(331, 248);
+            this.lblCagriIstatistikleri.Name = "lblCagriIstatistikleri";
+            this.lblCagriIstatistikleri.Size = new System.Drawing.Size(175, 23);
+            this.lblCagriIstatistikleri.TabIndex = 14;
+            this.lblCagriIstatistikleri.Text = "Çağrı İstatistikleri";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(381, 297);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1614, 158);
+            this.flowLayoutPanel1.TabIndex = 15;
+            // 
+            // SonAcilanCagrilarDGV
+            // 
+            this.SonAcilanCagrilarDGV.AllowUserToAddRows = false;
+            this.SonAcilanCagrilarDGV.AllowUserToDeleteRows = false;
+            this.SonAcilanCagrilarDGV.AllowUserToResizeColumns = false;
+            this.SonAcilanCagrilarDGV.AllowUserToResizeRows = false;
+            this.SonAcilanCagrilarDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.SonAcilanCagrilarDGV.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.SonAcilanCagrilarDGV.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(58)))), ((int)(((byte)(183)))));
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(58)))), ((int)(((byte)(183)))));
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.SonAcilanCagrilarDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.SonAcilanCagrilarDGV.ColumnHeadersHeight = 35;
+            this.SonAcilanCagrilarDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.SonAcilanCagrilarDGV.DefaultCellStyle = dataGridViewCellStyle11;
+            this.SonAcilanCagrilarDGV.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.SonAcilanCagrilarDGV.Location = new System.Drawing.Point(327, 530);
+            this.SonAcilanCagrilarDGV.Name = "SonAcilanCagrilarDGV";
+            this.SonAcilanCagrilarDGV.ReadOnly = true;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.SonAcilanCagrilarDGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            this.SonAcilanCagrilarDGV.RowHeadersVisible = false;
+            this.SonAcilanCagrilarDGV.RowHeadersWidth = 51;
+            this.SonAcilanCagrilarDGV.RowTemplate.Height = 24;
+            this.SonAcilanCagrilarDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.SonAcilanCagrilarDGV.Size = new System.Drawing.Size(1649, 471);
+            this.SonAcilanCagrilarDGV.TabIndex = 17;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label3.Location = new System.Drawing.Point(331, 486);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(203, 23);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Son Açılan Çağrılar ";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(1816, 12);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 7;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(1855, 12);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(35, 35);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 6;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            // 
+            // AssistantHomepage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1902, 986);
-            this.Controls.Add(this.chartBolum);
-            this.Controls.Add(this.chartDepartman);
-            this.Controls.Add(this.chartAylik);
-            this.Controls.Add(this.chartDurum);
-            this.Controls.Add(this.lblraporlarbaslik2);
-            this.Controls.Add(this.lblraporlarbaslik);
+            this.ClientSize = new System.Drawing.Size(1902, 1055);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.SonAcilanCagrilarDGV);
+            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.lblCagriIstatistikleri);
+            this.Controls.Add(this.lblisim);
+            this.Controls.Add(this.lblMerhaba);
+            this.Controls.Add(this.lblTarihSaat);
+            this.Controls.Add(this.soncagrilarlbl);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "AssistantReports";
+            this.Name = "AssistantHomepage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AssistantReports";
+            this.Text = "AssistantHomepage";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.Load += new System.EventHandler(this.AssistantHomepage_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -436,10 +465,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartBolum)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartDepartman)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartAylik)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartDurum)).EndInit();
+            this.soncagrilarlbl.ResumeLayout(false);
+            this.soncagrilarlbl.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SonAcilanCagrilarDGV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -450,11 +480,10 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.PictureBox ikonRaporlar;
-        private System.Windows.Forms.Button btnRaporlar;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnCagriTakip;
         private System.Windows.Forms.PictureBox ikonCikis;
+        private System.Windows.Forms.PictureBox ikonRaporlar;
         private System.Windows.Forms.PictureBox ikonProfil;
         private System.Windows.Forms.PictureBox ikonGorevler;
         private System.Windows.Forms.PictureBox ikonAnasayfa;
@@ -463,11 +492,16 @@
         private System.Windows.Forms.Button btnProfil;
         private System.Windows.Forms.Button btnAnasayfa;
         private System.Windows.Forms.PictureBox pctrLogo;
-        private System.Windows.Forms.Label lblraporlarbaslik2;
-        private System.Windows.Forms.Label lblraporlarbaslik;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartBolum;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartDepartman;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartAylik;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartDurum;
+        private System.Windows.Forms.Button btnRaporlar;
+        private System.Windows.Forms.Panel soncagrilarlbl;
+        private System.Windows.Forms.Label lblBugunkuDurum;
+        private System.Windows.Forms.Label lblHosgeldiniz;
+        private System.Windows.Forms.Label lblTarihSaat;
+        private System.Windows.Forms.Label lblMerhaba;
+        private System.Windows.Forms.Label lblisim;
+        private System.Windows.Forms.Label lblCagriIstatistikleri;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.DataGridView SonAcilanCagrilarDGV;
+        private System.Windows.Forms.Label label3;
     }
 }

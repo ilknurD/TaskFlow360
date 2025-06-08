@@ -15,7 +15,7 @@ namespace TaskFlow360
 {
     public partial class OfficerHomepage : Form
     {
-        Baglanti baglanti = new Baglanti();
+        Connection baglanti = new Connection();
         private readonly Logger _logger;
 
         public OfficerHomepage()
@@ -38,10 +38,10 @@ namespace TaskFlow360
 
         private void OfficerHomepage_Load(object sender, EventArgs e)
         {
-            List<Cagri> cagriListesi = CagrilariVeritabanindanGetir();
+            List<Call> cagriListesi = CagrilariVeritabanindanGetir();
             CagrilariGoster(cagriListesi);
  
-            string girisYapanID = KullaniciBilgi.KullaniciID;
+            string girisYapanID = UserInformation.KullaniciID;
 
             try
             {
@@ -81,10 +81,10 @@ namespace TaskFlow360
             WindowState = FormWindowState.Minimized;
         }
 
-        private List<Cagri> CagrilariVeritabanindanGetir()
+        private List<Call> CagrilariVeritabanindanGetir()
         {
-            List<Cagri> cagriler = new List<Cagri>();
-            Baglanti baglanti = new Baglanti();
+            List<Call> cagriler = new List<Call>();
+            Connection baglanti = new Connection();
 
             try
             {
@@ -108,7 +108,7 @@ namespace TaskFlow360
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Cagri cagri = new Cagri()
+                    Call cagri = new Call()
                     {
                         CagriID = int.TryParse(reader["CagriID"]?.ToString(), out int cagriId) ? cagriId : 0,
                         Baslik = reader["Baslik"]?.ToString(),
@@ -163,8 +163,8 @@ namespace TaskFlow360
             int atandi = 0;
             int toplam = 0;
 
-            Baglanti baglanti = new Baglanti();
-            string kullaniciID = KullaniciBilgi.KullaniciID;
+            Connection baglanti = new Connection();
+            string kullaniciID = UserInformation.KullaniciID;
 
             try
             {
@@ -261,10 +261,10 @@ namespace TaskFlow360
 
         private void YeniVeDevamEdenGorevSayilariniGoster()
         {
-            Baglanti baglanti = new Baglanti();
+            Connection baglanti = new Connection();
             int yeniGorevSayisi = 0;
             int devamEdenGorevSayisi = 0;
-            string kullaniciID = KullaniciBilgi.KullaniciID;
+            string kullaniciID = UserInformation.KullaniciID;
 
             try
             {
@@ -327,7 +327,7 @@ namespace TaskFlow360
                 using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
                 {
                     cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                    cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
                     cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
                     cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
                     cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
@@ -391,7 +391,7 @@ namespace TaskFlow360
             this.Close();  
         }
 
-        private void CagrilariGoster(List<Cagri> CagriListesi)
+        private void CagrilariGoster(List<Call> CagriListesi)
         {
             PnlGorevler.Controls.Clear();
             PnlGorevler.FlowDirection = FlowDirection.TopDown;

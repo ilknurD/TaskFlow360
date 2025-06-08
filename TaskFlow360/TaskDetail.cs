@@ -13,7 +13,7 @@ namespace TaskFlow360
 {
     public partial class TaskDetail : Form
     {
-        Baglanti bgl = new Baglanti();
+        Connection bgl = new Connection();
         private int _cagriID;
         private int _talepEdenID;
         public TaskDetail(int cagriID, int talepEdenID)
@@ -372,7 +372,7 @@ namespace TaskFlow360
                     cmd2.Parameters.AddWithValue("@CagriID", _cagriID);
                     cmd2.Parameters.AddWithValue("@Durum", yeniDurum);
                     cmd2.Parameters.AddWithValue("@Aciklama", aciklama);
-                    cmd2.Parameters.AddWithValue("@KullaniciID", Convert.ToInt32(KullaniciBilgi.KullaniciID));
+                    cmd2.Parameters.AddWithValue("@KullaniciID", Convert.ToInt32(UserInformation.KullaniciID));
                     cmd2.ExecuteNonQuery();
                 }
 

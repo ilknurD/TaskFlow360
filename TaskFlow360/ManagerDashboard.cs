@@ -15,7 +15,7 @@ namespace TaskFlow360
 {
     public partial class ManagerDashboard : Form
     {
-        Baglanti baglanti = new Baglanti();
+        Connection baglanti = new Connection();
         public ManagerDashboard()
         {
             InitializeComponent();
@@ -34,7 +34,7 @@ namespace TaskFlow360
                 using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
                 {
                     cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                    cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
                     cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
                     cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
                     cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
@@ -117,7 +117,7 @@ namespace TaskFlow360
 
             try
             {
-                connection = Baglanti.BaglantiGetir();
+                connection = Connection.BaglantiGetir();
                 baglanti.BaglantiAc();
 
                 string query = @"
@@ -138,7 +138,7 @@ namespace TaskFlow360
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@YoneticiID", KullaniciBilgi.KullaniciID);
+                    command.Parameters.AddWithValue("@YoneticiID", UserInformation.KullaniciID);
 
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
                     DataTable dataTable = new DataTable();
@@ -179,7 +179,7 @@ namespace TaskFlow360
 
             try
             {
-                connection = Baglanti.BaglantiGetir();
+                connection = Connection.BaglantiGetir();
                 baglanti.BaglantiAc();
 
                 string query = @"
@@ -198,7 +198,7 @@ namespace TaskFlow360
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@YoneticiID", KullaniciBilgi.KullaniciID);
+                    command.Parameters.AddWithValue("@YoneticiID", UserInformation.KullaniciID);
 
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
                     DataTable dataTable = new DataTable();
@@ -238,7 +238,7 @@ namespace TaskFlow360
 
             try
             {
-                connection = Baglanti.BaglantiGetir();
+                connection = Connection.BaglantiGetir();
                 baglanti.BaglantiAc();
 
                     string query = @"SELECT TOP 10
@@ -262,7 +262,7 @@ namespace TaskFlow360
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@YoneticiID", KullaniciBilgi.KullaniciID);
+                        command.Parameters.AddWithValue("@YoneticiID", UserInformation.KullaniciID);
 
                         SqlDataAdapter adapter = new SqlDataAdapter(command);
                         DataTable dataTable = new DataTable();
@@ -301,7 +301,7 @@ namespace TaskFlow360
             SqlConnection connection = null;
             try
             {
-                connection = Baglanti.BaglantiGetir();
+                connection = Connection.BaglantiGetir();
                 baglanti.BaglantiAc();
 
                 string query = @"
@@ -317,7 +317,7 @@ namespace TaskFlow360
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@YoneticiID", KullaniciBilgi.KullaniciID);
+                    command.Parameters.AddWithValue("@YoneticiID", UserInformation.KullaniciID);
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
                     DataTable dataTable = new DataTable();
                     adapter.Fill(dataTable);
@@ -443,7 +443,7 @@ namespace TaskFlow360
         private void btnCikis_Click(object sender, EventArgs e)
         {
             LogEkle("Çıkış butonuna tıklandı", "Buton", "ManagerDashboard");
-            KullaniciBilgi.BilgileriTemizle();
+            UserInformation.BilgileriTemizle();
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             this.Close();

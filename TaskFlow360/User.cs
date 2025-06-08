@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaskFlow360
 {
-    public class Kullanici
+    public class User
     {
         public int KullaniciID { get; set; }
         public string Ad { get; set; }
@@ -28,9 +28,9 @@ namespace TaskFlow360
         public Bolum Bolum { get; set; }
         public PrimMaasHesaplama PrimMaasHesaplama { get; set; }
         public List<Log> Loglar { get; set; }
-        public List<Cagri> TalepEttigiCagrilar { get; set; }
-        public List<Cagri> AtananCagrilar { get; set; }
-        public List<Cagri> OlusturduguCagrilar { get; set; }
+        public List<Call> TalepEttigiCagrilar { get; set; }
+        public List<Call> AtananCagrilar { get; set; }
+        public List<Call> OlusturduguCagrilar { get; set; }
         public List<PerformansRaporu> PerformansRaporlari { get; set; }
     }
 
@@ -40,7 +40,7 @@ namespace TaskFlow360
         public string DepartmanAdi { get; set; }
 
         // İlişkili nesneler
-        public List<Kullanici> Kullanicilar { get; set; }
+        public List<User> Kullanicilar { get; set; }
         public List<Bolum> Bolumler { get; set; }
     }
 
@@ -52,7 +52,7 @@ namespace TaskFlow360
 
         // İlişkili nesneler
         public Departman BagliDepartman { get; set; }
-        public List<Kullanici> Kullanicilar { get; set; }
+        public List<User> Kullanicilar { get; set; }
     }
 
     public class PrimMaasHesaplama
@@ -64,7 +64,7 @@ namespace TaskFlow360
         public decimal ToplamMaas { get; set; }
 
         // İlişkili nesne
-        public Kullanici Kullanici { get; set; }
+        public User Kullanici { get; set; }
     }
 
     public class Log
@@ -77,7 +77,7 @@ namespace TaskFlow360
         public string IslemDetaylari { get; set; }
 
         // İlişkili nesne
-        public Kullanici Kullanici { get; set; }
+        public User Kullanici { get; set; }
     }
 
     public class PerformansRaporu
@@ -90,6 +90,6 @@ namespace TaskFlow360
         public decimal Prim { get; set; }
 
         // İlişkili nesne
-        public Kullanici Kullanici { get; set; }
+        public User Kullanici { get; set; }
     }
 }

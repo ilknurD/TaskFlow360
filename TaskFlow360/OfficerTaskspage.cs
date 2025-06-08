@@ -25,7 +25,7 @@ namespace TaskFlow360
             LogEkle("OfficerTaskspage formu başlatıldı", "Form", "OfficerTaskspage");
         }
 
-        private Baglanti baglantiNesnesi = new Baglanti();
+        private Connection baglantiNesnesi = new Connection();
 
         private void LogEkle(string islemDetaylari, string islemTipi, string tabloAdi)
         {
@@ -38,7 +38,7 @@ namespace TaskFlow360
                 using (SqlCommand cmd = new SqlCommand(sorgu, baglantiNesnesi.conn))
                 {
                     cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                    cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
                     cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
                     cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
                     cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
@@ -77,7 +77,7 @@ namespace TaskFlow360
                 LogEkle("Çağrılar yüklenmeye başlandı", "Okuma", "Cagri");
                 baglantiNesnesi.BaglantiAc();
 
-                if (string.IsNullOrEmpty(KullaniciBilgi.KullaniciID))
+                if (string.IsNullOrEmpty(UserInformation.KullaniciID))
                 {
                     MessageBox.Show("Kullanıcı bilgisi alınamadı. Lütfen tekrar giriş yapın.",
                                     "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -95,7 +95,7 @@ namespace TaskFlow360
                 SqlCommand komut = new SqlCommand(sorgu, baglantiNesnesi.conn);
                 int kullaniciID;
 
-                if (int.TryParse(KullaniciBilgi.KullaniciID, out kullaniciID))
+                if (int.TryParse(UserInformation.KullaniciID, out kullaniciID))
                 {
                     komut.Parameters.AddWithValue("@KullaniciID", kullaniciID);
 
@@ -479,7 +479,7 @@ namespace TaskFlow360
                 using (SqlCommand cmd = new SqlCommand(query, baglantiNesnesi.conn))
                 {
                     // Her zaman KullaniciID parametresini ekle
-                    cmd.Parameters.AddWithValue("@KullaniciID", int.Parse(KullaniciBilgi.KullaniciID));
+                    cmd.Parameters.AddWithValue("@KullaniciID", int.Parse(UserInformation.KullaniciID));
 
                     // Sadece gerekli parametreleri ekle
                     if (durum != "Tümü")

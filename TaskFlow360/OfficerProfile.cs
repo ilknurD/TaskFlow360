@@ -13,7 +13,7 @@ namespace TaskFlow360
 {
     public partial class OfficerProfile : Form
     {
-        Baglanti baglanti = new Baglanti();
+        Connection baglanti = new Connection();
         private readonly Logger _logger;
 
         public OfficerProfile()
@@ -29,7 +29,7 @@ namespace TaskFlow360
             try
             {
                 baglanti.BaglantiAc();
-                string kullaniciID = KullaniciBilgi.KullaniciID;
+                string kullaniciID = UserInformation.KullaniciID;
                 int currentYear = DateTime.Now.Year;
                 int currentMonth = DateTime.Now.Month;
 
@@ -153,7 +153,7 @@ namespace TaskFlow360
 
         private void OfficerProfile_Load(object sender, EventArgs e)
         {
-            string kullaniciID = KullaniciBilgi.KullaniciID;
+            string kullaniciID = UserInformation.KullaniciID;
 
             try
             {
