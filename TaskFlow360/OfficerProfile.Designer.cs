@@ -30,11 +30,17 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OfficerProfile));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ikonCikis = new System.Windows.Forms.PictureBox();
+            this.ikonRaporlar = new System.Windows.Forms.PictureBox();
             this.btnRaporlar = new System.Windows.Forms.Button();
+            this.ikonProfil = new System.Windows.Forms.PictureBox();
+            this.ikonGorevler = new System.Windows.Forms.PictureBox();
+            this.ikonAnasayfa = new System.Windows.Forms.PictureBox();
             this.btnCikis = new System.Windows.Forms.Button();
             this.btnGorevler = new System.Windows.Forms.Button();
             this.btnProfil = new System.Windows.Forms.Button();
             this.btnAnasayfa = new System.Windows.Forms.Button();
+            this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.lblHosgeldiniz = new System.Windows.Forms.Label();
             this.pnlPrfilBilgi = new System.Windows.Forms.Panel();
             this.lblDepartman = new System.Windows.Forms.Label();
@@ -43,6 +49,7 @@
             this.lbldpatmnB = new System.Windows.Forms.Label();
             this.lblBolum = new System.Windows.Forms.Label();
             this.lblAdSoyad = new System.Windows.Forms.Label();
+            this.pctrProfil = new System.Windows.Forms.PictureBox();
             this.pnlIletisimBilgi = new System.Windows.Forms.Panel();
             this.lblDogumTarihi = new System.Windows.Forms.Label();
             this.lblAdres = new System.Windows.Forms.Label();
@@ -66,40 +73,35 @@
             this.lblIsBaslik = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.pnlPrimBilgi = new System.Windows.Forms.Panel();
+            this.lblToplamGorev = new System.Windows.Forms.Label();
             this.pnlPrim = new System.Windows.Forms.Panel();
+            this.lblPrim = new System.Windows.Forms.Label();
             this.lblPrimTutari = new System.Windows.Forms.Label();
-            this.lblPrimTutariSNC = new System.Windows.Forms.Label();
-            this.lblPerformansPuanSNC = new System.Windows.Forms.Label();
-            this.lblCozumSureSNC = new System.Windows.Forms.Label();
-            this.lblTamamlananSNC = new System.Windows.Forms.Label();
+            this.lblPerformans = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblOrtalamaSure = new System.Windows.Forms.Label();
+            this.lblTamamlananGorev = new System.Windows.Forms.Label();
             this.lblPerformansPuan = new System.Windows.Forms.Label();
             this.lblCozumSure = new System.Windows.Forms.Label();
             this.lblTamamlanan = new System.Windows.Forms.Label();
             this.lblPerformansPrimBaslik = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.pctrProfil = new System.Windows.Forms.PictureBox();
-            this.ikonCikis = new System.Windows.Forms.PictureBox();
-            this.ikonRaporlar = new System.Windows.Forms.PictureBox();
-            this.ikonProfil = new System.Windows.Forms.PictureBox();
-            this.ikonGorevler = new System.Windows.Forms.PictureBox();
-            this.ikonAnasayfa = new System.Windows.Forms.PictureBox();
-            this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            this.pnlPrfilBilgi.SuspendLayout();
-            this.pnlIletisimBilgi.SuspendLayout();
-            this.pnlIsBilgi.SuspendLayout();
-            this.pnlPrimBilgi.SuspendLayout();
-            this.pnlPrim.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrProfil)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonProfil)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).BeginInit();
+            this.pnlPrfilBilgi.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrProfil)).BeginInit();
+            this.pnlIletisimBilgi.SuspendLayout();
+            this.pnlIsBilgi.SuspendLayout();
+            this.pnlPrimBilgi.SuspendLayout();
+            this.pnlPrim.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -124,6 +126,28 @@
             this.panel1.Size = new System.Drawing.Size(295, 1102);
             this.panel1.TabIndex = 8;
             // 
+            // ikonCikis
+            // 
+            this.ikonCikis.BackColor = System.Drawing.Color.Transparent;
+            this.ikonCikis.Image = ((System.Drawing.Image)(resources.GetObject("ikonCikis.Image")));
+            this.ikonCikis.Location = new System.Drawing.Point(25, 977);
+            this.ikonCikis.Name = "ikonCikis";
+            this.ikonCikis.Size = new System.Drawing.Size(40, 40);
+            this.ikonCikis.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonCikis.TabIndex = 11;
+            this.ikonCikis.TabStop = false;
+            // 
+            // ikonRaporlar
+            // 
+            this.ikonRaporlar.BackColor = System.Drawing.Color.Transparent;
+            this.ikonRaporlar.Image = ((System.Drawing.Image)(resources.GetObject("ikonRaporlar.Image")));
+            this.ikonRaporlar.Location = new System.Drawing.Point(25, 378);
+            this.ikonRaporlar.Name = "ikonRaporlar";
+            this.ikonRaporlar.Size = new System.Drawing.Size(40, 40);
+            this.ikonRaporlar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonRaporlar.TabIndex = 10;
+            this.ikonRaporlar.TabStop = false;
+            // 
             // btnRaporlar
             // 
             this.btnRaporlar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
@@ -142,6 +166,39 @@
             this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnRaporlar.UseVisualStyleBackColor = false;
             this.btnRaporlar.Click += new System.EventHandler(this.btnRaporlar_Click);
+            // 
+            // ikonProfil
+            // 
+            this.ikonProfil.BackColor = System.Drawing.Color.Transparent;
+            this.ikonProfil.Image = ((System.Drawing.Image)(resources.GetObject("ikonProfil.Image")));
+            this.ikonProfil.Location = new System.Drawing.Point(25, 259);
+            this.ikonProfil.Name = "ikonProfil";
+            this.ikonProfil.Size = new System.Drawing.Size(40, 40);
+            this.ikonProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonProfil.TabIndex = 8;
+            this.ikonProfil.TabStop = false;
+            // 
+            // ikonGorevler
+            // 
+            this.ikonGorevler.BackColor = System.Drawing.Color.Transparent;
+            this.ikonGorevler.Image = ((System.Drawing.Image)(resources.GetObject("ikonGorevler.Image")));
+            this.ikonGorevler.Location = new System.Drawing.Point(25, 319);
+            this.ikonGorevler.Name = "ikonGorevler";
+            this.ikonGorevler.Size = new System.Drawing.Size(40, 40);
+            this.ikonGorevler.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonGorevler.TabIndex = 7;
+            this.ikonGorevler.TabStop = false;
+            // 
+            // ikonAnasayfa
+            // 
+            this.ikonAnasayfa.BackColor = System.Drawing.Color.Transparent;
+            this.ikonAnasayfa.Image = ((System.Drawing.Image)(resources.GetObject("ikonAnasayfa.Image")));
+            this.ikonAnasayfa.Location = new System.Drawing.Point(25, 200);
+            this.ikonAnasayfa.Name = "ikonAnasayfa";
+            this.ikonAnasayfa.Size = new System.Drawing.Size(40, 40);
+            this.ikonAnasayfa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ikonAnasayfa.TabIndex = 6;
+            this.ikonAnasayfa.TabStop = false;
             // 
             // btnCikis
             // 
@@ -216,6 +273,17 @@
             this.btnAnasayfa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAnasayfa.UseVisualStyleBackColor = false;
             this.btnAnasayfa.Click += new System.EventHandler(this.btnAnasayfa_Click);
+            // 
+            // pctrLogo
+            // 
+            this.pctrLogo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pctrLogo.Image = ((System.Drawing.Image)(resources.GetObject("pctrLogo.Image")));
+            this.pctrLogo.Location = new System.Drawing.Point(0, 0);
+            this.pctrLogo.Name = "pctrLogo";
+            this.pctrLogo.Size = new System.Drawing.Size(295, 188);
+            this.pctrLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pctrLogo.TabIndex = 0;
+            this.pctrLogo.TabStop = false;
             // 
             // lblHosgeldiniz
             // 
@@ -304,6 +372,15 @@
             this.lblAdSoyad.Size = new System.Drawing.Size(146, 27);
             this.lblAdSoyad.TabIndex = 22;
             this.lblAdSoyad.Text = "İsim Soyisim";
+            // 
+            // pctrProfil
+            // 
+            this.pctrProfil.Location = new System.Drawing.Point(122, 23);
+            this.pctrProfil.Name = "pctrProfil";
+            this.pctrProfil.Size = new System.Drawing.Size(190, 190);
+            this.pctrProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pctrProfil.TabIndex = 0;
+            this.pctrProfil.TabStop = false;
             // 
             // pnlIletisimBilgi
             // 
@@ -552,10 +629,12 @@
             // pnlPrimBilgi
             // 
             this.pnlPrimBilgi.BackColor = System.Drawing.Color.White;
+            this.pnlPrimBilgi.Controls.Add(this.lblToplamGorev);
             this.pnlPrimBilgi.Controls.Add(this.pnlPrim);
-            this.pnlPrimBilgi.Controls.Add(this.lblPerformansPuanSNC);
-            this.pnlPrimBilgi.Controls.Add(this.lblCozumSureSNC);
-            this.pnlPrimBilgi.Controls.Add(this.lblTamamlananSNC);
+            this.pnlPrimBilgi.Controls.Add(this.lblPerformans);
+            this.pnlPrimBilgi.Controls.Add(this.label2);
+            this.pnlPrimBilgi.Controls.Add(this.lblOrtalamaSure);
+            this.pnlPrimBilgi.Controls.Add(this.lblTamamlananGorev);
             this.pnlPrimBilgi.Controls.Add(this.lblPerformansPuan);
             this.pnlPrimBilgi.Controls.Add(this.lblCozumSure);
             this.pnlPrimBilgi.Controls.Add(this.lblTamamlanan);
@@ -567,75 +646,96 @@
             this.pnlPrimBilgi.Size = new System.Drawing.Size(1670, 214);
             this.pnlPrimBilgi.TabIndex = 13;
             // 
+            // lblToplamGorev
+            // 
+            this.lblToplamGorev.AutoSize = true;
+            this.lblToplamGorev.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblToplamGorev.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblToplamGorev.Location = new System.Drawing.Point(103, 122);
+            this.lblToplamGorev.Name = "lblToplamGorev";
+            this.lblToplamGorev.Size = new System.Drawing.Size(48, 32);
+            this.lblToplamGorev.TabIndex = 21;
+            this.lblToplamGorev.Text = "15";
+            // 
             // pnlPrim
             // 
             this.pnlPrim.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlPrim.Controls.Add(this.lblPrim);
             this.pnlPrim.Controls.Add(this.lblPrimTutari);
-            this.pnlPrim.Controls.Add(this.lblPrimTutariSNC);
             this.pnlPrim.Location = new System.Drawing.Point(1247, 70);
             this.pnlPrim.Name = "pnlPrim";
             this.pnlPrim.Size = new System.Drawing.Size(241, 84);
             this.pnlPrim.TabIndex = 18;
             // 
+            // lblPrim
+            // 
+            this.lblPrim.AutoSize = true;
+            this.lblPrim.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblPrim.Location = new System.Drawing.Point(24, 14);
+            this.lblPrim.Name = "lblPrim";
+            this.lblPrim.Size = new System.Drawing.Size(198, 29);
+            this.lblPrim.TabIndex = 16;
+            this.lblPrim.Text = "Bu Ay Prim Tutarı";
+            // 
             // lblPrimTutari
             // 
             this.lblPrimTutari.AutoSize = true;
-            this.lblPrimTutari.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblPrimTutari.Location = new System.Drawing.Point(24, 14);
+            this.lblPrimTutari.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblPrimTutari.ForeColor = System.Drawing.Color.SlateBlue;
+            this.lblPrimTutari.Location = new System.Drawing.Point(63, 43);
             this.lblPrimTutari.Name = "lblPrimTutari";
-            this.lblPrimTutari.Size = new System.Drawing.Size(198, 29);
-            this.lblPrimTutari.TabIndex = 16;
-            this.lblPrimTutari.Text = "Bu Ay Prim Tutarı";
+            this.lblPrimTutari.Size = new System.Drawing.Size(108, 32);
+            this.lblPrimTutari.TabIndex = 17;
+            this.lblPrimTutari.Text = "2,950₺";
             // 
-            // lblPrimTutariSNC
+            // lblPerformans
             // 
-            this.lblPrimTutariSNC.AutoSize = true;
-            this.lblPrimTutariSNC.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblPrimTutariSNC.ForeColor = System.Drawing.Color.SlateBlue;
-            this.lblPrimTutariSNC.Location = new System.Drawing.Point(63, 43);
-            this.lblPrimTutariSNC.Name = "lblPrimTutariSNC";
-            this.lblPrimTutariSNC.Size = new System.Drawing.Size(108, 32);
-            this.lblPrimTutariSNC.TabIndex = 17;
-            this.lblPrimTutariSNC.Text = "2,950₺";
+            this.lblPerformans.AutoSize = true;
+            this.lblPerformans.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblPerformans.ForeColor = System.Drawing.Color.Orange;
+            this.lblPerformans.Location = new System.Drawing.Point(1031, 122);
+            this.lblPerformans.Name = "lblPerformans";
+            this.lblPerformans.Size = new System.Drawing.Size(108, 32);
+            this.lblPerformans.TabIndex = 8;
+            this.lblPerformans.Text = "95/100";
             // 
-            // lblPerformansPuanSNC
+            // label2
             // 
-            this.lblPerformansPuanSNC.AutoSize = true;
-            this.lblPerformansPuanSNC.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblPerformansPuanSNC.ForeColor = System.Drawing.Color.Orange;
-            this.lblPerformansPuanSNC.Location = new System.Drawing.Point(956, 123);
-            this.lblPerformansPuanSNC.Name = "lblPerformansPuanSNC";
-            this.lblPerformansPuanSNC.Size = new System.Drawing.Size(108, 32);
-            this.lblPerformansPuanSNC.TabIndex = 8;
-            this.lblPerformansPuanSNC.Text = "95/100";
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label2.Location = new System.Drawing.Point(49, 85);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(167, 29);
+            this.label2.TabIndex = 20;
+            this.label2.Text = "Toplam Görev";
             // 
-            // lblCozumSureSNC
+            // lblOrtalamaSure
             // 
-            this.lblCozumSureSNC.AutoSize = true;
-            this.lblCozumSureSNC.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblCozumSureSNC.ForeColor = System.Drawing.Color.SteelBlue;
-            this.lblCozumSureSNC.Location = new System.Drawing.Point(559, 123);
-            this.lblCozumSureSNC.Name = "lblCozumSureSNC";
-            this.lblCozumSureSNC.Size = new System.Drawing.Size(116, 32);
-            this.lblCozumSureSNC.TabIndex = 7;
-            this.lblCozumSureSNC.Text = "1.5 gün";
+            this.lblOrtalamaSure.AutoSize = true;
+            this.lblOrtalamaSure.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblOrtalamaSure.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblOrtalamaSure.Location = new System.Drawing.Point(665, 125);
+            this.lblOrtalamaSure.Name = "lblOrtalamaSure";
+            this.lblOrtalamaSure.Size = new System.Drawing.Size(116, 32);
+            this.lblOrtalamaSure.TabIndex = 7;
+            this.lblOrtalamaSure.Text = "1.5 gün";
             // 
-            // lblTamamlananSNC
+            // lblTamamlananGorev
             // 
-            this.lblTamamlananSNC.AutoSize = true;
-            this.lblTamamlananSNC.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblTamamlananSNC.ForeColor = System.Drawing.Color.ForestGreen;
-            this.lblTamamlananSNC.Location = new System.Drawing.Point(216, 123);
-            this.lblTamamlananSNC.Name = "lblTamamlananSNC";
-            this.lblTamamlananSNC.Size = new System.Drawing.Size(48, 32);
-            this.lblTamamlananSNC.TabIndex = 6;
-            this.lblTamamlananSNC.Text = "35";
+            this.lblTamamlananGorev.AutoSize = true;
+            this.lblTamamlananGorev.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblTamamlananGorev.ForeColor = System.Drawing.Color.ForestGreen;
+            this.lblTamamlananGorev.Location = new System.Drawing.Point(367, 125);
+            this.lblTamamlananGorev.Name = "lblTamamlananGorev";
+            this.lblTamamlananGorev.Size = new System.Drawing.Size(48, 32);
+            this.lblTamamlananGorev.TabIndex = 6;
+            this.lblTamamlananGorev.Text = "35";
             // 
             // lblPerformansPuan
             // 
             this.lblPerformansPuan.AutoSize = true;
             this.lblPerformansPuan.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblPerformansPuan.Location = new System.Drawing.Point(904, 84);
+            this.lblPerformansPuan.Location = new System.Drawing.Point(987, 85);
             this.lblPerformansPuan.Name = "lblPerformansPuan";
             this.lblPerformansPuan.Size = new System.Drawing.Size(204, 29);
             this.lblPerformansPuan.TabIndex = 5;
@@ -645,7 +745,7 @@
             // 
             this.lblCozumSure.AutoSize = true;
             this.lblCozumSure.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblCozumSure.Location = new System.Drawing.Point(491, 84);
+            this.lblCozumSure.Location = new System.Drawing.Point(593, 85);
             this.lblCozumSure.Name = "lblCozumSure";
             this.lblCozumSure.Size = new System.Drawing.Size(267, 29);
             this.lblCozumSure.TabIndex = 4;
@@ -655,11 +755,11 @@
             // 
             this.lblTamamlanan.AutoSize = true;
             this.lblTamamlanan.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblTamamlanan.Location = new System.Drawing.Point(148, 84);
+            this.lblTamamlanan.Location = new System.Drawing.Point(287, 85);
             this.lblTamamlanan.Name = "lblTamamlanan";
-            this.lblTamamlanan.Size = new System.Drawing.Size(218, 29);
+            this.lblTamamlanan.Size = new System.Drawing.Size(224, 29);
             this.lblTamamlanan.TabIndex = 3;
-            this.lblTamamlanan.Text = "Bu ay Tamamlanan";
+            this.lblTamamlanan.Text = "Tamamlanan Görev";
             // 
             // lblPerformansPrimBaslik
             // 
@@ -691,81 +791,6 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(245, 88);
             this.panel7.TabIndex = 19;
-            // 
-            // pctrProfil
-            // 
-            this.pctrProfil.Location = new System.Drawing.Point(122, 23);
-            this.pctrProfil.Name = "pctrProfil";
-            this.pctrProfil.Size = new System.Drawing.Size(190, 190);
-            this.pctrProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pctrProfil.TabIndex = 0;
-            this.pctrProfil.TabStop = false;
-            // 
-            // ikonCikis
-            // 
-            this.ikonCikis.BackColor = System.Drawing.Color.Transparent;
-            this.ikonCikis.Image = ((System.Drawing.Image)(resources.GetObject("ikonCikis.Image")));
-            this.ikonCikis.Location = new System.Drawing.Point(25, 977);
-            this.ikonCikis.Name = "ikonCikis";
-            this.ikonCikis.Size = new System.Drawing.Size(40, 40);
-            this.ikonCikis.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonCikis.TabIndex = 11;
-            this.ikonCikis.TabStop = false;
-            // 
-            // ikonRaporlar
-            // 
-            this.ikonRaporlar.BackColor = System.Drawing.Color.Transparent;
-            this.ikonRaporlar.Image = ((System.Drawing.Image)(resources.GetObject("ikonRaporlar.Image")));
-            this.ikonRaporlar.Location = new System.Drawing.Point(25, 378);
-            this.ikonRaporlar.Name = "ikonRaporlar";
-            this.ikonRaporlar.Size = new System.Drawing.Size(40, 40);
-            this.ikonRaporlar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonRaporlar.TabIndex = 10;
-            this.ikonRaporlar.TabStop = false;
-            // 
-            // ikonProfil
-            // 
-            this.ikonProfil.BackColor = System.Drawing.Color.Transparent;
-            this.ikonProfil.Image = ((System.Drawing.Image)(resources.GetObject("ikonProfil.Image")));
-            this.ikonProfil.Location = new System.Drawing.Point(25, 259);
-            this.ikonProfil.Name = "ikonProfil";
-            this.ikonProfil.Size = new System.Drawing.Size(40, 40);
-            this.ikonProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonProfil.TabIndex = 8;
-            this.ikonProfil.TabStop = false;
-            // 
-            // ikonGorevler
-            // 
-            this.ikonGorevler.BackColor = System.Drawing.Color.Transparent;
-            this.ikonGorevler.Image = ((System.Drawing.Image)(resources.GetObject("ikonGorevler.Image")));
-            this.ikonGorevler.Location = new System.Drawing.Point(25, 319);
-            this.ikonGorevler.Name = "ikonGorevler";
-            this.ikonGorevler.Size = new System.Drawing.Size(40, 40);
-            this.ikonGorevler.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonGorevler.TabIndex = 7;
-            this.ikonGorevler.TabStop = false;
-            // 
-            // ikonAnasayfa
-            // 
-            this.ikonAnasayfa.BackColor = System.Drawing.Color.Transparent;
-            this.ikonAnasayfa.Image = ((System.Drawing.Image)(resources.GetObject("ikonAnasayfa.Image")));
-            this.ikonAnasayfa.Location = new System.Drawing.Point(25, 200);
-            this.ikonAnasayfa.Name = "ikonAnasayfa";
-            this.ikonAnasayfa.Size = new System.Drawing.Size(40, 40);
-            this.ikonAnasayfa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ikonAnasayfa.TabIndex = 6;
-            this.ikonAnasayfa.TabStop = false;
-            // 
-            // pctrLogo
-            // 
-            this.pctrLogo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pctrLogo.Image = ((System.Drawing.Image)(resources.GetObject("pctrLogo.Image")));
-            this.pctrLogo.Location = new System.Drawing.Point(0, 0);
-            this.pctrLogo.Name = "pctrLogo";
-            this.pctrLogo.Size = new System.Drawing.Size(295, 188);
-            this.pctrLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pctrLogo.TabIndex = 0;
-            this.pctrLogo.TabStop = false;
             // 
             // pictureBox3
             // 
@@ -811,8 +836,15 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.OfficerProfile_Load);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonProfil)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).EndInit();
             this.pnlPrfilBilgi.ResumeLayout(false);
             this.pnlPrfilBilgi.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pctrProfil)).EndInit();
             this.pnlIletisimBilgi.ResumeLayout(false);
             this.pnlIletisimBilgi.PerformLayout();
             this.pnlIsBilgi.ResumeLayout(false);
@@ -821,13 +853,6 @@
             this.pnlPrimBilgi.PerformLayout();
             this.pnlPrim.ResumeLayout(false);
             this.pnlPrim.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrProfil)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonProfil)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonGorevler)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ikonAnasayfa)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pctrLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
@@ -884,16 +909,18 @@
         private System.Windows.Forms.Label lblPerformansPuan;
         private System.Windows.Forms.Label lblCozumSure;
         private System.Windows.Forms.Label lblTamamlanan;
-        private System.Windows.Forms.Label lblPerformansPuanSNC;
-        private System.Windows.Forms.Label lblCozumSureSNC;
-        private System.Windows.Forms.Label lblTamamlananSNC;
+        private System.Windows.Forms.Label lblPerformans;
+        private System.Windows.Forms.Label lblOrtalamaSure;
+        private System.Windows.Forms.Label lblTamamlananGorev;
+        private System.Windows.Forms.Label lblPrim;
         private System.Windows.Forms.Label lblPrimTutari;
-        private System.Windows.Forms.Label lblPrimTutariSNC;
         private System.Windows.Forms.Panel pnlPrim;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.Label lblDepartman;
         private System.Windows.Forms.PictureBox pctrProfil;
+        private System.Windows.Forms.Label lblToplamGorev;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -110,6 +110,7 @@
       <DependentUpon>EditUsers.cs</DependentUpon>
     </Compile>
     <Compile Include="KullaniciPrimBilgi.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="ManagerDashboard.cs">
       <SubType>Form</SubType>
     </Compile>

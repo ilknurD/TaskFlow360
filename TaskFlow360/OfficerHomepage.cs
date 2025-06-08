@@ -15,13 +15,17 @@ namespace TaskFlow360
     public partial class OfficerHomepage : Form
     {
         Baglanti baglanti = new Baglanti();
+        private readonly Logger _logger;
+
         public OfficerHomepage()
         {
             InitializeComponent();
+            _logger = new Logger();
             TarihVeSaatGoster();
             IstatislikleriGoster();
             YeniVeDevamEdenGorevSayilariniGoster();
             ZamanliGuncelleme();
+            _logger.LogEkle("Giriş", "OfficerHomepage", "Memur ana sayfası açıldı");
         }
 
         private void TarihVeSaatGoster()
@@ -141,22 +145,23 @@ namespace TaskFlow360
 
         private void IstatislikleriGoster()
         {
-            flowLayoutPanel1.Controls.Clear();
-            flowLayoutPanel1.FlowDirection = FlowDirection.LeftToRight;
-            flowLayoutPanel1.WrapContents = false;
-            flowLayoutPanel1.AutoScroll = true;
+            pnlistatistikler.Controls.Clear();
+            pnlistatistikler.FlowDirection = FlowDirection.LeftToRight;
+            pnlistatistikler.WrapContents = false;
+            pnlistatistikler.AutoScroll = true;
 
             Size panelBoyut = new Size(177, 100);
             Padding panelMargin = new Padding(10, 0, 10, 0);
 
             int beklemede = 0;
-            int tamamlandı = 0;
+            int tamamlandi = 0;
             int gecikti = 0;
             int iptalEdildi = 0;
             int atandi = 0;
             int toplam = 0;
 
             Baglanti baglanti = new Baglanti();
+            string kullaniciID = KullaniciBilgi.KullaniciID;
 
             try
             {
@@ -174,19 +179,21 @@ namespace TaskFlow360
                  )
                  THEN 1 ELSE 0
                  END) AS Gecikti,
-                 SUM(CASE WHEN Durum = 'İptal Edildi' THEN 1 ELSE 0 END) AS IptalEdildi,  --Düzenlendi
-                 SUM(CASE WHEN Durum = 'Atandı' THEN 1 ELSE 0 END) AS Atandi,  --Düzenlendi
+                 SUM(CASE WHEN Durum = 'İptal Edildi' THEN 1 ELSE 0 END) AS IptalEdildi, 
+                 SUM(CASE WHEN Durum = 'Atandı' THEN 1 ELSE 0 END) AS Atandi, 
                  COUNT(*) AS Toplam
-                FROM Cagri";
-
+                FROM Cagri
+                WHERE AtananKullaniciID = @KullaniciID 
+                OR OlusturanKullaniciID = @KullaniciID";
 
                 SqlCommand cmd = new SqlCommand(query, baglanti.conn);
+                cmd.Parameters.AddWithValue("@KullaniciID", kullaniciID);
 
                 SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
                     beklemede = reader["Beklemede"] != DBNull.Value ? Convert.ToInt32(reader["Beklemede"]) : 0;
-                    tamamlandı = reader["Tamamlandı"] != DBNull.Value ? Convert.ToInt32(reader["Tamamlandı"]) : 0;
+                    tamamlandi = reader["Tamamlandı"] != DBNull.Value ? Convert.ToInt32(reader["Tamamlandı"]) : 0;
                     gecikti = reader["Gecikti"] != DBNull.Value ? Convert.ToInt32(reader["Gecikti"]) : 0;
                     iptalEdildi = reader["IptalEdildi"] != DBNull.Value ? Convert.ToInt32(reader["IptalEdildi"]) : 0;
                     atandi = reader["Atandi"] != DBNull.Value ? Convert.ToInt32(reader["Atandi"]) : 0; 
@@ -237,12 +244,12 @@ namespace TaskFlow360
 
                 panel.Controls.Add(lblSayi);
                 panel.Controls.Add(lblMetin);
-                flowLayoutPanel1.Controls.Add(panel);
+                pnlistatistikler.Controls.Add(panel);
             }
 
 
             PanelEkle(Color.FromArgb(187, 222, 251), beklemede.ToString(), "Beklemede"); // Açık Mavi
-            PanelEkle(Color.FromArgb(200, 230, 201), tamamlandı.ToString(), "Tamamlandı"); // Açık Yeşil
+            PanelEkle(Color.FromArgb(200, 230, 201), tamamlandi.ToString(), "Tamamlandı"); // Açık Yeşil
             PanelEkle(Color.FromArgb(255, 204, 188), gecikti.ToString(), "Gecikti"); // Açık Turuncu
             PanelEkle(Color.FromArgb(144, 164, 174), iptalEdildi.ToString(), "İptal Edildi"); // Açık Gri
             PanelEkle(Color.FromArgb(255, 249, 196), atandi.ToString(), "Atandı"); // Açık Sarı
@@ -254,21 +261,28 @@ namespace TaskFlow360
             Baglanti baglanti = new Baglanti();
             int yeniGorevSayisi = 0;
             int devamEdenGorevSayisi = 0;
+            string kullaniciID = KullaniciBilgi.KullaniciID;
 
             try
             {
                 baglanti.BaglantiAc();
 
                 string yeniGorevQuery = @"SELECT COUNT(*) FROM Cagri 
-                                 WHERE Durum IN ('Atandı')";
+                                 WHERE Durum IN ('Atandı')
+                                 AND (AtananKullaniciID = @KullaniciID 
+                                 OR OlusturanKullaniciID = @KullaniciID)";
 
                 SqlCommand yeniCmd = new SqlCommand(yeniGorevQuery, baglanti.conn);
+                yeniCmd.Parameters.AddWithValue("@KullaniciID", kullaniciID);
                 yeniGorevSayisi = (int)yeniCmd.ExecuteScalar();
 
                 string devamEdenQuery = @"SELECT COUNT(*) FROM Cagri 
-                                 WHERE Durum IN ('Beklemede')";
+                                 WHERE Durum IN ('Beklemede')
+                                 AND (AtananKullaniciID = @KullaniciID 
+                                 OR OlusturanKullaniciID = @KullaniciID)";
 
                 SqlCommand devamEdenCmd = new SqlCommand(devamEdenQuery, baglanti.conn);
+                devamEdenCmd.Parameters.AddWithValue("@KullaniciID", kullaniciID);
                 devamEdenGorevSayisi = (int)devamEdenCmd.ExecuteScalar();
 
                 lblYeniGorevSayisi.Text = yeniGorevSayisi.ToString();
@@ -302,6 +316,7 @@ namespace TaskFlow360
 
         private void button5_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Çıkış", "OfficerHomepage", "Memur ana sayfasından çıkış yapıldı");
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             this.Close();
@@ -309,6 +324,7 @@ namespace TaskFlow360
 
         private void btnGorevler_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Yönlendirme", "OfficerHomepage", "Görevler sayfasına yönlendirildi");
             OfficerTaskspage officerTaskspage = new OfficerTaskspage();
             officerTaskspage.Show();
             this.Close();
@@ -316,17 +332,18 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Yönlendirme", "OfficerHomepage", "Profil sayfasına yönlendirildi");
             OfficerProfile officerProfile = new OfficerProfile();
             officerProfile.Show();
             this.Close();
         }
 
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-        }
-
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Yönlendirme", "OfficerHomepage", "Ana sayfaya yönlendirildi");
+            OfficerHomepage officerHomepage = new OfficerHomepage();
+            officerHomepage.Show();
+            this.Close();  
         }
 
         private void CagrilariGoster(List<Cagri> CagriListesi)
@@ -414,15 +431,19 @@ namespace TaskFlow360
             }
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Yönlendirme", "OfficerHomepage", "Raporlar sayfasına yönlendirildi");
             OfficerReportsPage officerReportsPage = new OfficerReportsPage();
             officerReportsPage.Show();
+        }
+
+        private void btnCikis_Click(object sender, EventArgs e)
+        {
+            _logger.LogEkle("Çıkış", "OfficerHomepage", "Sistemden çıkış yapıldı");
+            this.Close();
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
         }
     }
 }

@@ -53,7 +53,7 @@
             this.lblTarihSaat = new System.Windows.Forms.Label();
             this.lblMerhaba = new System.Windows.Forms.Label();
             this.lblAdSoyad = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlistatistikler = new System.Windows.Forms.FlowLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -178,7 +178,7 @@
             this.btnCikis.Text = "Çıkış";
             this.btnCikis.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCikis.UseVisualStyleBackColor = false;
-            this.btnCikis.Click += new System.EventHandler(this.button5_Click);
+            this.btnCikis.Click += new System.EventHandler(this.btnCikis_Click);
             // 
             // btnGorevler
             // 
@@ -261,7 +261,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1836, 114);
             this.panel2.TabIndex = 5;
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // label5
             // 
@@ -377,13 +376,12 @@
             this.lblAdSoyad.TabIndex = 10;
             this.lblAdSoyad.Text = "İsim Soyisim";
             // 
-            // flowLayoutPanel1
+            // pnlistatistikler
             // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(326, 836);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1590, 164);
-            this.flowLayoutPanel1.TabIndex = 11;
-            this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
+            this.pnlistatistikler.Location = new System.Drawing.Point(326, 836);
+            this.pnlistatistikler.Name = "pnlistatistikler";
+            this.pnlistatistikler.Size = new System.Drawing.Size(1590, 164);
+            this.pnlistatistikler.TabIndex = 11;
             // 
             // label3
             // 
@@ -426,7 +424,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1920, 1033);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.pnlistatistikler);
             this.Controls.Add(this.lblAdSoyad);
             this.Controls.Add(this.lblMerhaba);
             this.Controls.Add(this.lblTarihSaat);
@@ -482,7 +480,7 @@
         private System.Windows.Forms.Label lblMerhaba;
         private System.Windows.Forms.Label lblAdSoyad;
         private System.Windows.Forms.Label lblYeniGorevSayisi;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel pnlistatistikler;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblDevamEdenGorevSayisi;
         private System.Windows.Forms.Label label1;
