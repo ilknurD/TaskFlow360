@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net;
 
 namespace TaskFlow360
 {
@@ -21,10 +22,55 @@ namespace TaskFlow360
             InitializeComponent();
             ekibimDGV.DataError += ekibimDGV_DataError;
             SetupDataGridViewColumns();
+            LogEkle("ManagerProfile formu başlatıldı", "Form", "ManagerProfile");
+        }
+
+        private void LogEkle(string islemDetaylari, string islemTipi, string tabloAdi)
+        {
+            try
+            {
+                baglanti.BaglantiAc();
+                string sorgu = @"INSERT INTO Log (IslemTarihi, KullaniciID, IslemTipi, TabloAdi, IslemDetaylari, IPAdresi) 
+                                VALUES (@IslemTarihi, @KullaniciID, @IslemTipi, @TabloAdi, @IslemDetaylari, @IPAdresi)";
+
+                using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
+                {
+                    cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                    cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
+                    cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
+                    cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
+                    cmd.Parameters.AddWithValue("@IPAdresi", GetLocalIPAddress());
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Log kayıt hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                baglanti.BaglantiKapat();
+            }
+        }
+
+        private string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            return "IP Adresi Bulunamadı";
         }
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
+            LogEkle("Profil butonuna tıklandı", "Buton", "ManagerProfile");
             ManagerProfile manageProfile = new ManagerProfile();
             manageProfile.Show();
             this.Close();
@@ -32,6 +78,7 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
+            LogEkle("Anasayfa butonuna tıklandı", "Buton", "ManagerProfile");
             ManagerHomepage managerHomepage = new ManagerHomepage();
             managerHomepage.Show();
             this.Close();
@@ -39,6 +86,7 @@ namespace TaskFlow360
 
         private void btnGorevler_Click(object sender, EventArgs e)
         {
+            LogEkle("Görevler butonuna tıklandı", "Buton", "ManagerProfile");
             ManagerTasks managerTasks = new ManagerTasks();
             managerTasks.Show();
             this.Close();
@@ -46,6 +94,7 @@ namespace TaskFlow360
 
         private void btnCikis_Click(object sender, EventArgs e)
         {
+            LogEkle("Çıkış butonuna tıklandı", "Buton", "ManagerProfile");
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             this.Close();
@@ -53,6 +102,7 @@ namespace TaskFlow360
 
         private void btnEkipYonetimi_Click(object sender, EventArgs e)
         {
+            LogEkle("Ekip Yönetimi butonuna tıklandı", "Buton", "ManagerProfile");
             ManagerDashboard managerDashboard = new ManagerDashboard();
             managerDashboard.Show();
             this.Close();
@@ -60,16 +110,19 @@ namespace TaskFlow360
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            LogEkle("Kapat butonuna tıklandı", "Buton", "ManagerProfile");
             Application.Exit();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
+            LogEkle("Küçült butonuna tıklandı", "Buton", "ManagerProfile");
             WindowState = FormWindowState.Minimized;
         }
 
         private void ManagerProfile_Load(object sender, EventArgs e)
         {
+            LogEkle("ManagerProfile yüklenmeye başlandı", "Form", "ManagerProfile");
             yoneticiId = KullaniciBilgi.KullaniciID;
             ConfigureEkibimDGV();
             LoadManagedTeamMembers();
@@ -103,7 +156,7 @@ namespace TaskFlow360
                     lblAdres.Text = dr["Adres"].ToString();
                     lblDogumTarihi.Text = Convert.ToDateTime(dr["DogumTar"]).ToShortDateString();
                     lblIseBaslama.Text = Convert.ToDateTime(dr["IseBaslamaTar"]).ToShortDateString();
-                    lblDepartmanb.Text = dr["DepartmanAdi"].ToString();
+                    lblDepartman.Text = dr["DepartmanAdi"].ToString();
                     lblBolum.Text = dr["BolumAdi"].ToString() + " " + "(Rol)";
 
                     string yoneticiAdSoyad = dr["YoneticiAd"] != DBNull.Value ? $"{dr["YoneticiAd"]} {dr["YoneticiSoyad"]}" : "Yönetici yok";
@@ -118,14 +171,19 @@ namespace TaskFlow360
                 }
                 else
                 {
+                    LogEkle("Kullanıcı bilgileri bulunamadı", "Hata", "ManagerProfile");
                     MessageBox.Show("Kullanıcı bilgileri bulunamadı.");
                 }
-
                 dr.Close();
+                if (lblAdSoyad.Text != "")
+                {
+                    LogEkle($"Profil bilgileri yüklendi - Kullanıcı: {lblAdSoyad.Text}", "Okuma", "ManagerProfile");
+                }
                 lblKullaniciID.Text = yoneticiId.ToString();
             }
             catch (Exception ex)
             {
+                LogEkle($"Profil bilgileri yüklenirken hata: {ex.Message}", "Hata", "ManagerProfile");
                 MessageBox.Show("Kullanıcı bilgileri yüklenirken hata oluştu: " + ex.Message);
             }
             finally
@@ -154,9 +212,8 @@ namespace TaskFlow360
 
                 string kontrolSorgusu =
                     @"SELECT COUNT(*) FROM Kullanici 
-            WHERE Rol = 'Ekip Üyesi'
-            AND (DepartmanID = (SELECT DepartmanID FROM Kullanici WHERE KullaniciID = @yoneticiId)
-            OR YoneticiID = @yoneticiId)";
+                    WHERE Rol = 'Ekip Üyesi'
+                    AND YoneticiID = @yoneticiId";
 
                 SqlCommand kontrolKomut = new SqlCommand(kontrolSorgusu, baglanti.conn);
                 kontrolKomut.Parameters.AddWithValue("@yoneticiId", yoneticiId);
@@ -171,7 +228,7 @@ namespace TaskFlow360
                     {
                         Label lblBosEkip = new Label();
                         lblBosEkip.Name = "lblBosEkip";
-                        lblBosEkip.Text = "Departmanınızda ekip üyesi bulunmuyor.";
+                        lblBosEkip.Text = "Ekibinizde üye bulunmuyor.";
                         lblBosEkip.AutoSize = false;
                         lblBosEkip.Size = new Size(icerikPanel.Width - 20, 60);
                         lblBosEkip.TextAlign = ContentAlignment.MiddleCenter;
@@ -182,6 +239,7 @@ namespace TaskFlow360
                     }
 
                     ekibimDGV.Visible = false;
+                    LogEkle("Ekip üyesi bulunamadı", "Okuma", "ManagerProfile");
                     return;
                 }
                 else
@@ -196,21 +254,20 @@ namespace TaskFlow360
 
                 string anaSorgu =
                     @"SELECT 
-            k.KullaniciID, 
-            k.Ad + ' ' + k.Soyad AS AdSoyad, 
-            COUNT(CASE WHEN c.Durum = 'Beklemede' OR c.Durum = 'Atandı' THEN 1 END) AS AktifGorevSayisi, 
-            COUNT(CASE WHEN c.Durum = 'Tamamlandı' THEN 1 END) AS TamamlananGorevSayisi,
-            AVG(CASE 
-                WHEN c.HedefSure IS NOT NULL THEN
-                    TRY_CONVERT(float, REPLACE(REPLACE(REPLACE(c.HedefSure, ' Saat', ''), ' saat', ''), ',', '.'))
-                ELSE NULL
-            END) AS OrtalamaSure
-          FROM Kullanici k 
-          LEFT JOIN Cagri c ON k.KullaniciID = c.AtananKullaniciID 
-          WHERE k.Rol = 'Ekip Üyesi'
-            AND (k.DepartmanID = (SELECT DepartmanID FROM Kullanici WHERE KullaniciID = @yoneticiId)
-            OR k.YoneticiID = @yoneticiId)
-          GROUP BY k.KullaniciID, k.Ad, k.Soyad";
+                    k.KullaniciID, 
+                    k.Ad + ' ' + k.Soyad AS AdSoyad, 
+                    COUNT(CASE WHEN c.Durum = 'Beklemede' OR c.Durum = 'Atandı' THEN 1 END) AS AktifGorevSayisi, 
+                    COUNT(CASE WHEN c.Durum = 'Tamamlandı' THEN 1 END) AS TamamlananGorevSayisi,
+                    AVG(CASE 
+                        WHEN c.HedefSure IS NOT NULL THEN
+                            TRY_CONVERT(float, REPLACE(REPLACE(REPLACE(c.HedefSure, ' Saat', ''), ' saat', ''), ',', '.'))
+                        ELSE NULL
+                    END) AS OrtalamaSure
+                    FROM Kullanici k 
+                    LEFT JOIN Cagri c ON k.KullaniciID = c.AtananKullaniciID 
+                    WHERE k.Rol = 'Ekip Üyesi'
+                    AND k.YoneticiID = @yoneticiId
+                    GROUP BY k.KullaniciID, k.Ad, k.Soyad";
 
                 SqlCommand komut = new SqlCommand(anaSorgu, baglanti.conn);
                 komut.Parameters.AddWithValue("@yoneticiId", yoneticiId);
@@ -228,7 +285,6 @@ namespace TaskFlow360
                     row.Cells["aktifGorev"].Value = dr["AktifGorevSayisi"].ToString();
                     row.Cells["tamamlananGorev"].Value = dr["TamamlananGorevSayisi"].ToString();
 
-                    // Hesaplanan performans yüzdesi
                     int tamamlananGorevSayisi = Convert.ToInt32(dr["TamamlananGorevSayisi"]);
                     int aktifGorevSayisi = Convert.ToInt32(dr["AktifGorevSayisi"]);
                     int toplamGorevSayisi = tamamlananGorevSayisi + aktifGorevSayisi;
@@ -252,11 +308,17 @@ namespace TaskFlow360
 
                 if (ekibimDGV.Rows.Count == 0 && kullaniciSayisi > 0)
                 {
+                    LogEkle("Ekip üyeleri grid'e yüklenemedi", "Hata", "ManagerProfile");
                     MessageBox.Show("Ekip üyeleri grid'e yüklenemedi.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    LogEkle($"{ekibimDGV.Rows.Count} ekip üyesi başarıyla yüklendi", "Okuma", "ManagerProfile");
                 }
             }
             catch (Exception ex)
             {
+                LogEkle($"Ekip üyeleri yüklenirken hata: {ex.Message}", "Hata", "ManagerProfile");
                 MessageBox.Show("Ekip üyeleri yüklenirken hata oluştu: " + ex.Message, "Veri Yükleme Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -305,6 +367,7 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
+            LogEkle("Raporlar butonuna tıklandı", "Buton", "ManagerProfile");
             ManagerReportsPage managerReportsPage = new ManagerReportsPage();
             managerReportsPage.Show();
             this.Close();

@@ -36,6 +36,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManagerProfile));
             this.icerikPanel = new System.Windows.Forms.Panel();
             this.ekibimDGV = new System.Windows.Forms.DataGridView();
+            this.calisan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aktifGorev = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tamamlananGorev = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aylikPerformans = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ortalamaSure = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblPerformansPrimBaslik = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblHosgeldiniz = new System.Windows.Forms.Label();
@@ -68,7 +73,6 @@
             this.lblDepartmanb = new System.Windows.Forms.Label();
             this.lblBolum = new System.Windows.Forms.Label();
             this.lblAdSoyad = new System.Windows.Forms.Label();
-            this.btnDegistir = new System.Windows.Forms.Button();
             this.pctrProfil = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ikonekipYonetim = new System.Windows.Forms.PictureBox();
@@ -86,11 +90,6 @@
             this.pctrLogo = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.calisan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.aktifGorev = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tamamlananGorev = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.aylikPerformans = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ortalamaSure = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.icerikPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ekibimDGV)).BeginInit();
             this.pnlIsBilgi.SuspendLayout();
@@ -185,6 +184,41 @@
             this.ekibimDGV.Size = new System.Drawing.Size(1625, 280);
             this.ekibimDGV.TabIndex = 3;
             this.ekibimDGV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.ekibimDGV_CellFormatting);
+            // 
+            // calisan
+            // 
+            this.calisan.HeaderText = "Çalışan";
+            this.calisan.MinimumWidth = 6;
+            this.calisan.Name = "calisan";
+            this.calisan.ReadOnly = true;
+            // 
+            // aktifGorev
+            // 
+            this.aktifGorev.HeaderText = "Aktif Görevler";
+            this.aktifGorev.MinimumWidth = 6;
+            this.aktifGorev.Name = "aktifGorev";
+            this.aktifGorev.ReadOnly = true;
+            // 
+            // tamamlananGorev
+            // 
+            this.tamamlananGorev.HeaderText = "Bugün Tamamlanan";
+            this.tamamlananGorev.MinimumWidth = 6;
+            this.tamamlananGorev.Name = "tamamlananGorev";
+            this.tamamlananGorev.ReadOnly = true;
+            // 
+            // aylikPerformans
+            // 
+            this.aylikPerformans.HeaderText = "Aylık Performans";
+            this.aylikPerformans.MinimumWidth = 6;
+            this.aylikPerformans.Name = "aylikPerformans";
+            this.aylikPerformans.ReadOnly = true;
+            // 
+            // ortalamaSure
+            // 
+            this.ortalamaSure.HeaderText = "Ortalama Çözüm Süresi";
+            this.ortalamaSure.MinimumWidth = 6;
+            this.ortalamaSure.Name = "ortalamaSure";
+            this.ortalamaSure.ReadOnly = true;
             // 
             // lblPerformansPrimBaslik
             // 
@@ -471,7 +505,6 @@
             this.pnlPrfilBilgi.Controls.Add(this.lblDepartmanb);
             this.pnlPrfilBilgi.Controls.Add(this.lblBolum);
             this.pnlPrfilBilgi.Controls.Add(this.lblAdSoyad);
-            this.pnlPrfilBilgi.Controls.Add(this.btnDegistir);
             this.pnlPrfilBilgi.Controls.Add(this.pctrProfil);
             this.pnlPrfilBilgi.Location = new System.Drawing.Point(327, 98);
             this.pnlPrfilBilgi.Name = "pnlPrfilBilgi";
@@ -540,25 +573,11 @@
             this.lblAdSoyad.TabIndex = 22;
             this.lblAdSoyad.Text = "İsim Soyisim";
             // 
-            // btnDegistir
-            // 
-            this.btnDegistir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnDegistir.FlatAppearance.BorderSize = 0;
-            this.btnDegistir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDegistir.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnDegistir.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnDegistir.Location = new System.Drawing.Point(136, 192);
-            this.btnDegistir.Name = "btnDegistir";
-            this.btnDegistir.Size = new System.Drawing.Size(157, 40);
-            this.btnDegistir.TabIndex = 21;
-            this.btnDegistir.Text = "Değiştir";
-            this.btnDegistir.UseVisualStyleBackColor = false;
-            // 
             // pctrProfil
             // 
-            this.pctrProfil.Location = new System.Drawing.Point(117, 16);
+            this.pctrProfil.Location = new System.Drawing.Point(117, 21);
             this.pctrProfil.Name = "pctrProfil";
-            this.pctrProfil.Size = new System.Drawing.Size(195, 170);
+            this.pctrProfil.Size = new System.Drawing.Size(195, 194);
             this.pctrProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pctrProfil.TabIndex = 0;
             this.pctrProfil.TabStop = false;
@@ -609,7 +628,7 @@
             this.btnEkipYonetimi.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
             this.btnEkipYonetimi.Size = new System.Drawing.Size(295, 60);
             this.btnEkipYonetimi.TabIndex = 14;
-            this.btnEkipYonetimi.Text = "Ekip Yönetimi";
+            this.btnEkipYonetimi.Text = "Kontrol Paneli";
             this.btnEkipYonetimi.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnEkipYonetimi.UseVisualStyleBackColor = false;
             this.btnEkipYonetimi.Click += new System.EventHandler(this.btnEkipYonetimi_Click);
@@ -793,41 +812,6 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
-            // calisan
-            // 
-            this.calisan.HeaderText = "Çalışan";
-            this.calisan.MinimumWidth = 6;
-            this.calisan.Name = "calisan";
-            this.calisan.ReadOnly = true;
-            // 
-            // aktifGorev
-            // 
-            this.aktifGorev.HeaderText = "Aktif Görevler";
-            this.aktifGorev.MinimumWidth = 6;
-            this.aktifGorev.Name = "aktifGorev";
-            this.aktifGorev.ReadOnly = true;
-            // 
-            // tamamlananGorev
-            // 
-            this.tamamlananGorev.HeaderText = "Bugün Tamamlanan";
-            this.tamamlananGorev.MinimumWidth = 6;
-            this.tamamlananGorev.Name = "tamamlananGorev";
-            this.tamamlananGorev.ReadOnly = true;
-            // 
-            // aylikPerformans
-            // 
-            this.aylikPerformans.HeaderText = "Aylık Performans";
-            this.aylikPerformans.MinimumWidth = 6;
-            this.aylikPerformans.Name = "aylikPerformans";
-            this.aylikPerformans.ReadOnly = true;
-            // 
-            // ortalamaSure
-            // 
-            this.ortalamaSure.HeaderText = "Ortalama Çözüm Süresi";
-            this.ortalamaSure.MinimumWidth = 6;
-            this.ortalamaSure.Name = "ortalamaSure";
-            this.ortalamaSure.ReadOnly = true;
-            // 
             // ManagerProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -905,7 +889,6 @@
         private System.Windows.Forms.Label lblDepartmanb;
         private System.Windows.Forms.Label lblBolum;
         private System.Windows.Forms.Label lblAdSoyad;
-        private System.Windows.Forms.Button btnDegistir;
         private System.Windows.Forms.PictureBox pctrProfil;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox ikonCikis;

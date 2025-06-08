@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Net;
 
 namespace TaskFlow360
 {
@@ -18,14 +19,64 @@ namespace TaskFlow360
         public ManagerDashboard()
         {
             InitializeComponent();
+            LogEkle("ManagerDashboard formu başlatıldı", "Form", "ManagerDashboard");
+        }
+
+        private void LogEkle(string islemDetaylari, string islemTipi, string tabloAdi)
+        {
+            try
+            {
+                if (baglanti.conn.State != ConnectionState.Open)
+                    baglanti.conn.Open();
+                string sorgu = @"INSERT INTO Log (IslemTarihi, KullaniciID, IslemTipi, TabloAdi, IslemDetaylari, IPAdresi) 
+                                VALUES (@IslemTarihi, @KullaniciID, @IslemTipi, @TabloAdi, @IslemDetaylari, @IPAdresi)";
+
+                using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
+                {
+                    cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                    cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
+                    cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
+                    cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
+                    cmd.Parameters.AddWithValue("@IPAdresi", GetLocalIPAddress());
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Log kayıt hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (baglanti.conn.State == ConnectionState.Open)
+                    baglanti.conn.Close();
+            }
+        }
+
+        private string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            return "IP Adresi Bulunamadı";
         }
 
         private void ManagerDashboard_Load(object sender, EventArgs e)
         {
+            LogEkle("ManagerDashboard yüklenmeye başlandı", "Form", "ManagerDashboard");
             EkibindekiKullanicilariGetir();
+            LogEkle("Ekip üyeleri yüklendi", "Okuma", "ManagerDashboard");
             SonCagrilariGetir();
+            LogEkle("Son çağrılar yüklendi", "Okuma", "ManagerDashboard");
             SonIslemleriGetir();
+            LogEkle("Son işlemler yüklendi", "Okuma", "ManagerDashboard");
             AylikCagriDurumlariniCharttaGoster();
+            LogEkle("Aylık çağrı durumları yüklendi", "Okuma", "ManagerDashboard");
             foreach (var dgv in new[] { EkipDGV, SonGorevlerDGV, SonIslemlerDGV })
             {
                 foreach (DataGridViewColumn column in dgv.Columns)
@@ -120,7 +171,6 @@ namespace TaskFlow360
 
         private void SonCagrilariGetir()
         {
-            // DataGrid ayarları
             SonGorevlerDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             SonGorevlerDGV.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
             SonGorevlerDGV.ScrollBars = ScrollBars.Both;
@@ -230,8 +280,6 @@ namespace TaskFlow360
                             SonIslemlerDGV.Columns["TeslimTarihi"].HeaderText = "Teslim Tarihi";
                             SonIslemlerDGV.Columns["CevapTarihi"].HeaderText = "Cevap Tarihi";
                             SonIslemlerDGV.Columns["SonDegisiklikTarihi"].HeaderText = "Son Değişiklik";
-
-                            // İstenmeyen sütunları gizleyebilirsiniz
                             SonIslemlerDGV.Columns["OlusturmaTarihi"].Visible = false;
                             SonIslemlerDGV.Columns["TeslimTarihi"].Visible = false;
                             SonIslemlerDGV.Columns["CevapTarihi"].Visible = false;
@@ -263,21 +311,21 @@ namespace TaskFlow360
         FROM dbo.Cagri
         WHERE YEAR(OlusturmaTarihi) = YEAR(GETDATE())
               AND MONTH(OlusturmaTarihi) = MONTH(GETDATE())
+              AND AtananKullaniciID IN (SELECT KullaniciID FROM Kullanici WHERE YoneticiID = @YoneticiID)
         GROUP BY Durum
         ORDER BY CagriSayisi DESC";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
+                    command.Parameters.AddWithValue("@YoneticiID", KullaniciBilgi.KullaniciID);
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
                     DataTable dataTable = new DataTable();
                     adapter.Fill(dataTable);
 
-                    // Grafik temizleme
                     chartCagriDurum.Series.Clear();
                     chartCagriDurum.Titles.Clear();
                     chartCagriDurum.ChartAreas.Clear();
 
-                    // Chart Area ayarları
                     ChartArea area = new ChartArea();
                     area.BackColor = Color.WhiteSmoke;
                     area.AxisX.Title = "Çağrı Durumu";
@@ -289,7 +337,6 @@ namespace TaskFlow360
                     area.AxisY.MajorGrid.LineColor = Color.LightGray;
                     chartCagriDurum.ChartAreas.Add(area);
 
-                    // Seri oluştur
                     Series series = new Series("Çağrı\nDurumları");
                     series.ChartType = SeriesChartType.Column;
                     series.IsValueShownAsLabel = true;
@@ -298,7 +345,6 @@ namespace TaskFlow360
                     series.BorderColor = Color.Black;
                     series.BorderWidth = 1;
 
-                    // Renk paleti
                     Color[] renkler = new Color[]
                     {
                     Color.FromArgb(126, 87, 194), // Mor
@@ -320,16 +366,12 @@ namespace TaskFlow360
                         series.Points[pointIndex].Color = renkler[renkIndex % renkler.Length];
                         renkIndex++;
                     }
-
-                    // Seriyi ekle
                     chartCagriDurum.Series.Add(series);
-
-                    // Başlık
                     chartCagriDurum.Titles.Add(new Title
                     {
                         Text = $"{DateTime.Now:MMMM} Ayı Çağrı Durumları",
                         Font = new Font("Century Gothic", 12, FontStyle.Bold),
-                        ForeColor = Color.FromArgb(94, 53, 177), // Tema rengi
+                        ForeColor = Color.FromArgb(94, 53, 177), 
                         Docking = Docking.Top,
                         Alignment = ContentAlignment.MiddleCenter
                     });
@@ -348,16 +390,19 @@ namespace TaskFlow360
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            LogEkle("Kapat butonuna tıklandı", "Buton", "ManagerDashboard");
             Application.Exit();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
+            LogEkle("Küçült butonuna tıklandı", "Buton", "ManagerDashboard");
             WindowState = FormWindowState.Minimized;
         }
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
+            LogEkle("Anasayfa butonuna tıklandı", "Buton", "ManagerDashboard");
             ManagerHomepage managerHomepage = new ManagerHomepage();
             managerHomepage.Show();
             this.Close();
@@ -365,6 +410,7 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
+            LogEkle("Profil butonuna tıklandı", "Buton", "ManagerDashboard");
             ManagerProfile managerProfile = new ManagerProfile();
             managerProfile.Show();
             this.Close();
@@ -372,6 +418,7 @@ namespace TaskFlow360
 
         private void btnGorevler_Click(object sender, EventArgs e)
         {
+            LogEkle("Görevler butonuna tıklandı", "Buton", "ManagerDashboard");
             ManagerTasks managerTasks = new ManagerTasks();
             managerTasks.Show();
             this.Close();
@@ -379,6 +426,7 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
+            LogEkle("Raporlar butonuna tıklandı", "Buton", "ManagerDashboard");
             ManagerReportsPage managerReportsPage = new ManagerReportsPage();
             managerReportsPage.Show();
             this.Close();
@@ -386,8 +434,18 @@ namespace TaskFlow360
 
         private void btnEkipYonetimi_Click(object sender, EventArgs e)
         {
+            LogEkle("Ekip Yönetimi butonuna tıklandı", "Buton", "ManagerDashboard");
             ManagerDashboard managerDashboard = new ManagerDashboard();
             managerDashboard.Show();
+            this.Close();
+        }
+
+        private void btnCikis_Click(object sender, EventArgs e)
+        {
+            LogEkle("Çıkış butonuna tıklandı", "Buton", "ManagerDashboard");
+            KullaniciBilgi.BilgileriTemizle();
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
             this.Close();
         }
     }

@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Net;
 
 namespace TaskFlow360
 {
@@ -14,7 +15,53 @@ namespace TaskFlow360
         public ManagerReportsPage()
         {
             InitializeComponent();
+            LogEkle("ManagerReportsPage formu başlatıldı", "Form", "ManagerReportsPage");
         }
+
+        private void LogEkle(string islemDetaylari, string islemTipi, string tabloAdi)
+        {
+            try
+            {
+                if (baglanti.conn.State != ConnectionState.Open)
+                    baglanti.conn.Open();
+                string sorgu = @"INSERT INTO Log (IslemTarihi, KullaniciID, IslemTipi, TabloAdi, IslemDetaylari, IPAdresi) 
+                                VALUES (@IslemTarihi, @KullaniciID, @IslemTipi, @TabloAdi, @IslemDetaylari, @IPAdresi)";
+
+                using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
+                {
+                    cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                    cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
+                    cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
+                    cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
+                    cmd.Parameters.AddWithValue("@IPAdresi", GetLocalIPAddress());
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Log kayıt hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (baglanti.conn.State == ConnectionState.Open)
+                    baglanti.conn.Close();
+            }
+        }
+
+        private string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            return "IP Adresi Bulunamadı";
+        }
+
         private void BeautifyChart(Chart chart)
         {
             chart.BackColor = Color.White;
@@ -26,6 +73,8 @@ namespace TaskFlow360
             area.AxisY.LabelStyle.ForeColor = Color.DimGray;
             area.AxisX.MajorGrid.LineColor = Color.FromArgb(224, 224, 224);
             area.AxisY.MajorGrid.LineColor = Color.FromArgb(224, 224, 224);
+            area.AxisX.LabelStyle.Font = new Font("Century Gothic", 10, FontStyle.Regular);
+            area.AxisY.LabelStyle.Font = new Font("Century Gothic", 10, FontStyle.Regular);
             chart.ChartAreas.Add(area);
 
             chart.Legends.Clear();
@@ -33,16 +82,19 @@ namespace TaskFlow360
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            LogEkle("Kapat butonuna tıklandı", "Buton", "ManagerReportsPage");
             Application.Exit();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
+            LogEkle("Küçült butonuna tıklandı", "Buton", "ManagerReportsPage");
             WindowState = FormWindowState.Minimized;
         }
 
         private void btnCikis_Click(object sender, EventArgs e)
         {
+            LogEkle("Çıkış butonuna tıklandı", "Buton", "ManagerReportsPage");
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             this.Close();
@@ -50,6 +102,7 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
+            LogEkle("Anasayfa butonuna tıklandı", "Buton", "ManagerReportsPage");
             ManagerHomepage managerHomepage = new ManagerHomepage();
             managerHomepage.Show();
             this.Close();
@@ -57,6 +110,7 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
+            LogEkle("Profil butonuna tıklandı", "Buton", "ManagerReportsPage");
             ManagerProfile managerProfile = new ManagerProfile();
             managerProfile.Show();
             this.Close();
@@ -64,6 +118,7 @@ namespace TaskFlow360
 
         private void btnGorevler_Click(object sender, EventArgs e)
         {
+            LogEkle("Görevler butonuna tıklandı", "Buton", "ManagerReportsPage");
             ManagerTasks managerTasks = new ManagerTasks();
             managerTasks.Show();
             this.Close();
@@ -71,6 +126,7 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
+            LogEkle("Raporlar butonuna tıklandı", "Buton", "ManagerReportsPage");
             ManagerReportsPage managerReportsPage = new ManagerReportsPage();
             managerReportsPage.Show();
             this.Close();
@@ -78,6 +134,7 @@ namespace TaskFlow360
 
         private void btnEkipYonetimi_Click(object sender, EventArgs e)
         {
+            LogEkle("Ekip Yönetimi butonuna tıklandı", "Buton", "ManagerReportsPage");
             ManagerDashboard managerDashboard = new ManagerDashboard();
             managerDashboard.Show();
             this.Close();
@@ -85,21 +142,24 @@ namespace TaskFlow360
 
         private void ManagerReportsPage_Load(object sender, EventArgs e)
         {
-            
-            LoadDepartmentPerformance();    
-            LoadTeamPerformance();
-            LoadCallStatusDistribution();
+            LogEkle("ManagerReportsPage yüklenmeye başlandı", "Form", "ManagerReportsPage");
+            DepartmanPerformans();    
+            LogEkle("Departman performansı yüklendi", "Okuma", "ManagerReportsPage");
+            TakimPerformans();
+            LogEkle("Ekip performansı yüklendi", "Okuma", "ManagerReportsPage");
+            CagriDurum();
+            LogEkle("Çağrı durum dağılımı yüklendi", "Okuma", "ManagerReportsPage");
             AylikPrimDagilimi();
+            LogEkle("Aylık prim dağılımı yüklendi", "Okuma", "ManagerReportsPage");
         }
 
-        private void LoadDepartmentPerformance()
+        private void DepartmanPerformans()
         {
-            BeautifyChart(chartDepartmentPerformance); // Eklendi
-
+            BeautifyChart(chartDepartmentPerformance);
             chartDepartmentPerformance.Series.Clear();
             chartDepartmentPerformance.Titles.Clear();
             chartDepartmentPerformance.Titles.Add("Departman Performansı");
-            chartDepartmentPerformance.Titles[0].Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            chartDepartmentPerformance.Titles[0].Font = new Font("Century Gothic", 12, FontStyle.Bold);
             chartDepartmentPerformance.Titles[0].ForeColor = Color.FromArgb(126, 87, 194);
 
             Series cagriSeries = new Series("Çağrı Sayısı")
@@ -107,7 +167,7 @@ namespace TaskFlow360
                 ChartType = SeriesChartType.Column,
                 Color = Color.FromArgb(126, 87, 194),
                 IsValueShownAsLabel = true,
-                Font = new Font("Segoe UI", 8, FontStyle.Bold)
+                Font = new Font("Century Gothic", 8, FontStyle.Bold)
             };
 
             Series cozumSeries = new Series("Ort. Çözüm Süresi (dk)")
@@ -117,7 +177,8 @@ namespace TaskFlow360
                 BorderWidth = 3,
                 MarkerStyle = MarkerStyle.Circle,
                 MarkerSize = 8,
-                MarkerColor = Color.FromArgb(103, 58, 183)
+                MarkerColor = Color.FromArgb(103, 58, 183),
+                Font = new Font("Century Gothic", 8, FontStyle.Bold)
             };
 
             using (SqlConnection conn = Baglanti.BaglantiGetir())
@@ -149,22 +210,21 @@ namespace TaskFlow360
         }
 
 
-        private void LoadTeamPerformance()
+        private void TakimPerformans()
         {
             BeautifyChart(chartTeamPerformance);
-
             chartTeamPerformance.Series.Clear();
             chartTeamPerformance.Titles.Clear();
             chartTeamPerformance.Titles.Add("Ekip Performansı (Son 30 Gün)");
-            chartTeamPerformance.Titles[0].Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            chartTeamPerformance.Titles[0].Font = new Font("Century Gothic", 12, FontStyle.Bold);
             chartTeamPerformance.Titles[0].ForeColor = Color.FromArgb(126, 87, 194);
 
             Series series = new Series("Çağrı Sayısı")
             {
                 ChartType = SeriesChartType.Bar,
-                Color = Color.FromArgb(179, 136, 255), // Açık mor
+                Color = Color.FromArgb(179, 136, 255),
                 IsValueShownAsLabel = true,
-                Font = new Font("Segoe UI", 8, FontStyle.Bold)
+                Font = new Font("Century Gothic", 8, FontStyle.Bold)
             };
 
             using (SqlConnection conn = Baglanti.BaglantiGetir())
@@ -199,31 +259,37 @@ namespace TaskFlow360
         }
 
 
-        private void LoadCallStatusDistribution()
+        private void CagriDurum()
         {
             BeautifyChart(chartCallStatus);
-
             chartCallStatus.Series.Clear();
             chartCallStatus.Titles.Clear();
             chartCallStatus.Titles.Add("Çağrı Durum Dağılımı");
-            chartCallStatus.Titles[0].Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            chartCallStatus.Titles[0].Font = new Font("Century Gothic", 12, FontStyle.Bold);
             chartCallStatus.Titles[0].ForeColor = Color.FromArgb(126, 87, 194);
 
             Series series = new Series
             {
                 ChartType = SeriesChartType.Pie,
                 IsValueShownAsLabel = true,
-                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Font = new Font("Century Gothic", 9, FontStyle.Regular),
                 LabelForeColor = Color.Black
             };
 
             string[] pieColors = {
-        "#7E57C2", // Mor
-        "#FFD54F", // Sarı
-        "#B39DDB", // Açık mor
-        "#81D4FA", // Açık mavi
-        "#AED581"  // Yeşilimsi
-    };
+                "#7E57C2", // Mor
+                "#FFD54F", // Sarı
+                "#B39DDB", // Açık mor
+                "#81D4FA", // Açık mavi
+                "#AED581"  // Yeşilimsi
+            };
+
+            chartCallStatus.Legends.Clear();
+            Legend legend = new Legend("Durumlar");
+            legend.Docking = Docking.Right;
+            legend.Font = new Font("Century Gothic", 9, FontStyle.Regular);
+            legend.LegendStyle = LegendStyle.Table;
+            chartCallStatus.Legends.Add(legend);
 
             using (SqlConnection conn = Baglanti.BaglantiGetir())
             {
@@ -247,6 +313,7 @@ namespace TaskFlow360
                     dp.AxisLabel = dr["Durum"].ToString();
                     dp.YValues = new double[] { Convert.ToDouble(dr["Adet"]) };
                     dp.Color = ColorTranslator.FromHtml(pieColors[colorIndex % pieColors.Length]);
+                    dp.LegendText = dr["Durum"].ToString();
                     series.Points.Add(dp);
                     colorIndex++;
                 }
@@ -263,15 +330,15 @@ namespace TaskFlow360
             chartMonthlyPrim.Series.Clear();
             chartMonthlyPrim.Titles.Clear();
             chartMonthlyPrim.Titles.Add("Aylık Prim Dağılımı");
-            chartMonthlyPrim.Titles[0].Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            chartMonthlyPrim.Titles[0].Font = new Font("Century Gothic", 12, FontStyle.Bold);
             chartMonthlyPrim.Titles[0].ForeColor = Color.FromArgb(126, 87, 194);
 
             Series primSeries = new Series("Toplam Prim")
             {
                 ChartType = SeriesChartType.Column,
-                Color = Color.FromArgb(255, 193, 7), // Hardal sarısı
+                Color = Color.FromArgb(255, 193, 7),
                 IsValueShownAsLabel = true,
-                Font = new Font("Segoe UI", 8, FontStyle.Bold)
+                Font = new Font("Century Gothic", 8, FontStyle.Bold)
             };
 
             using (SqlConnection conn = Baglanti.BaglantiGetir())

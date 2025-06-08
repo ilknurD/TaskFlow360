@@ -58,6 +58,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.icerikPanel = new System.Windows.Forms.Panel();
             this.ekipUyeleriDGV = new System.Windows.Forms.DataGridView();
+            this.calisan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aktifGorev = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tamamlananGorev = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aylikPerformans = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ortalamaSure = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3 = new System.Windows.Forms.Panel();
             this.gecikenKutu = new System.Windows.Forms.Panel();
             this.label13 = new System.Windows.Forms.Label();
@@ -83,11 +88,6 @@
             this.bekleyenCagrilarDGV = new System.Windows.Forms.DataGridView();
             this.PnlGorevler = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.calisan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.aktifGorev = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tamamlananGorev = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.aylikPerformans = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ortalamaSure = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ikonekipYonetim)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ikonCikis)).BeginInit();
@@ -156,7 +156,7 @@
             this.btnEkipYonetimi.Padding = new System.Windows.Forms.Padding(80, 0, 0, 0);
             this.btnEkipYonetimi.Size = new System.Drawing.Size(295, 60);
             this.btnEkipYonetimi.TabIndex = 12;
-            this.btnEkipYonetimi.Text = "Ekip Yönetimi";
+            this.btnEkipYonetimi.Text = "Kontrol Paneli";
             this.btnEkipYonetimi.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnEkipYonetimi.UseVisualStyleBackColor = false;
             this.btnEkipYonetimi.Click += new System.EventHandler(this.btnEkipYonetimi_Click);
@@ -434,6 +434,41 @@
             this.ekipUyeleriDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ekipUyeleriDGV.Size = new System.Drawing.Size(1684, 330);
             this.ekipUyeleriDGV.TabIndex = 0;
+            // 
+            // calisan
+            // 
+            this.calisan.HeaderText = "Çalışan";
+            this.calisan.MinimumWidth = 6;
+            this.calisan.Name = "calisan";
+            this.calisan.ReadOnly = true;
+            // 
+            // aktifGorev
+            // 
+            this.aktifGorev.HeaderText = "Aktif Görevler";
+            this.aktifGorev.MinimumWidth = 6;
+            this.aktifGorev.Name = "aktifGorev";
+            this.aktifGorev.ReadOnly = true;
+            // 
+            // tamamlananGorev
+            // 
+            this.tamamlananGorev.HeaderText = "Bugün Tamamlanan";
+            this.tamamlananGorev.MinimumWidth = 6;
+            this.tamamlananGorev.Name = "tamamlananGorev";
+            this.tamamlananGorev.ReadOnly = true;
+            // 
+            // aylikPerformans
+            // 
+            this.aylikPerformans.HeaderText = "Aylık Performans";
+            this.aylikPerformans.MinimumWidth = 6;
+            this.aylikPerformans.Name = "aylikPerformans";
+            this.aylikPerformans.ReadOnly = true;
+            // 
+            // ortalamaSure
+            // 
+            this.ortalamaSure.HeaderText = "Ortalama Çözüm Süresi";
+            this.ortalamaSure.MinimumWidth = 6;
+            this.ortalamaSure.Name = "ortalamaSure";
+            this.ortalamaSure.ReadOnly = true;
             // 
             // panel3
             // 
@@ -757,41 +792,6 @@
             this.label2.Size = new System.Drawing.Size(99, 21);
             this.label2.TabIndex = 24;
             this.label2.Text = "Merhaba, ";
-            // 
-            // calisan
-            // 
-            this.calisan.HeaderText = "Çalışan";
-            this.calisan.MinimumWidth = 6;
-            this.calisan.Name = "calisan";
-            this.calisan.ReadOnly = true;
-            // 
-            // aktifGorev
-            // 
-            this.aktifGorev.HeaderText = "Aktif Görevler";
-            this.aktifGorev.MinimumWidth = 6;
-            this.aktifGorev.Name = "aktifGorev";
-            this.aktifGorev.ReadOnly = true;
-            // 
-            // tamamlananGorev
-            // 
-            this.tamamlananGorev.HeaderText = "Bugün Tamamlanan";
-            this.tamamlananGorev.MinimumWidth = 6;
-            this.tamamlananGorev.Name = "tamamlananGorev";
-            this.tamamlananGorev.ReadOnly = true;
-            // 
-            // aylikPerformans
-            // 
-            this.aylikPerformans.HeaderText = "Aylık Performans";
-            this.aylikPerformans.MinimumWidth = 6;
-            this.aylikPerformans.Name = "aylikPerformans";
-            this.aylikPerformans.ReadOnly = true;
-            // 
-            // ortalamaSure
-            // 
-            this.ortalamaSure.HeaderText = "Ortalama Çözüm Süresi";
-            this.ortalamaSure.MinimumWidth = 6;
-            this.ortalamaSure.Name = "ortalamaSure";
-            this.ortalamaSure.ReadOnly = true;
             // 
             // ManagerHomepage
             // 

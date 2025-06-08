@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net;
 
 namespace TaskFlow360
 {
@@ -18,25 +19,123 @@ namespace TaskFlow360
         public ManagerTasks()
         {
             InitializeComponent();
+            LogEkle("ManagerTasks formu başlatıldı", "Form", "ManagerTasks");
         }
 
+        private void LogEkle(string islemDetaylari, string islemTipi, string tabloAdi)
+        {
+            try
+            {
+                if (baglanti.conn.State != ConnectionState.Open)
+                    baglanti.conn.Open();
+                string sorgu = @"INSERT INTO Log (IslemTarihi, KullaniciID, IslemTipi, TabloAdi, IslemDetaylari, IPAdresi) 
+                                VALUES (@IslemTarihi, @KullaniciID, @IslemTipi, @TabloAdi, @IslemDetaylari, @IPAdresi)";
+
+                using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
+                {
+                    cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@KullaniciID", KullaniciBilgi.KullaniciID);
+                    cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
+                    cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
+                    cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
+                    cmd.Parameters.AddWithValue("@IPAdresi", GetLocalIPAddress());
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Log kayıt hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (baglanti.conn.State == ConnectionState.Open)
+                    baglanti.conn.Close();
+            }
+        }
+
+        private string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            return "IP Adresi Bulunamadı";
+        }
+        private void GuncelDurumLabeliniGuncelle()
+        {
+            try
+            {
+                if (baglanti.conn.State != ConnectionState.Open)
+                    baglanti.conn.Open();
+
+                string managerID = KullaniciBilgi.KullaniciID;
+
+                // Bugün açılan bekleyen çağrı sayısı (yönetici ve ekibi için)
+                string bekleyenSorgu = @"
+                SELECT COUNT(*) FROM Cagri C
+                INNER JOIN Kullanici K ON C.AtananKullaniciID = K.KullaniciID
+                WHERE (C.AtananKullaniciID = @ManagerID OR K.YoneticiID = @ManagerID)
+                AND C.Durum = 'Beklemede'
+                AND CAST(C.OlusturmaTarihi AS DATE) = CAST(GETDATE() AS DATE)";
+
+                                // Devam eden görevler (Beklemede veya Atandı)
+                                string devamEdenSorgu = @"
+                SELECT COUNT(*) FROM Cagri C
+                INNER JOIN Kullanici K ON C.AtananKullaniciID = K.KullaniciID
+                WHERE (C.AtananKullaniciID = @ManagerID OR K.YoneticiID = @ManagerID)
+                AND C.Durum IN ('Beklemede', 'Atandı')";
+
+                int bugunBekleyen = 0;
+                int devamEden = 0;
+
+                using (SqlCommand cmd = new SqlCommand(bekleyenSorgu, baglanti.conn))
+                {
+                    cmd.Parameters.AddWithValue("@ManagerID", managerID);
+                    bugunBekleyen = (int)cmd.ExecuteScalar();
+                }
+
+                using (SqlCommand cmd = new SqlCommand(devamEdenSorgu, baglanti.conn))
+                {
+                    cmd.Parameters.AddWithValue("@ManagerID", managerID);
+                    devamEden = (int)cmd.ExecuteScalar();
+                }
+
+                label1.Text = $"Bugün {bugunBekleyen} yeni bekleyen çağrı ve {devamEden} devam eden görev bulunmaktadır.";
+            }
+            catch (Exception ex)
+            {
+                label1.Text = "Durum bilgisi alınamadı.";
+            }
+            finally
+            {
+                if (baglanti.conn.State == ConnectionState.Open)
+                    baglanti.conn.Close();
+            }
+        }
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            LogEkle("Kapat butonuna tıklandı", "Buton", "ManagerTasks");
             Application.Exit();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
+            LogEkle("Küçült butonuna tıklandı", "Buton", "ManagerTasks");
             WindowState = FormWindowState.Minimized;
         }
 
         private void gorevlerTab_Click(object sender, EventArgs e)
         {
-
+            LogEkle("Görevler sekmesine tıklandı", "Buton", "ManagerTasks");
         }
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
+            LogEkle("Anasayfa butonuna tıklandı", "Buton", "ManagerTasks");
             ManagerHomepage managerHomepage = new ManagerHomepage();
             managerHomepage.Show();
             this.Close();
@@ -44,6 +143,7 @@ namespace TaskFlow360
 
         private void btnGorevler_Click(object sender, EventArgs e)
         {
+            LogEkle("Görevler butonuna tıklandı", "Buton", "ManagerTasks");
             ManagerTasks managerTasks = new ManagerTasks();
             managerTasks.Show();
             this.Close();
@@ -51,6 +151,7 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
+            LogEkle("Profil butonuna tıklandı", "Buton", "ManagerTasks");
             ManagerProfile manageProfile = new ManagerProfile();
             manageProfile.Show();
             this.Close();
@@ -58,6 +159,7 @@ namespace TaskFlow360
 
         private void btnCikis_Click(object sender, EventArgs e)
         {
+            LogEkle("Çıkış butonuna tıklandı", "Buton", "ManagerTasks");
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             this.Close();
@@ -65,6 +167,7 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
+            LogEkle("Raporlar butonuna tıklandı", "Buton", "ManagerTasks");
             ManagerReportsPage reportPage = new ManagerReportsPage();
             reportPage.Show();
             this.Close();
@@ -72,6 +175,7 @@ namespace TaskFlow360
 
         private void btnEkipYonetimi_Click(object sender, EventArgs e)
         {
+            LogEkle("Ekip Yönetimi butonuna tıklandı", "Buton", "ManagerTasks");
             ManagerDashboard managerDashboardPage = new ManagerDashboard();
             managerDashboardPage.Show();
             this.Close();
@@ -79,14 +183,17 @@ namespace TaskFlow360
 
         private void ManagerTasks_Load(object sender, EventArgs e)
         {
+            LogEkle("ManagerTasks yüklenmeye başlandı", "Form", "ManagerTasks");
             try
             {
                 LoadDataFromDatabase();
+                LogEkle("Çağrılar başarıyla yüklendi", "Okuma", "ManagerTasks");
                 LoadTeamMembers();
+                LogEkle("Ekip üyeleri başarıyla yüklendi", "Okuma", "ManagerTasks");
+                GuncelDurumLabeliniGuncelle();
                 ConfigureBekleyenCagrilarDGV();
                 ConfigureEkipUyeleriDGV();
                 FormatDataGridViews();
-                // DataGridView stilleri
                 CagrilarDGV.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
                 CagrilarDGV.ColumnHeadersDefaultCellStyle.Font = new Font("Century Gothic", 12, FontStyle.Bold);
                 CagrilarDGV.EnableHeadersVisualStyles = false;
@@ -114,6 +221,7 @@ namespace TaskFlow360
             }
             catch (Exception ex)
             {
+                LogEkle($"Veriler yüklenirken hata oluştu: {ex.Message}", "Hata", "ManagerTasks");
                 MessageBox.Show($"Veriler yüklenirken bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -128,25 +236,25 @@ namespace TaskFlow360
                 string managerID = KullaniciBilgi.KullaniciID;
 
                 string queryForSelfAndTeam = @"
-SELECT 
-    '#' + CAST(C.CagriID AS NVARCHAR(10)) AS CagriNumarasi,
-    C.Baslik AS Baslik,
-    C.CagriKategori AS CagriKategori,
-    C.Oncelik AS Oncelik,
-    C.Durum AS Durum
-FROM 
-    [dbo].[Cagri] C
-INNER JOIN [dbo].[Kullanici] K ON C.AtananKullaniciID = K.KullaniciID
-WHERE 
-    C.AtananKullaniciID = @ManagerID OR
-    K.YoneticiID = @ManagerID
-ORDER BY 
-    CASE C.Oncelik
-        WHEN 'Yüksek' THEN 1
-        WHEN 'Orta' THEN 2
-        WHEN 'Normal' THEN 3
-        ELSE 4
-    END";
+                SELECT 
+                    '#' + CAST(C.CagriID AS NVARCHAR(10)) AS CagriNumarasi,
+                    C.Baslik AS Baslik,
+                    C.CagriKategori AS CagriKategori,
+                    C.Oncelik AS Oncelik,
+                    C.Durum AS Durum
+                FROM 
+                    [dbo].[Cagri] C
+                INNER JOIN [dbo].[Kullanici] K ON C.AtananKullaniciID = K.KullaniciID
+                WHERE 
+                    C.AtananKullaniciID = @ManagerID OR
+                    K.YoneticiID = @ManagerID
+                ORDER BY 
+                    CASE C.Oncelik
+                        WHEN 'Yüksek' THEN 1
+                        WHEN 'Orta' THEN 2
+                        WHEN 'Normal' THEN 3
+                        ELSE 4
+                    END";
 
                 CagrilarDGV.Columns.Clear();
                 CagrilarDGV.Columns.Add("CagriNumarasi", "Çağrı No");
@@ -205,33 +313,33 @@ ORDER BY
                 string managerID = KullaniciBilgi.KullaniciID;
 
                 string query = @"SELECT 
-    K.KullaniciID,
-    K.Ad + ' ' + K.Soyad AS AdSoyad,
-    -- Aktif görev sayısı
-    (SELECT COUNT(*) FROM Cagri C WHERE C.AtananKullaniciID = K.KullaniciID AND C.Durum IN ('Atandı', 'Beklemede')) AS AktifGorevler,
+                K.KullaniciID,
+                K.Ad + ' ' + K.Soyad AS AdSoyad,
+                -- Aktif görev sayısı
+                (SELECT COUNT(*) FROM Cagri C WHERE C.AtananKullaniciID = K.KullaniciID AND C.Durum IN ('Atandı', 'Beklemede')) AS AktifGorevler,
     
-    -- Bugün tamamlanan görevler
-    (SELECT COUNT(*) FROM Cagri C WHERE C.AtananKullaniciID = K.KullaniciID AND C.Durum = 'Tamamlandı' AND CAST(C.TeslimTarihi AS DATE) = CAST(GETDATE() AS DATE)) AS BugunTamamlanan,
+                -- Bugün tamamlanan görevler
+                (SELECT COUNT(*) FROM Cagri C WHERE C.AtananKullaniciID = K.KullaniciID AND C.Durum = 'Tamamlandı' AND CAST(C.TeslimTarihi AS DATE) = CAST(GETDATE() AS DATE)) AS BugunTamamlanan,
 
-    -- Son 30 gün içindeki performans
-    (SELECT COUNT(*) FROM Cagri C WHERE C.AtananKullaniciID = K.KullaniciID AND C.Durum = 'Tamamlandı' AND C.TeslimTarihi >= DATEADD(DAY, -30, GETDATE())) AS AylikPerformans,
+                -- Son 30 gün içindeki performans
+                (SELECT COUNT(*) FROM Cagri C WHERE C.AtananKullaniciID = K.KullaniciID AND C.Durum = 'Tamamlandı' AND C.TeslimTarihi >= DATEADD(DAY, -30, GETDATE())) AS AylikPerformans,
 
-    -- Ortalama çözüm süresi (saat cinsinden)
-    (SELECT 
-        AVG(DATEDIFF(MINUTE, C.OlusturmaTarihi, C.TeslimTarihi)) / 60.0
-     FROM 
-        Cagri C 
-     WHERE 
-        C.AtananKullaniciID = K.KullaniciID 
-        AND C.Durum = 'Tamamlandı'
-        AND C.TeslimTarihi IS NOT NULL
-    ) AS OrtalamaSureSaat
+                -- Ortalama çözüm süresi (saat cinsinden)
+                (SELECT 
+                    AVG(DATEDIFF(MINUTE, C.OlusturmaTarihi, C.TeslimTarihi)) / 60.0
+                 FROM 
+                    Cagri C 
+                 WHERE 
+                    C.AtananKullaniciID = K.KullaniciID 
+                    AND C.Durum = 'Tamamlandı'
+                    AND C.TeslimTarihi IS NOT NULL
+                ) AS OrtalamaSureSaat
 
-FROM 
-    Kullanici K
-WHERE 
-    K.YoneticiID = @ManagerID
-";
+            FROM 
+                Kullanici K
+            WHERE 
+                K.YoneticiID = @ManagerID
+            ";
                 ekipUyeleriDGV.Columns.Clear();
                 ekipUyeleriDGV.Columns.Add("AdSoyad", "Ad Soyad");
                 ekipUyeleriDGV.Columns.Add("AktifGorevler", "Aktif Görevler");
@@ -319,7 +427,6 @@ WHERE
                     return;
                 }
 
-                // Yeni formu aç ve memberID'yi gönder  
                 Tasks tasks = new Tasks(memberID, KullaniciBilgi.KullaniciID);
                 tasks.SetMemberName(selectedRow.Cells["AdSoyad"].Value.ToString());
                 tasks.Show();
@@ -336,15 +443,9 @@ WHERE
             {
                 if (e.RowIndex >= 0 && e.ColumnIndex == CagrilarDGV.Columns["islemButon"].Index)
                 {
-                    // Satırı seç
                     CagrilarDGV.Rows[e.RowIndex].Selected = true;
 
                     string cagriID = CagrilarDGV.Rows[e.RowIndex].Cells["CagriNumarasi"].Value.ToString().Replace("#", "");
-
-                    // İşlemlerinizi burada yapın
-                    //EditCallForm editForm = new EditCallForm(cagriID);
-                    //editForm.ShowDialog();
-
                     LoadDataFromDatabase();
                 }
             }
