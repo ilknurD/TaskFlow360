@@ -21,6 +21,79 @@ namespace TaskFlow360
             InitializeComponent();
             _cagriID = cagriID;
             _talepEdenID = talepEdenID;
+            GeriBildirimKontrolleriniOlustur();
+        }
+
+        private void GeriBildirimKontrolleriniOlustur()
+        {
+            cmbGeriBildirim.Items.AddRange(new string[] { "Seçiniz", "Olumlu", "Olumsuz" });
+            cmbGeriBildirim.DropDownStyle = ComboBoxStyle.DropDownList;
+            btnGeriBildirimKaydet.Click += BtnGeriBildirimKaydet_Click;
+
+            if (UserInformation.Rol == "Çağrı Merkezi")
+            {
+                MusteriBildirimi.Visible = true;
+            }
+            else
+            {
+                MusteriBildirimi.Visible = false;
+            }
+        }
+
+        private void BtnGeriBildirimKaydet_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cmbGeriBildirim.SelectedItem == null || cmbGeriBildirim.SelectedItem.ToString() == "Seçiniz")
+                {
+                    MessageBox.Show("Lütfen bir geri bildirim seçiniz.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                bgl.BaglantiAc();
+
+                string kontrolSorgu = "SELECT COUNT(*) FROM CagriGeriBildirim WHERE CagriID = @CagriID";
+                SqlCommand kontrolCmd = new SqlCommand(kontrolSorgu, bgl.conn);
+                kontrolCmd.Parameters.AddWithValue("@CagriID", _cagriID);
+                int kayitSayisi = (int)kontrolCmd.ExecuteScalar();
+
+                string sorgu;
+                if (kayitSayisi > 0)
+                {
+                    sorgu = @"UPDATE CagriGeriBildirim 
+                             SET GeriBildirimTipi = @GeriBildirimTipi,
+                                 OlusturmaTarihi = GETDATE(),
+                                 OlusturanKullaniciID = @KullaniciID
+                             WHERE CagriID = @CagriID";
+                }
+                else
+                {
+                    sorgu = @"INSERT INTO CagriGeriBildirim (CagriID, GeriBildirimTipi, OlusturanKullaniciID) 
+                             VALUES (@CagriID, @GeriBildirimTipi, @KullaniciID)";
+                }
+
+                SqlCommand cmd = new SqlCommand(sorgu, bgl.conn);
+                cmd.Parameters.AddWithValue("@CagriID", _cagriID);
+                cmd.Parameters.AddWithValue("@GeriBildirimTipi", cmbGeriBildirim.SelectedItem.ToString());
+                cmd.Parameters.AddWithValue("@KullaniciID", Convert.ToInt32(UserInformation.KullaniciID));
+
+                cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Geri bildirim başarıyla kaydedildi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                string seciliDeger = cmbGeriBildirim.SelectedItem.ToString();
+                YukleCagriBilgileri();
+                cmbGeriBildirim.SelectedItem = seciliDeger;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Geri bildirim kaydedilirken hata oluştu: " + ex.Message,
+                               "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                bgl.BaglantiKapat();
+            }
         }
 
         private void OfficerTaskDetail_Load(object sender, EventArgs e)
@@ -54,15 +127,14 @@ namespace TaskFlow360
         private void AlanıEtkileşimsizYap(TextBox textBox)
         {
             textBox.ReadOnly = true;
-            textBox.TabStop = false;  // Tab ile üzerine gelinmesini engeller
-            textBox.Cursor = Cursors.Default;  // Metin imleci yerine normal fare imleci gösterir
-            textBox.GotFocus += TextBox_GotFocus;  // Odak kazandığında odağı kaybetmesini sağlar
+            textBox.TabStop = false; 
+            textBox.Cursor = Cursors.Default;  
+            textBox.GotFocus += TextBox_GotFocus;  
 
             textBox.BackColor = Color.FromArgb(245, 245, 245);
         }
         private void TextBox_GotFocus(object sender, EventArgs e)
         {
-            // Odağı başka bir kontrole ver (örneğin form)
             this.ActiveControl = null;
         }
 
@@ -75,7 +147,8 @@ namespace TaskFlow360
                 string sorgu = @"SELECT c.CagriID, c.Baslik, c.CagriAciklama, c.Durum, c.OlusturmaTarihi, 
                        c.TeslimTarihi, c.CagriKategori, c.Oncelik, c.HedefSure, 
                        te.TalepEdenID, te.TalepEden, te.TalepEdenAdres, te.TalepEdenTelefon, te.TalepEdenEmail,
-                       k.Ad AS AtananKullaniciAd, k.Soyad AS AtananKullaniciSoyad
+                       k.Ad AS AtananKullaniciAd, k.Soyad AS AtananKullaniciSoyad,
+                       (SELECT TOP 1 GeriBildirimTipi FROM CagriGeriBildirim WHERE CagriID = c.CagriID ORDER BY OlusturmaTarihi DESC) AS SonGeriBildirim
                        FROM Cagri c
                        LEFT JOIN TalepEdenler te ON c.TalepEdenID = te.TalepEdenID
                        LEFT JOIN Kullanici k ON c.AtananKullaniciID = k.KullaniciID
@@ -109,7 +182,6 @@ namespace TaskFlow360
                         cmbOncelik.Text = dr["Oncelik"].ToString();
                         txtHedefSure.Text = dr["HedefSure"].ToString();
 
-                        // TalepEdenID değerini sınıf değişkenine kaydet
                         if (dr["TalepEdenID"] != DBNull.Value)
                         {
                             _talepEdenID = Convert.ToInt32(dr["TalepEdenID"]);
@@ -128,6 +200,16 @@ namespace TaskFlow360
                         txtTalepEdenTelefon.Text = dr["TalepEdenTelefon"].ToString();
                         txtTalepEdenEmail.Text = dr["TalepEdenEmail"].ToString();
                         txtTalepEdenAdres.Text = dr["TalepEdenAdres"].ToString();
+
+                        if (dr["SonGeriBildirim"] != DBNull.Value)
+                        {
+                            string geriBildirim = dr["SonGeriBildirim"].ToString();
+                            cmbGeriBildirim.SelectedItem = geriBildirim;
+                        }
+                        else
+                        {
+                            cmbGeriBildirim.SelectedIndex = 0; 
+                        }
                     }
                     else
                     {
@@ -222,7 +304,6 @@ namespace TaskFlow360
 
         private void AddGecmisCagriItem(string dateTime, string title, string description, string status, ref int y)
         {
-            // Tarih Zaman
             Label lblDate = new Label();
             lblDate.Text = dateTime;
             lblDate.Location = new Point(20, y);
@@ -233,7 +314,6 @@ namespace TaskFlow360
 
             y += 20;
 
-            // Başlık ve Durum
             Label lblTitle = new Label();
             lblTitle.Text = title + " - " + status;
             lblTitle.Location = new Point(20, y);
@@ -269,7 +349,6 @@ namespace TaskFlow360
 
             y += 22;
 
-            // Açıklama
             Label lblDesc = new Label();
             lblDesc.Text = description;
             lblDesc.Location = new Point(20, y);
@@ -277,13 +356,12 @@ namespace TaskFlow360
             lblDesc.Size = new Size(pnlgecmisCagrilar.Width - 40, 40);
             lblDesc.ForeColor = Color.Black;
             lblDesc.AutoEllipsis = true;
-            lblDesc.MaximumSize = new Size(pnlgecmisCagrilar.Width - 40, 0); // Otomatik satır atlaması için
+            lblDesc.MaximumSize = new Size(pnlgecmisCagrilar.Width - 40, 0); 
             lblDesc.AutoSize = true;
             pnlgecmisCagrilar.Controls.Add(lblDesc);
 
             y += lblDesc.Height + 15;
 
-            // Ayırıcı çizgi
             Panel separator = new Panel();
             separator.BackColor = Color.LightGray;
             separator.Height = 1;
@@ -307,7 +385,6 @@ namespace TaskFlow360
 
                 bgl.BaglantiAc();
 
-                // Mevcut değerleri oku
                 string sorgula = "SELECT Durum, CagriAciklama FROM Cagri WHERE CagriID = @CagriID";
                 SqlCommand cmdSorgula = new SqlCommand(sorgula, bgl.conn);
                 cmdSorgula.Parameters.AddWithValue("@CagriID", _cagriID);
@@ -338,7 +415,6 @@ namespace TaskFlow360
                     return;
                 }
 
-                // SQL komutunu oluştur
                 StringBuilder updateSql = new StringBuilder("UPDATE Cagri SET ");
                 List<SqlParameter> parameters = new List<SqlParameter>();
 
@@ -358,12 +434,10 @@ namespace TaskFlow360
                 updateSql.Append(" WHERE CagriID = @CagriID");
                 parameters.Add(new SqlParameter("@CagriID", _cagriID));
 
-                // Güncelleme sorgusunu çalıştır
                 SqlCommand cmdUpdate = new SqlCommand(updateSql.ToString(), bgl.conn);
                 cmdUpdate.Parameters.AddRange(parameters.ToArray());
                 cmdUpdate.ExecuteNonQuery();
 
-                // Durumda değişiklik varsa, durum güncellemesini kaydet
                 if (!string.IsNullOrEmpty(yeniDurum) && yeniDurum != mevcutDurum)
                 {
                     string sorgu2 = @"INSERT INTO CagriDurumGuncelleme (CagriID, GuncellemeTarihi, Durum, Aciklama, DegistirenKullaniciID) 

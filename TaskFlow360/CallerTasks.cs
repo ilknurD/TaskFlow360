@@ -14,14 +14,18 @@ namespace TaskFlow360
     public partial class CallerTasks : Form
     {
         Connection baglanti = new Connection();
+        private readonly Logger _logger;
+
         public CallerTasks()
         {
             InitializeComponent();
+            _logger = new Logger();
             dgvGorevler.CellClick += new DataGridViewCellEventHandler(dgvGorevler_CellClick);
         }
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Sayfa Geçişi", "CallerTasks", "Anasayfaya geçiş yapıldı");
             CallerHomepage homepage = new CallerHomepage();
             homepage.Show();
             this.Close();
@@ -29,6 +33,7 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Sayfa Geçişi", "CallerTasks", "Profil sayfasına geçiş yapıldı");
             CallerProfile asistantProfile = new CallerProfile();
             asistantProfile.Show();
             this.Close();
@@ -36,6 +41,7 @@ namespace TaskFlow360
 
         private void btnCagriOlustur_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Sayfa Geçişi", "CallerTasks", "Çağrı oluşturma sayfasına geçiş yapıldı");
             CallerTaskCreationPage taskCreationPage = new CallerTaskCreationPage();
             taskCreationPage.Show();
             this.Close();
@@ -43,6 +49,7 @@ namespace TaskFlow360
 
         private void btnCagriTakip_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Sayfa Geçişi", "CallerTasks", "Çağrı takip sayfasına geçiş yapıldı");
             CallerTasks assistantTasks = new CallerTasks();
             assistantTasks.Show();
             this.Close();
@@ -50,7 +57,10 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
-            
+            _logger.LogEkle("Sayfa Geçişi", "CallerTasks", "Raporlar sayfasına geçiş yapıldı");
+            CallerReports callerReports = new CallerReports();
+            callerReports.Show();
+            this.Close();
         }
 
         private void AssistantTasks_Load(object sender, EventArgs e)
@@ -427,21 +437,15 @@ namespace TaskFlow360
             {
                 if (e.RowIndex >= 0 && e.ColumnIndex == dgvGorevler.Columns["islemButon"].Index)
                 {
-                    // Satırı seç
                     dgvGorevler.Rows[e.RowIndex].Selected = true;
-
                     string cagriID = dgvGorevler.Rows[e.RowIndex].Cells["CagriNumarasi"].Value.ToString().Replace("#", "");
 
-                    // Çağrı ID'sini int'e çevir ve TalepEden ID'sini al
                     if (int.TryParse(cagriID, out int parsedCagriID))
                     {
                         int talepEdenID = GetTalepEdenIDByCagriID(parsedCagriID);
-
-                        // TaskDetail formunu cagriID ve talepEdenID ile aç
+                        _logger.LogEkle("Çağrı Detayı", "CallerTasks", $"Çağrı detayı görüntülendi - Çağrı ID: {parsedCagriID}");
                         TaskDetail taskDetailForm = new TaskDetail(parsedCagriID, talepEdenID);
                         taskDetailForm.ShowDialog();
-
-                        // Form kapandıktan sonra verileri yenile
                         GorevleriGetir();
                     }
                     else
@@ -452,6 +456,7 @@ namespace TaskFlow360
             }
             catch (Exception ex)
             {
+                _logger.LogEkle("Hata", "CallerTasks", $"Hata oluştu: {ex.Message}");
                 MessageBox.Show($"İşlem sırasında bir hata oluştu: {ex.Message}", "Hata",
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -537,12 +542,22 @@ namespace TaskFlow360
 
         private void btnTemizle_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Filtre Temizleme", "CallerTasks", "Tüm filtreler temizlendi");
             cmbDurum.SelectedIndex = -1;
             cmbOncelik.SelectedIndex = -1;
             cmbKategori.SelectedIndex = -1;
             txtArama.Text = "Ara...";
             txtArama.ForeColor = Color.Gray;
             GorevleriGetir();
+        }
+
+        private void btnCikis_Click(object sender, EventArgs e)
+        {
+            _logger.LogEkle("Çıkış", "CallerTasks", "Kullanıcı çıkış yaptı");
+            UserInformation.BilgileriTemizle();
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Close();
         }
     }
 }

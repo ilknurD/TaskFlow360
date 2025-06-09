@@ -143,7 +143,7 @@ namespace TaskFlow360
         private void ManagerReportsPage_Load(object sender, EventArgs e)
         {
             LogEkle("ManagerReportsPage yüklenmeye başlandı", "Form", "ManagerReportsPage");
-            DepartmanPerformans();    
+            DepartmanPerformans();
             LogEkle("Departman performansı yüklendi", "Okuma", "ManagerReportsPage");
             TakimPerformans();
             LogEkle("Ekip performansı yüklendi", "Okuma", "ManagerReportsPage");
@@ -229,7 +229,7 @@ namespace TaskFlow360
 
             using (SqlConnection conn = Connection.BaglantiGetir())
             {
-                            string query = @"
+                string query = @"
                         SELECT 
                 k.Ad + ' ' + k.Soyad AS Personel,
                 COUNT(CASE 

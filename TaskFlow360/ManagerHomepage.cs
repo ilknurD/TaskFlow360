@@ -189,7 +189,7 @@ namespace TaskFlow360
             ekipUyeleriDGV.BorderStyle = BorderStyle.None;
             ekipUyeleriDGV.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             ekipUyeleriDGV.GridColor = Color.FromArgb(240, 240, 240);
-            
+
 
             // Event bağlantıları
             ekipUyeleriDGV.CellFormatting += EkipUyeleriDGV_CellFormatting;
@@ -290,7 +290,7 @@ namespace TaskFlow360
                 string kontrolSorgusu = @"
             SELECT COUNT(*) FROM Cagri 
             WHERE Durum = 'Beklemede' 
-            AND AtananKullaniciID = @managerID";  
+            AND AtananKullaniciID = @managerID";
 
                 SqlCommand kontrolKomut = new SqlCommand(kontrolSorgusu, baglanti.conn);
                 kontrolKomut.Parameters.AddWithValue("@managerID", yoneticiId);
@@ -330,7 +330,7 @@ namespace TaskFlow360
             SELECT CagriID, Baslik, CagriKategori, Oncelik, Durum 
             FROM Cagri 
             WHERE Durum = 'Beklemede'
-            AND AtananKullaniciID = @managerID"; 
+            AND AtananKullaniciID = @managerID";
 
                 SqlCommand komut = new SqlCommand(sorgu, baglanti.conn);
                 komut.Parameters.AddWithValue("@managerID", yoneticiId);

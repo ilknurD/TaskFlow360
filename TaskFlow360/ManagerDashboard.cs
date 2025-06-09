@@ -165,7 +165,7 @@ namespace TaskFlow360
             }
             finally
             {
-                baglanti.BaglantiKapat(); 
+                baglanti.BaglantiKapat();
             }
         }
 
@@ -241,7 +241,7 @@ namespace TaskFlow360
                 connection = Connection.BaglantiGetir();
                 baglanti.BaglantiAc();
 
-                    string query = @"SELECT TOP 10
+                string query = @"SELECT TOP 10
                 k.Ad + ' ' + k.Soyad AS CalisanAdi,
                 c.Baslik,
                 c.Durum,
@@ -260,31 +260,31 @@ namespace TaskFlow360
             WHERE k.YoneticiID = @YoneticiID
             ORDER BY SonDegisiklikTarihi DESC";
 
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@YoneticiID", UserInformation.KullaniciID);
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    SonIslemlerDGV.DataSource = dataTable;
+
+                    if (SonIslemlerDGV.Columns.Count > 0)
                     {
-                        command.Parameters.AddWithValue("@YoneticiID", UserInformation.KullaniciID);
-
-                        SqlDataAdapter adapter = new SqlDataAdapter(command);
-                        DataTable dataTable = new DataTable();
-                        adapter.Fill(dataTable);
-
-                        SonIslemlerDGV.DataSource = dataTable;
-
-                        if (SonIslemlerDGV.Columns.Count > 0)
-                        {
-                            SonIslemlerDGV.Columns["CalisanAdi"].HeaderText = "Çalışan";
-                            SonIslemlerDGV.Columns["Baslik"].HeaderText = "Çağrı Başlığı";
-                            SonIslemlerDGV.Columns["Durum"].HeaderText = "Durum";
-                            SonIslemlerDGV.Columns["CagriAciklama"].HeaderText = "Açıklama";
-                            SonIslemlerDGV.Columns["OlusturmaTarihi"].HeaderText = "Oluşturma Tarihi";
-                            SonIslemlerDGV.Columns["TeslimTarihi"].HeaderText = "Teslim Tarihi";
-                            SonIslemlerDGV.Columns["CevapTarihi"].HeaderText = "Cevap Tarihi";
-                            SonIslemlerDGV.Columns["SonDegisiklikTarihi"].HeaderText = "Son Değişiklik";
-                            SonIslemlerDGV.Columns["OlusturmaTarihi"].Visible = false;
-                            SonIslemlerDGV.Columns["TeslimTarihi"].Visible = false;
-                            SonIslemlerDGV.Columns["CevapTarihi"].Visible = false;
-                        }
+                        SonIslemlerDGV.Columns["CalisanAdi"].HeaderText = "Çalışan";
+                        SonIslemlerDGV.Columns["Baslik"].HeaderText = "Çağrı Başlığı";
+                        SonIslemlerDGV.Columns["Durum"].HeaderText = "Durum";
+                        SonIslemlerDGV.Columns["CagriAciklama"].HeaderText = "Açıklama";
+                        SonIslemlerDGV.Columns["OlusturmaTarihi"].HeaderText = "Oluşturma Tarihi";
+                        SonIslemlerDGV.Columns["TeslimTarihi"].HeaderText = "Teslim Tarihi";
+                        SonIslemlerDGV.Columns["CevapTarihi"].HeaderText = "Cevap Tarihi";
+                        SonIslemlerDGV.Columns["SonDegisiklikTarihi"].HeaderText = "Son Değişiklik";
+                        SonIslemlerDGV.Columns["OlusturmaTarihi"].Visible = false;
+                        SonIslemlerDGV.Columns["TeslimTarihi"].Visible = false;
+                        SonIslemlerDGV.Columns["CevapTarihi"].Visible = false;
                     }
+                }
             }
             catch (Exception ex)
             {
@@ -371,7 +371,7 @@ namespace TaskFlow360
                     {
                         Text = $"{DateTime.Now:MMMM} Ayı Çağrı Durumları",
                         Font = new Font("Century Gothic", 12, FontStyle.Bold),
-                        ForeColor = Color.FromArgb(94, 53, 177), 
+                        ForeColor = Color.FromArgb(94, 53, 177),
                         Docking = Docking.Top,
                         Alignment = ContentAlignment.MiddleCenter
                     });

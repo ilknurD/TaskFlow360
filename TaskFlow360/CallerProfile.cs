@@ -63,75 +63,6 @@ namespace TaskFlow360
             }
             return "IP Adresi Bulunamadı";
         }
-
-        private void AsistantProfile_Load(object sender, EventArgs e)
-        {
-            LogEkle("CallerProfile yüklenmeye başlandı", "Form", "CallerProfile");
-            kullaniciId = UserInformation.KullaniciID;
-            EkipYoneticileriniListele();
-
-            try
-            {
-                baglanti.BaglantiAc();
-
-                string query = @"SELECT   
-                   K.Ad, K.Soyad, K.Email, K.Telefon, K.Adres,   
-                   K.DogumTar, K.IseBaslamaTar,   
-                   D.DepartmanAdi, B.BolumAdi,  
-                   YK.Ad AS YoneticiAd, YK.Soyad AS YoneticiSoyad,  
-                   K.Cinsiyet  
-                   FROM Kullanici K  
-                   LEFT JOIN Departman D ON K.DepartmanID = D.DepartmanID  
-                   LEFT JOIN Bolum B ON K.BolumID = B.BolumID  
-                   LEFT JOIN Kullanici YK ON K.YoneticiID = YK.KullaniciID  
-                   WHERE K.KullaniciID = @KullaniciID";
-
-                SqlCommand cmd = new SqlCommand(query, baglanti.conn);
-                cmd.Parameters.AddWithValue("@KullaniciID", kullaniciId);
-
-                SqlDataReader dr = cmd.ExecuteReader();
-
-                if (dr.HasRows && dr.Read())
-                {
-                    lblAdSoyad.Text = $"{dr["Ad"]} {dr["Soyad"]}";
-                    lblEmail.Text = dr["Email"].ToString();
-                    lblTelefon.Text = dr["Telefon"].ToString();
-                    lblAdres.Text = dr["Adres"].ToString();
-                    lblDogumTarihi.Text = Convert.ToDateTime(dr["DogumTar"]).ToShortDateString();
-                    lblIseBaslama.Text = Convert.ToDateTime(dr["IseBaslamaTar"]).ToShortDateString();
-                    lblDepartman.Text = dr["DepartmanAdi"].ToString();
-                    lblBolum.Text = dr["BolumAdi"].ToString() + " " + "(Rol)";
-
-                    string yoneticiAdSoyad = dr["YoneticiAd"] != DBNull.Value ? $"{dr["YoneticiAd"]} {dr["YoneticiSoyad"]}" : "Yönetici yok";
-                    lblYonetici.Text = yoneticiAdSoyad;
-
-                    string cinsiyet = dr["Cinsiyet"].ToString();
-
-                    if (cinsiyet == "Kadın")
-                        pctrProfil.Image = Properties.Resources.kadin;
-                    else if (cinsiyet == "Erkek")
-                        pctrProfil.Image = Properties.Resources.erkek;
-                }
-                else
-                {
-                    MessageBox.Show("Kullanıcı bilgileri bulunamadı.");
-                }
-
-                dr.Close();
-                lblKullaniciID.Text = kullaniciId.ToString();
-                LogEkle("Profil bilgileri başarıyla yüklendi", "Okuma", "CallerProfile");
-            }
-            catch (Exception ex)
-            {
-                LogEkle($"Kullanıcı bilgileri yüklenirken hata oluştu: {ex.Message}", "Hata", "CallerProfile");
-                MessageBox.Show("Kullanıcı bilgileri yüklenirken hata oluştu: " + ex.Message);
-            }
-            finally
-            {
-                baglanti.BaglantiKapat();
-            }
-
-        }
         private void EkipYoneticileriniListele()
         {
             yoneticilerDGV.AutoGenerateColumns = false;
@@ -240,6 +171,75 @@ namespace TaskFlow360
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             this.Close();
+        }
+
+        private void CallerProfile_Load(object sender, EventArgs e)
+        {
+            LogEkle("CallerProfile yüklenmeye başlandı", "Form", "CallerProfile");
+            kullaniciId = UserInformation.KullaniciID;
+            EkipYoneticileriniListele();
+
+            try
+            {
+                baglanti.BaglantiAc();
+
+                string query = @"SELECT   
+                   K.Ad, K.Soyad, K.Email, K.Telefon, K.Adres,   
+                   K.DogumTar, K.IseBaslamaTar,   
+                   D.DepartmanAdi, B.BolumAdi,  
+                   YK.Ad AS YoneticiAd, YK.Soyad AS YoneticiSoyad,  
+                   K.Cinsiyet  
+                   FROM Kullanici K  
+                   LEFT JOIN Departman D ON K.DepartmanID = D.DepartmanID  
+                   LEFT JOIN Bolum B ON K.BolumID = B.BolumID  
+                   LEFT JOIN Kullanici YK ON K.YoneticiID = YK.KullaniciID  
+                   WHERE K.KullaniciID = @KullaniciID";
+
+                SqlCommand cmd = new SqlCommand(query, baglanti.conn);
+                cmd.Parameters.AddWithValue("@KullaniciID", kullaniciId);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.HasRows && dr.Read())
+                {
+                    lblAdSoyad.Text = $"{dr["Ad"]} {dr["Soyad"]}";
+                    lblEmail.Text = dr["Email"].ToString();
+                    lblTelefon.Text = dr["Telefon"].ToString();
+                    lblAdres.Text = dr["Adres"].ToString();
+                    lblDogumTarihi.Text = Convert.ToDateTime(dr["DogumTar"]).ToShortDateString();
+                    lblIseBaslama.Text = Convert.ToDateTime(dr["IseBaslamaTar"]).ToShortDateString();
+                    lblDepartman.Text = dr["DepartmanAdi"].ToString();
+                    lblBolum.Text = dr["BolumAdi"].ToString() + " " + "(Rol)";
+
+                    string yoneticiAdSoyad = dr["YoneticiAd"] != DBNull.Value ? $"{dr["YoneticiAd"]} {dr["YoneticiSoyad"]}" : "Yönetici yok";
+                    lblYonetici.Text = yoneticiAdSoyad;
+
+                    string cinsiyet = dr["Cinsiyet"].ToString();
+
+                    if (cinsiyet == "Kadın")
+                        pctrProfil.Image = Properties.Resources.kadin;
+                    else if (cinsiyet == "Erkek")
+                        pctrProfil.Image = Properties.Resources.erkek;
+                }
+                else
+                {
+                    MessageBox.Show("Kullanıcı bilgileri bulunamadı.");
+                }
+
+                dr.Close();
+                lblKullaniciID.Text = kullaniciId.ToString();
+                LogEkle("Profil bilgileri başarıyla yüklendi", "Okuma", "CallerProfile");
+            }
+            catch (Exception ex)
+            {
+                LogEkle($"Kullanıcı bilgileri yüklenirken hata oluştu: {ex.Message}", "Hata", "CallerProfile");
+                MessageBox.Show("Kullanıcı bilgileri yüklenirken hata oluştu: " + ex.Message);
+            }
+            finally
+            {
+                baglanti.BaglantiKapat();
+            }
+
         }
     }
 }

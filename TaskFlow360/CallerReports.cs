@@ -245,7 +245,7 @@ namespace TaskFlow360
                                 Convert.ToInt32(dr4["CagriSayisi"]));
                         }
                     }
-                } 
+                }
             }
             catch (SqlException ex)
             {

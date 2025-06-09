@@ -328,7 +328,7 @@ namespace TaskFlow360
         }
         private void ekibimDGV_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-             MessageBox.Show("Veri işleme sırasında bir sorun oluştu. Lütfen yöneticiyle iletişime geçin.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show("Veri işleme sırasında bir sorun oluştu. Lütfen yöneticiyle iletişime geçin.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void ConfigureEkibimDGV()
@@ -362,7 +362,7 @@ namespace TaskFlow360
 
         private void pnlIletisimBilgi_Paint(object sender, PaintEventArgs e)
         {
-            
+
         }
 
         private void btnRaporlar_Click(object sender, EventArgs e)

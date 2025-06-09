@@ -81,6 +81,10 @@
             this.label29 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.cmbGeriBildirim = new System.Windows.Forms.ComboBox();
+            this.btnGeriBildirimKaydet = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.MusteriBildirimi = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -88,6 +92,7 @@
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.MusteriBildirimi.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -650,18 +655,64 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
-            // OfficerTaskDetail
+            // cmbGeriBildirim
+            // 
+            this.cmbGeriBildirim.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.cmbGeriBildirim.FormattingEnabled = true;
+            this.cmbGeriBildirim.Location = new System.Drawing.Point(225, 18);
+            this.cmbGeriBildirim.Name = "cmbGeriBildirim";
+            this.cmbGeriBildirim.Size = new System.Drawing.Size(357, 29);
+            this.cmbGeriBildirim.TabIndex = 14;
+            // 
+            // btnGeriBildirimKaydet
+            // 
+            this.btnGeriBildirimKaydet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            this.btnGeriBildirimKaydet.FlatAppearance.BorderSize = 0;
+            this.btnGeriBildirimKaydet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGeriBildirimKaydet.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnGeriBildirimKaydet.ForeColor = System.Drawing.Color.White;
+            this.btnGeriBildirimKaydet.Location = new System.Drawing.Point(596, 17);
+            this.btnGeriBildirimKaydet.Name = "btnGeriBildirimKaydet";
+            this.btnGeriBildirimKaydet.Size = new System.Drawing.Size(220, 35);
+            this.btnGeriBildirimKaydet.TabIndex = 15;
+            this.btnGeriBildirimKaydet.Text = "Bildirimi Kaydet";
+            this.btnGeriBildirimKaydet.UseVisualStyleBackColor = false;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label14.Location = new System.Drawing.Point(57, 21);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(136, 21);
+            this.label14.TabIndex = 16;
+            this.label14.Text = "Müşteri Bildirimi";
+            // 
+            // MusteriBildirimi
+            // 
+            this.MusteriBildirimi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(216)))), ((int)(((byte)(243)))));
+            this.MusteriBildirimi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MusteriBildirimi.Controls.Add(this.btnGeriBildirimKaydet);
+            this.MusteriBildirimi.Controls.Add(this.label14);
+            this.MusteriBildirimi.Controls.Add(this.cmbGeriBildirim);
+            this.MusteriBildirimi.Location = new System.Drawing.Point(905, 12);
+            this.MusteriBildirimi.Name = "MusteriBildirimi";
+            this.MusteriBildirimi.Size = new System.Drawing.Size(873, 66);
+            this.MusteriBildirimi.TabIndex = 17;
+            // 
+            // TaskDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1902, 1055);
+            this.Controls.Add(this.MusteriBildirimi);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "OfficerTaskDetail";
+            this.Name = "TaskDetail";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OfficerTaskDetail";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -676,6 +727,8 @@
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.MusteriBildirimi.ResumeLayout(false);
+            this.MusteriBildirimi.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -735,5 +788,9 @@
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Panel pnlgecmisCagrilar;
         private System.Windows.Forms.ComboBox cmbOncelik;
+        private System.Windows.Forms.ComboBox cmbGeriBildirim;
+        private System.Windows.Forms.Button btnGeriBildirimKaydet;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Panel MusteriBildirimi;
     }
 }

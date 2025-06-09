@@ -13,23 +13,29 @@ namespace TaskFlow360
 {
     public partial class CallerTaskCreationPage : Form
     {
+        private readonly Logger _logger;
+
         public CallerTaskCreationPage()
         {
             InitializeComponent();
+            _logger = new Logger();
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Sistem", "CallerTaskCreationPage", "Uygulama kapatıldı");
             Application.Exit();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Sistem", "CallerTaskCreationPage", "Uygulama küçültüldü");
             WindowState = FormWindowState.Minimized;
         }
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Yönlendirme", "CallerTaskCreationPage", "Ana sayfaya yönlendirildi");
             CallerHomepage assistantHomepage = new CallerHomepage();
             assistantHomepage.Show();
             this.Close();
@@ -37,17 +43,12 @@ namespace TaskFlow360
 
         private void btnCagriTakip_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Yönlendirme", "CallerTaskCreationPage", "Çağrı takip sayfasına yönlendirildi");
             CallerTasks assistantTasks = new CallerTasks();
             assistantTasks.Show();
             this.Close();
         }
 
-        private void AssistantTaskCreationPage_Load(object sender, EventArgs e)
-        {
-            EkipYoneticileriniGetir();
-            DepartmanlariGetir();
-            StatikVerileriYukle();
-        }
         private bool GirdilerGecerliMi()
         {
             if (string.IsNullOrWhiteSpace(txtBaslik.Text) ||
@@ -63,6 +64,7 @@ namespace TaskFlow360
                 cmbDepartman.SelectedIndex == -1 ||
                 cmbHedefSure.SelectedIndex == -1)
             {
+                _logger.LogEkle("Hata", "CallerTaskCreationPage", "Eksik bilgi girişi tespit edildi");
                 MessageBox.Show("Lütfen tüm alanları eksiksiz doldurun.", "Eksik Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
@@ -98,7 +100,7 @@ namespace TaskFlow360
         }
         private void StatikVerileriYukle()
         {
-            cmbKategori.Items.AddRange(new string[] { "Yazılım", "Donanım", "Ağ", "Rapor","Sistem","Diğer" });
+            cmbKategori.Items.AddRange(new string[] { "Yazılım", "Donanım", "Ağ", "Rapor", "Sistem", "Diğer" });
             cmbOncelik.Items.AddRange(new string[] { "Düşük", "Orta", "Yüksek" });
             cmbDurum.Items.AddRange(new string[] { "Yeni", "Atandı", "Devam Ediyor", "Beklemede" });
             cmbHedefSure.Items.AddRange(new object[] { 1, 2, 4, 8, 24, 48 });
@@ -218,6 +220,10 @@ namespace TaskFlow360
                         }
                     }
 
+                    // Loglama işlemi - Kullanıcı bilgileri alındıktan sonra
+                    string logDetaylari = $"Yeni görev oluşturuldu - Başlık: {baslik}, Kategori: {kategori}, Öncelik: {oncelik}, Atanan: {atananAdSoyad}";
+                    _logger.LogEkle("Ekleme", "Cagri", logDetaylari);
+
                     FormuTemizle();
 
                     string mesaj = $"{olusturanAdSoyad} tarafından\n" +
@@ -233,5 +239,18 @@ namespace TaskFlow360
             }
         }
 
+        private void CallerTaskCreationPage_Load(object sender, EventArgs e)
+        {
+            EkipYoneticileriniGetir();
+            DepartmanlariGetir();
+            StatikVerileriYukle();
+            _logger.LogEkle("Görüntüleme", "CallerTaskCreationPage", "Görev oluşturma sayfası açıldı");
+        }
+
+        private void btniptal_Click(object sender, EventArgs e)
+        {
+            _logger.LogEkle("İşlem", "CallerTaskCreationPage", "Görev oluşturma işlemi iptal edildi");
+            FormuTemizle();
+        }
     }
 }

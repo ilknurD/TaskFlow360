@@ -82,8 +82,8 @@ namespace TaskFlow360
                 AND C.Durum = 'Beklemede'
                 AND CAST(C.OlusturmaTarihi AS DATE) = CAST(GETDATE() AS DATE)";
 
-                                // Devam eden görevler (Beklemede veya Atandı)
-                                string devamEdenSorgu = @"
+                // Devam eden görevler (Beklemede veya Atandı)
+                string devamEdenSorgu = @"
                 SELECT COUNT(*) FROM Cagri C
                 INNER JOIN Kullanici K ON C.AtananKullaniciID = K.KullaniciID
                 WHERE (C.AtananKullaniciID = @ManagerID OR K.YoneticiID = @ManagerID)

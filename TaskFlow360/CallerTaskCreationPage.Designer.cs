@@ -474,6 +474,7 @@
             this.btniptal.TabIndex = 43;
             this.btniptal.Text = "İptal";
             this.btniptal.UseVisualStyleBackColor = false;
+            this.btniptal.Click += new System.EventHandler(this.btniptal_Click);
             // 
             // btnOlustur
             // 
@@ -668,7 +669,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AssistantTaskCreationPage";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.AssistantTaskCreationPage_Load);
+            this.Load += new System.EventHandler(this.CallerTaskCreationPage_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ikonRaporlar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

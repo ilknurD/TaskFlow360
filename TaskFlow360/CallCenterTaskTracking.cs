@@ -36,8 +36,8 @@ namespace TaskFlow360
         {
             // Bekleyen çağrılar için örnek veriler
             CagrilarDGV.Rows.Add("#2458", "Rapor oluşturma sorunu", "Teknik", "Yüksek", "Atandı", "14/04/2022");
-            CagrilarDGV.Rows.Add("#2459", "Yeni müşteri kaydı hatası", "Yazılım", "Orta","Bekliyor", "04/04/2022");
-            CagrilarDGV.Rows.Add("#2460", "Mail sistemi bağlantı sorunu", "Altyapı", "Normal","Tamamlandı", "03/04/2022");
+            CagrilarDGV.Rows.Add("#2459", "Yeni müşteri kaydı hatası", "Yazılım", "Orta", "Bekliyor", "04/04/2022");
+            CagrilarDGV.Rows.Add("#2460", "Mail sistemi bağlantı sorunu", "Altyapı", "Normal", "Tamamlandı", "03/04/2022");
             CagrilarDGV.Rows.Add("#2461", "Fatura oluşturma problemi", "Destek", "Orta", "Atandı", "20/04/2022");
             CagrilarDGV.Rows.Add("#2458", "Rapor oluşturma sorunu", "Teknik", "Yüksek", "Atandı", "14/04/2022");
             CagrilarDGV.Rows.Add("#2459", "Yeni müşteri kaydı hatası", "Yazılım", "Orta", "Tamamlandı", "04/04/2022");
