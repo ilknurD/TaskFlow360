@@ -131,13 +131,11 @@ namespace TaskFlow360
 
             string kullaniciID = UserInformation.KullaniciID;
 
-            // Talep Eden bilgileri
             string talepAdSoyad = txtTalepAdSoyad.Text.Trim();
             string talepAdres = txtTalepAdres.Text.Trim();
             string talepTelefon = txtTalepTelefon.Text.Trim();
             string talepEmail = txtTalepMail.Text.Trim();
 
-            // Çağrı bilgileri
             string baslik = txtBaslik.Text.Trim();
             string aciklama = richTextAciklama.Text.Trim();
             string kategori = cmbKategori.SelectedItem?.ToString();
@@ -154,7 +152,6 @@ namespace TaskFlow360
 
                 try
                 {
-                    // 1. Talep Eden'i ekle
                     SqlCommand cmdTalep = new SqlCommand(@"
                 INSERT INTO TalepEdenler (TalepEden, TalepEdenAdres, TalepEdenTelefon, TalepEdenEmail)
                 OUTPUT INSERTED.TalepEdenID
@@ -167,7 +164,6 @@ namespace TaskFlow360
 
                     int talepEdenID = (int)cmdTalep.ExecuteScalar();
 
-                    // 2. Çağrıyı ekle
                     SqlCommand cmdCagri = new SqlCommand(@"
                 INSERT INTO Cagri 
                 (Baslik, CagriAciklama, CagriKategori, Oncelik, Durum, OlusturmaTarihi, TeslimTarihi, 
@@ -192,7 +188,6 @@ namespace TaskFlow360
 
                     trans.Commit();
 
-                    // Şimdi mesaj için isimleri sorgula
                     string olusturanAdSoyad = "";
                     string talepEdenAdSoyad = "";
                     string atananAdSoyad = "";
@@ -220,7 +215,6 @@ namespace TaskFlow360
                         }
                     }
 
-                    // Loglama işlemi - Kullanıcı bilgileri alındıktan sonra
                     string logDetaylari = $"Yeni görev oluşturuldu - Başlık: {baslik}, Kategori: {kategori}, Öncelik: {oncelik}, Atanan: {atananAdSoyad}";
                     _logger.LogEkle("Ekleme", "Cagri", logDetaylari);
 

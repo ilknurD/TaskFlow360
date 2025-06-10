@@ -16,67 +16,24 @@ namespace TaskFlow360
     public partial class ManagerDashboard : Form
     {
         Connection baglanti = new Connection();
+        private Logger logger;
         public ManagerDashboard()
         {
             InitializeComponent();
-            LogEkle("ManagerDashboard formu başlatıldı", "Form", "ManagerDashboard");
+            logger = new Logger();
+            logger.LogEkle("ManagerDashboard formu başlatıldı", "Form", "ManagerDashboard");
         }
-
-        private void LogEkle(string islemDetaylari, string islemTipi, string tabloAdi)
-        {
-            try
-            {
-                if (baglanti.conn.State != ConnectionState.Open)
-                    baglanti.conn.Open();
-                string sorgu = @"INSERT INTO Log (IslemTarihi, KullaniciID, IslemTipi, TabloAdi, IslemDetaylari, IPAdresi) 
-                                VALUES (@IslemTarihi, @KullaniciID, @IslemTipi, @TabloAdi, @IslemDetaylari, @IPAdresi)";
-
-                using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
-                {
-                    cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
-                    cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
-                    cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
-                    cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
-                    cmd.Parameters.AddWithValue("@IPAdresi", GetLocalIPAddress());
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Log kayıt hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (baglanti.conn.State == ConnectionState.Open)
-                    baglanti.conn.Close();
-            }
-        }
-
-        private string GetLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            return "IP Adresi Bulunamadı";
-        }
-
         private void ManagerDashboard_Load(object sender, EventArgs e)
         {
-            LogEkle("ManagerDashboard yüklenmeye başlandı", "Form", "ManagerDashboard");
+            logger.LogEkle("ManagerDashboard yüklenmeye başlandı", "Form", "ManagerDashboard");
             EkibindekiKullanicilariGetir();
-            LogEkle("Ekip üyeleri yüklendi", "Okuma", "ManagerDashboard");
+            logger.LogEkle("Ekip üyeleri yüklendi", "Okuma", "ManagerDashboard");
             SonCagrilariGetir();
-            LogEkle("Son çağrılar yüklendi", "Okuma", "ManagerDashboard");
+            logger.LogEkle("Son çağrılar yüklendi", "Okuma", "ManagerDashboard");
             SonIslemleriGetir();
-            LogEkle("Son işlemler yüklendi", "Okuma", "ManagerDashboard");
+            logger.LogEkle("Son işlemler yüklendi", "Okuma", "ManagerDashboard");
             AylikCagriDurumlariniCharttaGoster();
-            LogEkle("Aylık çağrı durumları yüklendi", "Okuma", "ManagerDashboard");
+            logger.LogEkle("Aylık çağrı durumları yüklendi", "Okuma", "ManagerDashboard");
             foreach (var dgv in new[] { EkipDGV, SonGorevlerDGV, SonIslemlerDGV })
             {
                 foreach (DataGridViewColumn column in dgv.Columns)
@@ -305,15 +262,15 @@ namespace TaskFlow360
                 baglanti.BaglantiAc();
 
                 string query = @"
-        SELECT 
-            Durum,
-            COUNT(*) AS CagriSayisi
-        FROM dbo.Cagri
-        WHERE YEAR(OlusturmaTarihi) = YEAR(GETDATE())
-              AND MONTH(OlusturmaTarihi) = MONTH(GETDATE())
-              AND AtananKullaniciID IN (SELECT KullaniciID FROM Kullanici WHERE YoneticiID = @YoneticiID)
-        GROUP BY Durum
-        ORDER BY CagriSayisi DESC";
+                SELECT 
+                    Durum,
+                    COUNT(*) AS CagriSayisi
+                FROM dbo.Cagri
+                WHERE YEAR(OlusturmaTarihi) = YEAR(GETDATE())
+                      AND MONTH(OlusturmaTarihi) = MONTH(GETDATE())
+                      AND AtananKullaniciID IN (SELECT KullaniciID FROM Kullanici WHERE YoneticiID = @YoneticiID)
+                GROUP BY Durum
+                ORDER BY CagriSayisi DESC";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -390,19 +347,19 @@ namespace TaskFlow360
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            LogEkle("Kapat butonuna tıklandı", "Buton", "ManagerDashboard");
+            logger.LogEkle("Kapat butonuna tıklandı", "Buton", "ManagerDashboard");
             Application.Exit();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-            LogEkle("Küçült butonuna tıklandı", "Buton", "ManagerDashboard");
+            logger.LogEkle("Küçült butonuna tıklandı", "Buton", "ManagerDashboard");
             WindowState = FormWindowState.Minimized;
         }
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            LogEkle("Anasayfa butonuna tıklandı", "Buton", "ManagerDashboard");
+            logger.LogEkle("Anasayfa butonuna tıklandı", "Buton", "ManagerDashboard");
             ManagerHomepage managerHomepage = new ManagerHomepage();
             managerHomepage.Show();
             this.Close();
@@ -410,7 +367,7 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
-            LogEkle("Profil butonuna tıklandı", "Buton", "ManagerDashboard");
+            logger.LogEkle("Profil butonuna tıklandı", "Buton", "ManagerDashboard");
             ManagerProfile managerProfile = new ManagerProfile();
             managerProfile.Show();
             this.Close();
@@ -418,7 +375,7 @@ namespace TaskFlow360
 
         private void btnGorevler_Click(object sender, EventArgs e)
         {
-            LogEkle("Görevler butonuna tıklandı", "Buton", "ManagerDashboard");
+            logger.LogEkle("Görevler butonuna tıklandı", "Buton", "ManagerDashboard");
             ManagerTasks managerTasks = new ManagerTasks();
             managerTasks.Show();
             this.Close();
@@ -426,7 +383,7 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
-            LogEkle("Raporlar butonuna tıklandı", "Buton", "ManagerDashboard");
+            logger.LogEkle("Raporlar butonuna tıklandı", "Buton", "ManagerDashboard");
             ManagerReportsPage managerReportsPage = new ManagerReportsPage();
             managerReportsPage.Show();
             this.Close();
@@ -434,7 +391,7 @@ namespace TaskFlow360
 
         private void btnEkipYonetimi_Click(object sender, EventArgs e)
         {
-            LogEkle("Ekip Yönetimi butonuna tıklandı", "Buton", "ManagerDashboard");
+            logger.LogEkle("Ekip Yönetimi butonuna tıklandı", "Buton", "ManagerDashboard");
             ManagerDashboard managerDashboard = new ManagerDashboard();
             managerDashboard.Show();
             this.Close();
@@ -442,7 +399,7 @@ namespace TaskFlow360
 
         private void btnCikis_Click(object sender, EventArgs e)
         {
-            LogEkle("Çıkış butonuna tıklandı", "Buton", "ManagerDashboard");
+            logger.LogEkle("Çıkış butonuna tıklandı", "Buton", "ManagerDashboard");
             UserInformation.BilgileriTemizle();
             LoginForm loginForm = new LoginForm();
             loginForm.Show();

@@ -391,7 +391,6 @@
             this.pnlIletisimBilgi.Name = "pnlIletisimBilgi";
             this.pnlIletisimBilgi.Size = new System.Drawing.Size(810, 220);
             this.pnlIletisimBilgi.TabIndex = 16;
-            this.pnlIletisimBilgi.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlIletisimBilgi_Paint);
             // 
             // lblDogumTarihi
             // 

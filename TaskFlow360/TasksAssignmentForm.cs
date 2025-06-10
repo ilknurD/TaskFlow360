@@ -16,6 +16,7 @@ namespace TaskFlow360
         private int cagriId;
         private string baslik;
         private string yoneticiId;
+        private readonly Logger _logger;
         Connection baglanti = new Connection();
 
         public TasksAssignmentForm(int cagriId, string baslik, string yoneticiId)
@@ -24,6 +25,7 @@ namespace TaskFlow360
             this.cagriId = cagriId;
             this.baslik = baslik;
             this.yoneticiId = yoneticiId;
+            _logger = new Logger();
         }
 
         private void TasksAssignmentForm_Load(object sender, EventArgs e)
@@ -47,7 +49,6 @@ namespace TaskFlow360
             {
                 baglanti.BaglantiAc();
 
-                // Çağrı bilgilerini doğrudan SQL sorgusu ile çek
                 string query = "SELECT CagriID, Baslik, CagriAciklama FROM Cagri WHERE CagriID = @CagriID";
                 using (SqlCommand cmd = new SqlCommand(query, baglanti.conn))
                 {
@@ -83,7 +84,6 @@ namespace TaskFlow360
 
         private void ConfigureDataGrid()
         {
-            // DataGridView ayarları
             foreach (DataGridViewColumn column in dataGridEkip.Columns)
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -93,11 +93,9 @@ namespace TaskFlow360
             dataGridEkip.AllowUserToResizeColumns = false;
             dataGridEkip.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-            // Seçim renkleri
             dataGridEkip.DefaultCellStyle.SelectionBackColor = Color.FromArgb(79, 34, 158);
             dataGridEkip.DefaultCellStyle.SelectionForeColor = Color.White;
 
-            // Başlıklar seçilince renk değişmesin
             dataGridEkip.ColumnHeadersDefaultCellStyle.SelectionBackColor = dataGridEkip.ColumnHeadersDefaultCellStyle.BackColor;
             dataGridEkip.ColumnHeadersDefaultCellStyle.SelectionForeColor = dataGridEkip.ColumnHeadersDefaultCellStyle.ForeColor;
         }
@@ -108,7 +106,6 @@ namespace TaskFlow360
             {
                 baglanti.BaglantiAc();
 
-                // Sadece yöneticinin ekibinde bulunan departmanları getir
                 string query = @"
                     SELECT DISTINCT d.DepartmanID, d.DepartmanAdi 
                     FROM Departman d
@@ -126,7 +123,6 @@ namespace TaskFlow360
                         DataTable dt = new DataTable();
                         da.Fill(dt);
 
-                        // "Tümü" seçeneğini en üste ekle
                         DataRow tumRow = dt.NewRow();
                         tumRow["DepartmanID"] = -1;
                         tumRow["DepartmanAdi"] = "Tümü";
@@ -148,17 +144,16 @@ namespace TaskFlow360
             }
         }
 
-        // Departman seçildiğinde, bağlı bölümleri yükle
         private void comboBoxDepartman_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxDepartman.SelectedValue == null) return;
 
             if (int.TryParse(comboBoxDepartman.SelectedValue.ToString(), out int departmanID))
             {
-                if (departmanID == -1) // "Tümü" seçildi
+                if (departmanID == -1)
                 {
                     LoadAllBolumler();
-                    EkipUyeleriniYukle(); // Tüm ekibi göster
+                    EkipUyeleriniYukle();
                 }
                 else
                 {
@@ -173,7 +168,6 @@ namespace TaskFlow360
             {
                 baglanti.BaglantiAc();
 
-                // Sadece yöneticinin ekibinde bulunan ve seçilen departmana ait bölümleri getir
                 string query = @"
                     SELECT DISTINCT b.BolumID, b.BolumAdi 
                     FROM Bolum b
@@ -192,7 +186,6 @@ namespace TaskFlow360
                         DataTable dt = new DataTable();
                         da.Fill(dt);
 
-                        // "Tümü" seçeneğini en üste ekle
                         DataRow tumRow = dt.NewRow();
                         tumRow["BolumID"] = -1;
                         tumRow["BolumAdi"] = "Tümü";
@@ -220,7 +213,6 @@ namespace TaskFlow360
             {
                 baglanti.BaglantiAc();
 
-                // Yöneticinin ekibindeki tüm bölümleri getir
                 string query = @"
                     SELECT DISTINCT b.BolumID, b.BolumAdi 
                     FROM Bolum b
@@ -237,7 +229,6 @@ namespace TaskFlow360
                         DataTable dt = new DataTable();
                         da.Fill(dt);
 
-                        // "Tümü" seçeneğini en üste ekle
                         DataRow tumRow = dt.NewRow();
                         tumRow["BolumID"] = -1;
                         tumRow["BolumAdi"] = "Tümü";
@@ -266,19 +257,18 @@ namespace TaskFlow360
 
             if (int.TryParse(comboBoxBolum.SelectedValue.ToString(), out int bolumID))
             {
-                if (bolumID == -1) // "Tümü" seçildi
+                if (bolumID == -1)
                 {
-                    // Departman seçimine göre filtreleme yap
                     if (comboBoxDepartman.SelectedValue != null &&
                         int.TryParse(comboBoxDepartman.SelectedValue.ToString(), out int departmanID))
                     {
-                        if (departmanID == -1) // Departman da "Tümü" seçili
+                        if (departmanID == -1) 
                         {
-                            EkipUyeleriniYukle(); // Tüm ekibi göster
+                            EkipUyeleriniYukle();
                         }
                         else
                         {
-                            ListeleByDepartman(departmanID); // Sadece o departmanı göster
+                            ListeleByDepartman(departmanID);
                         }
                     }
                 }
@@ -384,7 +374,6 @@ namespace TaskFlow360
                 string aciklama = txtAciklama.Text.Trim();
                 baglanti.BaglantiAc();
 
-                // Açıklama güncelleme için direkt SQL kullan
                 string updateQuery = "UPDATE Cagri SET CagriAciklama = @Aciklama WHERE CagriID = @CagriID";
                 using (SqlCommand cmd = new SqlCommand(updateQuery, baglanti.conn))
                 {
@@ -393,7 +382,8 @@ namespace TaskFlow360
                     cmd.ExecuteNonQuery();
                 }
 
-                // Durum güncelleme
+                _logger.LogEkle("Güncelleme", "Cagri", $"Açıklama güncellendi - ÇağrıID: {cagriId}, Yöneticisi: {yoneticiId}");
+
                 Call.CagriDurumGuncelle(cagriId, "Açıklama Güncellendi", aciklama, Convert.ToInt32(yoneticiId), baglanti.conn, Convert.ToInt32(yoneticiId));
 
                 MessageBox.Show("Açıklama güncellendi.", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -466,9 +456,9 @@ namespace TaskFlow360
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            this.Close();
             ManagerHomepage managerHomepage = new ManagerHomepage();
             managerHomepage.Show();
+            this.Close();
         }
 
         private void btnAta_Click(object sender, EventArgs e)
@@ -485,7 +475,6 @@ namespace TaskFlow360
             {
                 baglanti.BaglantiAc();
 
-                // 1. Çağrıyı kullanıcıya ata
                 string sorgu = "UPDATE Cagri SET AtananKullaniciID = @atananId, Durum = @durum WHERE CagriID = @cagriId";
                 using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
                 {
@@ -496,7 +485,7 @@ namespace TaskFlow360
                     int etkilenen = cmd.ExecuteNonQuery();
                     if (etkilenen > 0)
                     {
-                        // 2. Çağrı durum geçmişine kayıt
+                        _logger.LogEkle("Güncelleme", "Cagri", $"Çağrı atandı - ÇağrıID: {cagriId}, Atanan KullanıcıID: {atananKullaniciId}, Yöneticisi: {yoneticiId}");
                         string aciklama = $"Çağrı {atananKullaniciId} ID'li kullanıcıya atandı.";
                         int kullaniciId = Convert.ToInt32(yoneticiId);
 
@@ -521,17 +510,6 @@ namespace TaskFlow360
             {
                 baglanti.BaglantiKapat();
             }
-        }
-
-        // Form kapatılırken bağlantıları temizle
-        protected override void OnFormClosed(FormClosedEventArgs e)
-        {
-            try
-            {
-                baglanti?.BaglantiKapat();
-            }
-            catch { }
-            base.OnFormClosed(e);
         }
     }
 }

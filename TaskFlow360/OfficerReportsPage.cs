@@ -16,6 +16,7 @@ namespace TaskFlow360
     public partial class OfficerReportsPage : Form
     {
         Connection baglanti = new Connection();
+        private readonly Logger _logger = new Logger();
 
         // Ana tema renkleri
         private readonly Color PrimaryColor = Color.FromArgb(126, 87, 194);
@@ -27,67 +28,23 @@ namespace TaskFlow360
         public OfficerReportsPage()
         {
             InitializeComponent();
-            LogEkle("OfficerReportsPage formu başlatıldı", "Form", "OfficerReportsPage");
+            _logger.LogEkle("OfficerReportsPage formu başlatıldı", "Form", "OfficerReportsPage");
         }
-
-        private void LogEkle(string islemDetaylari, string islemTipi, string tabloAdi)
-        {
-            try
-            {
-                baglanti.BaglantiAc();
-                string sorgu = @"INSERT INTO Log (IslemTarihi, KullaniciID, IslemTipi, TabloAdi, IslemDetaylari, IPAdresi) 
-                                VALUES (@IslemTarihi, @KullaniciID, @IslemTipi, @TabloAdi, @IslemDetaylari, @IPAdresi)";
-
-                using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
-                {
-                    cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
-                    cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
-                    cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
-                    cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
-                    cmd.Parameters.AddWithValue("@IPAdresi", GetLocalIPAddress());
-
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Log kayıt hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                baglanti.BaglantiKapat();
-            }
-        }
-
-        private string GetLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            return "IP Adresi Bulunamadı";
-        }
-
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            LogEkle("Kapat butonuna tıklandı", "Buton", "OfficerReportsPage");
+            _logger.LogEkle("Kapat butonuna tıklandı", "Buton", "OfficerReportsPage");
             Application.Exit();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-            LogEkle("Küçült butonuna tıklandı", "Buton", "OfficerReportsPage");
+            _logger.LogEkle("Küçült butonuna tıklandı", "Buton", "OfficerReportsPage");
             WindowState = FormWindowState.Minimized;
         }
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            LogEkle("Anasayfa butonuna tıklandı", "Buton", "OfficerReportsPage");
+            _logger.LogEkle("Anasayfa butonuna tıklandı", "Buton", "OfficerReportsPage");
             OfficerHomepage officerHomepage = new OfficerHomepage();
             officerHomepage.Show();
             this.Close();
@@ -95,7 +52,7 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
-            LogEkle("Profil butonuna tıklandı", "Buton", "OfficerReportsPage");
+            _logger.LogEkle("Profil butonuna tıklandı", "Buton", "OfficerReportsPage");
             OfficerProfile officerProfile = new OfficerProfile();
             officerProfile.Show();
             this.Close();
@@ -103,7 +60,7 @@ namespace TaskFlow360
 
         private void btnGorevler_Click(object sender, EventArgs e)
         {
-            LogEkle("Görevler butonuna tıklandı", "Buton", "OfficerReportsPage");
+            _logger.LogEkle("Görevler butonuna tıklandı", "Buton", "OfficerReportsPage");
             OfficerTaskspage officerTaskspage = new OfficerTaskspage();
             officerTaskspage.Show();
             this.Close();
@@ -111,7 +68,7 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
-            LogEkle("Raporlar butonuna tıklandı", "Buton", "OfficerReportsPage");
+            _logger.LogEkle("Raporlar butonuna tıklandı", "Buton", "OfficerReportsPage");
             OfficerReportsPage officerReportsPage = new OfficerReportsPage();
             officerReportsPage.Show();
             this.Close();
@@ -119,7 +76,7 @@ namespace TaskFlow360
 
         private void btnCikis_Click(object sender, EventArgs e)
         {
-            LogEkle("Çıkış butonuna tıklandı", "Buton", "OfficerReportsPage");
+            _logger.LogEkle("Çıkış butonuna tıklandı", "Buton", "OfficerReportsPage");
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             this.Close();
@@ -127,24 +84,22 @@ namespace TaskFlow360
 
         private void OfficerReportsPage_Load(object sender, EventArgs e)
         {
-            LogEkle("Raporlar yüklenmeye başlandı", "Okuma", "OfficerReportsPage");
+            _logger.LogEkle("Raporlar yüklenmeye başlandı", "Okuma", "OfficerReportsPage");
             PieChartGunlukDurum();
             ColumnChartHaftalikPerformans();
             AylikPerformansGrafik();
             OncelikDagilimiGrafik();
-            LogEkle("Raporlar başarıyla yüklendi", "Okuma", "OfficerReportsPage");
+            _logger.LogEkle("Raporlar başarıyla yüklendi", "Okuma", "OfficerReportsPage");
         }
 
         private void BeautifyChart(Chart chart)
         {
-            // Genel chart ayarları
             chart.ChartAreas[0].BackColor = Color.White;
             chart.BackColor = Color.White;
             chart.BorderlineColor = Color.FromArgb(230, 230, 230);
             chart.BorderlineWidth = 1;
             chart.BorderlineDashStyle = ChartDashStyle.Solid;
 
-            // Legend ayarları
             if (chart.Legends.Count > 0)
             {
                 chart.Legends[0].BackColor = Color.Transparent;
@@ -153,7 +108,6 @@ namespace TaskFlow360
                 chart.Legends[0].BorderColor = Color.Transparent;
             }
 
-            // Axis ayarları
             chart.ChartAreas[0].AxisX.LabelStyle.ForeColor = TextColor;
             chart.ChartAreas[0].AxisY.LabelStyle.ForeColor = TextColor;
             chart.ChartAreas[0].AxisX.LineColor = Color.FromArgb(200, 200, 200);
@@ -163,7 +117,6 @@ namespace TaskFlow360
             chart.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Century Gothic", 8F);
             chart.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Century Gothic", 8F);
 
-            // Title ayarları
             foreach (Title title in chart.Titles)
             {
                 title.ForeColor = TextColor;
@@ -186,7 +139,6 @@ namespace TaskFlow360
                 Font = new Font("Century Gothic", 9F, FontStyle.Bold)
             };
 
-            // Pie chart için özel renk paleti
             Color[] pieColors = {
                 PrimaryColor,           // Ana mor
                 SecondaryColor,         // Açık mor
@@ -255,15 +207,15 @@ namespace TaskFlow360
             using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 string query = @"
-            SELECT FORMAT(OlusturmaTarihi, 'dd.MM') AS Tarih,
-                   COUNT(*) AS CagriSayisi,
-                   AVG(DATEDIFF(MINUTE, OlusturmaTarihi, TeslimTarihi)) AS OrtalamaSure
-            FROM Cagri
-            WHERE AtananKullaniciID = @KullaniciID AND
-                  OlusturmaTarihi >= DATEADD(DAY, -6, GETDATE()) AND
-                  TeslimTarihi IS NOT NULL
-            GROUP BY FORMAT(OlusturmaTarihi, 'dd.MM')
-            ORDER BY Tarih";
+                SELECT FORMAT(OlusturmaTarihi, 'dd.MM') AS Tarih,
+                       COUNT(*) AS CagriSayisi,
+                       AVG(DATEDIFF(MINUTE, OlusturmaTarihi, TeslimTarihi)) AS OrtalamaSure
+                FROM Cagri
+                WHERE AtananKullaniciID = @KullaniciID AND
+                      OlusturmaTarihi >= DATEADD(DAY, -6, GETDATE()) AND
+                      TeslimTarihi IS NOT NULL
+                GROUP BY FORMAT(OlusturmaTarihi, 'dd.MM')
+                ORDER BY Tarih";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
@@ -317,18 +269,18 @@ namespace TaskFlow360
             using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 string query = @"
-           SELECT CONCAT(pk.Yil, '-', FORMAT(pk.Ay, '00')) AS Ay,
-           COUNT(c.CagriID) AS ToplamCagri,
-           SUM(pk.PrimToplam) AS ToplamPrim
-           FROM PrimKayit pk
-           LEFT JOIN Cagri c ON c.AtananKullaniciID = pk.KullaniciID 
-                              AND YEAR(c.TeslimTarihi) = pk.Yil 
-                              AND MONTH(c.TeslimTarihi) = pk.Ay
-                              AND c.Durum = 'Tamamlandı'
-           WHERE pk.KullaniciID = @KullaniciID AND
-           pk.HesaplamaTarihi >= DATEADD(MONTH, -2, GETDATE())
-           GROUP BY pk.Yil, pk.Ay
-           ORDER BY pk.Yil, pk.Ay";
+               SELECT CONCAT(pk.Yil, '-', FORMAT(pk.Ay, '00')) AS Ay,
+               COUNT(c.CagriID) AS ToplamCagri,
+               SUM(pk.PrimToplam) AS ToplamPrim
+               FROM PrimKayit pk
+               LEFT JOIN Cagri c ON c.AtananKullaniciID = pk.KullaniciID 
+                                  AND YEAR(c.TeslimTarihi) = pk.Yil 
+                                  AND MONTH(c.TeslimTarihi) = pk.Ay
+                                  AND c.Durum = 'Tamamlandı'
+               WHERE pk.KullaniciID = @KullaniciID AND
+               pk.HesaplamaTarihi >= DATEADD(MONTH, -2, GETDATE())
+               GROUP BY pk.Yil, pk.Ay
+               ORDER BY pk.Yil, pk.Ay";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
@@ -346,13 +298,11 @@ namespace TaskFlow360
             chartAylik.Series.Add(cagriSeries);
             chartAylik.Series.Add(primSeries);
 
-            // Axis başlıkları
             chartAylik.ChartAreas[0].AxisX.Title = "Ay";
             chartAylik.ChartAreas[0].AxisY.Title = "Çağrı Sayısı";
             chartAylik.ChartAreas[0].AxisY2.Title = "Prim (₺)";
             chartAylik.ChartAreas[0].AxisY2.Enabled = AxisEnabled.True;
 
-            // Axis başlık renkleri
             chartAylik.ChartAreas[0].AxisX.TitleForeColor = TextColor;
             chartAylik.ChartAreas[0].AxisY.TitleForeColor = TextColor;
             chartAylik.ChartAreas[0].AxisY2.TitleForeColor = TextColor;
@@ -376,7 +326,6 @@ namespace TaskFlow360
                 Font = new Font("Century Gothic", 9F, FontStyle.Bold)
             };
 
-            // Öncelik seviyeleri için gradient renk paleti
             Color[] priorityColors = {
                 Color.FromArgb(220, 53, 69),   // Yüksek öncelik - Kırmızı
                 Color.FromArgb(255, 193, 7),   // Orta öncelik - Sarı  
@@ -389,13 +338,13 @@ namespace TaskFlow360
             using (SqlConnection conn = Connection.BaglantiGetir())
             {
                 string query = @"
-        SELECT c.Oncelik, COUNT(*) AS Adet
-        FROM Cagri c
-        WHERE c.AtananKullaniciID = @KullaniciID 
-        AND c.Durum = 'Tamamlandı'
-        AND c.CevapTarihi >= DATEADD(MONTH, -3, GETDATE())
-        GROUP BY c.Oncelik
-        ORDER BY Adet DESC";
+                SELECT c.Oncelik, COUNT(*) AS Adet
+                FROM Cagri c
+                WHERE c.AtananKullaniciID = @KullaniciID 
+                AND c.Durum = 'Tamamlandı'
+                AND c.CevapTarihi >= DATEADD(MONTH, -3, GETDATE())
+                GROUP BY c.Oncelik
+                ORDER BY Adet DESC";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);

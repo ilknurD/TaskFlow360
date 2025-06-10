@@ -17,64 +17,22 @@ namespace TaskFlow360
 {
     public partial class OfficerTaskspage : Form
     {
+        private readonly Logger _logger = new Logger();
         public OfficerTaskspage()
         {
             InitializeComponent();
             dgvGorevler.CellClick += new DataGridViewCellEventHandler(dgvGorevler_CellClick);
             dgvGorevler.ColumnHeaderMouseClick += new DataGridViewCellMouseEventHandler(dgvGorevler_ColumnHeaderMouseClick);
-            LogEkle("OfficerTaskspage formu başlatıldı", "Form", "OfficerTaskspage");
+            _logger.LogEkle("OfficerTaskspage formu başlatıldı", "Form", "OfficerTaskspage");
         }
 
         private Connection baglantiNesnesi = new Connection();
-
-        private void LogEkle(string islemDetaylari, string islemTipi, string tabloAdi)
-        {
-            try
-            {
-                baglantiNesnesi.BaglantiAc();
-                string sorgu = @"INSERT INTO Log (IslemTarihi, KullaniciID, IslemTipi, TabloAdi, IslemDetaylari, IPAdresi) 
-                                VALUES (@IslemTarihi, @KullaniciID, @IslemTipi, @TabloAdi, @IslemDetaylari, @IPAdresi)";
-
-                using (SqlCommand cmd = new SqlCommand(sorgu, baglantiNesnesi.conn))
-                {
-                    cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
-                    cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
-                    cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
-                    cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
-                    cmd.Parameters.AddWithValue("@IPAdresi", GetLocalIPAddress());
-
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Log kayıt hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                baglantiNesnesi.BaglantiKapat();
-            }
-        }
-
-        private string GetLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            return "IP Adresi Bulunamadı";
-        }
 
         private void CagrilariYukle()
         {
             try
             {
-                LogEkle("Çağrılar yüklenmeye başlandı", "Okuma", "Cagri");
+                _logger.LogEkle("Çağrılar yüklenmeye başlandı", "Okuma", "Cagri");
                 baglantiNesnesi.BaglantiAc();
 
                 if (string.IsNullOrEmpty(UserInformation.KullaniciID))
@@ -84,7 +42,6 @@ namespace TaskFlow360
                     return;
                 }
 
-                // Sorguyu düzeltelim - te.TalepEden alanını string olarak alıyoruz
                 string sorgu = @"SELECT c.CagriID, c.Baslik, te.TalepEden, c.Durum, c.OlusturmaTarihi, 
                    c.TeslimTarihi, c.AtananKullaniciID, c.CagriKategori, c.Oncelik, c.HedefSure 
                    FROM Cagri c
@@ -99,16 +56,13 @@ namespace TaskFlow360
                 {
                     komut.Parameters.AddWithValue("@KullaniciID", kullaniciID);
 
-                    // Veri çekme işlemini dene
                     SqlDataAdapter adapter = new SqlDataAdapter(komut);
                     DataTable veriTablosu = new DataTable();
                     adapter.Fill(veriTablosu);
 
-                    // Veri geldi mi kontrol et
                     if (veriTablosu.Rows.Count > 0)
                     {
-                        LogEkle($"{veriTablosu.Rows.Count} adet çağrı başarıyla yüklendi", "Okuma", "Cagri");
-                        // DataGridView'i temizle ve yeniden ayarla
+                        _logger.LogEkle($"{veriTablosu.Rows.Count} adet çağrı başarıyla yüklendi", "Okuma", "Cagri");
                         dgvGorevler.DataSource = null;
                         dgvGorevler.Columns.Clear();
                         dgvGorevler.DataSource = veriTablosu;
@@ -117,7 +71,7 @@ namespace TaskFlow360
                     }
                     else
                     {
-                        LogEkle("Bu kullanıcıya atanmış görev bulunamadı", "Okuma", "Cagri");
+                        _logger.LogEkle("Bu kullanıcıya atanmış görev bulunamadı", "Okuma", "Cagri");
                         MessageBox.Show("Bu kullanıcıya atanmış görev bulunamadı.",
                                         "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -130,7 +84,7 @@ namespace TaskFlow360
             }
             catch (Exception ex)
             {
-                LogEkle($"Hata: Çağrı verileri yüklenirken hata oluştu - {ex.Message}", "Hata", "Cagri");
+                _logger.LogEkle($"Hata: Çağrı verileri yüklenirken hata oluştu - {ex.Message}", "Hata", "Cagri");
                 MessageBox.Show("Çağrı verileri yüklenirken hata oluştu: " + ex.Message,
                                 "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -252,7 +206,7 @@ namespace TaskFlow360
             }
             catch (Exception ex)
             {
-                LogEkle($"Hata: Sütunlar ayarlanırken hata oluştu - {ex.Message}", "Hata", "Cagri");
+                _logger.LogEkle($"Hata: Sütunlar ayarlanırken hata oluştu - {ex.Message}", "Hata", "Cagri");
                 MessageBox.Show("Sütunlar ayarlanırken hata oluştu: " + ex.Message,
                                 "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -278,11 +232,10 @@ namespace TaskFlow360
                         if (cagriIDObj != null && cagriIDObj != DBNull.Value)
                         {
                             int cagriID = Convert.ToInt32(cagriIDObj);
-                            LogEkle($"Çağrı detayı açıldı - Çağrı ID: {cagriID}", "Okuma", "Cagri");
+                            _logger.LogEkle($"Çağrı detayı açıldı - Çağrı ID: {cagriID}", "Okuma", "Cagri");
 
                             int talepEdenID = 0;
 
-                            // TalepEden adından ID'sini al
                             if (talepEdenObj != null && talepEdenObj != DBNull.Value)
                             {
                                 string talepEdenAd = talepEdenObj.ToString();
@@ -313,25 +266,24 @@ namespace TaskFlow360
 
         private void dgvGorevler_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            // Sütun başlığına tıklandığında hiçbir şey yapma
             return;
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            LogEkle("Kapat butonuna tıklandı", "Buton", "OfficerTaskspage");
+            _logger.LogEkle("Kapat butonuna tıklandı", "Buton", "OfficerTaskspage");
             Application.Exit();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-            LogEkle("Küçült butonuna tıklandı", "Buton", "OfficerTaskspage");
+            _logger.LogEkle("Küçült butonuna tıklandı", "Buton", "OfficerTaskspage");
             WindowState = FormWindowState.Minimized;
         }
 
         private void btnCikis_Click(object sender, EventArgs e)
         {
-            LogEkle("Çıkış butonuna tıklandı", "Buton", "OfficerTaskspage");
+            _logger.LogEkle("Çıkış butonuna tıklandı", "Buton", "OfficerTaskspage");
             LoginForm loginForm = new LoginForm();
             loginForm.ShowDialog();
             this.Close();
@@ -339,7 +291,7 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            LogEkle("Anasayfa butonuna tıklandı", "Buton", "OfficerTaskspage");
+            _logger.LogEkle("Anasayfa butonuna tıklandı", "Buton", "OfficerTaskspage");
             OfficerHomepage homepage = new OfficerHomepage();
             homepage.ShowDialog();
             this.Close();
@@ -352,8 +304,8 @@ namespace TaskFlow360
 
             dgvGorevler.RowTemplate.Height = 40;
             dgvGorevler.DefaultCellStyle.Font = new Font("Century Gothic", 10, FontStyle.Regular);
-            
-            // Sütun başlıklarının sıralama özelliğini kapat
+
+            // Sütun başlıklarının sıralama özelliğini kapatmak için
             dgvGorevler.ColumnHeadersDefaultCellStyle.SelectionBackColor = dgvGorevler.ColumnHeadersDefaultCellStyle.BackColor;
             dgvGorevler.EnableHeadersVisualStyles = false;
             dgvGorevler.ColumnHeadersDefaultCellStyle.SelectionForeColor = dgvGorevler.ColumnHeadersDefaultCellStyle.ForeColor;
@@ -478,10 +430,8 @@ namespace TaskFlow360
 
                 using (SqlCommand cmd = new SqlCommand(query, baglantiNesnesi.conn))
                 {
-                    // Her zaman KullaniciID parametresini ekle
                     cmd.Parameters.AddWithValue("@KullaniciID", int.Parse(UserInformation.KullaniciID));
 
-                    // Sadece gerekli parametreleri ekle
                     if (durum != "Tümü")
                         cmd.Parameters.AddWithValue("@Durum", durum);
 
@@ -542,14 +492,14 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
-            LogEkle("Profil butonuna tıklandı", "Buton", "OfficerTaskspage");
+            _logger.LogEkle("Profil butonuna tıklandı", "Buton", "OfficerTaskspage");
             OfficerProfile profile = new OfficerProfile();
             profile.Show();
         }
 
         private void btnGorevler_Click(object sender, EventArgs e)
         {
-            LogEkle("Görevler butonuna tıklandı", "Buton", "OfficerTaskspage");
+            _logger.LogEkle("Görevler butonuna tıklandı", "Buton", "OfficerTaskspage");
             this.Close();
             OfficerTaskspage officerTaskspage = new OfficerTaskspage();
             officerTaskspage.Show();
@@ -557,7 +507,7 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
-            LogEkle("Raporlar butonuna tıklandı", "Buton", "OfficerTaskspage");
+            _logger.LogEkle("Raporlar butonuna tıklandı", "Buton", "OfficerTaskspage");
             this.Close();
             OfficerReportsPage officerReportsPage = new OfficerReportsPage();
             officerReportsPage.Show();
@@ -580,7 +530,7 @@ namespace TaskFlow360
 
         private void btnTemizle_Click(object sender, EventArgs e)
         {
-            LogEkle("Temizle butonuna tıklandı", "Buton", "OfficerTaskspage");
+            _logger.LogEkle("Temizle butonuna tıklandı", "Buton", "OfficerTaskspage");
             cmbDurum.SelectedIndex = -1;
             cmbOncelik.SelectedIndex = -1;
             cmbKategori.SelectedIndex = -1;

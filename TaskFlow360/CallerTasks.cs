@@ -200,21 +200,18 @@ namespace TaskFlow360
 
                 dgvGorevler.DataSource = dt;
 
-                // Sütun başlıklarını özelleştirme
                 dgvGorevler.Columns["CagriNumarasi"].HeaderText = "Çağrı No";
                 dgvGorevler.Columns["Baslik"].HeaderText = "Başlık";
                 dgvGorevler.Columns["CagriKategori"].HeaderText = "Kategori";
                 dgvGorevler.Columns["Oncelik"].HeaderText = "Öncelik";
                 dgvGorevler.Columns["Durum"].HeaderText = "Durum";
 
-                // Sütun sıralaması
                 dgvGorevler.Columns["CagriNumarasi"].DisplayIndex = 0;
                 dgvGorevler.Columns["Baslik"].DisplayIndex = 1;
                 dgvGorevler.Columns["CagriKategori"].DisplayIndex = 2;
                 dgvGorevler.Columns["Oncelik"].DisplayIndex = 3;
                 dgvGorevler.Columns["Durum"].DisplayIndex = 4;
 
-                // "İşlem" buton sütunu ekleme
                 if (!dgvGorevler.Columns.Contains("islemButon"))
                 {
                     DataGridViewButtonColumn islemButon = new DataGridViewButtonColumn();
@@ -240,6 +237,7 @@ namespace TaskFlow360
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Kapatma", "CallerTasks", "Kullanıcı uygulamayı kapattı");
             Application.Exit();
         }
 
@@ -250,7 +248,6 @@ namespace TaskFlow360
 
         private void ConfiguredgvGorevler()
         {
-            // Başlık stili 
             dgvGorevler.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
             {
                 BackColor = Color.FromArgb(126, 87, 194),
@@ -261,7 +258,6 @@ namespace TaskFlow360
             };
             dgvGorevler.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-            // Varsayılan hücre stili 
             dgvGorevler.DefaultCellStyle = new DataGridViewCellStyle
             {
                 SelectionBackColor = Color.FromArgb(226, 216, 243), // Soft mor
@@ -270,7 +266,6 @@ namespace TaskFlow360
                 ForeColor = Color.FromArgb(64, 64, 64)
             };
 
-            // Başlık stilleri 
             dgvGorevler.EnableHeadersVisualStyles = false;
             dgvGorevler.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
             {
@@ -279,7 +274,6 @@ namespace TaskFlow360
                 Font = new Font("Century Gothic", 11, FontStyle.Bold)
             };
 
-            // Özel stilli sütunlar için (buton)
             if (dgvGorevler.Columns.Contains("islemButon"))
             {
                 var buttonStyle = new DataGridViewCellStyle
@@ -299,15 +293,9 @@ namespace TaskFlow360
             {
                 if (e.RowIndex >= 0 && e.ColumnIndex == dgvGorevler.Columns["islemButon"].Index)
                 {
-                    // Satırı seç
                     dgvGorevler.Rows[e.RowIndex].Selected = true;
 
                     string cagriID = dgvGorevler.Rows[e.RowIndex].Cells["CagriNumarasi"].Value.ToString().Replace("#", "");
-
-                    // İşlemler
-                    //EditCallForm editForm = new EditCallForm(cagriID);
-                    //editForm.ShowDialog();
-
                     GorevleriGetir();
                 }
             }
@@ -321,10 +309,8 @@ namespace TaskFlow360
         private void dgvGorevler_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
-            // Seçili satırlar için özel işlemler
             if (dgvGorevler.Rows[e.RowIndex].Selected)
             {
-                // Özel renkli sütunlar hariç tümünde seçim rengini uygula
                 if (dgvGorevler.Columns[e.ColumnIndex].Name != "islemButon" &&
                     dgvGorevler.Columns[e.ColumnIndex].Name != "Oncelik" &&
                     dgvGorevler.Columns[e.ColumnIndex].Name != "Durum")
@@ -334,10 +320,8 @@ namespace TaskFlow360
                 }
             }
 
-            // Genel font ayarı
             e.CellStyle.Font = new Font("Century Gothic", 10);
 
-            // İşlem butonu stili
             if (dgvGorevler.Columns[e.ColumnIndex].Name == "islemButon")
             {
                 e.CellStyle.BackColor = Color.FromArgb(146, 107, 214);
@@ -345,7 +329,6 @@ namespace TaskFlow360
                 return;
             }
 
-            // Öncelik sütunu renklendirme (daha soft tonlar)
             if (dgvGorevler.Columns[e.ColumnIndex].Name == "Oncelik" && e.Value != null)
             {
                 string oncelik = e.Value.ToString();
@@ -365,7 +348,6 @@ namespace TaskFlow360
                 return;
             }
 
-            // Durum sütunu renklendirme (daha soft tonlar)
             if (dgvGorevler.Columns[e.ColumnIndex].Name == "Durum" && e.Value != null)
             {
                 string durum = e.Value.ToString();
@@ -388,7 +370,6 @@ namespace TaskFlow360
 
         private void dgvGorevler_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            // Tüm satırların seçim renklerini zorla uygula
             foreach (DataGridViewRow row in dgvGorevler.Rows)
             {
                 row.DefaultCellStyle.SelectionBackColor = Color.FromArgb(226, 216, 243);
@@ -479,7 +460,6 @@ namespace TaskFlow360
                 FROM Cagri c
                 WHERE c.OlusturanKullaniciID = @KullaniciID";
 
-                // Filtreleri koşullu olarak ekle
                 if (durum != "Tümü")
                     query += " AND c.Durum = @Durum";
 
@@ -495,10 +475,8 @@ namespace TaskFlow360
 
                 using (SqlCommand cmd = new SqlCommand(query, baglanti.conn))
                 {
-                    // Her zaman KullaniciID parametresini ekle
                     cmd.Parameters.AddWithValue("@KullaniciID", int.Parse(UserInformation.KullaniciID));
 
-                    // Sadece gerekli parametreleri ekle
                     if (durum != "Tümü")
                         cmd.Parameters.AddWithValue("@Durum", durum);
 

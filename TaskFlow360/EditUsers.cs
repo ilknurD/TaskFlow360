@@ -10,10 +10,12 @@ namespace TaskFlow360
     {
         private int secilenKullaniciID;
         private bool yeniKayitMi = false;
+        private readonly Logger _logger;
 
         public EditUsers()
         {
             InitializeComponent();
+            _logger = new Logger();
             secilenKullaniciID = 0;
             yeniKayitMi = true;
         }
@@ -23,6 +25,7 @@ namespace TaskFlow360
         string cinsiyet, DateTime? dogumTar, DateTime? iseBaslamaTar, decimal? maas)
         {
             InitializeComponent();
+            _logger = new Logger();
             secilenKullaniciID = kullaniciID;
             yeniKayitMi = false;
 
@@ -234,6 +237,7 @@ namespace TaskFlow360
 
                     if (yeniKayitMi)
                     {
+                        _logger.LogEkle("Ekleme", "Kullanıcı", $"Yeni kullanıcı ekleniyor - Ad: {txtAd.Text} {txtSoyad.Text}, Rol: {cmbRol.Text}");
                         string insertQuery = @"
                             INSERT INTO Kullanici 
                                 (Ad, Soyad, Email, Sifre, Rol, Adres, YoneticiID, DepartmanID, BolumID, Telefon, Cinsiyet, Maas, DogumTar, IseBaslamaTar)
@@ -243,6 +247,7 @@ namespace TaskFlow360
                     }
                     else
                     {
+                        _logger.LogEkle("Güncelleme", "Kullanıcı", $"Kullanıcı güncelleniyor - ID: {secilenKullaniciID}, Ad: {txtAd.Text} {txtSoyad.Text}, Rol: {cmbRol.Text}");
                         string updateQuery = @"
                             UPDATE Kullanici SET
                                 Ad = @ad,

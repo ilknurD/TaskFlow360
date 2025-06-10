@@ -128,12 +128,6 @@
     <Compile Include="TasksAssignmentForm.Designer.cs">
       <DependentUpon>TasksAssignmentForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CallCenterTaskTracking.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CallCenterTaskTracking.Designer.cs">
-      <DependentUpon>CallCenterTaskTracking.cs</DependentUpon>
-    </Compile>
     <Compile Include="User.cs" />
     <Compile Include="UserInformation.cs" />
     <Compile Include="LoginForm.cs">
@@ -230,9 +224,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BossUsersControl.resx">
       <DependentUpon>BossUsersControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CallCenterTaskTracking.resx">
-      <DependentUpon>CallCenterTaskTracking.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditUsers.resx">
       <DependentUpon>EditUsers.cs</DependentUpon>

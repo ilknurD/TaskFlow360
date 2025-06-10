@@ -15,55 +15,12 @@ namespace TaskFlow360
     public partial class ManagerTasks : Form
     {
         private Connection baglanti = new Connection();
-
+        private Logger logger;
         public ManagerTasks()
         {
             InitializeComponent();
-            LogEkle("ManagerTasks formu başlatıldı", "Form", "ManagerTasks");
-        }
-
-        private void LogEkle(string islemDetaylari, string islemTipi, string tabloAdi)
-        {
-            try
-            {
-                if (baglanti.conn.State != ConnectionState.Open)
-                    baglanti.conn.Open();
-                string sorgu = @"INSERT INTO Log (IslemTarihi, KullaniciID, IslemTipi, TabloAdi, IslemDetaylari, IPAdresi) 
-                                VALUES (@IslemTarihi, @KullaniciID, @IslemTipi, @TabloAdi, @IslemDetaylari, @IPAdresi)";
-
-                using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
-                {
-                    cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
-                    cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
-                    cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
-                    cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
-                    cmd.Parameters.AddWithValue("@IPAdresi", GetLocalIPAddress());
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Log kayıt hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (baglanti.conn.State == ConnectionState.Open)
-                    baglanti.conn.Close();
-            }
-        }
-
-        private string GetLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            return "IP Adresi Bulunamadı";
+            logger = new Logger();
+            logger.LogEkle("ManagerTasks formu başlatıldı", "Form", "ManagerTasks");
         }
         private void GuncelDurumLabeliniGuncelle()
         {
@@ -118,24 +75,24 @@ namespace TaskFlow360
         }
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            LogEkle("Kapat butonuna tıklandı", "Buton", "ManagerTasks");
+            logger.LogEkle("Kapat butonuna tıklandı", "Buton", "ManagerTasks");
             Application.Exit();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-            LogEkle("Küçült butonuna tıklandı", "Buton", "ManagerTasks");
+            logger.LogEkle("Küçült butonuna tıklandı", "Buton", "ManagerTasks");
             WindowState = FormWindowState.Minimized;
         }
 
         private void gorevlerTab_Click(object sender, EventArgs e)
         {
-            LogEkle("Görevler sekmesine tıklandı", "Buton", "ManagerTasks");
+            logger.LogEkle("Görevler sekmesine tıklandı", "Buton", "ManagerTasks");
         }
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            LogEkle("Anasayfa butonuna tıklandı", "Buton", "ManagerTasks");
+            logger.LogEkle("Anasayfa butonuna tıklandı", "Buton", "ManagerTasks");
             ManagerHomepage managerHomepage = new ManagerHomepage();
             managerHomepage.Show();
             this.Close();
@@ -143,7 +100,7 @@ namespace TaskFlow360
 
         private void btnGorevler_Click(object sender, EventArgs e)
         {
-            LogEkle("Görevler butonuna tıklandı", "Buton", "ManagerTasks");
+            logger.LogEkle("Görevler butonuna tıklandı", "Buton", "ManagerTasks");
             ManagerTasks managerTasks = new ManagerTasks();
             managerTasks.Show();
             this.Close();
@@ -151,7 +108,7 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
-            LogEkle("Profil butonuna tıklandı", "Buton", "ManagerTasks");
+            logger.LogEkle("Profil butonuna tıklandı", "Buton", "ManagerTasks");
             ManagerProfile manageProfile = new ManagerProfile();
             manageProfile.Show();
             this.Close();
@@ -159,7 +116,7 @@ namespace TaskFlow360
 
         private void btnCikis_Click(object sender, EventArgs e)
         {
-            LogEkle("Çıkış butonuna tıklandı", "Buton", "ManagerTasks");
+            logger.LogEkle("Çıkış butonuna tıklandı", "Buton", "ManagerTasks");
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             this.Close();
@@ -167,7 +124,7 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
-            LogEkle("Raporlar butonuna tıklandı", "Buton", "ManagerTasks");
+            logger.LogEkle("Raporlar butonuna tıklandı", "Buton", "ManagerTasks");
             ManagerReportsPage reportPage = new ManagerReportsPage();
             reportPage.Show();
             this.Close();
@@ -175,7 +132,7 @@ namespace TaskFlow360
 
         private void btnEkipYonetimi_Click(object sender, EventArgs e)
         {
-            LogEkle("Ekip Yönetimi butonuna tıklandı", "Buton", "ManagerTasks");
+            logger.LogEkle("Ekip Yönetimi butonuna tıklandı", "Buton", "ManagerTasks");
             ManagerDashboard managerDashboardPage = new ManagerDashboard();
             managerDashboardPage.Show();
             this.Close();
@@ -183,13 +140,13 @@ namespace TaskFlow360
 
         private void ManagerTasks_Load(object sender, EventArgs e)
         {
-            LogEkle("ManagerTasks yüklenmeye başlandı", "Form", "ManagerTasks");
+            logger.LogEkle("ManagerTasks yüklenmeye başlandı", "Form", "ManagerTasks");
             try
             {
                 LoadDataFromDatabase();
-                LogEkle("Çağrılar başarıyla yüklendi", "Okuma", "ManagerTasks");
+                logger.LogEkle("Çağrılar başarıyla yüklendi", "Okuma", "ManagerTasks");
                 LoadTeamMembers();
-                LogEkle("Ekip üyeleri başarıyla yüklendi", "Okuma", "ManagerTasks");
+                logger.LogEkle("Ekip üyeleri başarıyla yüklendi", "Okuma", "ManagerTasks");
                 GuncelDurumLabeliniGuncelle();
                 ConfigureBekleyenCagrilarDGV();
                 ConfigureEkipUyeleriDGV();
@@ -221,7 +178,7 @@ namespace TaskFlow360
             }
             catch (Exception ex)
             {
-                LogEkle($"Veriler yüklenirken hata oluştu: {ex.Message}", "Hata", "ManagerTasks");
+                logger.LogEkle($"Veriler yüklenirken hata oluştu: {ex.Message}", "Hata", "ManagerTasks");
                 MessageBox.Show($"Veriler yüklenirken bir hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -389,7 +346,6 @@ namespace TaskFlow360
 
         private void FormatDataGridViews()
         {
-            // CagrilarDGV formatlama
             foreach (DataGridViewRow row in CagrilarDGV.Rows)
             {
                 if (row.Cells["Oncelik"].Value != null)
@@ -417,7 +373,6 @@ namespace TaskFlow360
                 if (ekipUyeleriDGV.Columns[e.ColumnIndex].Name != "gorevAtaButon")
                     return;
 
-                // Kullanıcı ID'sini al Tag'den  
                 DataGridViewRow selectedRow = ekipUyeleriDGV.Rows[e.RowIndex];
                 string memberID = selectedRow.Tag?.ToString();
 
@@ -459,22 +414,15 @@ namespace TaskFlow360
 
         private void ConfigureBekleyenCagrilarDGV()
         {
-            // Temel seçim ayarları
             CagrilarDGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             CagrilarDGV.DefaultCellStyle.SelectionBackColor = CagrilarDGV.DefaultCellStyle.BackColor;
             CagrilarDGV.DefaultCellStyle.SelectionForeColor = CagrilarDGV.DefaultCellStyle.ForeColor;
-
-            // Başlık ayarları
             CagrilarDGV.EnableHeadersVisualStyles = false;
             CagrilarDGV.ColumnHeadersDefaultCellStyle.SelectionBackColor = CagrilarDGV.ColumnHeadersDefaultCellStyle.BackColor;
             CagrilarDGV.RowHeadersDefaultCellStyle.SelectionBackColor = Color.Transparent;
-
-            // Görsel iyileştirmeler
             CagrilarDGV.BorderStyle = BorderStyle.None;
             CagrilarDGV.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             CagrilarDGV.GridColor = Color.FromArgb(240, 240, 240);
-
-            // Buton sütunu stil ayarı
             if (CagrilarDGV.Columns.Contains("islemButon"))
             {
                 CagrilarDGV.Columns["islemButon"].DefaultCellStyle.BackColor = Color.FromArgb(126, 87, 194);
@@ -485,21 +433,15 @@ namespace TaskFlow360
 
         private void ConfigureEkipUyeleriDGV()
         {
-            // Temel seçim ayarları (CagrilarDGV ile aynı)
             ekipUyeleriDGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ekipUyeleriDGV.DefaultCellStyle.SelectionBackColor = ekipUyeleriDGV.DefaultCellStyle.BackColor;
             ekipUyeleriDGV.DefaultCellStyle.SelectionForeColor = ekipUyeleriDGV.DefaultCellStyle.ForeColor;
-
-            // Başlık ayarları
             ekipUyeleriDGV.EnableHeadersVisualStyles = false;
             ekipUyeleriDGV.ColumnHeadersDefaultCellStyle.SelectionBackColor = ekipUyeleriDGV.ColumnHeadersDefaultCellStyle.BackColor;
             ekipUyeleriDGV.RowHeadersDefaultCellStyle.SelectionBackColor = Color.Transparent;
-
-            // Görsel iyileştirmeler
             ekipUyeleriDGV.BorderStyle = BorderStyle.None;
             ekipUyeleriDGV.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             ekipUyeleriDGV.GridColor = Color.FromArgb(240, 240, 240);
-
             if (ekipUyeleriDGV.Columns.Contains("gorevAtaButon"))
             {
                 ekipUyeleriDGV.Columns["gorevAtaButon"].DefaultCellStyle.BackColor = Color.FromArgb(126, 87, 194);
@@ -558,11 +500,8 @@ namespace TaskFlow360
         private void CagrilarDGV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
-
-            // Tüm hücreler için temel font ayarı
             e.CellStyle.Font = new Font("Century Gothic", 12, FontStyle.Regular);
 
-            // İşlem butonu için özel stil
             if (CagrilarDGV.Columns[e.ColumnIndex].Name == "islemButon")
             {
                 e.CellStyle.BackColor = Color.FromArgb(126, 87, 194);
@@ -573,7 +512,6 @@ namespace TaskFlow360
                 return;
             }
 
-            // Öncelik sütunu için renklendirme
             if (CagrilarDGV.Columns[e.ColumnIndex].Name == "Oncelik" && e.Value != null)
             {
                 string oncelik = e.Value.ToString();
@@ -596,10 +534,8 @@ namespace TaskFlow360
                 return;
             }
 
-            // Seçili satır için genel ayarlar
             if (CagrilarDGV.Rows[e.RowIndex].Selected)
             {
-                // Özel renklendirme yapılmamış sütunlar için varsayılan seçim rengi
                 if (CagrilarDGV.Columns[e.ColumnIndex].Name != "Oncelik" &&
                     CagrilarDGV.Columns[e.ColumnIndex].Name != "islemButon")
                 {
@@ -613,10 +549,8 @@ namespace TaskFlow360
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
 
-            // Buton sütunu hariç diğer sütunlar için formatlama
             if (ekipUyeleriDGV.Columns[e.ColumnIndex].Name != "gorevAtaButon")
             {
-                // Satır seçiliyse arka plan rengi
                 if (ekipUyeleriDGV.Rows[e.RowIndex].Selected)
                 {
                     e.CellStyle.SelectionBackColor = Color.FromArgb(240, 240, 240);
@@ -625,7 +559,6 @@ namespace TaskFlow360
             }
             else
             {
-                // Görev Ata butonu için özel stil
                 e.CellStyle.BackColor = Color.FromArgb(126, 87, 194);
                 e.CellStyle.ForeColor = Color.Black;
                 e.CellStyle.Font = new Font("Century Gothic", 12, FontStyle.Bold);
@@ -681,21 +614,14 @@ namespace TaskFlow360
             {
                 if (e.RowIndex >= 0 && e.ColumnIndex == CagrilarDGV.Columns["islemButon"].Index)
                 {
-                    // Satırı seç
                     CagrilarDGV.Rows[e.RowIndex].Selected = true;
-
                     string cagriID = CagrilarDGV.Rows[e.RowIndex].Cells["CagriNumarasi"].Value.ToString().Replace("#", "");
-
-                    // Çağrı ID'sini int'e çevir ve TalepEden ID'sini al
                     if (int.TryParse(cagriID, out int parsedCagriID))
                     {
                         int talepEdenID = GetTalepEdenIDByCagriID(parsedCagriID);
 
-                        // TaskDetail formunu cagriID ve talepEdenID ile aç
                         TaskDetail taskDetailForm = new TaskDetail(parsedCagriID, talepEdenID);
                         taskDetailForm.ShowDialog();
-
-                        // Form kapandıktan sonra verileri yenile
                         LoadDataFromDatabase();
                     }
                     else

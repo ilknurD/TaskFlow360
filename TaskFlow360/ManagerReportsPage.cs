@@ -11,57 +11,14 @@ namespace TaskFlow360
     public partial class ManagerReportsPage : Form
     {
         Connection baglanti = new Connection();
+        private Logger logger;
 
         public ManagerReportsPage()
         {
             InitializeComponent();
-            LogEkle("ManagerReportsPage formu başlatıldı", "Form", "ManagerReportsPage");
+            logger = new Logger();
+            logger.LogEkle("ManagerReportsPage formu başlatıldı", "Form", "ManagerReportsPage");
         }
-
-        private void LogEkle(string islemDetaylari, string islemTipi, string tabloAdi)
-        {
-            try
-            {
-                if (baglanti.conn.State != ConnectionState.Open)
-                    baglanti.conn.Open();
-                string sorgu = @"INSERT INTO Log (IslemTarihi, KullaniciID, IslemTipi, TabloAdi, IslemDetaylari, IPAdresi) 
-                                VALUES (@IslemTarihi, @KullaniciID, @IslemTipi, @TabloAdi, @IslemDetaylari, @IPAdresi)";
-
-                using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
-                {
-                    cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
-                    cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
-                    cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
-                    cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
-                    cmd.Parameters.AddWithValue("@IPAdresi", GetLocalIPAddress());
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Log kayıt hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (baglanti.conn.State == ConnectionState.Open)
-                    baglanti.conn.Close();
-            }
-        }
-
-        private string GetLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            return "IP Adresi Bulunamadı";
-        }
-
         private void BeautifyChart(Chart chart)
         {
             chart.BackColor = Color.White;
@@ -82,19 +39,19 @@ namespace TaskFlow360
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            LogEkle("Kapat butonuna tıklandı", "Buton", "ManagerReportsPage");
+            logger.LogEkle("Kapat butonuna tıklandı", "Buton", "ManagerReportsPage");
             Application.Exit();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-            LogEkle("Küçült butonuna tıklandı", "Buton", "ManagerReportsPage");
+            logger.LogEkle("Küçült butonuna tıklandı", "Buton", "ManagerReportsPage");
             WindowState = FormWindowState.Minimized;
         }
 
         private void btnCikis_Click(object sender, EventArgs e)
         {
-            LogEkle("Çıkış butonuna tıklandı", "Buton", "ManagerReportsPage");
+            logger.LogEkle("Çıkış butonuna tıklandı", "Buton", "ManagerReportsPage");
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             this.Close();
@@ -102,7 +59,7 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            LogEkle("Anasayfa butonuna tıklandı", "Buton", "ManagerReportsPage");
+            logger.LogEkle("Anasayfa butonuna tıklandı", "Buton", "ManagerReportsPage");
             ManagerHomepage managerHomepage = new ManagerHomepage();
             managerHomepage.Show();
             this.Close();
@@ -110,7 +67,7 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
-            LogEkle("Profil butonuna tıklandı", "Buton", "ManagerReportsPage");
+            logger.LogEkle("Profil butonuna tıklandı", "Buton", "ManagerReportsPage");
             ManagerProfile managerProfile = new ManagerProfile();
             managerProfile.Show();
             this.Close();
@@ -118,7 +75,7 @@ namespace TaskFlow360
 
         private void btnGorevler_Click(object sender, EventArgs e)
         {
-            LogEkle("Görevler butonuna tıklandı", "Buton", "ManagerReportsPage");
+            logger.LogEkle("Görevler butonuna tıklandı", "Buton", "ManagerReportsPage");
             ManagerTasks managerTasks = new ManagerTasks();
             managerTasks.Show();
             this.Close();
@@ -126,7 +83,7 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
-            LogEkle("Raporlar butonuna tıklandı", "Buton", "ManagerReportsPage");
+            logger.LogEkle("Raporlar butonuna tıklandı", "Buton", "ManagerReportsPage");
             ManagerReportsPage managerReportsPage = new ManagerReportsPage();
             managerReportsPage.Show();
             this.Close();
@@ -134,7 +91,7 @@ namespace TaskFlow360
 
         private void btnEkipYonetimi_Click(object sender, EventArgs e)
         {
-            LogEkle("Ekip Yönetimi butonuna tıklandı", "Buton", "ManagerReportsPage");
+            logger.LogEkle("Ekip Yönetimi butonuna tıklandı", "Buton", "ManagerReportsPage");
             ManagerDashboard managerDashboard = new ManagerDashboard();
             managerDashboard.Show();
             this.Close();
@@ -142,15 +99,15 @@ namespace TaskFlow360
 
         private void ManagerReportsPage_Load(object sender, EventArgs e)
         {
-            LogEkle("ManagerReportsPage yüklenmeye başlandı", "Form", "ManagerReportsPage");
+            logger.LogEkle("ManagerReportsPage yüklenmeye başlandı", "Form", "ManagerReportsPage");
             DepartmanPerformans();
-            LogEkle("Departman performansı yüklendi", "Okuma", "ManagerReportsPage");
+            logger.LogEkle("Departman performansı yüklendi", "Okuma", "ManagerReportsPage");
             TakimPerformans();
-            LogEkle("Ekip performansı yüklendi", "Okuma", "ManagerReportsPage");
+            logger.LogEkle("Ekip performansı yüklendi", "Okuma", "ManagerReportsPage");
             CagriDurum();
-            LogEkle("Çağrı durum dağılımı yüklendi", "Okuma", "ManagerReportsPage");
+            logger.LogEkle("Çağrı durum dağılımı yüklendi", "Okuma", "ManagerReportsPage");
             AylikPrimDagilimi();
-            LogEkle("Aylık prim dağılımı yüklendi", "Okuma", "ManagerReportsPage");
+            logger.LogEkle("Aylık prim dağılımı yüklendi", "Okuma", "ManagerReportsPage");
         }
 
         private void DepartmanPerformans()

@@ -17,60 +17,18 @@ namespace TaskFlow360
     {
         Connection baglanti = new Connection();
         private string yoneticiId;
+        private Logger logger;
         public ManagerProfile()
         {
             InitializeComponent();
+            logger = new Logger();
             ekibimDGV.DataError += ekibimDGV_DataError;
             SetupDataGridViewColumns();
-            LogEkle("ManagerProfile formu başlatıldı", "Form", "ManagerProfile");
+            logger.LogEkle("ManagerProfile formu başlatıldı", "Form", "ManagerProfile");
         }
-
-        private void LogEkle(string islemDetaylari, string islemTipi, string tabloAdi)
-        {
-            try
-            {
-                baglanti.BaglantiAc();
-                string sorgu = @"INSERT INTO Log (IslemTarihi, KullaniciID, IslemTipi, TabloAdi, IslemDetaylari, IPAdresi) 
-                                VALUES (@IslemTarihi, @KullaniciID, @IslemTipi, @TabloAdi, @IslemDetaylari, @IPAdresi)";
-
-                using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
-                {
-                    cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
-                    cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
-                    cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
-                    cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
-                    cmd.Parameters.AddWithValue("@IPAdresi", GetLocalIPAddress());
-
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Log kayıt hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                baglanti.BaglantiKapat();
-            }
-        }
-
-        private string GetLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            return "IP Adresi Bulunamadı";
-        }
-
         private void btnProfil_Click(object sender, EventArgs e)
         {
-            LogEkle("Profil butonuna tıklandı", "Buton", "ManagerProfile");
+            logger.LogEkle("Profil butonuna tıklandı", "Buton", "ManagerProfile");
             ManagerProfile manageProfile = new ManagerProfile();
             manageProfile.Show();
             this.Close();
@@ -78,7 +36,7 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            LogEkle("Anasayfa butonuna tıklandı", "Buton", "ManagerProfile");
+            logger.LogEkle("Anasayfa butonuna tıklandı", "Buton", "ManagerProfile");
             ManagerHomepage managerHomepage = new ManagerHomepage();
             managerHomepage.Show();
             this.Close();
@@ -86,7 +44,7 @@ namespace TaskFlow360
 
         private void btnGorevler_Click(object sender, EventArgs e)
         {
-            LogEkle("Görevler butonuna tıklandı", "Buton", "ManagerProfile");
+            logger.LogEkle("Görevler butonuna tıklandı", "Buton", "ManagerProfile");
             ManagerTasks managerTasks = new ManagerTasks();
             managerTasks.Show();
             this.Close();
@@ -94,7 +52,7 @@ namespace TaskFlow360
 
         private void btnCikis_Click(object sender, EventArgs e)
         {
-            LogEkle("Çıkış butonuna tıklandı", "Buton", "ManagerProfile");
+            logger.LogEkle("Çıkış butonuna tıklandı", "Buton", "ManagerProfile");
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             this.Close();
@@ -102,7 +60,7 @@ namespace TaskFlow360
 
         private void btnEkipYonetimi_Click(object sender, EventArgs e)
         {
-            LogEkle("Ekip Yönetimi butonuna tıklandı", "Buton", "ManagerProfile");
+            logger.LogEkle("Ekip Yönetimi butonuna tıklandı", "Buton", "ManagerProfile");
             ManagerDashboard managerDashboard = new ManagerDashboard();
             managerDashboard.Show();
             this.Close();
@@ -110,19 +68,19 @@ namespace TaskFlow360
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            LogEkle("Kapat butonuna tıklandı", "Buton", "ManagerProfile");
+            logger.LogEkle("Kapat butonuna tıklandı", "Buton", "ManagerProfile");
             Application.Exit();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-            LogEkle("Küçült butonuna tıklandı", "Buton", "ManagerProfile");
+            logger.LogEkle("Küçült butonuna tıklandı", "Buton", "ManagerProfile");
             WindowState = FormWindowState.Minimized;
         }
 
         private void ManagerProfile_Load(object sender, EventArgs e)
         {
-            LogEkle("ManagerProfile yüklenmeye başlandı", "Form", "ManagerProfile");
+            logger.LogEkle("ManagerProfile yüklenmeye başlandı", "Form", "ManagerProfile");
             yoneticiId = UserInformation.KullaniciID;
             ConfigureEkibimDGV();
             LoadManagedTeamMembers();
@@ -171,19 +129,19 @@ namespace TaskFlow360
                 }
                 else
                 {
-                    LogEkle("Kullanıcı bilgileri bulunamadı", "Hata", "ManagerProfile");
+                    logger.LogEkle("Kullanıcı bilgileri bulunamadı", "Hata", "ManagerProfile");
                     MessageBox.Show("Kullanıcı bilgileri bulunamadı.");
                 }
                 dr.Close();
                 if (lblAdSoyad.Text != "")
                 {
-                    LogEkle($"Profil bilgileri yüklendi - Kullanıcı: {lblAdSoyad.Text}", "Okuma", "ManagerProfile");
+                    logger.LogEkle($"Profil bilgileri yüklendi - Kullanıcı: {lblAdSoyad.Text}", "Okuma", "ManagerProfile");
                 }
                 lblKullaniciID.Text = yoneticiId.ToString();
             }
             catch (Exception ex)
             {
-                LogEkle($"Profil bilgileri yüklenirken hata: {ex.Message}", "Hata", "ManagerProfile");
+                logger.LogEkle($"Profil bilgileri yüklenirken hata: {ex.Message}", "Hata", "ManagerProfile");
                 MessageBox.Show("Kullanıcı bilgileri yüklenirken hata oluştu: " + ex.Message);
             }
             finally
@@ -239,7 +197,7 @@ namespace TaskFlow360
                     }
 
                     ekibimDGV.Visible = false;
-                    LogEkle("Ekip üyesi bulunamadı", "Okuma", "ManagerProfile");
+                    logger.LogEkle("Ekip üyesi bulunamadı", "Okuma", "ManagerProfile");
                     return;
                 }
                 else
@@ -308,17 +266,17 @@ namespace TaskFlow360
 
                 if (ekibimDGV.Rows.Count == 0 && kullaniciSayisi > 0)
                 {
-                    LogEkle("Ekip üyeleri grid'e yüklenemedi", "Hata", "ManagerProfile");
+                    logger.LogEkle("Ekip üyeleri grid'e yüklenemedi", "Hata", "ManagerProfile");
                     MessageBox.Show("Ekip üyeleri grid'e yüklenemedi.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    LogEkle($"{ekibimDGV.Rows.Count} ekip üyesi başarıyla yüklendi", "Okuma", "ManagerProfile");
+                    logger.LogEkle($"{ekibimDGV.Rows.Count} ekip üyesi başarıyla yüklendi", "Okuma", "ManagerProfile");
                 }
             }
             catch (Exception ex)
             {
-                LogEkle($"Ekip üyeleri yüklenirken hata: {ex.Message}", "Hata", "ManagerProfile");
+                logger.LogEkle($"Ekip üyeleri yüklenirken hata: {ex.Message}", "Hata", "ManagerProfile");
                 MessageBox.Show("Ekip üyeleri yüklenirken hata oluştu: " + ex.Message, "Veri Yükleme Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -333,41 +291,27 @@ namespace TaskFlow360
 
         private void ConfigureEkibimDGV()
         {
-            // Temel seçim ayarları
             ekibimDGV.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ekibimDGV.DefaultCellStyle.SelectionBackColor = ekibimDGV.DefaultCellStyle.BackColor;
             ekibimDGV.DefaultCellStyle.SelectionForeColor = ekibimDGV.DefaultCellStyle.ForeColor;
-
-            // Başlık ayarları
             ekibimDGV.EnableHeadersVisualStyles = false;
             ekibimDGV.ColumnHeadersDefaultCellStyle.SelectionBackColor = ekibimDGV.ColumnHeadersDefaultCellStyle.BackColor;
             ekibimDGV.RowHeadersDefaultCellStyle.SelectionBackColor = Color.Transparent;
             ekibimDGV.RowHeadersDefaultCellStyle.ForeColor = Color.Black;
-
-            // Görsel iyileştirmeler
             ekibimDGV.BorderStyle = BorderStyle.None;
             ekibimDGV.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             ekibimDGV.GridColor = Color.FromArgb(240, 240, 240);
-
-            // Yazı tipi ve hizalama
             ekibimDGV.ColumnHeadersDefaultCellStyle.Font = new Font("Century Gothic", 12, FontStyle.Bold);
             ekibimDGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             ekibimDGV.DefaultCellStyle.Font = new Font("Century Gothic", 12);
             ekibimDGV.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-
-            // Event bağlantıları
             ekibimDGV.CellClick += (s, e) => ekibimDGV.ClearSelection();
             ekibimDGV.DataBindingComplete += (s, e) => ekibimDGV.ClearSelection();
         }
 
-        private void pnlIletisimBilgi_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
-            LogEkle("Raporlar butonuna tıklandı", "Buton", "ManagerProfile");
+            logger.LogEkle("Raporlar butonuna tıklandı", "Buton", "ManagerProfile");
             ManagerReportsPage managerReportsPage = new ManagerReportsPage();
             managerReportsPage.Show();
             this.Close();

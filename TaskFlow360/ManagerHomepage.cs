@@ -17,61 +17,19 @@ namespace TaskFlow360
     {
         Connection baglanti = new Connection();
         private string yoneticiId;
+        private Logger logger;
 
         public ManagerHomepage()
         {
             InitializeComponent();
+            logger = new Logger();
             SetupDataGridViewColumns();
             yoneticiId = UserInformation.KullaniciID;
-            LogEkle("ManagerHomepage formu başlatıldı", "Form", "ManagerHomepage");
+            logger.LogEkle("ManagerHomepage formu başlatıldı", "Form", "ManagerHomepage");
         }
-
-        private void LogEkle(string islemDetaylari, string islemTipi, string tabloAdi)
-        {
-            try
-            {
-                baglanti.BaglantiAc();
-                string sorgu = @"INSERT INTO Log (IslemTarihi, KullaniciID, IslemTipi, TabloAdi, IslemDetaylari, IPAdresi) 
-                                VALUES (@IslemTarihi, @KullaniciID, @IslemTipi, @TabloAdi, @IslemDetaylari, @IPAdresi)";
-
-                using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
-                {
-                    cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
-                    cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
-                    cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
-                    cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
-                    cmd.Parameters.AddWithValue("@IPAdresi", GetLocalIPAddress());
-
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Log kayıt hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                baglanti.BaglantiKapat();
-            }
-        }
-
-        private string GetLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            return "IP Adresi Bulunamadı";
-        }
-
         private void ManagerHomepage_Load(object sender, EventArgs e)
         {
-            LogEkle("ManagerHomepage yüklenmeye başlandı", "Form", "ManagerHomepage");
+            logger.LogEkle("ManagerHomepage yüklenmeye başlandı", "Form", "ManagerHomepage");
             bekleyenCagrilarDGV.DefaultCellStyle.Font = new Font("Century Gothic", 12, FontStyle.Regular);
             bekleyenCagrilarDGV.ColumnHeadersDefaultCellStyle.Font = new Font("Century Gothic", 12, FontStyle.Bold);
 
@@ -80,7 +38,7 @@ namespace TaskFlow360
                 yoneticiId = UserInformation.KullaniciID;
                 if (string.IsNullOrEmpty(yoneticiId))
                 {
-                    LogEkle("Oturum bilgileri geçersiz", "Hata", "ManagerHomepage");
+                    logger.LogEkle("Oturum bilgileri geçersiz", "Hata", "ManagerHomepage");
                     MessageBox.Show("Oturum bilgileriniz geçersiz. Lütfen tekrar giriş yapın.", "Oturum Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Close();
                     LoginForm loginForm = new LoginForm();
@@ -103,11 +61,11 @@ namespace TaskFlow360
                 BekleyenCagrilariYukle();
                 EkipUyeleriniYukle();
                 IstatistikleriGoster();
-                LogEkle("ManagerHomepage başarıyla yüklendi", "Form", "ManagerHomepage");
+                logger.LogEkle("ManagerHomepage başarıyla yüklendi", "Form", "ManagerHomepage");
             }
             catch (Exception ex)
             {
-                LogEkle($"Veri yükleme hatası: {ex.Message}", "Hata", "ManagerHomepage");
+                logger.LogEkle($"Veri yükleme hatası: {ex.Message}", "Hata", "ManagerHomepage");
                 MessageBox.Show("Veriler yüklenirken bir hata oluştu: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -481,13 +439,13 @@ namespace TaskFlow360
 
                 if (ekipUyeleriDGV.Rows.Count == 0 && kullaniciSayisi > 0)
                 {
-                    LogEkle("Ekip üyeleri grid'e yüklenemedi", "Hata", "ManagerHomepage");
+                    logger.LogEkle("Ekip üyeleri grid'e yüklenemedi", "Hata", "ManagerHomepage");
                     MessageBox.Show("Ekip üyeleri grid'e yüklenemedi.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-                LogEkle($"Ekip üyeleri yüklenirken hata: {ex.Message}", "Hata", "ManagerHomepage");
+                logger.LogEkle($"Ekip üyeleri yüklenirken hata: {ex.Message}", "Hata", "ManagerHomepage");
                 MessageBox.Show("Ekip üyeleri yüklenirken hata oluştu: " + ex.Message, "Veri Yükleme Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -555,11 +513,11 @@ namespace TaskFlow360
                 // Pano mesajı
                 label1.Text = $"Bugün {bekleyenCagriSayisi} bekleyen çağrı ve {atananCagriSayisi} devam eden görev bulunmaktadır.";
 
-                LogEkle($"İstatistikler başarıyla yüklendi - Bekleyen: {bekleyenCagriSayisi}, Atanan: {atananCagriSayisi}, Tamamlanan: {tamamlananCagriSayisi}, Geciken: {gecikenCagriSayisi}", "Okuma", "ManagerHomepage");
+                logger.LogEkle($"İstatistikler başarıyla yüklendi - Bekleyen: {bekleyenCagriSayisi}, Atanan: {atananCagriSayisi}, Tamamlanan: {tamamlananCagriSayisi}, Geciken: {gecikenCagriSayisi}", "Okuma", "ManagerHomepage");
             }
             catch (Exception ex)
             {
-                LogEkle($"İstatistikler yüklenirken hata: {ex.Message}", "Hata", "ManagerHomepage");
+                logger.LogEkle($"İstatistikler yüklenirken hata: {ex.Message}", "Hata", "ManagerHomepage");
                 MessageBox.Show("İstatistikler yüklenirken hata oluştu: " + ex.Message);
             }
             finally
@@ -578,11 +536,11 @@ namespace TaskFlow360
 
                 try
                 {
-                    LogEkle($"Çağrı atama formu açıldı - Çağrı ID: {cagriId}", "Buton", "ManagerHomepage");
+                    logger.LogEkle($"Çağrı atama formu açıldı - Çağrı ID: {cagriId}", "Buton", "ManagerHomepage");
                     TasksAssignmentForm cagriAtamaForm = new TasksAssignmentForm(cagriId, baslik, yoneticiId);
                     if (cagriAtamaForm.ShowDialog() == DialogResult.OK)
                     {
-                        LogEkle($"Çağrı atama işlemi tamamlandı - Çağrı ID: {cagriId}", "İşlem", "ManagerHomepage");
+                        logger.LogEkle($"Çağrı atama işlemi tamamlandı - Çağrı ID: {cagriId}", "İşlem", "ManagerHomepage");
                         BekleyenCagrilariYukle();
                         EkipUyeleriniYukle();
                         IstatistikleriGoster();
@@ -591,7 +549,7 @@ namespace TaskFlow360
                 }
                 catch (Exception ex)
                 {
-                    LogEkle($"Çağrı atama hatası: {ex.Message}", "Hata", "ManagerHomepage");
+                    logger.LogEkle($"Çağrı atama hatası: {ex.Message}", "Hata", "ManagerHomepage");
                     MessageBox.Show("Çağrı atama formu açılırken hata oluştu: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -599,19 +557,19 @@ namespace TaskFlow360
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            LogEkle("Kapat butonuna tıklandı", "Buton", "ManagerHomepage");
+            logger.LogEkle("Kapat butonuna tıklandı", "Buton", "ManagerHomepage");
             Application.Exit();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-            LogEkle("Küçült butonuna tıklandı", "Buton", "ManagerHomepage");
+            logger.LogEkle("Küçült butonuna tıklandı", "Buton", "ManagerHomepage");
             WindowState = FormWindowState.Minimized;
         }
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            LogEkle("Anasayfa butonuna tıklandı", "Buton", "ManagerHomepage");
+            logger.LogEkle("Anasayfa butonuna tıklandı", "Buton", "ManagerHomepage");
             ManagerHomepage managerHomepage = new ManagerHomepage();
             managerHomepage.Show();
             this.Close();
@@ -619,7 +577,7 @@ namespace TaskFlow360
 
         private void btnGorevler_Click(object sender, EventArgs e)
         {
-            LogEkle("Görevler butonuna tıklandı", "Buton", "ManagerHomepage");
+            logger.LogEkle("Görevler butonuna tıklandı", "Buton", "ManagerHomepage");
             ManagerTasks managerTasks = new ManagerTasks();
             managerTasks.Show();
             this.Close();
@@ -627,7 +585,7 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
-            LogEkle("Profil butonuna tıklandı", "Buton", "ManagerHomepage");
+            logger.LogEkle("Profil butonuna tıklandı", "Buton", "ManagerHomepage");
             ManagerProfile managerProfile = new ManagerProfile();
             managerProfile.Show();
             this.Close();
@@ -635,7 +593,7 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
-            LogEkle("Raporlar butonuna tıklandı", "Buton", "ManagerHomepage");
+            logger.LogEkle("Raporlar butonuna tıklandı", "Buton", "ManagerHomepage");
             ManagerReportsPage managerReports = new ManagerReportsPage();
             managerReports.Show();
             this.Close();
@@ -643,7 +601,7 @@ namespace TaskFlow360
 
         private void btnEkipYonetimi_Click(object sender, EventArgs e)
         {
-            LogEkle("Ekip Yönetimi butonuna tıklandı", "Buton", "ManagerHomepage");
+            logger.LogEkle("Ekip Yönetimi butonuna tıklandı", "Buton", "ManagerHomepage");
             ManagerDashboard managerDashboard = new ManagerDashboard();
             managerDashboard.Show();
             this.Close();
@@ -651,7 +609,7 @@ namespace TaskFlow360
 
         private void btnCikis_Click(object sender, EventArgs e)
         {
-            LogEkle("Çıkış butonuna tıklandı", "Buton", "ManagerHomepage");
+            logger.LogEkle("Çıkış butonuna tıklandı", "Buton", "ManagerHomepage");
             UserInformation.BilgileriTemizle();
             LoginForm loginForm = new LoginForm();
             loginForm.Show();

@@ -33,20 +33,17 @@ namespace TaskFlow360
                 int currentYear = DateTime.Now.Year;
                 int currentMonth = DateTime.Now.Month;
 
-                // Toplam görev sayısı
                 string toplamGorevQuery = @"SELECT COUNT(*) FROM Cagri WHERE AtananKullaniciID = @KullaniciID";
                 SqlCommand toplamCmd = new SqlCommand(toplamGorevQuery, baglanti.conn);
                 toplamCmd.Parameters.AddWithValue("@KullaniciID", kullaniciID);
                 int toplamGorev = (int)toplamCmd.ExecuteScalar();
 
-                // Tamamlanan görev sayısı
                 string tamamlananQuery = @"SELECT COUNT(*) FROM Cagri 
                                          WHERE AtananKullaniciID = @KullaniciID AND Durum = 'Tamamlandı'";
                 SqlCommand tamamlananCmd = new SqlCommand(tamamlananQuery, baglanti.conn);
                 tamamlananCmd.Parameters.AddWithValue("@KullaniciID", kullaniciID);
                 int tamamlananGorev = (int)tamamlananCmd.ExecuteScalar();
 
-                // Bu ayki prim tutarı
                 string primQuery = @"SELECT TOP 1 PrimToplam
                     FROM PrimKayit 
                     WHERE KullaniciID = @KullaniciID 
@@ -63,7 +60,6 @@ namespace TaskFlow360
                 decimal primTutari = primResult != null ? Convert.ToDecimal(primResult) : 0;
                 lblPrimTutari.Text = primTutari.ToString("N2") + " ₺";
 
-                // Ortalama çözüm süresi (saat cinsinden)
                 string ortalamaSureQuery = @"SELECT AVG(DATEDIFF(HOUR, OlusturmaTarihi, 
                     CASE WHEN Durum = 'Tamamlandı' THEN TeslimTarihi ELSE GETDATE() END)) as OrtalamaSure
                     FROM Cagri 
@@ -76,11 +72,9 @@ namespace TaskFlow360
                 double ortalamaSure = ortalamaSureResult != DBNull.Value ? Convert.ToDouble(ortalamaSureResult) : 0;
                 lblOrtalamaSure.Text = $"{ortalamaSure:F1} saat";
 
-                // İstatistikleri göster
                 lblToplamGorev.Text = toplamGorev.ToString();
                 lblTamamlananGorev.Text = tamamlananGorev.ToString();
 
-                // Performans yüzdesi hesapla
                 double performansYuzdesi = toplamGorev > 0 ? (double)tamamlananGorev / toplamGorev * 100 : 0;
                 lblPerformans.Text = $"%{performansYuzdesi:F1}";
             }
@@ -128,11 +122,6 @@ namespace TaskFlow360
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             this.Close();
-        }
-
-        private void panel4_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void btnProfil_Click(object sender, EventArgs e)
@@ -210,12 +199,6 @@ namespace TaskFlow360
             {
                 baglanti.BaglantiKapat();
             }
-        }
-
-
-        private void lbltlfn_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

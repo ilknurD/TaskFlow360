@@ -16,17 +16,17 @@ namespace TaskFlow360
     public partial class OfficerHomepage : Form
     {
         Connection baglanti = new Connection();
-        private readonly Logger _logger;
+        private Logger logger;
 
         public OfficerHomepage()
         {
             InitializeComponent();
-            _logger = new Logger();
+            logger = new Logger();
             TarihVeSaatGoster();
             IstatislikleriGoster();
             YeniVeDevamEdenGorevSayilariniGoster();
             ZamanliGuncelleme();
-            LogEkle("OfficerHomepage formu başlatıldı", "Form", "OfficerHomepage");
+            logger.LogEkle("OfficerHomepage formu başlatıldı", "Form", "OfficerHomepage");
         }
 
         private void TarihVeSaatGoster()
@@ -71,13 +71,13 @@ namespace TaskFlow360
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            LogEkle("Kapat butonuna tıklandı", "Buton", "OfficerHomepage");
+            logger.LogEkle("Kapat butonuna tıklandı", "Buton", "OfficerHomepage");
             Application.Exit();
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-            LogEkle("Küçült butonuna tıklandı", "Buton", "OfficerHomepage");
+            logger.LogEkle("Küçült butonuna tıklandı", "Buton", "OfficerHomepage");
             WindowState = FormWindowState.Minimized;
         }
 
@@ -97,10 +97,10 @@ namespace TaskFlow360
                 ISNULL(k3.Ad + ' ' + k3.Soyad, 'Bilinmiyor') AS OlusturanKullanici,
                 c.HedefSure,
                 c.AtananKullaniciID, c.OlusturanKullaniciID, c.TalepEdenID
-         FROM Cagri c
-         LEFT JOIN Kullanici k2 ON c.AtananKullaniciID = k2.KullaniciID
-         LEFT JOIN Kullanici k3 ON c.OlusturanKullaniciID = k3.KullaniciID
-         LEFT JOIN TalepEdenler te ON c.TalepEdenID = te.TalepEdenID";
+                 FROM Cagri c
+                 LEFT JOIN Kullanici k2 ON c.AtananKullaniciID = k2.KullaniciID
+                 LEFT JOIN Kullanici k3 ON c.OlusturanKullaniciID = k3.KullaniciID
+                 LEFT JOIN TalepEdenler te ON c.TalepEdenID = te.TalepEdenID";
 
 
                 SqlCommand cmd = new SqlCommand(query, baglanti.conn);
@@ -315,61 +315,9 @@ namespace TaskFlow360
             IstatislikleriGoster();
             YeniVeDevamEdenGorevSayilariniGoster();
         }
-
-        private void LogEkle(string islemDetaylari, string islemTipi, string tabloAdi)
-        {
-            try
-            {
-                baglanti.BaglantiAc();
-                string sorgu = @"INSERT INTO Log (IslemTarihi, KullaniciID, IslemTipi, TabloAdi, IslemDetaylari, IPAdresi) 
-                                VALUES (@IslemTarihi, @KullaniciID, @IslemTipi, @TabloAdi, @IslemDetaylari, @IPAdresi)";
-
-                using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
-                {
-                    cmd.Parameters.AddWithValue("@IslemTarihi", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@KullaniciID", UserInformation.KullaniciID);
-                    cmd.Parameters.AddWithValue("@IslemTipi", islemTipi);
-                    cmd.Parameters.AddWithValue("@TabloAdi", tabloAdi);
-                    cmd.Parameters.AddWithValue("@IslemDetaylari", islemDetaylari);
-                    cmd.Parameters.AddWithValue("@IPAdresi", GetLocalIPAddress());
-
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Log kayıt hatası: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                baglanti.BaglantiKapat();
-            }
-        }
-
-        private string GetLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            return "IP Adresi Bulunamadı";
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            LogEkle("Çıkış butonuna tıklandı", "Buton", "OfficerHomepage");
-            LoginForm loginForm = new LoginForm();
-            loginForm.Show();
-            this.Close();
-        }
-
         private void btnGorevler_Click(object sender, EventArgs e)
         {
-            LogEkle("Görevler butonuna tıklandı", "Buton", "OfficerHomepage");
+            logger.LogEkle("Görevler butonuna tıklandı", "Buton", "OfficerHomepage");
             OfficerTaskspage officerTaskspage = new OfficerTaskspage();
             officerTaskspage.Show();
             this.Close();
@@ -377,7 +325,7 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
-            LogEkle("Profil butonuna tıklandı", "Buton", "OfficerHomepage");
+            logger.LogEkle("Profil butonuna tıklandı", "Buton", "OfficerHomepage");
             OfficerProfile officerProfile = new OfficerProfile();
             officerProfile.Show();
             this.Close();
@@ -385,7 +333,7 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
-            LogEkle("Anasayfa butonuna tıklandı", "Buton", "OfficerHomepage");
+            logger.LogEkle("Anasayfa butonuna tıklandı", "Buton", "OfficerHomepage");
             OfficerHomepage officerHomepage = new OfficerHomepage();
             officerHomepage.Show();
             this.Close();  
@@ -478,14 +426,14 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
-            LogEkle("Raporlar butonuna tıklandı", "Buton", "OfficerHomepage");
+            logger.LogEkle("Raporlar butonuna tıklandı", "Buton", "OfficerHomepage");
             OfficerReportsPage officerReportsPage = new OfficerReportsPage();
             officerReportsPage.Show();
         }
 
         private void btnCikis_Click(object sender, EventArgs e)
         {
-            LogEkle("Çıkış butonuna tıklandı", "Buton", "OfficerHomepage");
+            logger.LogEkle("Çıkış butonuna tıklandı", "Buton", "OfficerHomepage");
             this.Close();
             LoginForm loginForm = new LoginForm();
             loginForm.Show();

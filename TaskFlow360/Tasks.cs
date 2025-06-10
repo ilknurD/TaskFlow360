@@ -8,21 +8,23 @@ namespace TaskFlow360
 {
     public partial class Tasks : Form
     {
-        private string uyeID;         // Atama yapılacak kişi
-        private string managerID;     // Mevcut oturumdaki yönetici
+        private string uyeID;    
+        private string managerID;  
+        private readonly Logger _logger;
 
         public Tasks(string uyeID, string managerID)
         {
             InitializeComponent();
             this.uyeID = uyeID;
             this.managerID = managerID;
+            _logger = new Logger();
             dgvGorevler.CellContentClick += dgvGorevler_CellContentClick;
         }
 
         private void Tasks_Load(object sender, EventArgs e)
         {
             GorevleriGetir();
-            foreach (DataGridViewColumn column in dgvGorevler.Columns) //sutun başlığına göre sıralama yapma
+            foreach (DataGridViewColumn column in dgvGorevler.Columns) 
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
@@ -104,7 +106,7 @@ namespace TaskFlow360
 
             foreach (DataGridViewColumn col in dgvGorevler.Columns)
             {
-                col.ReadOnly = col.Name != "Secildi";  // "Durum" sütunu düzenlenebilir, diğerleri sadece okunur
+                col.ReadOnly = col.Name != "Secildi"; 
             }
         }
 
@@ -190,7 +192,6 @@ namespace TaskFlow360
             {
                 using (SqlConnection conn = Connection.BaglantiGetir())
                 {
-                    // Atanacak kişinin adı soyadı al
                     string uyeAdiSoyadi = "";
                     string uyeQuery = "SELECT Ad + ' ' + Soyad FROM Kullanici WHERE KullaniciID = @UyeID";
                     using (SqlCommand cmdUye = new SqlCommand(uyeQuery, conn))
@@ -200,7 +201,6 @@ namespace TaskFlow360
                         uyeAdiSoyadi = result != null ? result.ToString() : "Bilinmeyen Kullanıcı";
                     }
 
-                    // Görevleri döngüyle kontrol
                     foreach (DataGridViewRow row in dgvGorevler.Rows)
                     {
                         if (row.IsNewRow) continue;
@@ -211,7 +211,6 @@ namespace TaskFlow360
                         {
                             int cagriID = Convert.ToInt32(row.Cells["CagriID"].Value);
 
-                            // Cagri tablosunda AtananKullaniciID güncelle
                             string updateQuery = "UPDATE Cagri SET AtananKullaniciID = @UyeID WHERE CagriID = @CagriID";
                             using (SqlCommand cmd = new SqlCommand(updateQuery, conn))
                             {
@@ -220,14 +219,15 @@ namespace TaskFlow360
                                 cmd.ExecuteNonQuery();
                             }
 
-                            // 4. CagriDurumGuncelleme tablosuna kayıt eklenir
+                            _logger.LogEkle("Güncelleme", "Cagri", $"Görev atandı - ÇağrıID: {cagriID}, Atanan: {uyeAdiSoyadi}, Yöneticisi: {managerID}");
+
                             Call.CagriDurumGuncelle(
                                 cagriID,
                                 "Görev Atandı",
                                 $"Görev {uyeAdiSoyadi} kullanıcısına atandı.",
-                                Convert.ToInt32(managerID), // yöneticinin ID’si
+                                Convert.ToInt32(managerID), 
                                 conn,
-                                Convert.ToInt32(managerID)  // değişikliği yapan kişi yöneticidir
+                                Convert.ToInt32(managerID)
                             );
 
                             sayac++;
@@ -267,6 +267,7 @@ namespace TaskFlow360
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Çıkış", "Form", "Görevler formundan çıkış yapıldı.");
             this.Hide();
             ManagerTasks tasks = new ManagerTasks();
             tasks.Show();
@@ -279,6 +280,7 @@ namespace TaskFlow360
 
         private void SetSelectedMemberInfo(string uyeAdi)
         {
+            _logger.LogEkle("Kullanıcı Bilgisi", "Form", $"Seçilen kullanıcı: {uyeAdi}");
             lblSelectedMember.Text = $"Seçili Kişi: {uyeAdi}";
         }
 

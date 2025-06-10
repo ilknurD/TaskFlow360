@@ -399,7 +399,6 @@
             this.pnlIletisimBilgi.Name = "pnlIletisimBilgi";
             this.pnlIletisimBilgi.Size = new System.Drawing.Size(810, 211);
             this.pnlIletisimBilgi.TabIndex = 11;
-            this.pnlIletisimBilgi.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
             // 
             // lblDogumTarihi
             // 
@@ -460,7 +459,6 @@
             this.lbltlfn.Size = new System.Drawing.Size(74, 21);
             this.lbltlfn.TabIndex = 2;
             this.lbltlfn.Text = "Telefon";
-            this.lbltlfn.Click += new System.EventHandler(this.lbltlfn_Click);
             // 
             // lblIletisimBaslik
             // 

@@ -14,11 +14,13 @@ namespace TaskFlow360
     public partial class TaskDetail : Form
     {
         Connection bgl = new Connection();
+        private readonly Logger _logger;
         private int _cagriID;
         private int _talepEdenID;
         public TaskDetail(int cagriID, int talepEdenID)
         {
             InitializeComponent();
+            _logger = new Logger();
             _cagriID = cagriID;
             _talepEdenID = talepEdenID;
             GeriBildirimKontrolleriniOlustur();
@@ -60,6 +62,7 @@ namespace TaskFlow360
                 string sorgu;
                 if (kayitSayisi > 0)
                 {
+                    _logger.LogEkle("Güncelleme", "ÇağrıGeriBildirim", $"Çağrı ID: {_cagriID} için geri bildirim güncellendi - Yeni Değer: {cmbGeriBildirim.SelectedItem}");
                     sorgu = @"UPDATE CagriGeriBildirim 
                              SET GeriBildirimTipi = @GeriBildirimTipi,
                                  OlusturmaTarihi = GETDATE(),
@@ -68,6 +71,7 @@ namespace TaskFlow360
                 }
                 else
                 {
+                    _logger.LogEkle("Ekleme", "ÇağrıGeriBildirim", $"Çağrı ID: {_cagriID} için yeni geri bildirim eklendi - Değer: {cmbGeriBildirim.SelectedItem}");
                     sorgu = @"INSERT INTO CagriGeriBildirim (CagriID, GeriBildirimTipi, OlusturanKullaniciID) 
                              VALUES (@CagriID, @GeriBildirimTipi, @KullaniciID)";
                 }
@@ -401,11 +405,13 @@ namespace TaskFlow360
                 if (!string.IsNullOrEmpty(yeniDurum) && yeniDurum != mevcutDurum)
                 {
                     degisiklikVar = true;
+                    _logger.LogEkle("Güncelleme", "Çağrı", $"Çağrı ID: {_cagriID} durumu güncellendi - Eski Durum: {mevcutDurum}, Yeni Durum: {yeniDurum}");
                 }
 
                 if (aciklama != mevcutAciklama)
                 {
                     degisiklikVar = true;
+                    _logger.LogEkle("Güncelleme", "Çağrı", $"Çağrı ID: {_cagriID} açıklaması güncellendi");
                 }
 
                 if (!degisiklikVar)
