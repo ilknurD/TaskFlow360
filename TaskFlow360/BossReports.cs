@@ -9,14 +9,17 @@ namespace TaskFlow360
 {
     public partial class BossReports : Form
     {
+        private readonly Logger _logger;
+
         public BossReports()
         {
             InitializeComponent();
-
+            _logger = new Logger();
         }
 
         private void BossReports_Load(object sender, EventArgs e)
         {
+            _logger.LogEkle("Görüntüleme", "BossReports", "Yönetici raporlar sayfası görüntülendi");
             DepartmanlaraGoreCagriListele();
             RollerKullaniciListele();
             PrimveMaasListele();
@@ -178,6 +181,7 @@ namespace TaskFlow360
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Çıkış", "BossReports", "Yönetici raporlar sayfasından çıkış yapıldı");
             Application.Exit();
         }
 
@@ -188,30 +192,35 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Görüntüleme", "BossHomepage", "Yönetici ana sayfasına geçiş yapıldı");
             new BossHomepage().Show();
             this.Close();
         }
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Görüntüleme", "BossProfile", "Profil sayfasına geçiş yapıldı");
             new BossProfile().Show();
             this.Close();
         }
 
         private void btnKullaniciIslem_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Görüntüleme", "BossUsersControl", "Kullanıcı işlemleri sayfasına geçiş yapıldı");
             new BossUsersControl().Show();
             this.Close();
         }
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Görüntüleme", "BossReports", "Raporlar sayfasına geçiş yapıldı");
             new BossReports().Show();
             this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Görüntüleme", "UsersSalary", "Maaş bilgileri sayfasına geçiş yapıldı");
             UsersSalary usersSalary = new UsersSalary();
             usersSalary.Show();
             this.Close();

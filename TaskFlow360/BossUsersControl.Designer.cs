@@ -329,7 +329,7 @@
             this.btnEkle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEkle.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnEkle.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnEkle.Location = new System.Drawing.Point(902, 16);
+            this.btnEkle.Location = new System.Drawing.Point(1076, 16);
             this.btnEkle.Name = "btnEkle";
             this.btnEkle.Size = new System.Drawing.Size(157, 40);
             this.btnEkle.TabIndex = 34;
@@ -384,7 +384,7 @@
             this.btnTemizle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTemizle.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnTemizle.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnTemizle.Location = new System.Drawing.Point(1077, 16);
+            this.btnTemizle.Location = new System.Drawing.Point(901, 16);
             this.btnTemizle.Name = "btnTemizle";
             this.btnTemizle.Size = new System.Drawing.Size(157, 40);
             this.btnTemizle.TabIndex = 21;

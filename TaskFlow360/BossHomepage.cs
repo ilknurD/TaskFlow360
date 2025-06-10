@@ -15,14 +15,18 @@ namespace TaskFlow360
     public partial class BossHomepage : Form
     {
         private string yoneticiId;
+        private readonly Logger _logger;
+
         public BossHomepage()
         {
             InitializeComponent();
             yoneticiId = UserInformation.KullaniciID;
+            _logger = new Logger();
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Çıkış", "BossHomepage", "Yönetici ana sayfasından çıkış yapıldı");
             Application.Exit();
         }
 
@@ -33,6 +37,7 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Görüntüleme", "BossHomepage", "Yönetici ana sayfasına geçiş yapıldı");
             BossHomepage bossHomepage = new BossHomepage();
             bossHomepage.Show();
             this.Close();
@@ -40,6 +45,7 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Görüntüleme", "BossProfile", "Profil sayfasına geçiş yapıldı");
             BossProfile bossProfile = new BossProfile();
             bossProfile.Show();
             this.Close();
@@ -47,6 +53,7 @@ namespace TaskFlow360
 
         private void btnKullaniciIslem_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Görüntüleme", "BossUsersControl", "Kullanıcı işlemleri sayfasına geçiş yapıldı");
             BossUsersControl bossUsersControl = new BossUsersControl();
             bossUsersControl.Show();
             this.Close();
@@ -54,17 +61,20 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
-
+            _logger.LogEkle("Görüntüleme", "BossReports", "Raporlar sayfasına geçiş yapıldı");
+            BossReports bossReports = new BossReports();
+            bossReports.Show();
+            this.Close();
         }
 
         private void BossHomepage_Load(object sender, EventArgs e)
         {
-            // Eğer yoneticiId boşsa, KullaniciBilgi'den tekrar almayı deneyelim
+            _logger.LogEkle("Görüntüleme", "BossHomepage", "Yönetici ana sayfası görüntülendi");
+            
             if (string.IsNullOrEmpty(yoneticiId))
             {
                 yoneticiId = UserInformation.KullaniciID;
 
-                // Hala boşsa, kullanıcıyı login formuna yönlendirelim
                 if (string.IsNullOrEmpty(yoneticiId))
                 {
                     MessageBox.Show("Oturum bilgileriniz geçersiz. Lütfen tekrar giriş yapın.", "Oturum Hatası", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -194,17 +204,11 @@ namespace TaskFlow360
                         column.SortMode = DataGridViewColumnSortMode.NotSortable;
                     }
 
-                    // DataGridView'i temizle ve hazırla
                     dataGridViewKullanicilar.DataSource = null;
                     dataGridViewKullanicilar.Columns.Clear();
-
-                    // AutoGenerateColumns'u true yap (manuel sütun eklemeye gerek yok)
                     dataGridViewKullanicilar.AutoGenerateColumns = true;
-
-                    // DataTable'ı DataGridView'e bağla
                     dataGridViewKullanicilar.DataSource = dt;
 
-                    // Sütun başlıklarını düzenle (DataSource'dan sonra)
                     if (dataGridViewKullanicilar.Columns.Contains("KullaniciID"))
                         dataGridViewKullanicilar.Columns["KullaniciID"].HeaderText = "ID";
 
@@ -229,7 +233,6 @@ namespace TaskFlow360
                         dataGridViewKullanicilar.Columns["IseBaslamaTar"].DefaultCellStyle.Format = "dd.MM.yyyy";
                     }
 
-                    // Sütun genişliklerini ayarla
                     dataGridViewKullanicilar.Columns["KullaniciID"].Width = 60;
                     dataGridViewKullanicilar.Columns["AdSoyad"].Width = 150;
                     dataGridViewKullanicilar.Columns["Rol"].Width = 100;
@@ -334,22 +337,14 @@ namespace TaskFlow360
                 flowLayoutPanel1.Controls.Add(panel);
             }
 
-            // Panelleri oluştur
             PanelEkle(Color.FromArgb(129, 212, 250), ekipYoneticisiSayisi.ToString(), "Ekip Yöneticisi");
             PanelEkle(Color.FromArgb(206, 147, 216), cagriMerkeziSayisi.ToString(), "Çağrı Merkezi Çalışanı");
             PanelEkle(Color.FromArgb(174, 213, 129), toplamCalisanSayisi.ToString(), "Toplam Çalışan");
             PanelEkle(Color.FromArgb(255, 224, 178), buAyAcilanCagriSayisi.ToString(), "Bu Ay Açılan Çağrı");
         }
-
-        private void btnRaporlar_Click_1(object sender, EventArgs e)
-        {
-            BossReports bossReports = new BossReports();
-            bossReports.Show();
-            this.Close();
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Görüntüleme", "UsersSalary", "Maaş bilgileri sayfasına geçiş yapıldı");
             UsersSalary usersSalary = new UsersSalary();
             usersSalary.Show();
             this.Close();

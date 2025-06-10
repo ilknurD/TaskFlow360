@@ -16,10 +16,12 @@ namespace TaskFlow360
     {
         private string GirisYapanMudurID;
         Connection baglanti = new Connection();
+        private readonly Logger _logger;
 
         public UsersSalary()
         {
             InitializeComponent();
+            _logger = new Logger();
             GirisYapanMudurID = UserInformation.KullaniciID;
         }
 
@@ -277,24 +279,23 @@ namespace TaskFlow360
                     }
                 }
 
-                // Ana sorgu - Null kontrolü ile
                 string query = @"
-            SELECT 
-                k.KullaniciID,
-                ISNULL(k.Ad, '') + ' ' + ISNULL(k.Soyad, '') AS AdSoyad,
-                ISNULL(k.Maas, 0) AS TemelMaas,
-                ISNULL(COUNT(c.CagriID), 0) AS ToplamCagri,
-                ISNULL(SUM(CASE WHEN c.Oncelik = 'Yüksek' THEN 1 ELSE 0 END), 0) AS YuksekOncelik,
-                ISNULL(SUM(CASE WHEN c.Oncelik = 'Orta' THEN 1 ELSE 0 END), 0) AS OrtaOncelik,
-                ISNULL(SUM(CASE WHEN c.Oncelik = 'Düşük' THEN 1 ELSE 0 END), 0) AS DusukOncelik
-            FROM Kullanici k
-            LEFT JOIN Cagri c ON k.KullaniciID = c.AtananKullaniciID 
-                AND MONTH(c.TeslimTarihi) = @Ay 
-                AND YEAR(c.TeslimTarihi) = @Yil
-                AND c.Durum = 'Tamamlandı'
-            WHERE k.KullaniciID IS NOT NULL
-            GROUP BY k.KullaniciID, k.Ad, k.Soyad, k.Maas
-            ORDER BY k.Ad, k.Soyad";
+                SELECT 
+                    k.KullaniciID,
+                    ISNULL(k.Ad, '') + ' ' + ISNULL(k.Soyad, '') AS AdSoyad,
+                    ISNULL(k.Maas, 0) AS TemelMaas,
+                    ISNULL(COUNT(c.CagriID), 0) AS ToplamCagri,
+                    ISNULL(SUM(CASE WHEN c.Oncelik = 'Yüksek' THEN 1 ELSE 0 END), 0) AS YuksekOncelik,
+                    ISNULL(SUM(CASE WHEN c.Oncelik = 'Orta' THEN 1 ELSE 0 END), 0) AS OrtaOncelik,
+                    ISNULL(SUM(CASE WHEN c.Oncelik = 'Düşük' THEN 1 ELSE 0 END), 0) AS DusukOncelik
+                FROM Kullanici k
+                LEFT JOIN Cagri c ON k.KullaniciID = c.AtananKullaniciID 
+                    AND MONTH(c.TeslimTarihi) = @Ay 
+                    AND YEAR(c.TeslimTarihi) = @Yil
+                    AND c.Durum = 'Tamamlandı'
+                WHERE k.KullaniciID IS NOT NULL
+                GROUP BY k.KullaniciID, k.Ad, k.Soyad, k.Maas
+                ORDER BY k.Ad, k.Soyad";
 
                 using (SqlCommand cmd = new SqlCommand(query, baglanti.conn))
                 {
@@ -305,7 +306,6 @@ namespace TaskFlow360
                     DataTable dt = new DataTable();
                     da.Fill(dt);
 
-                    // Prim hesaplaması yaparak yeni kolonlar ekle
                     dt.Columns.Add("ToplamPrim", typeof(decimal));
                     dt.Columns.Add("ToplamOdeme", typeof(decimal));
 
@@ -334,7 +334,6 @@ namespace TaskFlow360
                     if (dt.Rows.Count == 0)
                     {
                         MessageBox.Show($"Hiç kullanıcı bulunamadı!\nSeçilen: {secilenAy}. ay, {guncelYil} yılı", "Uyarı");
-                        TestVeriVarMi();
                     }
 
                     dataGridViewKullanicilar.DataSource = dt;
@@ -357,6 +356,7 @@ namespace TaskFlow360
 
             try
             {
+                _logger.LogEkle("Prim Ayarı", "PrimAyar", "Prim ayarları güncellendi");
                 PrimAyarlariKaydet();
                 PrimleriHesapla();
                 KullaniciPrimleriniYukle();
@@ -423,7 +423,6 @@ namespace TaskFlow360
             }
         }
 
-        // Önce bu metodu sınıfınıza ekleyin (eğer henüz eklemediyseniz)
         private object GetSafeValue(SqlDataReader reader, string columnName, object defaultValue)
         {
             return reader[columnName] == DBNull.Value ? defaultValue : reader[columnName];
@@ -433,12 +432,12 @@ namespace TaskFlow360
         {
             try
             {
+                _logger.LogEkle("Prim Hesaplama", "PrimKayit", "Kullanıcı primleri hesaplanmaya başlandı");
                 baglanti.BaglantiAc();
 
                 int currentYear = DateTime.Now.Year;
                 int currentMonth = DateTime.Now.Month;
 
-                // Prim ayarlarını güvenli şekilde al - PrimAyarID'yi de al
                 string primAyarQuery = "SELECT TOP 1 AyarID, MinGorevSayisi, Yüksek, Orta, Düşük FROM PrimAyar ORDER BY EklemeTarihi DESC";
                 int minGorevSayisi = 0;
                 int primAyarID = 0; 
@@ -449,7 +448,6 @@ namespace TaskFlow360
                 {
                     if (reader.Read())
                     {
-                        // GetSafeValue ile güvenli okuma - PrimAyarID dahil
                         primAyarID = Convert.ToInt32(GetSafeValue(reader, "AyarID", 0));
                         minGorevSayisi = Convert.ToInt32(GetSafeValue(reader, "MinGorevSayisi", 0));
                         yuksekPrim = Convert.ToDecimal(GetSafeValue(reader, "Yüksek", 0));
@@ -463,14 +461,12 @@ namespace TaskFlow360
                     }
                 }
 
-                // PrimAyarID kontrolü
                 if (primAyarID == 0)
                 {
                     MessageBox.Show("Geçerli bir prim ayarı bulunamadı.");
                     return;
                 }
 
-                // Kullanıcıları güvenli şekilde al
                 string kullaniciQuery = "SELECT KullaniciID, Maas FROM Kullanici";
                 using (SqlCommand kullaniciCmd = new SqlCommand(kullaniciQuery, baglanti.conn))
                 using (SqlDataReader reader = kullaniciCmd.ExecuteReader())
@@ -481,7 +477,6 @@ namespace TaskFlow360
                     {
                         kullanicilar.Add(new
                         {
-                            // GetSafeValue ile güvenli okuma
                             KullaniciID = Convert.ToInt32(GetSafeValue(reader, "KullaniciID", 0)),
                             Maas = Convert.ToDecimal(GetSafeValue(reader, "Maas", 0))
                         });
@@ -491,19 +486,18 @@ namespace TaskFlow360
 
                     foreach (var kullanici in kullanicilar)
                     {
-                        // Çağrı verilerini güvenli şekilde al
                         string cagriQuery = @"
-                SELECT 
-                    ISNULL(COUNT(*), 0) AS ToplamCagri,
-                    ISNULL(SUM(CASE WHEN Oncelik = 'Yüksek' THEN 1 ELSE 0 END), 0) AS YuksekOncelik,
-                    ISNULL(SUM(CASE WHEN Oncelik = 'Orta' THEN 1 ELSE 0 END), 0) AS OrtaOncelik,
-                    ISNULL(SUM(CASE WHEN Oncelik = 'Düşük' THEN 1 ELSE 0 END), 0) AS DusukOncelik
-                FROM Cagri 
-                WHERE AtananKullaniciID = @KullaniciID 
-                AND Durum = 'Tamamlandı'
-                AND TeslimTarihi IS NOT NULL
-                AND YEAR(TeslimTarihi) = @Yil 
-                AND MONTH(TeslimTarihi) = @Ay";
+                        SELECT 
+                            ISNULL(COUNT(*), 0) AS ToplamCagri,
+                            ISNULL(SUM(CASE WHEN Oncelik = 'Yüksek' THEN 1 ELSE 0 END), 0) AS YuksekOncelik,
+                            ISNULL(SUM(CASE WHEN Oncelik = 'Orta' THEN 1 ELSE 0 END), 0) AS OrtaOncelik,
+                            ISNULL(SUM(CASE WHEN Oncelik = 'Düşük' THEN 1 ELSE 0 END), 0) AS DusukOncelik
+                        FROM Cagri 
+                        WHERE AtananKullaniciID = @KullaniciID 
+                        AND Durum = 'Tamamlandı'
+                        AND TeslimTarihi IS NOT NULL
+                        AND YEAR(TeslimTarihi) = @Yil 
+                        AND MONTH(TeslimTarihi) = @Ay";
 
                         using (SqlCommand cagriCmd = new SqlCommand(cagriQuery, baglanti.conn))
                         {
@@ -515,7 +509,6 @@ namespace TaskFlow360
                             {
                                 if (cagriReader.Read())
                                 {
-                                    // GetSafeValue ile güvenli okuma
                                     int toplamCagri = Convert.ToInt32(GetSafeValue(cagriReader, "ToplamCagri", 0));
                                     int yuksekOncelik = Convert.ToInt32(GetSafeValue(cagriReader, "YuksekOncelik", 0));
                                     int ortaOncelik = Convert.ToInt32(GetSafeValue(cagriReader, "OrtaOncelik", 0));
@@ -531,10 +524,9 @@ namespace TaskFlow360
 
                                     cagriReader.Close();
 
-                                    // PrimKayit var mı kontrol et - Güvenli ExecuteScalar
                                     string kontrolQuery = @"
-                            SELECT ISNULL(COUNT(*), 0) FROM PrimKayit 
-                            WHERE KullaniciID = @KullaniciID AND Yil = @Yil AND Ay = @Ay";
+                                    SELECT ISNULL(COUNT(*), 0) FROM PrimKayit 
+                                    WHERE KullaniciID = @KullaniciID AND Yil = @Yil AND Ay = @Ay";
 
                                     using (SqlCommand kontrolCmd = new SqlCommand(kontrolQuery, baglanti.conn))
                                     {
@@ -542,24 +534,22 @@ namespace TaskFlow360
                                         kontrolCmd.Parameters.AddWithValue("@Yil", currentYear);
                                         kontrolCmd.Parameters.AddWithValue("@Ay", currentMonth);
 
-                                        // ExecuteScalar için güvenli dönüşüm
                                         object result = kontrolCmd.ExecuteScalar();
                                         int kayitSayisi = result == null || result == DBNull.Value ? 0 : Convert.ToInt32(result);
 
                                         if (kayitSayisi == 0)
                                         {
-                                            // Ekle - PrimAyarID dahil edildi
                                             string insertQuery = @"
-                                    INSERT INTO PrimKayit 
-                                    (PrimAyarID, KullaniciID, Yil, Ay, ToplamCagriAdedi, YuksekOncelikCagriAdedi, OrtaOncelikCagriAdedi, 
-                                     DusukOncelikCagriAdedi, PrimToplam, Maas, HesaplamaTarihi)
-                                    VALUES 
-                                    (@PrimAyarID, @KullaniciID, @Yil, @Ay, @ToplamCagriAdedi, @YuksekOncelikCagriAdedi, @OrtaOncelikCagriAdedi, 
-                                     @DusukOncelikCagriAdedi, @PrimToplam, @Maas, GETDATE())";
+                                            INSERT INTO PrimKayit 
+                                            (PrimAyarID, KullaniciID, Yil, Ay, ToplamCagriAdedi, YuksekOncelikCagriAdedi, OrtaOncelikCagriAdedi, 
+                                             DusukOncelikCagriAdedi, PrimToplam, Maas, HesaplamaTarihi)
+                                            VALUES 
+                                            (@PrimAyarID, @KullaniciID, @Yil, @Ay, @ToplamCagriAdedi, @YuksekOncelikCagriAdedi, @OrtaOncelikCagriAdedi, 
+                                             @DusukOncelikCagriAdedi, @PrimToplam, @Maas, GETDATE())";
 
                                             using (SqlCommand insertCmd = new SqlCommand(insertQuery, baglanti.conn))
                                             {
-                                                insertCmd.Parameters.AddWithValue("@PrimAyarID", primAyarID); // PrimAyarID eklendi
+                                                insertCmd.Parameters.AddWithValue("@PrimAyarID", primAyarID); 
                                                 insertCmd.Parameters.AddWithValue("@KullaniciID", kullanici.KullaniciID);
                                                 insertCmd.Parameters.AddWithValue("@Yil", currentYear);
                                                 insertCmd.Parameters.AddWithValue("@Ay", currentMonth);
@@ -574,22 +564,21 @@ namespace TaskFlow360
                                         }
                                         else
                                         {
-                                            // Güncelle - PrimAyarID dahil edildi
                                             string updateQuery = @"
-                                    UPDATE PrimKayit SET 
-                                        PrimAyarID = @PrimAyarID,
-                                        ToplamCagriAdedi = @ToplamCagriAdedi,
-                                        YuksekOncelikCagriAdedi = @YuksekOncelikCagriAdedi,
-                                        OrtaOncelikCagriAdedi = @OrtaOncelikCagriAdedi,
-                                        DusukOncelikCagriAdedi = @DusukOncelikCagriAdedi,
-                                        PrimToplam = @PrimToplam,
-                                        Maas = @Maas,
-                                        HesaplamaTarihi = GETDATE()
-                                    WHERE KullaniciID = @KullaniciID AND Yil = @Yil AND Ay = @Ay";
+                                            UPDATE PrimKayit SET 
+                                                PrimAyarID = @PrimAyarID,
+                                                ToplamCagriAdedi = @ToplamCagriAdedi,
+                                                YuksekOncelikCagriAdedi = @YuksekOncelikCagriAdedi,
+                                                OrtaOncelikCagriAdedi = @OrtaOncelikCagriAdedi,
+                                                DusukOncelikCagriAdedi = @DusukOncelikCagriAdedi,
+                                                PrimToplam = @PrimToplam,
+                                                Maas = @Maas,
+                                                HesaplamaTarihi = GETDATE()
+                                            WHERE KullaniciID = @KullaniciID AND Yil = @Yil AND Ay = @Ay";
 
                                             using (SqlCommand updateCmd = new SqlCommand(updateQuery, baglanti.conn))
                                             {
-                                                updateCmd.Parameters.AddWithValue("@PrimAyarID", primAyarID); // PrimAyarID eklendi
+                                                updateCmd.Parameters.AddWithValue("@PrimAyarID", primAyarID); 
                                                 updateCmd.Parameters.AddWithValue("@KullaniciID", kullanici.KullaniciID);
                                                 updateCmd.Parameters.AddWithValue("@Yil", currentYear);
                                                 updateCmd.Parameters.AddWithValue("@Ay", currentMonth);
@@ -618,53 +607,13 @@ namespace TaskFlow360
                 baglanti.BaglantiKapat();
             }
         }
-
-        private void TestVeriVarMi()
-        {
-            try
-            {
-                baglanti.BaglantiAc();
-
-                // Kullanıcı sayısını kontrol et
-                string kullaniciQuery = "SELECT COUNT(*) FROM Kullanici";
-                using (SqlCommand cmd = new SqlCommand(kullaniciQuery, baglanti.conn))
-                {
-                    int kullaniciSayisi = (int)cmd.ExecuteScalar();
-                    MessageBox.Show($"Toplam kullanıcı sayısı: {kullaniciSayisi}");
-                }
-
-                // Çağrı sayısını kontrol et
-                string cagriQuery = "SELECT COUNT(*) FROM Cagri WHERE Durum = 'Tamamlandı' AND TeslimTarihi IS NOT NULL";
-                using (SqlCommand cmd = new SqlCommand(cagriQuery, baglanti.conn))
-                {
-                    int cagriSayisi = (int)cmd.ExecuteScalar();
-                    MessageBox.Show($"Tamamlanmış çağrı sayısı: {cagriSayisi}");
-                }
-
-                // Prim ayarı sayısını kontrol et
-                string primQuery = "SELECT COUNT(*) FROM PrimAyar";
-                using (SqlCommand cmd = new SqlCommand(primQuery, baglanti.conn))
-                {
-                    int primSayisi = (int)cmd.ExecuteScalar();
-                    MessageBox.Show($"Prim ayarı sayısı: {primSayisi}");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Test hatası: " + ex.Message);
-            }
-            finally
-            {
-                baglanti.BaglantiKapat();
-            }
-        }
-
         private void cmbAyFiltre_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int secilenAy = cmbAyFiltre.SelectedIndex + 1;
+            _logger.LogEkle("Filtreleme", "PrimKayit", $"Prim listesi {secilenAy}. ay için filtrelendi");
             KullaniciPrimleriniYukle();
         }
 
-        // Form navigasyon metodları
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -710,9 +659,12 @@ namespace TaskFlow360
             this.Close();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnCikis_Click(object sender, EventArgs e)
         {
-            TestVeriVarMi();
+            UserInformation.BilgileriTemizle();
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Close();
         }
     }
 }

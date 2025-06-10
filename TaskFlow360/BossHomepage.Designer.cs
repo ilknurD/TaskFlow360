@@ -150,7 +150,7 @@
             this.btnRaporlar.Text = "Raporlar";
             this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnRaporlar.UseVisualStyleBackColor = false;
-            this.btnRaporlar.Click += new System.EventHandler(this.btnRaporlar_Click_1);
+            this.btnRaporlar.Click += new System.EventHandler(this.btnRaporlar_Click);
             // 
             // pictureBox4
             // 

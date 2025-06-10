@@ -15,13 +15,17 @@ namespace TaskFlow360
     {
         Connection baglanti = new Connection();
         private string yoneticiId;
+        private readonly Logger _logger;
+
         public BossProfile()
         {
             InitializeComponent();
+            _logger = new Logger();
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Çıkış", "BossProfile", "Yönetici profil sayfasından çıkış yapıldı");
             Application.Exit();
         }
 
@@ -32,6 +36,7 @@ namespace TaskFlow360
 
         private void BossProfile_Load(object sender, EventArgs e)
         {
+            _logger.LogEkle("Görüntüleme", "BossProfile", "Yönetici profil sayfası görüntülendi");
             yoneticiId = UserInformation.KullaniciID;
             EkipYoneticileriniListele();
 
@@ -102,18 +107,18 @@ namespace TaskFlow360
                 baglanti.BaglantiAc();
 
                 string query = @"SELECT 
-            K.Ad + ' ' + K.Soyad AS [Ad Soyad],
-            D.DepartmanAdi AS Departman,
-            COUNT(CASE WHEN C.Durum IN ('Beklemede', 'Atandı', 'Gecikti') THEN 1 END) AS [Aktif Görevler],
-            COUNT(CASE WHEN C.Durum = 'Tamamlandı' THEN 1 END) AS [Tamamlanan Görevler],
-            COUNT(DISTINCT K2.KullaniciID) AS [Ekip Üye Sayısı]
-            FROM Kullanici K
-            LEFT JOIN Departman D ON K.DepartmanID = D.DepartmanID
-            LEFT JOIN Cagri C ON K.KullaniciID = C.AtananKullaniciID
-            LEFT JOIN Kullanici K2 ON K.KullaniciID = K2.YoneticiID
-            WHERE K.Rol = 'Ekip Yöneticisi'
-            GROUP BY K.KullaniciID, K.Ad, K.Soyad, D.DepartmanAdi
-            ORDER BY K.Ad, K.Soyad";
+                K.Ad + ' ' + K.Soyad AS [Ad Soyad],
+                D.DepartmanAdi AS Departman,
+                COUNT(CASE WHEN C.Durum IN ('Beklemede', 'Atandı', 'Gecikti') THEN 1 END) AS [Aktif Görevler],
+                COUNT(CASE WHEN C.Durum = 'Tamamlandı' THEN 1 END) AS [Tamamlanan Görevler],
+                COUNT(DISTINCT K2.KullaniciID) AS [Ekip Üye Sayısı]
+                FROM Kullanici K
+                LEFT JOIN Departman D ON K.DepartmanID = D.DepartmanID
+                LEFT JOIN Cagri C ON K.KullaniciID = C.AtananKullaniciID
+                LEFT JOIN Kullanici K2 ON K.KullaniciID = K2.YoneticiID
+                WHERE K.Rol = 'Ekip Yöneticisi'
+                GROUP BY K.KullaniciID, K.Ad, K.Soyad, D.DepartmanAdi
+                ORDER BY K.Ad, K.Soyad";
 
                 SqlDataAdapter da = new SqlDataAdapter(query, baglanti.conn);
                 DataTable dt = new DataTable();
@@ -143,6 +148,7 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Görüntüleme", "BossProfile", "Yönetici profil sayfasına geçiş yapıldı");
             BossProfile bossProfile = new BossProfile();
             bossProfile.Show();
             this.Close();
@@ -150,6 +156,7 @@ namespace TaskFlow360
 
         private void btnKullaniciIslem_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Görüntüleme", "BossUsersControl", "Kullanıcı işlemleri sayfasına geçiş yapıldı");
             BossUsersControl bossUsersControl = new BossUsersControl();
             bossUsersControl.Show();
             this.Close();
@@ -157,6 +164,7 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Görüntüleme", "BossHomepage", "Yönetici ana sayfasına geçiş yapıldı");
             BossHomepage bossHomepage = new BossHomepage();
             bossHomepage.Show();
             this.Close();
@@ -164,6 +172,7 @@ namespace TaskFlow360
 
         private void button2_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Görüntüleme", "BossReports", "Raporlar sayfasına geçiş yapıldı");
             BossReports bossReports = new BossReports();
             bossReports.Show();
             this.Close();
@@ -171,6 +180,7 @@ namespace TaskFlow360
 
         private void button1_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Görüntüleme", "UsersSalary", "Maaş bilgileri sayfasına geçiş yapıldı");
             UsersSalary usersSalary = new UsersSalary();
             usersSalary.Show();
             this.Close();

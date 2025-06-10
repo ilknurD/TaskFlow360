@@ -15,9 +15,12 @@ namespace TaskFlow360
     public partial class BossUsersControl : Form
     {
         Connection baglanti = new Connection();
+        private readonly Logger _logger;
+
         public BossUsersControl()
         {
             InitializeComponent();
+            _logger = new Logger();
             Sutunlar();
             DepartmanlariYukle();
             KullanicilariYukle();
@@ -256,6 +259,8 @@ namespace TaskFlow360
                 return;
             }
 
+            _logger.LogEkle("Arama", "Kullanıcı", $"Kullanıcı araması yapıldı - Arama metni: {aramaMetni}");
+
             try
             {
                 string query = @"
@@ -413,6 +418,8 @@ namespace TaskFlow360
                 int selectedDepartmanID = Convert.ToInt32(selectedRow["DepartmanID"]);
                 string departmanAdi = selectedRow["DepartmanAdi"].ToString();
 
+                _logger.LogEkle("Filtreleme", "Kullanıcı", $"Departman filtresi uygulandı - Departman: {departmanAdi} (ID: {selectedDepartmanID})");
+
                 // Eğer "Tümü" seçildiyse (ID = 0) tüm kullanıcıları yükle
                 if (selectedDepartmanID == 0)
                 {
@@ -423,27 +430,27 @@ namespace TaskFlow360
 
                 // Belirli departman seçildiyse filtrele
                 string query = @"
-        SELECT 
-            k.KullaniciID,
-            k.Ad,
-            k.Soyad,
-            k.Email,
-            k.Sifre,
-            k.Rol,
-            k.YoneticiID,
-            k.Adres,
-            ISNULL(d.DepartmanAdi, 'Departman Yok') as Departman,
-            ISNULL(b.BolumAdi, 'Bölüm Yok') as Bolum,
-            k.Telefon,
-            k.Cinsiyet,
-            k.Maas,
-            k.DogumTar,
-            k.IseBaslamaTar
-        FROM Kullanici k
-        LEFT JOIN Departman d ON k.DepartmanID = d.DepartmanID
-        LEFT JOIN Bolum b ON k.BolumID = b.BolumID
-        WHERE k.DepartmanID = @departmanID
-        ORDER BY k.KullaniciID";
+                SELECT 
+                    k.KullaniciID,
+                    k.Ad,
+                    k.Soyad,
+                    k.Email,
+                    k.Sifre,
+                    k.Rol,
+                    k.YoneticiID,
+                    k.Adres,
+                    ISNULL(d.DepartmanAdi, 'Departman Yok') as Departman,
+                    ISNULL(b.BolumAdi, 'Bölüm Yok') as Bolum,
+                    k.Telefon,
+                    k.Cinsiyet,
+                    k.Maas,
+                    k.DogumTar,
+                    k.IseBaslamaTar
+                FROM Kullanici k
+                LEFT JOIN Departman d ON k.DepartmanID = d.DepartmanID
+                LEFT JOIN Bolum b ON k.BolumID = b.BolumID
+                WHERE k.DepartmanID = @departmanID
+                ORDER BY k.KullaniciID";
 
                 DataTable dt = new DataTable();
 
@@ -538,6 +545,11 @@ namespace TaskFlow360
                     return;
                 }
 
+                string ad = selectedRow.Cells["Ad"].Value?.ToString() ?? "";
+                string soyad = selectedRow.Cells["Soyad"].Value?.ToString() ?? "";
+
+                _logger.LogEkle("Düzenleme", "Kullanıcı", $"Kullanıcı düzenleme işlemi başlatıldı - Kullanıcı: {ad} {soyad} (ID: {kullaniciID})");
+
                 // En üst düzey yönetici kontrolü (YoneticiID null olan)
                 bool enUstDuzeyYonetici = selectedRow.Cells["YoneticiID"].Value == null ||
                                           selectedRow.Cells["YoneticiID"].Value == DBNull.Value;
@@ -581,8 +593,6 @@ namespace TaskFlow360
                 }
 
                 // Kullanıcı bilgilerini al
-                string ad = selectedRow.Cells["Ad"].Value?.ToString() ?? "";
-                string soyad = selectedRow.Cells["Soyad"].Value?.ToString() ?? "";
                 string email = selectedRow.Cells["Email"].Value?.ToString() ?? "";
                 string sifre = selectedRow.Cells["Sifre"].Value?.ToString() ?? "";
                 string adres = selectedRow.Cells["Adres"].Value?.ToString() ?? "";
@@ -864,6 +874,8 @@ namespace TaskFlow360
                 string soyad = selectedRow.Cells["Soyad"].Value?.ToString() ?? "";
                 string rol = selectedRow.Cells["Rol"].Value?.ToString() ?? "";
 
+                _logger.LogEkle("Silme", "Kullanıcı", $"Kullanıcı silme işlemi başlatıldı - Kullanıcı: {ad} {soyad} (ID: {kullaniciID})");
+
                 // En üst düzey yönetici kontrolü
                 bool enUstDuzeyYonetici = selectedRow.Cells["YoneticiID"].Value == null ||
                                           selectedRow.Cells["YoneticiID"].Value == DBNull.Value;
@@ -980,6 +992,7 @@ namespace TaskFlow360
 
         private void btnEkle_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Ekleme", "Kullanıcı", "Yeni kullanıcı ekleme formu açıldı");
             EditUsers editUsers = new EditUsers();
             editUsers.Show();
             this.Close();

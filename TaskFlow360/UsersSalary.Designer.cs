@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UsersSalary));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -67,7 +67,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtDusuk = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -247,6 +246,7 @@
             this.btnCikis.Text = "Çıkış";
             this.btnCikis.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCikis.UseVisualStyleBackColor = false;
+            this.btnCikis.Click += new System.EventHandler(this.btnCikis_Click);
             // 
             // btnKullaniciIslem
             // 
@@ -330,14 +330,14 @@
             this.dataGridViewKullanicilar.AllowUserToResizeRows = false;
             this.dataGridViewKullanicilar.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewKullanicilar.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewKullanicilar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewKullanicilar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewKullanicilar.ColumnHeadersHeight = 35;
             this.dataGridViewKullanicilar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewKullanicilar.EnableHeadersVisualStyles = false;
@@ -389,17 +389,17 @@
             // 
             // chartMaasPrim
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartMaasPrim.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartMaasPrim.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chartMaasPrim.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartMaasPrim.Legends.Add(legend2);
             this.chartMaasPrim.Location = new System.Drawing.Point(855, 562);
             this.chartMaasPrim.Name = "chartMaasPrim";
             this.chartMaasPrim.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartMaasPrim.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartMaasPrim.Series.Add(series2);
             this.chartMaasPrim.Size = new System.Drawing.Size(817, 379);
             this.chartMaasPrim.TabIndex = 34;
             this.chartMaasPrim.Text = "chart1";
@@ -536,22 +536,11 @@
             this.label3.TabIndex = 31;
             this.label3.Text = "Düşük";
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(827, 22);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(171, 38);
-            this.button2.TabIndex = 32;
-            this.button2.Text = "TEST";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // UsersSalary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1920, 1102);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.lblBaslik);
             this.Controls.Add(this.panel1);
@@ -620,6 +609,5 @@
         private System.Windows.Forms.Button btnKaydet;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cmbAyFiltre;
-        private System.Windows.Forms.Button button2;
     }
 }

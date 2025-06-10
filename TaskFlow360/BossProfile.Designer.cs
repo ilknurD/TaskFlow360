@@ -56,7 +56,6 @@
             this.lblDepartmanb = new System.Windows.Forms.Label();
             this.lblBolum = new System.Windows.Forms.Label();
             this.lblAdSoyad = new System.Windows.Forms.Label();
-            this.btnDegistir = new System.Windows.Forms.Button();
             this.pctrProfil = new System.Windows.Forms.PictureBox();
             this.pnlIsBilgi = new System.Windows.Forms.Panel();
             this.lblKullaniciID = new System.Windows.Forms.Label();
@@ -334,7 +333,6 @@
             this.pnlPrfilBilgi.Controls.Add(this.lblDepartmanb);
             this.pnlPrfilBilgi.Controls.Add(this.lblBolum);
             this.pnlPrfilBilgi.Controls.Add(this.lblAdSoyad);
-            this.pnlPrfilBilgi.Controls.Add(this.btnDegistir);
             this.pnlPrfilBilgi.Controls.Add(this.pctrProfil);
             this.pnlPrfilBilgi.Location = new System.Drawing.Point(327, 98);
             this.pnlPrfilBilgi.Name = "pnlPrfilBilgi";
@@ -403,25 +401,11 @@
             this.lblAdSoyad.TabIndex = 22;
             this.lblAdSoyad.Text = "İsim Soyisim";
             // 
-            // btnDegistir
-            // 
-            this.btnDegistir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(87)))), ((int)(((byte)(194)))));
-            this.btnDegistir.FlatAppearance.BorderSize = 0;
-            this.btnDegistir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDegistir.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnDegistir.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnDegistir.Location = new System.Drawing.Point(136, 192);
-            this.btnDegistir.Name = "btnDegistir";
-            this.btnDegistir.Size = new System.Drawing.Size(157, 40);
-            this.btnDegistir.TabIndex = 21;
-            this.btnDegistir.Text = "Değiştir";
-            this.btnDegistir.UseVisualStyleBackColor = false;
-            // 
             // pctrProfil
             // 
-            this.pctrProfil.Location = new System.Drawing.Point(117, 16);
+            this.pctrProfil.Location = new System.Drawing.Point(117, 28);
             this.pctrProfil.Name = "pctrProfil";
-            this.pctrProfil.Size = new System.Drawing.Size(195, 170);
+            this.pctrProfil.Size = new System.Drawing.Size(195, 185);
             this.pctrProfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pctrProfil.TabIndex = 0;
             this.pctrProfil.TabStop = false;
@@ -897,7 +881,6 @@
         private System.Windows.Forms.Label lblDepartmanb;
         private System.Windows.Forms.Label lblBolum;
         private System.Windows.Forms.Label lblAdSoyad;
-        private System.Windows.Forms.Button btnDegistir;
         private System.Windows.Forms.PictureBox pctrProfil;
         private System.Windows.Forms.Panel pnlIsBilgi;
         private System.Windows.Forms.Label lblKullaniciID;
