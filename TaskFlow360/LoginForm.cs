@@ -202,13 +202,16 @@ namespace TaskFlow360
                     string sifre = result.ToString();
 
                     // Gmail SMTP ayarları
-                    string smtpEmail = ConfigurationManager.AppSettings["SmtpEmail"];
-                    string smtpPassword = ConfigurationManager.AppSettings["SmtpPassword"];
-                    string smtpHost = ConfigurationManager.AppSettings["SmtpHost"];
-                    int smtpPort = int.Parse(ConfigurationManager.AppSettings["SmtpPort"]);
+                    string smtpEmail = "ilknurmduman60@gmail.com";
+                    string smtpPassword = "blav kjlp ppjw baty";
+                    string smtpHost = "smtp.gmail.com";
+                    int smtpPort = 587;
+                    // Gmail için SSL portu
 
                     SmtpClient smtp = new SmtpClient(smtpHost, smtpPort);
                     smtp.EnableSsl = true;
+                    
+                    smtp.UseDefaultCredentials = false;
                     smtp.Credentials = new NetworkCredential(smtpEmail, smtpPassword);
 
                     // Kullanıcıya mail gönder
@@ -216,7 +219,7 @@ namespace TaskFlow360
                     userMail.From = new MailAddress(smtpEmail);
                     userMail.To.Add(email);
                     userMail.Subject = "TaskFlow360 - Şifre Bilgilendirmesi";
-                    userMail.Body = $"Merhaba,\n\nŞifreniz: {sifre}\n\nGüvenliğiniz için lütfen giriş yaptıktan sonra şifrenizi değiştiriniz.\n\nSaygılarımızla,\nTaskFlow360 Ekibi";
+                    userMail.Body = $"Merhaba,\n\nŞifreniz: {sifre}\n\nGüvenliğiniz için lütfen şifrenizi kimseyle paylaşmayınız.\n\nSaygılarımızla,\nTaskFlow360 Ekibi";
                     smtp.Send(userMail);
 
                     // Müdüre bilgilendirme maili gönder

