@@ -2,6 +2,9 @@
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data.Sql;
+using System.Net.Mail;
+using System.Net;
+using System.Configuration;
 
 namespace TaskFlow360
 {
@@ -175,22 +178,70 @@ namespace TaskFlow360
             }
         }
 
-
-
-
-        private void txtUsername_TextChanged(object sender, EventArgs e)
+        private void SifremiUnuttum_Click(object sender, EventArgs e)
         {
+            string email = txtMail.Text.Trim();
+            
+            if (email == "Mail" || string.IsNullOrEmpty(email))
+            {
+                MessageBox.Show("Lütfen e-posta adresinizi girin.");
+                return;
+            }
 
-        }
+            try
+            {
+                baglanti.BaglantiAc();
 
-        private void LoginForm_Load_1(object sender, EventArgs e)
-        {
+                string query = "SELECT Sifre FROM Kullanici WHERE Email = @Email";
+                SqlCommand cmd = new SqlCommand(query, baglanti.conn);
+                cmd.Parameters.AddWithValue("@Email", email);
 
-        }
+                object result = cmd.ExecuteScalar();
+                if (result != null)
+                {
+                    string sifre = result.ToString();
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
+                    // Gmail SMTP ayarları
+                    string smtpEmail = ConfigurationManager.AppSettings["SmtpEmail"];
+                    string smtpPassword = ConfigurationManager.AppSettings["SmtpPassword"];
+                    string smtpHost = ConfigurationManager.AppSettings["SmtpHost"];
+                    int smtpPort = int.Parse(ConfigurationManager.AppSettings["SmtpPort"]);
 
+                    SmtpClient smtp = new SmtpClient(smtpHost, smtpPort);
+                    smtp.EnableSsl = true;
+                    smtp.Credentials = new NetworkCredential(smtpEmail, smtpPassword);
+
+                    // Kullanıcıya mail gönder
+                    MailMessage userMail = new MailMessage();
+                    userMail.From = new MailAddress(smtpEmail);
+                    userMail.To.Add(email);
+                    userMail.Subject = "TaskFlow360 - Şifre Bilgilendirmesi";
+                    userMail.Body = $"Merhaba,\n\nŞifreniz: {sifre}\n\nGüvenliğiniz için lütfen giriş yaptıktan sonra şifrenizi değiştiriniz.\n\nSaygılarımızla,\nTaskFlow360 Ekibi";
+                    smtp.Send(userMail);
+
+                    // Müdüre bilgilendirme maili gönder
+                    MailMessage mudurMail = new MailMessage();
+                    mudurMail.From = new MailAddress(smtpEmail);
+                    mudurMail.To.Add("ilknurmduman60@gmail.com");
+                    mudurMail.Subject = "TaskFlow360 - Şifre Sıfırlama Bildirimi";
+                    mudurMail.Body = $"Sayın Müdürümüz,\n\n{email} adresli kullanıcı şifre sıfırlama talebinde bulunmuştur.\n\nSaygılarımızla,\nTaskFlow360 Sistemi";
+                    smtp.Send(mudurMail);
+
+                    MessageBox.Show("Şifreniz e-posta adresinize gönderilmiştir.");
+                }
+                else
+                {
+                    MessageBox.Show("Bu e-posta adresi sistemde kayıtlı değil.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hata oluştu: " + ex.Message);
+            }
+            finally
+            {
+                baglanti.BaglantiKapat();
+            }
         }
     }
 }

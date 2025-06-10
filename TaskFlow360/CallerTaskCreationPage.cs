@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,11 +15,90 @@ namespace TaskFlow360
     public partial class CallerTaskCreationPage : Form
     {
         private readonly Logger _logger;
+        private const string EMAIL_PATTERN = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+        private const string PHONE_PATTERN = @"^[0-9]{10}$";
 
         public CallerTaskCreationPage()
         {
             InitializeComponent();
             _logger = new Logger();
+            SetupTextBoxes();
+        }
+
+        private void SetupTextBoxes()
+        {
+            // Placeholder metinleri ayarla
+            txtTalepAdSoyad.Text = "Ad Soyad";
+            txtTalepAdres.Text = "Adres";
+            txtTalepTelefon.Text = "5XX XXX XX XX";
+            txtTalepMail.Text = "ornek@mail.com";
+
+            // TextBox'ların özelliklerini ayarla
+            foreach (TextBox txt in new[] { txtTalepAdSoyad, txtTalepAdres, txtTalepTelefon, txtTalepMail })
+            {
+                txt.ForeColor = Color.Gray;
+                txt.Enter += TextBox_Enter;
+                txt.Leave += TextBox_Leave;
+            }
+
+            // Telefon ve mail için özel kontroller
+            txtTalepTelefon.KeyPress += TxtTalepTelefon_KeyPress;
+            txtTalepMail.Leave += TxtTalepMail_Leave;
+        }
+
+        private void TextBox_Enter(object sender, EventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            if (txt.Text == "Ad Soyad" || txt.Text == "Adres" || 
+                txt.Text == "5XX XXX XX XX" || txt.Text == "ornek@mail.com")
+            {
+                txt.Text = "";
+                txt.ForeColor = Color.Black;
+            }
+        }
+
+        private void TextBox_Leave(object sender, EventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            if (string.IsNullOrWhiteSpace(txt.Text))
+            {
+                switch (txt.Name)
+                {
+                    case "txtTalepAdSoyad":
+                        txt.Text = "Ad Soyad";
+                        break;
+                    case "txtTalepAdres":
+                        txt.Text = "Adres";
+                        break;
+                    case "txtTalepTelefon":
+                        txt.Text = "5XX XXX XX XX";
+                        break;
+                    case "txtTalepMail":
+                        txt.Text = "ornek@mail.com";
+                        break;
+                }
+                txt.ForeColor = Color.Gray;
+            }
+        }
+
+        private void TxtTalepTelefon_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtTalepMail_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtTalepMail.Text) && txtTalepMail.Text != "ornek@mail.com")
+            {
+                if (!Regex.IsMatch(txtTalepMail.Text, EMAIL_PATTERN))
+                {
+                    MessageBox.Show("Lütfen geçerli bir e-posta adresi giriniz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtTalepMail.Focus();
+                }
+            }
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -53,10 +133,10 @@ namespace TaskFlow360
         {
             if (string.IsNullOrWhiteSpace(txtBaslik.Text) ||
                 string.IsNullOrWhiteSpace(richTextAciklama.Text) ||
-                string.IsNullOrWhiteSpace(txtTalepAdSoyad.Text) ||
-                string.IsNullOrWhiteSpace(txtTalepAdres.Text) ||
-                string.IsNullOrWhiteSpace(txtTalepTelefon.Text) ||
-                string.IsNullOrWhiteSpace(txtTalepMail.Text) ||
+                txtTalepAdSoyad.Text == "Ad Soyad" ||
+                txtTalepAdres.Text == "Adres" ||
+                txtTalepTelefon.Text == "5XX XXX XX XX" ||
+                txtTalepMail.Text == "ornek@mail.com" ||
                 cmbKategori.SelectedIndex == -1 ||
                 cmbOncelik.SelectedIndex == -1 ||
                 cmbDurum.SelectedIndex == -1 ||
@@ -66,6 +146,14 @@ namespace TaskFlow360
             {
                 _logger.LogEkle("Hata", "CallerTaskCreationPage", "Eksik bilgi girişi tespit edildi");
                 MessageBox.Show("Lütfen tüm alanları eksiksiz doldurun.", "Eksik Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // Telefon formatı kontrolü
+            if (!Regex.IsMatch(txtTalepTelefon.Text, PHONE_PATTERN))
+            {
+                MessageBox.Show("Lütfen geçerli bir telefon numarası giriniz (10 haneli).", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTalepTelefon.Focus();
                 return false;
             }
 
@@ -102,17 +190,17 @@ namespace TaskFlow360
         {
             cmbKategori.Items.AddRange(new string[] { "Yazılım", "Donanım", "Ağ", "Rapor", "Sistem", "Diğer" });
             cmbOncelik.Items.AddRange(new string[] { "Düşük", "Orta", "Yüksek" });
-            cmbDurum.Items.AddRange(new string[] { "Yeni", "Atandı", "Devam Ediyor", "Beklemede" });
+            cmbDurum.Items.AddRange(new string[] { "Atandı", "Devam Ediyor", "Beklemede" });
             cmbHedefSure.Items.AddRange(new object[] { 1, 2, 4, 8, 24, 48 });
         }
         private void FormuTemizle()
         {
             txtBaslik.Text = "";
             richTextAciklama.Text = "";
-            txtTalepAdSoyad.Text = "";
-            txtTalepAdres.Text = "";
-            txtTalepTelefon.Text = "";
-            txtTalepMail.Text = "";
+            txtTalepAdSoyad.Text = "Ad Soyad";
+            txtTalepAdres.Text = "Adres";
+            txtTalepTelefon.Text = "5XX XXX XX XX";
+            txtTalepMail.Text = "ornek@mail.com";
 
             cmbKategori.SelectedIndex = -1;
             cmbOncelik.SelectedIndex = -1;

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace TaskFlow360
@@ -11,6 +13,8 @@ namespace TaskFlow360
         private int secilenKullaniciID;
         private bool yeniKayitMi = false;
         private readonly Logger _logger;
+        private const string EMAIL_PATTERN = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+        private const string PHONE_PATTERN = @"^[0-9]{10}$";
 
         public EditUsers()
         {
@@ -18,6 +22,7 @@ namespace TaskFlow360
             _logger = new Logger();
             secilenKullaniciID = 0;
             yeniKayitMi = true;
+            SetupTextBoxes();
         }
 
         public EditUsers(int kullaniciID, string ad, string soyad, string email, string sifre, string rol,
@@ -28,9 +33,82 @@ namespace TaskFlow360
             _logger = new Logger();
             secilenKullaniciID = kullaniciID;
             yeniKayitMi = false;
+            SetupTextBoxes();
 
             BilgileriDoldur(kullaniciID, ad, soyad, email, sifre, rol, adres, yoneticiID,
                 departmanID, bolumID, telefon, cinsiyet, dogumTar, iseBaslamaTar, maas);
+        }
+
+        private void SetupTextBoxes()
+        {
+            // Placeholder metinleri ayarla
+            txtEmail.Text = "ornek@mail.com";
+            txtTelefon.Text = "5XX XXX XX XX";
+            txtSifre.Text = "Şifre";
+
+            // TextBox'ların özelliklerini ayarla
+            foreach (TextBox txt in new[] { txtEmail, txtTelefon, txtSifre })
+            {
+                txt.ForeColor = Color.Gray;
+                txt.Enter += TextBox_Enter;
+                txt.Leave += TextBox_Leave;
+            }
+
+            // Telefon için özel kontroller
+            txtTelefon.KeyPress += TxtTelefon_KeyPress;
+            txtEmail.Leave += TxtEmail_Leave;
+        }
+
+        private void TextBox_Enter(object sender, EventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            if (txt.Text == "ornek@mail.com" || txt.Text == "5XX XXX XX XX" || txt.Text == "Şifre")
+            {
+                txt.Text = "";
+                txt.ForeColor = Color.Black;
+            }
+        }
+
+        private void TextBox_Leave(object sender, EventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            if (string.IsNullOrWhiteSpace(txt.Text))
+            {
+                switch (txt.Name)
+                {
+                    case "txtEmail":
+                        txt.Text = "ornek@mail.com";
+                        break;
+                    case "txtTelefon":
+                        txt.Text = "5XX XXX XX XX";
+                        break;
+                    case "txtSifre":
+                        txt.Text = "Şifre";
+                        txt.PasswordChar = '\0';
+                        break;
+                }
+                txt.ForeColor = Color.Gray;
+            }
+        }
+
+        private void TxtTelefon_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtEmail_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtEmail.Text) && txtEmail.Text != "ornek@mail.com")
+            {
+                if (!Regex.IsMatch(txtEmail.Text, EMAIL_PATTERN))
+                {
+                    MessageBox.Show("Lütfen geçerli bir e-posta adresi giriniz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtEmail.Focus();
+                }
+            }
         }
 
         private void BilgileriDoldur(int kullaniciID, string ad, string soyad, string email, string sifre, string rol,
@@ -78,6 +156,12 @@ namespace TaskFlow360
                 txtSifre.Text = sifre;
                 txtAdres.Text = adres;
                 txtTelefon.Text = telefon;
+
+                // TextBox'ların rengini siyah yap
+                txtEmail.ForeColor = Color.Black;
+                txtTelefon.ForeColor = Color.Black;
+                txtSifre.ForeColor = Color.Black;
+                txtSifre.PasswordChar = '*';
 
                 if (maas.HasValue)
                 {
@@ -196,6 +280,38 @@ namespace TaskFlow360
 
         private void btnKaydet_Click(object sender, EventArgs e)
         {
+            // E-posta formatı kontrolü
+            if (txtEmail.Text != "ornek@mail.com" && !Regex.IsMatch(txtEmail.Text, EMAIL_PATTERN))
+            {
+                MessageBox.Show("Lütfen geçerli bir e-posta adresi giriniz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtEmail.Focus();
+                return;
+            }
+
+            // Telefon formatı kontrolü
+            if (txtTelefon.Text != "5XX XXX XX XX" && !Regex.IsMatch(txtTelefon.Text, PHONE_PATTERN))
+            {
+                MessageBox.Show("Lütfen geçerli bir telefon numarası giriniz (10 haneli).", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTelefon.Focus();
+                return;
+            }
+
+            // Şifre kontrolü
+            if (txtSifre.Text == "Şifre" || string.IsNullOrWhiteSpace(txtSifre.Text))
+            {
+                MessageBox.Show("Lütfen bir şifre giriniz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSifre.Focus();
+                return;
+            }
+
+            // Cinsiyet kontrolü
+            if (cmbCinsiyet.SelectedIndex == -1)
+            {
+                MessageBox.Show("Lütfen cinsiyet seçiniz.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbCinsiyet.Focus();
+                return;
+            }
+
             if (cmbDepartman.SelectedValue == null)
             {
                 MessageBox.Show("Lütfen bir departman seçin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -203,7 +319,8 @@ namespace TaskFlow360
             }
 
             decimal maas = 0;
-            if (!decimal.TryParse(txtMaas.Text.Replace(".", ","), out maas) || maas < 0)
+            string maasText = txtMaas.Text.Replace(".", "").Replace(",", ".");
+            if (!decimal.TryParse(maasText, out maas) || maas < 0)
             {
                 MessageBox.Show("Lütfen geçerli bir maaş miktarı girin.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtMaas.Focus();

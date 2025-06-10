@@ -247,7 +247,7 @@ namespace TaskFlow360
 
                 string kontrolSorgusu = @"
             SELECT COUNT(*) FROM Cagri 
-            WHERE Durum = 'Beklemede' 
+            WHERE Durum = 'Atandı' 
             AND AtananKullaniciID = @managerID";
 
                 SqlCommand kontrolKomut = new SqlCommand(kontrolSorgusu, baglanti.conn);
@@ -287,7 +287,7 @@ namespace TaskFlow360
                 string sorgu = @"
             SELECT CagriID, Baslik, CagriKategori, Oncelik, Durum 
             FROM Cagri 
-            WHERE Durum = 'Beklemede'
+            WHERE Durum = 'Atandı'
             AND AtananKullaniciID = @managerID";
 
                 SqlCommand komut = new SqlCommand(sorgu, baglanti.conn);
@@ -462,7 +462,6 @@ namespace TaskFlow360
 
                 int yoneticiId = int.Parse(UserInformation.KullaniciID);
 
-                // Ekibe ait kullanıcıları al
                 SqlCommand ekipUyeKomut = new SqlCommand("SELECT KullaniciID FROM Kullanici WHERE YoneticiID = @yoneticiId", baglanti.conn);
                 ekipUyeKomut.Parameters.AddWithValue("@yoneticiId", yoneticiId);
                 List<int> ekipUyeIDListesi = new List<int>();
@@ -473,25 +472,19 @@ namespace TaskFlow360
                         ekipUyeIDListesi.Add(reader.GetInt32(0));
                     }
                 }
-                // Kendini de ekle
                 ekipUyeIDListesi.Add(yoneticiId);
-
-                // Listeyi SQL IN ifadesine dönüştür
                 string idListeString = string.Join(",", ekipUyeIDListesi);
 
-                // Bekleyen çağrı
                 SqlCommand bekleyenCagri = new SqlCommand(
                     $"SELECT COUNT(*) FROM Cagri WHERE Durum = 'Beklemede' AND AtananKullaniciID IN ({idListeString})", baglanti.conn);
                 int bekleyenCagriSayisi = Convert.ToInt32(bekleyenCagri.ExecuteScalar());
                 lblBeklemede.Text = bekleyenCagriSayisi.ToString();
 
-                // Atanan çağrı
                 SqlCommand atananCagri = new SqlCommand(
                     $"SELECT COUNT(*) FROM Cagri WHERE Durum = 'Atandı' AND AtananKullaniciID IN ({idListeString})", baglanti.conn);
                 int atananCagriSayisi = Convert.ToInt32(atananCagri.ExecuteScalar());
                 lblAtanan.Text = atananCagriSayisi.ToString();
 
-                // Tamamlanan çağrı (Son 30 gün)
                 SqlCommand tamamlananCagri = new SqlCommand(
                     $@"SELECT COUNT(*) FROM Cagri 
                     WHERE Durum = 'Tamamlandı' 
@@ -500,7 +493,6 @@ namespace TaskFlow360
                 int tamamlananCagriSayisi = Convert.ToInt32(tamamlananCagri.ExecuteScalar());
                 lblTamamlanan.Text = tamamlananCagriSayisi.ToString();
 
-                // Geciken çağrı
                 SqlCommand gecikenCagri = new SqlCommand($@"
                     SELECT COUNT(*) FROM Cagri 
                     WHERE Durum != 'Tamamlandı' 
@@ -510,7 +502,6 @@ namespace TaskFlow360
                 int gecikenCagriSayisi = Convert.ToInt32(gecikenCagri.ExecuteScalar());
                 lblGeciken.Text = gecikenCagriSayisi.ToString();
 
-                // Pano mesajı
                 label1.Text = $"Bugün {bekleyenCagriSayisi} bekleyen çağrı ve {atananCagriSayisi} devam eden görev bulunmaktadır.";
 
                 logger.LogEkle($"İstatistikler başarıyla yüklendi - Bekleyen: {bekleyenCagriSayisi}, Atanan: {atananCagriSayisi}, Tamamlanan: {tamamlananCagriSayisi}, Geciken: {gecikenCagriSayisi}", "Okuma", "ManagerHomepage");

@@ -475,21 +475,21 @@ namespace TaskFlow360
             {
                 baglanti.BaglantiAc();
 
-                string sorgu = "UPDATE Cagri SET AtananKullaniciID = @atananId, Durum = @durum WHERE CagriID = @cagriId";
+                string sorgu = "UPDATE Cagri SET AtananKullaniciID = @atananId, Durum = @durum, CevapTarihi = GETDATE() WHERE CagriID = @cagriId";
                 using (SqlCommand cmd = new SqlCommand(sorgu, baglanti.conn))
                 {
                     cmd.Parameters.AddWithValue("@atananId", atananKullaniciId);
-                    cmd.Parameters.AddWithValue("@durum", "Atandı");
+                    cmd.Parameters.AddWithValue("@durum", "Beklemede");
                     cmd.Parameters.AddWithValue("@cagriId", cagriId);
 
                     int etkilenen = cmd.ExecuteNonQuery();
                     if (etkilenen > 0)
                     {
                         _logger.LogEkle("Güncelleme", "Cagri", $"Çağrı atandı - ÇağrıID: {cagriId}, Atanan KullanıcıID: {atananKullaniciId}, Yöneticisi: {yoneticiId}");
-                        string aciklama = $"Çağrı {atananKullaniciId} ID'li kullanıcıya atandı.";
+                        string aciklama = $"Çağrı {atananKullaniciId} ID'li kullanıcıya atandı ve durumu 'Beklemede' olarak güncellendi.";
                         int kullaniciId = Convert.ToInt32(yoneticiId);
 
-                        Call.CagriDurumGuncelle(cagriId, "Görev Atandı", aciklama, kullaniciId, baglanti.conn, kullaniciId);
+                        Call.CagriDurumGuncelle(cagriId, "Beklemede", aciklama, kullaniciId, baglanti.conn, kullaniciId);
 
                         MessageBox.Show("Çağrı başarıyla atandı ve durumu güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Close();

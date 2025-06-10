@@ -33,7 +33,7 @@
             this.chkBeniHatirla = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.SifremiUnuttum = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
@@ -63,7 +63,7 @@
             this.panel1.Controls.Add(this.chkBeniHatirla);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.SifremiUnuttum);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.pictureBox3);
@@ -76,7 +76,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(409, 600);
             this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // chkBeniHatirla
             // 
@@ -113,16 +112,18 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "HOŞ GELDİNİZ";
             // 
-            // label2
+            // SifremiUnuttum
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(225, 357);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(121, 18);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Şifremi Unuttum";
+            this.SifremiUnuttum.AutoSize = true;
+            this.SifremiUnuttum.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.SifremiUnuttum.Font = new System.Drawing.Font("Century Gothic", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Italic | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.SifremiUnuttum.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.SifremiUnuttum.Location = new System.Drawing.Point(225, 357);
+            this.SifremiUnuttum.Name = "SifremiUnuttum";
+            this.SifremiUnuttum.Size = new System.Drawing.Size(121, 18);
+            this.SifremiUnuttum.TabIndex = 5;
+            this.SifremiUnuttum.Text = "Şifremi Unuttum";
+            this.SifremiUnuttum.Click += new System.EventHandler(this.SifremiUnuttum_Click);
             // 
             // button1
             // 
@@ -224,7 +225,6 @@
             this.txtMail.Size = new System.Drawing.Size(230, 21);
             this.txtMail.TabIndex = 2;
             this.txtMail.Text = "mail";
-            this.txtMail.TextChanged += new System.EventHandler(this.txtUsername_TextChanged);
             // 
             // panel5
             // 
@@ -277,7 +277,7 @@
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.LoginForm_Load_1);
+            this.Load += new System.EventHandler(this.LoginForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -308,7 +308,7 @@
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label SifremiUnuttum;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel4;

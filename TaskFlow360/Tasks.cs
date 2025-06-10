@@ -211,7 +211,7 @@ namespace TaskFlow360
                         {
                             int cagriID = Convert.ToInt32(row.Cells["CagriID"].Value);
 
-                            string updateQuery = "UPDATE Cagri SET AtananKullaniciID = @UyeID WHERE CagriID = @CagriID";
+                            string updateQuery = "UPDATE Cagri SET AtananKullaniciID = @UyeID, Durum = 'Beklemede', CevapTarihi = GETDATE() WHERE CagriID = @CagriID";
                             using (SqlCommand cmd = new SqlCommand(updateQuery, conn))
                             {
                                 cmd.Parameters.AddWithValue("@UyeID", uyeID);
@@ -223,8 +223,8 @@ namespace TaskFlow360
 
                             Call.CagriDurumGuncelle(
                                 cagriID,
-                                "Görev Atandı",
-                                $"Görev {uyeAdiSoyadi} kullanıcısına atandı.",
+                                "Beklemede",
+                                $"Görev {uyeAdiSoyadi} kullanıcısına atandı ve durumu 'Beklemede' olarak güncellendi.",
                                 Convert.ToInt32(managerID), 
                                 conn,
                                 Convert.ToInt32(managerID)

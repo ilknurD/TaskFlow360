@@ -367,6 +367,7 @@
             // 
             // cmbDepartman
             // 
+            this.cmbDepartman.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDepartman.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.cmbDepartman.FormattingEnabled = true;
             this.cmbDepartman.Location = new System.Drawing.Point(669, 669);
@@ -376,6 +377,7 @@
             // 
             // cmbKategori
             // 
+            this.cmbKategori.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbKategori.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.cmbKategori.FormattingEnabled = true;
             this.cmbKategori.Location = new System.Drawing.Point(669, 367);
@@ -385,6 +387,7 @@
             // 
             // cmbEkipYoneticisi
             // 
+            this.cmbEkipYoneticisi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbEkipYoneticisi.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.cmbEkipYoneticisi.FormattingEnabled = true;
             this.cmbEkipYoneticisi.Location = new System.Drawing.Point(80, 367);
@@ -416,6 +419,7 @@
             // 
             // cmbOncelik
             // 
+            this.cmbOncelik.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbOncelik.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.cmbOncelik.FormattingEnabled = true;
             this.cmbOncelik.Location = new System.Drawing.Point(669, 469);
@@ -586,6 +590,7 @@
             // 
             // cmbHedefSure
             // 
+            this.cmbHedefSure.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbHedefSure.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.cmbHedefSure.FormattingEnabled = true;
             this.cmbHedefSure.Location = new System.Drawing.Point(669, 767);
@@ -595,6 +600,7 @@
             // 
             // cmbDurum
             // 
+            this.cmbDurum.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDurum.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.cmbDurum.FormattingEnabled = true;
             this.cmbDurum.Location = new System.Drawing.Point(669, 564);

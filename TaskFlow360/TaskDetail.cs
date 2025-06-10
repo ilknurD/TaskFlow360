@@ -23,18 +23,35 @@ namespace TaskFlow360
             _logger = new Logger();
             _cagriID = cagriID;
             _talepEdenID = talepEdenID;
+            btnGeriBildirimKaydet.Click += BtnGeriBildirimKaydet_Click;
             GeriBildirimKontrolleriniOlustur();
         }
 
         private void GeriBildirimKontrolleriniOlustur()
         {
-            cmbGeriBildirim.Items.AddRange(new string[] { "Seçiniz", "Olumlu", "Olumsuz" });
+            if (cmbGeriBildirim.Items.Count == 0)
+            {
+                cmbGeriBildirim.Items.AddRange(new string[] { "Seçiniz", "Olumlu", "Olumsuz" });
+            }
+            
             cmbGeriBildirim.DropDownStyle = ComboBoxStyle.DropDownList;
-            btnGeriBildirimKaydet.Click += BtnGeriBildirimKaydet_Click;
 
             if (UserInformation.Rol == "Çağrı Merkezi")
             {
                 MusteriBildirimi.Visible = true;
+                
+                bool isTamamlandi = cmbDurum.Text == "Tamamlandı";
+                
+                foreach (Control control in MusteriBildirimi.Controls)
+                {
+                    if (control is ComboBox || control is Button)
+                    {
+                        control.Enabled = isTamamlandi;
+                    }
+                }
+
+                cmbGeriBildirim.Enabled = isTamamlandi;
+                btnGeriBildirimKaydet.Enabled = isTamamlandi;
             }
             else
             {
@@ -127,6 +144,21 @@ namespace TaskFlow360
             AlanıEtkileşimsizYap(txtTeslimTarihi);
             txtHedefSure.ReadOnly = true;
             AlanıEtkileşimsizYap(txtHedefSure);
+
+            BtndegisiklikleriKaydet.Visible = UserInformation.Rol == "Çağrı Merkezi";
+
+            bool talepEdenDuzenlenebilir = UserInformation.Rol == "Çağrı Merkezi";
+            txtTalepEdenTelefon.ReadOnly = !talepEdenDuzenlenebilir;
+            txtTalepEdenEmail.ReadOnly = !talepEdenDuzenlenebilir;
+            txtTalepEdenAdres.ReadOnly = !talepEdenDuzenlenebilir;
+            txtTalepEdenID.Enabled = false;
+
+            if (!talepEdenDuzenlenebilir)
+            {
+                AlanıEtkileşimsizYap(txtTalepEdenTelefon);
+                AlanıEtkileşimsizYap(txtTalepEdenEmail);
+                AlanıEtkileşimsizYap(txtTalepEdenAdres);
+            }
         }
         private void AlanıEtkileşimsizYap(TextBox textBox)
         {
@@ -220,6 +252,8 @@ namespace TaskFlow360
                         MessageBox.Show("Çağrı bilgisi bulunamadı.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
+
+                GeriBildirimKontrolleriniOlustur();
             }
             catch (Exception ex)
             {
@@ -428,6 +462,14 @@ namespace TaskFlow360
                 {
                     updateSql.Append("Durum = @Durum");
                     parameters.Add(new SqlParameter("@Durum", yeniDurum));
+
+                    // Eğer durum Tamamlandı ise TeslimTarihi ve CevapTarihi'ni güncelleme işlemi
+                    if (yeniDurum == "Tamamlandı")
+                    {
+                        updateSql.Append(", TeslimTarihi = @TeslimTarihi, CevapTarihi = @CevapTarihi");
+                        parameters.Add(new SqlParameter("@TeslimTarihi", DateTime.Now));
+                        parameters.Add(new SqlParameter("@CevapTarihi", DateTime.Now));
+                    }
                 }
 
                 if (aciklama != mevcutAciklama)
@@ -458,7 +500,17 @@ namespace TaskFlow360
 
                 MessageBox.Show("Çağrı başarıyla güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 YukleCagriBilgileri();
-                this.Close();
+                GeriBildirimKontrolleriniOlustur();
+
+                if (cmbDurum.Text == "Tamamlandı")
+                {
+                    YukleCagriBilgileri();
+                    GeriBildirimKontrolleriniOlustur();
+                }
+                else
+                {
+                    this.Close();
+                }
             }
             catch (Exception ex)
             {
@@ -488,6 +540,91 @@ namespace TaskFlow360
             {
                 YukleCagriBilgileri();
                 this.Close();
+            }
+        }
+
+        private void BtndegisiklikleriKaydet_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (UserInformation.Rol != "Çağrı Merkezi")
+                {
+                    MessageBox.Show("Bu işlem için yetkiniz bulunmamaktadır.", "Yetki Hatası", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string mevcutTelefon = "";
+                string mevcutEmail = "";
+                string mevcutAdres = "";
+
+                bgl.BaglantiAc();
+
+                string sorgula = "SELECT TalepEdenTelefon, TalepEdenEmail, TalepEdenAdres FROM TalepEdenler WHERE TalepEdenID = @TalepEdenID";
+                SqlCommand cmdSorgula = new SqlCommand(sorgula, bgl.conn);
+                cmdSorgula.Parameters.AddWithValue("@TalepEdenID", _talepEdenID);
+
+                using (SqlDataReader dr = cmdSorgula.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        mevcutTelefon = dr["TalepEdenTelefon"].ToString();
+                        mevcutEmail = dr["TalepEdenEmail"].ToString();
+                        mevcutAdres = dr["TalepEdenAdres"].ToString();
+                    }
+                }
+
+                bool degisiklikVar = false;
+                StringBuilder logDetaylari = new StringBuilder();
+
+                if (txtTalepEdenTelefon.Text != mevcutTelefon)
+                {
+                    degisiklikVar = true;
+                    logDetaylari.AppendLine($"Telefon: {mevcutTelefon} -> {txtTalepEdenTelefon.Text}");
+                }
+                if (txtTalepEdenEmail.Text != mevcutEmail)
+                {
+                    degisiklikVar = true;
+                    logDetaylari.AppendLine($"E-posta: {mevcutEmail} -> {txtTalepEdenEmail.Text}");
+                }
+                if (txtTalepEdenAdres.Text != mevcutAdres)
+                {
+                    degisiklikVar = true;
+                    logDetaylari.AppendLine($"Adres: {mevcutAdres} -> {txtTalepEdenAdres.Text}");
+                }
+
+                if (!degisiklikVar)
+                {
+                    MessageBox.Show("Herhangi bir değişiklik yapmadınız.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                string guncelleSorgu = @"UPDATE TalepEdenler 
+                                       SET TalepEdenTelefon = @Telefon,
+                                           TalepEdenEmail = @Email,
+                                           TalepEdenAdres = @Adres
+                                       WHERE TalepEdenID = @TalepEdenID";
+
+                SqlCommand cmdGuncelle = new SqlCommand(guncelleSorgu, bgl.conn);
+                cmdGuncelle.Parameters.AddWithValue("@Telefon", txtTalepEdenTelefon.Text);
+                cmdGuncelle.Parameters.AddWithValue("@Email", txtTalepEdenEmail.Text);
+                cmdGuncelle.Parameters.AddWithValue("@Adres", txtTalepEdenAdres.Text);
+                cmdGuncelle.Parameters.AddWithValue("@TalepEdenID", _talepEdenID);
+
+                cmdGuncelle.ExecuteNonQuery();
+
+                _logger.LogEkle("Güncelleme", "TalepEdenler", $"Talep Eden ID: {_talepEdenID} için bilgiler güncellendi.\n{logDetaylari}");
+
+                MessageBox.Show("Talep eden bilgileri başarıyla güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                YukleCagriBilgileri();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Güncelleme sırasında hata oluştu: " + ex.Message,
+                               "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                bgl.BaglantiKapat();
             }
         }
     }

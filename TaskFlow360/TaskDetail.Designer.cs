@@ -85,6 +85,7 @@
             this.btnGeriBildirimKaydet = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.MusteriBildirimi = new System.Windows.Forms.Panel();
+            this.BtndegisiklikleriKaydet = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -403,6 +404,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.BtndegisiklikleriKaydet);
             this.tabPage2.Controls.Add(this.txtTalepEdenAdres);
             this.tabPage2.Controls.Add(this.txtTalepEdenID);
             this.tabPage2.Controls.Add(this.txtTalepEdenEmail);
@@ -700,6 +702,19 @@
             this.MusteriBildirimi.Size = new System.Drawing.Size(873, 66);
             this.MusteriBildirimi.TabIndex = 17;
             // 
+            // BtndegisiklikleriKaydet
+            // 
+            this.BtndegisiklikleriKaydet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.BtndegisiklikleriKaydet.FlatAppearance.BorderSize = 0;
+            this.BtndegisiklikleriKaydet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtndegisiklikleriKaydet.Location = new System.Drawing.Point(830, 686);
+            this.BtndegisiklikleriKaydet.Name = "BtndegisiklikleriKaydet";
+            this.BtndegisiklikleriKaydet.Size = new System.Drawing.Size(237, 56);
+            this.BtndegisiklikleriKaydet.TabIndex = 20;
+            this.BtndegisiklikleriKaydet.Text = "Değişiklikleri Kaydet";
+            this.BtndegisiklikleriKaydet.UseVisualStyleBackColor = false;
+            this.BtndegisiklikleriKaydet.Click += new System.EventHandler(this.BtndegisiklikleriKaydet_Click);
+            // 
             // TaskDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -792,5 +807,6 @@
         private System.Windows.Forms.Button btnGeriBildirimKaydet;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Panel MusteriBildirimi;
+        private System.Windows.Forms.Button BtndegisiklikleriKaydet;
     }
 }
