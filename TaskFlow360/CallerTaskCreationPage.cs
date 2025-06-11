@@ -334,5 +334,38 @@ namespace TaskFlow360
             _logger.LogEkle("İşlem", "CallerTaskCreationPage", "Görev oluşturma işlemi iptal edildi");
             FormuTemizle();
         }
+
+        private void btnProfil_Click(object sender, EventArgs e)
+        {
+            _logger.LogEkle("Yönlendirme", "CallerTaskCreationPage", "Profil sayfasına yönlendirildi");
+            CallerProfile callerProfile = new CallerProfile();
+            callerProfile.Show();
+            this.Close();
+        }
+
+        private void btnCagriOlustur_Click(object sender, EventArgs e)
+        {
+            _logger.LogEkle("Yönlendirme", "CallerTaskCreationPage", "Çağrı oluşturma sayfasına yönlendirildi");
+            CallerTaskCreationPage assistantTaskCreationPage = new CallerTaskCreationPage();
+            assistantTaskCreationPage.Show();
+            this.Close();
+        }
+
+        private void btnRaporlar_Click(object sender, EventArgs e)
+        {
+            _logger.LogEkle("Yönlendirme", "CallerTaskCreationPage", "Raporlar sayfasına yönlendirildi");
+            CallerReports assistantReports = new CallerReports();
+            assistantReports.Show();
+            this.Close();
+        }
+
+        private void btnCikis_Click(object sender, EventArgs e)
+        {
+            _logger.LogEkle("Çıkış", "CallerTaskCreationPage", "Uygulamadan çıkış yapıldı");
+            UserInformation.BilgileriTemizle();
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Close();
+        }
     }
 }

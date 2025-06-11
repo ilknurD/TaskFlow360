@@ -1011,5 +1011,14 @@ namespace TaskFlow360
             usersSalary.Show();
             this.Close();
         }
+
+        private void btnCikis_Click(object sender, EventArgs e)
+        {
+            _logger.LogEkle("Çıkış", "BossUsersControl", "Yönetici kullanıcı işlemleri sayfasından çıkış yapıldı");
+            UserInformation.BilgileriTemizle();
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Close();
+        }
     }
 }

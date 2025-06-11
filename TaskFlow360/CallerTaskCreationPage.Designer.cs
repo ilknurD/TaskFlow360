@@ -138,6 +138,7 @@
             this.btnRaporlar.Text = "Raporlar";
             this.btnRaporlar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnRaporlar.UseVisualStyleBackColor = false;
+            this.btnRaporlar.Click += new System.EventHandler(this.btnRaporlar_Click);
             // 
             // pictureBox1
             // 
@@ -227,6 +228,7 @@
             this.btnCikis.Text = "Çıkış";
             this.btnCikis.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCikis.UseVisualStyleBackColor = false;
+            this.btnCikis.Click += new System.EventHandler(this.btnCikis_Click);
             // 
             // btnCagriOlustur
             // 
@@ -244,6 +246,7 @@
             this.btnCagriOlustur.Text = "Çağrı Oluştur";
             this.btnCagriOlustur.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCagriOlustur.UseVisualStyleBackColor = false;
+            this.btnCagriOlustur.Click += new System.EventHandler(this.btnCagriOlustur_Click);
             // 
             // btnProfil
             // 
@@ -261,6 +264,7 @@
             this.btnProfil.Text = "Profil";
             this.btnProfil.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnProfil.UseVisualStyleBackColor = false;
+            this.btnProfil.Click += new System.EventHandler(this.btnProfil_Click);
             // 
             // btnAnasayfa
             // 

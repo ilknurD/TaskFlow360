@@ -113,13 +113,11 @@ namespace TaskFlow360
                 {
                     if (reader.Read())
                     {
-                        // Giriş başarılıysa kullanıcı bilgilerini ayarla
                         UserInformation.KullaniciID = reader["KullaniciID"]?.ToString() ?? "";
                         UserInformation.Rol = reader["Rol"]?.ToString() ?? "";
                         UserInformation.Ad = reader["Ad"]?.ToString() ?? "";
                         UserInformation.Soyad = reader["Soyad"]?.ToString() ?? "";
 
-                        // ✅ Beni Hatırla ayarlarını kaydet
                         if (chkBeniHatirla.Checked)
                         {
                             Properties.Settings.Default.BeniHatirla = true;
@@ -134,7 +132,6 @@ namespace TaskFlow360
                         }
                         Properties.Settings.Default.Save();
 
-                        // Rol'e göre formu aç
                         Form homepage = null;
                         switch (UserInformation.Rol)
                         {
@@ -206,7 +203,6 @@ namespace TaskFlow360
                     string smtpPassword = "blav kjlp ppjw baty";
                     string smtpHost = "smtp.gmail.com";
                     int smtpPort = 587;
-                    // Gmail için SSL portu
 
                     SmtpClient smtp = new SmtpClient(smtpHost, smtpPort);
                     smtp.EnableSsl = true;

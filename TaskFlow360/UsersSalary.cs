@@ -626,6 +626,7 @@ namespace TaskFlow360
 
         private void btnAnasayfa_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Anasayfa", "UsersSalary", "Kullanıcı maaş sayfasından anasayfaya geçiş yapıldı");
             BossHomepage anasayfa = new BossHomepage();
             anasayfa.Show();
             this.Close();
@@ -633,6 +634,7 @@ namespace TaskFlow360
 
         private void btnProfil_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Profil", "UsersSalary", "Kullanıcı maaş sayfasından profil sayfasına geçiş yapıldı");
             BossProfile profil = new BossProfile();
             profil.Show();
             this.Close();
@@ -640,6 +642,7 @@ namespace TaskFlow360
 
         private void btnKullaniciIslem_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Kullanıcı İşlemleri", "UsersSalary", "Kullanıcı maaş sayfasından kullanıcı işlemleri sayfasına geçiş yapıldı");
             BossUsersControl kullaniciIslem = new BossUsersControl();
             kullaniciIslem.Show();
             this.Close();
@@ -647,6 +650,7 @@ namespace TaskFlow360
 
         private void button1_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Raporlar", "UsersSalary", "Kullanıcı maaş sayfasından raporlar sayfasına geçiş yapıldı");
             UsersSalary usersSalary = new UsersSalary();
             usersSalary.Show();
             this.Close();
@@ -654,6 +658,7 @@ namespace TaskFlow360
 
         private void btnRaporlar_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Raporlar", "UsersSalary", "Kullanıcı maaş sayfasından raporlar sayfasına geçiş yapıldı");
             BossReports raporlar = new BossReports();
             raporlar.Show();
             this.Close();
@@ -661,6 +666,7 @@ namespace TaskFlow360
 
         private void btnCikis_Click(object sender, EventArgs e)
         {
+            _logger.LogEkle("Çıkış", "UsersSalary", "Kullanıcı maaş sayfasından çıkış yapıldı");
             UserInformation.BilgileriTemizle();
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
